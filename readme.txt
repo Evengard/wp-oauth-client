@@ -1,21 +1,21 @@
-=== miniOrange - Login with EVE Online, Google, Facebook ===
+=== miniOrange - Login with EVE Online ===
 Contributors: miniOrange
-Tags: eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, OAUTH, miniorange, miniorange oauth, oauth google, oauth eveonline, oauth facebook, miniorange sso, google sso, eveonline sso, facebook sso, google login, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
+Tags: eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
 Requires at least: 3.0.1
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: 4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth login through your favorite apps like EVE Online, Google, Facebook for user authentication.
+OAuth login with your EVE Online account.
 
 == Description ==
 
-Login with famous applications such as EVE Online and Google. If you require any other application, please free to email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>.
+Login to your Wordpress site using your EVE Online account.
 
 = Features =
-*	Login to your Wordpress site using EVE Online and Google.
-*	Valid user registrations verified by applications such as EVE Online, Google.
+*	Login to your Wordpress site using EVE Online.
+*	Valid user registrations verified by applications such as EVE Online.
 *	You can disable the applications which you don't require.
 *	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
 *	Automatic user registration after login if the user is not already registered with your site.
