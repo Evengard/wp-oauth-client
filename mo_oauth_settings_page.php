@@ -864,13 +864,12 @@ function mo_oauth_pricing() {
 				<p class="mo_oauth_pricing_text">$0 <br><br>
 				</p><hr>
 			
-				<p class="mo_oauth_pricing_text">
+				<p class="mo_oauth_pricing_text" style="padding-bottom:66px;">
 					Login using eveonline.<br/>
 <!--					Disable app which are not required.<br/>-->
 					Automatic registration of users.<br/>
 					
-					* <a style="color:pink;text-decoration:underline;cursor:pointer;" target="_blank" onclick="upgradeform('wp_social_login_basic_plan')" >
-					Upgrade Now</a> *</p><br /><br />
+				
 					<br><br><br><br><br><br>
 				<hr/>
 				<p class="mo_oauth_pricing_text">Basic Support by Email<br/></p>

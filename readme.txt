@@ -22,9 +22,12 @@ Login to your Wordpress site using your EVE Online account.
 
 = EVE Online specific features =
 *	One-click login to Wordpress through EVE Online application.
-*	Restrict who logs in - administrators can restrict users which can log in through Eve Online. This can be on the basis of user's Corporation Name, Alliance Name and Character Name.
+*	Restrict who logs in - administrators can restrict users which can log in through Eve Online. This can be on the basis of user's Corporation Name, Alliance Name and Character 		Name.[PREMIUM]
 *	Save the Corporation Name, Alliance Name, Character Name of characters who login to their profiles.
 *	Also takes care of updating the Corporation or Alliance name of the user if it changes.
+*   Redirect user after login to same page from where the user logged in or to custom URL.[PREMIUM]
+*   Ask E-mail after first login and set it to the user's profile.[PREMIUM]
+*	Choose where to add EVE Online login anywhere on your site using our Shortcode.[PREMIUM]
 
 == Installation ==
 
@@ -88,6 +91,8 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Advanced Settings for EVE Online
 
 == Changelog ==
+= 2.1 =
+* Bug fixes
 
 = 2.0 =
 * Email after first login.
@@ -140,6 +145,8 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 2.1 =
+* Bug fixes
 
 = 2.0 =
 * Email after first login.
