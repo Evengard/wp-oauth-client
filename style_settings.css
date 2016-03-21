@@ -1,15 +1,24 @@
  .mo_support_layout{
-       width: 93%;
+       width: 90%;
        background-color:#FFFFFF; 
        border:1px solid #CCCCCC; 
        padding-left:20px; 
+	    margin-top:9px;
+	   left:780px;
+	   
+	  
 }
 .mo_table_layout {
 	background-color:#FFFFFF; 
 	border:1px solid #CCCCCC; 
 	padding:0px 10px 10px 10px;
 	margin-bottom: 10px;
+	width: 95%;
 }
+.mo_eve_table_textbox {
+	width: 100%;
+}
+
 .mo_table_layout td {
 	
 }
@@ -24,6 +33,7 @@
 	border:1px solid #CCCCCC; 
 	padding:0px 10px 0px 10px; 
 	margin:10px 15% 10px 0px;
+	width: 95%;
 }
 .col1 {
 	width: 20%;
@@ -34,15 +44,13 @@
 .panel_toggle:hover {
 	text-decoration: underline;
 }
-.mo_eve_table_textbox {
-	width: 80%;
+.mo_table_textbox {
+	width: 100%;
 }
 .mo_table_td_checkbox {
 	padding-left: 10px;
 }
-.mo_table_textbox {
-	width:80%;
-}
+
 .mo_settings_table {
 	width: 100%;
 }
@@ -51,6 +59,7 @@
 }
 .mo_heading_margin {
 	margin-left: 0px;
+	/*position:relative;*/
 }
 .error_wid_login {
     background-color: #FFEBE8;
@@ -92,4 +101,61 @@
 	width:85%;
 	float:left;
 	margin:2px;
+}
+.mo_oauth_table_layout {
+	
+	background-color:#FFFFFF; 
+	border:1px solid #CCCCCC; 
+	padding:0px 10px 10px 10px;
+	margin-bottom: 10px;
+	height:auto;
+	min-height:400px;
+	overflow:auto;
+	position:relative;
+	left:-325px;
+   	}
+.mo_oauth_pricing_table{
+	text-align:center;
+	font-size: 15px !important;
+}
+
+.mo_oauth_pricing_header{
+	color: #fff !important;
+	margin: 8px !important;
+}
+
+.mo_oauth_pricing_sub_header{
+	margin: 4px !important;
+	color: #fff !important;
+}
+
+.mo_oauth_pricing_text{
+	font-size: 15px !important;
+	color: #fff !important;
+	font-weight: bold !important;
+}
+
+.mo_oauth_pricing_free_tab{
+	background-color: rgba(34, 153, 221, 0.82)!important;
+	//#29d
+}
+
+.mo_oauth_pricing_paid_tab{
+	background-color: #1a71a4 !important;
+}
+
+.mo_oauth_thumbnail {
+	/*position:relative;*/
+	width:250px;
+	padding: 4px;
+
+	margin-bottom: 10px;
+	line-height: 1.42857143;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+	-o-transition: border .2s ease-in-out;
+	transition: border .2s ease-in-out;
+	left:10px;
 }
