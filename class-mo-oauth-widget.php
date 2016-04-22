@@ -228,9 +228,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 					try{
 						$response = $pheal->CharacterInfo(array("characterID" => $_SESSION['character_id']));
 						
-						$_SESSION['corporation_name']	= isset($response->corporation) ? $response->corporation : '';
-						$_SESSION['alliance_name'] 		= isset($response->alliance) ? $response->alliance : '' ;
-						$_SESSION['faction_name']       = isset($response->faction) ? $response->faction : '' ;
+						$_SESSION['corporation_name']	= $response->corporation;
+						$_SESSION['alliance_name'] 		= $response->alliance;
+						$_SESSION['faction_name']       = $response->faction;
 						} catch (\Pheal\Exceptions\PhealException $e) {
 					/*	echo sprintf(
 							"an exception was caught! Type: %s Message: %s",
@@ -254,21 +254,40 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if( (! $corporations && ! $alliances && ! $characterNames && ! $factions) && (! $decorporations && ! $dealliances && ! $decharacterNames && ! $defactions )) {
 						$valid_char = true;
 						$invalid_char = false;
-					} else {
+					} else if((! $decorporations && ! $dealliances && ! $decharacterNames && ! $defactions) && ($corporations || $alliances || $characterNames || $factions)) {
 						$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
 						$valid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
 						$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
 						$valid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_faction'), $_SESSION['faction_name'], 'faction_name');						
 						$valid_char = $valid_corp || $valid_alliance || $valid_character_name || $valid_faction;
+						$invalid_char = false;
+					}
+					else if((! $corporations && ! $alliances && ! $characterNames && ! $factions) && ( $decorporations || $dealliances || $decharacterNames || $defactions))
+					{
 						$invalid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_corps'), $_SESSION['corporation_name'], 'corporation_name');
 						$invalid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_alliances'), $_SESSION['alliance_name'], 'alliance_name');
 						$invalid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_char_name'), $_SESSION['character_name'], 'character_name');
 						$invalid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_faction'), $_SESSION['faction_name'], 'faction_name');						
 						$invalid_char = $invalid_corp || $invalid_alliance || $invalid_character_name || $invalid_faction;
-					} 
+						$valid_char = true;
+					}else{
+						$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
+						$valid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
+						$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
+						$valid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_faction'), $_SESSION['faction_name'], 'faction_name');						
+						$valid_char = $valid_corp || $valid_alliance || $valid_character_name || $valid_faction;
+						
+						$invalid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_corps'), $_SESSION['corporation_name'], 'corporation_name');
+						$invalid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_alliances'), $_SESSION['alliance_name'], 'alliance_name');
+						$invalid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_char_name'), $_SESSION['character_name'], 'character_name');
+						$invalid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_faction'), $_SESSION['faction_name'], 'faction_name');						
+						$invalid_char = $invalid_corp || $invalid_alliance || $invalid_character_name || $invalid_faction;
 						
 						
+					}
 					
+					
+														
 					if( $valid_char && ! $invalid_char ) {			//if corporation or alliance or character name is valid
 						$characterName = $_SESSION['character_name'];
 						$characterID = $_SESSION['character_id'];
@@ -381,7 +400,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 						
 						}
 						
-						if(get_option('mo_eve_email_login_enable') /*&& mo_oauth_is_customer_valid()*/) 
+						if(get_option('mo_eve_email_login_enable') && mo_oauth_is_customer_valid()) 
 						exit(0);
 					}
 				}
@@ -418,6 +437,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if( $entityString ) {			//checks if entityString is defined
 			if ( strpos( $entityString, ',' ) !== false ) {			//checks if there are more than 1 entity defined
 				$entity_list = array_map( 'trim', explode( ",", $entityString ) );
+				
 				foreach( $entity_list as $entity ) {			//checks for each entity to exist
 					if( $entity == $entitySessionValue ) {
 						$valid_entity = true;

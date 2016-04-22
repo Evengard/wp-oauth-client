@@ -66,6 +66,7 @@ function mo_register() {
 }
 function mo_oauth_show_new_registration_page() {
 	update_option ( 'new_registration', 'true' );
+	$current_user = wp_get_current_user();
 	?>
 			<!--Register with miniOrange-->
 		<form name="f" method="post" action="">
@@ -84,10 +85,25 @@ function mo_oauth_show_new_registration_page() {
 							<td><b><font color="#FF0000">*</font>Email:</b></td>
 							<td><input class="mo_table_textbox" type="email" name="email"
 								required placeholder="person@example.com"
-								value="<?php echo get_option('mo_oauth_admin_email');?>" />
+								value="<?php echo $current_user->user_email; ?>" />
 							</td>
 						</tr>
-
+						<tr>
+							<td><b><font color="#FF0000">*</font>Website/Company Name:</b></td>
+							<td><input class="mo_table_textbox" type="text" name="company"
+							required placeholder="Enter website or company name" 
+							value="<?php echo $_SERVER['SERVER_NAME']; ?>"/></td>
+						</tr>
+						<tr>
+							<td><b>&nbsp;&nbsp;First Name:</b></td>
+							<td><input class="mo_openid_table_textbox" type="text" name="fname"
+							placeholder="Enter first name" value="<?php echo $current_user->user_firstname;?>" /></td>
+						</tr>
+						<tr>
+							<td><b>&nbsp;&nbsp;Last Name:</b></td>
+							<td><input class="mo_openid_table_textbox" type="text" name="lname"
+							placeholder="Enter last name" value="<?php echo $current_user->user_lastname;?>" /></td>
+						</tr>
 						<!--<tr>
 							<td><b><font color="#FF0000"></font>Phone number:</b></td>
 							<td><input class="mo_table_textbox" type="tel" id="phone"
@@ -1004,8 +1020,7 @@ function mo_oauth_pricing() {
 	<?php } 
 	
 	function miniorange_support(){
-			global $current_user;
-		get_currentuserinfo();
+		$current_user = wp_get_current_user();
 ?>
 		<!--<div class="mo_support_layout">
 		

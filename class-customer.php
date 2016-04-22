@@ -32,17 +32,18 @@ class Customer {
 	function create_customer(){
 		$url = get_option('host_name') . '/moas/rest/customer/add';
 		$ch = curl_init( $url );
-		global $current_user;
-		get_currentuserinfo();
 		$this->email 		= get_option('mo_oauth_admin_email');
 		$this->phone 		= get_option('mo_oauth_admin_phone');
 		$password 			= get_option('password');
+		$firstName    = get_option('mo_oauth_admin_fname');
+		$lastName     = get_option('mo_oauth_admin_lname');
+		$company      = get_option('mo_oauth_admin_company');
 		
 		$fields = array(
-			'companyName' => $_SERVER['SERVER_NAME'],
+			'companyName' => $company,
 			'areaOfInterest' => 'WP OAuth Plugin for EVE Online, Google',
-			'firstname'	=> $current_user->user_firstname,
-			'lastname'	=> $current_user->user_lastname,
+			'firstname'	=> $firstName,
+			'lastname'	=> $lastName,
 			'email'		=> $this->email,
 			'phone'		=> $this->phone,
 			'password'	=> $password
@@ -152,13 +153,15 @@ class Customer {
 	}
 	
 	function submit_contact_us( $email, $phone, $query ) {
-		global $current_user;
-		get_currentuserinfo();
+		$company      = get_option('mo_oauth_admin_company');
+		$firstName    = get_option('mo_oauth_admin_fname');
+		$lastName     = get_option('mo_oauth_admin_lname');
+		
 		$query = '[WP OAuth Plugin for EVE Online, Google] ' . $query;
 		$fields = array(
-			'firstName'			=> $current_user->user_firstname,
-			'lastName'	 		=> $current_user->user_lastname,
-			'company' 			=> $_SERVER['SERVER_NAME'],
+			'firstName'			=> $firstName,
+			'lastName'	 		=> $lastName,
+			'company' 			=> $company,
 			'email' 			=> $email,
 			'phone'				=> $phone,
 			'query'				=> $query

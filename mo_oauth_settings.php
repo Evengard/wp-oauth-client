@@ -3,7 +3,7 @@
 * Plugin Name: miniOrange OAuth Login
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using apps like EVE Online, Google, Facebook.
-* Version: 2.1
+* Version: 2.2
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -246,6 +246,9 @@ class mo_oauth {
 			$phone = '';
 			$password = '';
 			$confirmPassword = '';
+			$fname = '';
+			$lname = '';
+			$company = '';
 			if( $this->mo_oauth_check_empty_or_null( $_POST['email'] ) || $this->mo_oauth_check_empty_or_null( $_POST['phone'] ) || $this->mo_oauth_check_empty_or_null( $_POST['password'] ) || $this->mo_oauth_check_empty_or_null( $_POST['confirmPassword'] ) ) {
 				update_option( 'message', 'All the fields are required. Please enter valid entries.');
 				$this->mo_oauth_show_error_message();
@@ -259,10 +262,16 @@ class mo_oauth {
 				$phone = sanitize_text_field( $_POST['phone'] );
 				$password = sanitize_text_field( $_POST['password'] );
 				$confirmPassword = sanitize_text_field( $_POST['confirmPassword'] );
+				$fname = sanitize_text_field( $_POST['fname'] );
+				$lname = sanitize_text_field( $_POST['lname'] );
+				$company = sanitize_text_field( $_POST['company'] );	
 			}
 			
 			update_option( 'mo_oauth_admin_email', $email );
 			update_option( 'mo_oauth_admin_phone', $phone );
+			update_option( 'mo_oauth_admin_fname', $fname );
+			update_option( 'mo_oauth_admin_lname', $lname );
+			update_option( 'mo_oauth_admin_company', $company );
 			
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();

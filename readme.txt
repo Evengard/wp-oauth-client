@@ -2,8 +2,8 @@
 Contributors: miniOrange
 Tags: eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
 Requires at least: 3.0.1
-Tested up to: 4.4.2
-Stable tag: 4.9
+Tested up to: 4.5
+Stable tag: 5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Advanced Settings for EVE Online
 
 == Changelog ==
+= 2.2 =
+* Bug fixes
+* Compatibility with WordPress 4.5
+
 = 2.1 =
 * Bug fixes
 
