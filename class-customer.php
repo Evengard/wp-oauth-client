@@ -26,18 +26,19 @@ class Customer {
 	
 	public $email;
 	public $phone;
+	
 	private $defaultCustomerKey = "16555";
 	private $defaultApiKey = "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
-	
+
 	function create_customer(){
 		$url = get_option('host_name') . '/moas/rest/customer/add';
 		$ch = curl_init( $url );
 		$this->email 		= get_option('mo_oauth_admin_email');
 		$this->phone 		= get_option('mo_oauth_admin_phone');
 		$password 			= get_option('password');
-		$firstName    = get_option('mo_oauth_admin_fname');
-		$lastName     = get_option('mo_oauth_admin_lname');
-		$company      = get_option('mo_oauth_admin_company');
+		$firstName    		= get_option('mo_oauth_admin_fname');
+		$lastName     		= get_option('mo_oauth_admin_lname');
+		$company      		= get_option('mo_oauth_admin_company');
 		
 		$fields = array(
 			'companyName' => $company,
@@ -153,15 +154,13 @@ class Customer {
 	}
 	
 	function submit_contact_us( $email, $phone, $query ) {
-		$company      = get_option('mo_oauth_admin_company');
-		$firstName    = get_option('mo_oauth_admin_fname');
-		$lastName     = get_option('mo_oauth_admin_lname');
-		
+		global $current_user;
+		wp_get_current_user();
 		$query = '[WP OAuth Plugin for EVE Online, Google] ' . $query;
 		$fields = array(
-			'firstName'			=> $firstName,
-			'lastName'	 		=> $lastName,
-			'company' 			=> $company,
+			'firstName'			=> $current_user->user_firstname,
+			'lastName'	 		=> $current_user->user_lastname,
+			'company' 			=> $_SERVER['SERVER_NAME'],
 			'email' 			=> $email,
 			'phone'				=> $phone,
 			'query'				=> $query
@@ -193,14 +192,13 @@ class Customer {
 		return true;
 	}
 	
-	function send_otp_token($email, $phone, $sendToEmail = TRUE, $sendToPhone = FALSE){
-			
+	function send_otp_token(){
 			$url = get_option('host_name') . '/moas/api/auth/challenge';
 			$ch = curl_init($url);
 			$customerKey =  $this->defaultCustomerKey;
 			$apiKey =  $this->defaultApiKey;
 
-			//$username = get_option('mo_oauth_admin_email');
+			$username = get_option('mo_oauth_admin_email');
 
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
 			$currentTimeInMillis = round(microtime(true) * 1000);
@@ -213,25 +211,11 @@ class Customer {
 			$timestampHeader = "Timestamp: " . $currentTimeInMillis;
 			$authorizationHeader = "Authorization: " . $hashValue;
 
-			
-		
-			if ($sendToEmail) {
-			$fields = array (
-					'customerKey' => $customerKey,
-					'email' => $email,
-					'authType' => 'EMAIL',
-					
+			$fields = array(
+				'customerKey' => $customerKey,
+				'email' => $username,
+				'authType' => 'EMAIL',
 			);
-		} else {
-			
-			$fields = array (
-					'customerKey' => $customerKey,
-					'phone' => $phone,
-					'authType' => 'SMS',
-					
-						);
-			
-		}
 			$field_string = json_encode($fields);
 
 			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
@@ -256,8 +240,7 @@ class Customer {
 		}
 
 		function validate_otp_token($transactionId,$otpToken){
-       
-		$url = get_option('host_name') . '/moas/api/auth/validate';
+			$url = get_option('host_name') . '/moas/api/auth/validate';
 			$ch = curl_init($url);
 
 			$customerKey =  $this->defaultCustomerKey;
@@ -283,7 +266,7 @@ class Customer {
 					'txId' => $transactionId,
 					'token' => $otpToken,
 				);
-				
+
 			$field_string = json_encode($fields);
 
 			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
@@ -304,56 +287,8 @@ class Customer {
 			   exit();
 			}
 			curl_close($ch);
-			
 			return $content;
 	}
-	function check_customer_valid(){
-		$url = get_option('host_name') . '/moas/api/customer/license';
-
-		$ch = curl_init($url);
-		$customerKey = get_option('mo_oauth_admin_customer_key');
-		$apiKey =  get_option('mo_oauth_admin_api_key');
-
-		$username = get_option('mo_oauth_admin_email');
-		$phone = get_option('mo_oauth_admin_phone');
-		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round(microtime(true) * 1000);
-
-		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format($currentTimeInMillis, 0, '', '') . $apiKey;
-		$hashValue = hash("sha512", $stringToHash);
-
-		$customerKeyHeader = "Customer-Key: " . $customerKey;
-		$timestampHeader = "Timestamp: " . $currentTimeInMillis;
-		$authorizationHeader = "Authorization: " . $hashValue;
-		$fields = array(
-					   'customerId' => $customerKey,
-					   'applicationName' => 'wp_oauth'
-				);
-				
-		$field_string = json_encode($fields);
-
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
-											$timestampHeader, $authorizationHeader));
-		curl_setopt( $ch, CURLOPT_POST, true);
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-		$content = curl_exec($ch);
-
-		if(curl_errno($ch)){
-			echo 'Request Error:' . curl_error($ch);
-		   exit();
-		}
-		curl_close($ch);
-		return $content;
-	}
-
 	
 	function check_customer() {
 			$url 	= get_option('host_name') . "/moas/rest/customer/check-if-exists";

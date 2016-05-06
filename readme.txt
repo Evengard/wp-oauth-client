@@ -2,8 +2,8 @@
 Contributors: miniOrange
 Tags: eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
 Requires at least: 3.0.1
-Tested up to: 4.5
-Stable tag: 5.0
+Tested up to: 4.5.1
+Stable tag: 5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,12 +22,9 @@ Login to your Wordpress site using your EVE Online account.
 
 = EVE Online specific features =
 *	One-click login to Wordpress through EVE Online application.
-*	Restrict who logs in - administrators can restrict users which can log in through Eve Online. This can be on the basis of user's Corporation Name, Alliance Name and Character 		Name.[PREMIUM]
+*	Restrict who logs in - administrators can restrict users which can log in through Eve Online. This can be on the basis of user's Corporation Name, Alliance Name and Character Name.
 *	Save the Corporation Name, Alliance Name, Character Name of characters who login to their profiles.
 *	Also takes care of updating the Corporation or Alliance name of the user if it changes.
-*   Redirect user after login to same page from where the user logged in or to custom URL.[PREMIUM]
-*   Ask E-mail after first login and set it to the user's profile.[PREMIUM]
-*	Choose where to add EVE Online login anywhere on your site using our Shortcode.[PREMIUM]
 
 == Installation ==
 
@@ -91,6 +88,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Advanced Settings for EVE Online
 
 == Changelog ==
+= 2.3 =
+* Eve Online Changes
+* Compatibility with WordPress 4.5.1
+
 = 2.2 =
 * Bug fixes
 * Compatibility with WordPress 4.5
@@ -149,6 +150,14 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 2.3 =
+* Eve Online Changes
+* Compatibility with WordPress 4.5.1
+
+= 2.2 =
+* Bug fixes
+* Compatibility with WordPress 4.5
+
 = 2.1 =
 * Bug fixes
 
@@ -158,6 +167,7 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 * Shortcode
 * Added option for alllowed faction.
 * Denied access for character, alliance, corp, faction.
+
 
 = 1.8 =
 * Sets last_name as EVE Online Character Name when user logs in for the first time

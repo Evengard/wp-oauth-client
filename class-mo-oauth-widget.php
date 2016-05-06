@@ -72,14 +72,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					
 				<?php
 				}
-			} else if($_SERVER['HTTP_EVE_CHARID']){
-				$this->mo_oauth_load_login_script();
-				?>
-				<script type='text/javascript'> window.onload=moOAuthLogin('eveonline'); </script>;
-								
-				<?php
-			}
-			else {
+			} else {
 				?>
 				<div>No apps configured. Please contact your administrator.</div>
 				<?php
@@ -88,8 +81,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			</p>
 			<?php 
 		} else {
-			global $current_user;
-	     	get_currentuserinfo();
+			$current_user = wp_get_current_user();
 			$link_with_username = __('Howdy, ', 'flw') . $current_user->display_name;
 			?>
 			<div id="logged_in_user" class="login_wid">
@@ -102,54 +94,14 @@ class Mo_Oauth_Widget extends WP_Widget {
 	private function mo_oauth_load_login_script() {
 	?>
 	<script type="text/javascript">
-	function moOAuthLogin(app_name) {
-			
-			if(app_name=='eveonline')
-			{
-				 window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
-								 
-			}
-			else
-			{
-				window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
-			}
+		function moOAuthLogin(app_name) {
+			window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
 		}
-		</script>
+	</script>
 	<?php
 	}
 	
-	public function oauthloginFormShortCode( $atts ){
-		global $post;
-				$appsConfigured = get_option('mo_oauth_google_enable') | get_option('mo_oauth_eveonline_enable') | get_option('mo_oauth_facebook_enable');
-		$html = '';
-		if( ! is_user_logged_in() ) {
-			if( $appsConfigured ) {
-					$this->mo_oauth_load_login_script();
-					$html .= "<a href='http://miniorange.com/single-sign-on-sso' hidden></a>
-					<div>";
-					
-				if(get_option('mo_oauth_google_enable')){
-
-					$html .= "<a href='".'javascript:void(0)'."' onClick='moOAuthLogin(".'"google"'.");'><img src='".plugins_url( 'images/icons/google.jpg', __FILE__ )."'></a>";	
-				}
-				if( get_option('mo_oauth_eveonline_enable') ) {
-				
-					$html .= "<a href='".'javascript:void(0)'."' onClick='moOAuthLogin(".'"eveonline"'.");'><img src='".plugins_url( 'images/icons/eveonline.png', __FILE__ )."'></a>";
-				}
-				if(get_option('mo_oauth_facebook_enable') ){
-				
-					$html .= "<a href='".'javascript:void(0)'."' onClick='moOAuthLogin(".'"facebook"'.");'><img src='".plugins_url( 'images/icons/facebook.png', __FILE__ )."'></a>";
-					
-					
-				}
-				$html .="</div>";
-			}else{
-				$html .='<div>No apps configured. Please contact your administrator.</div>';
-			}
-		}	
-	return $html;	
-		
-	}
+	
 	
 	public function error_message() {
 		if( isset( $_SESSION['msg'] ) and $_SESSION['msg'] ) {
@@ -166,7 +118,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 	
 }
 	function mo_oauth_login_validate(){
-		
 		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'generateDynmicUrl' ) !== false ) {
 			$client_id = get_option('mo_oauth_' . $_REQUEST['app_name'] . '_client_id');
 			$timestamp = round( microtime(true) * 1000 );
@@ -186,13 +137,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 			wp_redirect( $url );
 			exit;
 		}
-			
+	
 		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'mooauth' ) !== false ){
-					if( ! session_id() || session_id() == '' || !isset($_SESSION) ) {
-			session_start();
-			//print_r($_SESSION);
-			//exit();
-		}			
+
 			//do stuff after returning from oAuth processing
 			$access_token 	= $_POST['access_token'];
 			$token_type	 	= $_POST['token_type'];
@@ -211,224 +158,127 @@ class Mo_Oauth_Widget extends WP_Widget {
 					  $user_id 			= wp_create_user( $user_email, $random_password, $user_email );
 					  wp_set_auth_cookie( $user_id, true );
 				}
-			} if( $_POST['CharacterID'] ) {		//the user is trying to login through eve online
-				
+			} else if( $_POST['CharacterID'] ) {		//the user is trying to login through eve online
 				$_SESSION['character_id'] = $_POST['CharacterID'];
 				$_SESSION['character_name'] = $_POST['CharacterName'];
 				Config::getInstance()->access = new \Pheal\Access\StaticCheck();
 				
 				$keyID = get_option('mo_eve_api_key');
 				$vCode = get_option('mo_eve_verification_code');
-				
 				if( $keyID && $vCode ) {
-					
-			
+				
 					$pheal = new Pheal( $keyID, $vCode, "eve" );
 			
 					try{
 						$response = $pheal->CharacterInfo(array("characterID" => $_SESSION['character_id']));
-						
 						$_SESSION['corporation_name']	= $response->corporation;
 						$_SESSION['alliance_name'] 		= $response->alliance;
-						$_SESSION['faction_name']       = $response->faction;
-						} catch (\Pheal\Exceptions\PhealException $e) {
-					/*	echo sprintf(
+					} catch (\Pheal\Exceptions\PhealException $e) {
+						/*echo sprintf(
 							"an exception was caught! Type: %s Message: %s",
 							get_class($e),
 							$e->getMessage()
 						);*/
 					}
-
 					
-					$corporations 	  = get_option('mo_eve_allowed_corps') ? get_option('mo_eve_allowed_corps') : false;
-					$alliances 		  = get_option('mo_eve_allowed_alliances') ? get_option('mo_eve_allowed_alliances') : false;
-					$characterNames   = get_option('mo_eve_allowed_char_name') ? get_option('mo_eve_allowed_char_name') : false;
-					$factions         = get_option('mo_eve_allowed_faction') ? get_option('mo_eve_allowed_faction') : false;
-					$valid_char 	  = false;
-					$decorporations   = get_option('mo_eve_denied_corps') ? get_option('mo_eve_denied_corps') : false;
-					$dealliances 	  = get_option('mo_eve_denied_alliances') ? get_option('mo_eve_denied_alliances') : false;
-					$decharacterNames = get_option('mo_eve_denied_char_name') ? get_option('mo_eve_denied_char_name') : false;
-					$defactions       = get_option('mo_eve_denied_faction') ? get_option('mo_eve_denied_faction') : false;
-					$invalid_char 	  = false;					
+					$corporations 	= get_option('mo_eve_allowed_corps') ? get_option('mo_eve_allowed_corps') : false;
+					$alliances 		= get_option('mo_eve_allowed_alliances') ? get_option('mo_eve_allowed_alliances') : false;
+					$characterNames = get_option('mo_eve_allowed_char_name') ? get_option('mo_eve_allowed_char_name') : false;
+					$valid_char 	= false;
 					
-					if( (! $corporations && ! $alliances && ! $characterNames && ! $factions) && (! $decorporations && ! $dealliances && ! $decharacterNames && ! $defactions )) {
+					if( ! $corporations && ! $alliances && ! $characterNames ) {
 						$valid_char = true;
-						$invalid_char = false;
-					} else if((! $decorporations && ! $dealliances && ! $decharacterNames && ! $defactions) && ($corporations || $alliances || $characterNames || $factions)) {
-						$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
-						$valid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
-						$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
-						$valid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_faction'), $_SESSION['faction_name'], 'faction_name');						
-						$valid_char = $valid_corp || $valid_alliance || $valid_character_name || $valid_faction;
-						$invalid_char = false;
+					} else {
+						if(isset($_SESSION['corporation_name']))
+							$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
+						else
+							$valid_corp = "";
+						if(isset($_SESSION['alliance_name']))
+							$valid_alliance = mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
+						else
+							$valid_alliance = "";
+						if(isset($_SESSION['character_name']))
+							$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
+						else
+							$character_name = "";
+						
+						$valid_char = $valid_corp || $valid_alliance || $valid_character_name;
 					}
-					else if((! $corporations && ! $alliances && ! $characterNames && ! $factions) && ( $decorporations || $dealliances || $decharacterNames || $defactions))
-					{
-						$invalid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_corps'), $_SESSION['corporation_name'], 'corporation_name');
-						$invalid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_alliances'), $_SESSION['alliance_name'], 'alliance_name');
-						$invalid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_char_name'), $_SESSION['character_name'], 'character_name');
-						$invalid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_faction'), $_SESSION['faction_name'], 'faction_name');						
-						$invalid_char = $invalid_corp || $invalid_alliance || $invalid_character_name || $invalid_faction;
-						$valid_char = true;
-					}else{
-						$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
-						$valid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
-						$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
-						$valid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_faction'), $_SESSION['faction_name'], 'faction_name');						
-						$valid_char = $valid_corp || $valid_alliance || $valid_character_name || $valid_faction;
-						
-						$invalid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_corps'), $_SESSION['corporation_name'], 'corporation_name');
-						$invalid_alliance 		= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_alliances'), $_SESSION['alliance_name'], 'alliance_name');
-						$invalid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_char_name'), $_SESSION['character_name'], 'character_name');
-						$invalid_faction 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_denied_faction'), $_SESSION['faction_name'], 'faction_name');						
-						$invalid_char = $invalid_corp || $invalid_alliance || $invalid_character_name || $invalid_faction;
-						
-						
-					}
-					
-					
-														
-					if( $valid_char && ! $invalid_char ) {			//if corporation or alliance or character name is valid
-						$characterName = $_SESSION['character_name'];
+					if( $valid_char ) {			//if corporation or alliance or character name is valid
 						$characterID = $_SESSION['character_id'];
-						$characterName1 = preg_replace('/\s+/', '', $characterName);
-						$eveonline_email = $characterName1 . '.eveonline@wordpress.com';
-						if( username_exists( $characterName ) ) {
-							$user = get_user_by( 'login', $characterName );
+						$eveonline_email = $characterID . '.eveonline@wordpress.com';
+						if( username_exists( $characterID ) ) {
+							$user = get_user_by( 'login', $characterID );
 							$user_id = $user->ID;
 							
-							
-	/*update_user_meta( $user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name'] );
+							update_user_meta( $user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name'] );
 							update_user_meta( $user_id, 'user_eveonline_alliance_name', $_SESSION['alliance_name'] );
 							update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
-							update_user_meta($user_id, 'user_eveonline_faction_name', $_SESSION['faction_name']);*/	
 							set_avatar( $user_id, $characterID );
 							wp_set_auth_cookie( $user_id, true );
 						} else {
-							
-								if(get_option('mo_eve_email_login_enable') && mo_oauth_is_customer_valid()){
-									//print_r($_SESSION);
-									?>
-										<table>			
-											<form id="mo_eve_email" name="mo_eve_email"  method="post" action="">
-												<div class="rectangle" style="width:700px; height:180px; background:#F1F1F1 ; padding-top:1%; padding-left:30px; margin-top:15%; margin-left:20%;border:1.5px solid grey;  box-shadow: 10px 10px 5px grey; ">
-												<div style="font-size:17px; color:#3A2C2C;padding-left:10px;">Please Enter Your Email-ID. This Email-ID will be registered in your wordpress account.<br><br></div>
-													<label for="mo_eve_login_email" style="font-size:17px; color:#777">Email-ID  <br><div>  </div>
-													<input type="hidden" name="option" value="mo_eve_email" />
-													<input type="text" id="mo_eve_login_email" style="border:1.5px solid #ddd; font-family: sans-serif; height:40px; width:90%; text-align:center;"name="mo_eve_login_email" value="<?php echo get_option ('mo_eve_login_email');?>" placeholder="<?php echo $eveonline_email; ?>"/></label><br><br>
-												<div style="padding-left:45%;"><input type="submit" name="submit" value="Submit" style="color: white; background-color:#6666FF; display: inline-block; margin-bottom: 0; font-size: 14px; font-weight: 400; line-height: 1.4; text-align: center; white-space: nowrap;  vertical-align: middle; border: 1px solid transparent; border-radius: 4px; cursor: pointer;"  class="mo_eve_form_button" /></div>
-												</div>
-											</form>
-									
-										</table>
-								<?php
-						
-								}
-								else{
-									$random_password = wp_generate_password( 10, false );
-							
-									$userdata = array(
-										'user_login'		=>	$_SESSION['character_name'],
-										'user_email'	=>	$eveonline_email,
-										'user_pass'		=>	$random_password,
-										'display_name'	=>	$_SESSION['character_name']
-										
-									);
+							$random_password = wp_generate_password( 10, false );
+							$userdata = array(
+								'user_login'	=>	$characterID,
+								'user_email'	=>	$eveonline_email,
+								'user_pass'		=>	$random_password,
+								'display_name'	=>	$_SESSION['character_name'],
+								'last_name'		=>	$_SESSION['character_name']
+							);
 
-									$user_id = wp_insert_user( $userdata ) ;
-									update_user_meta($user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name']);
-									update_user_meta($user_id, 'user_eveonline_alliance_name', $_SESSION['alliance_name']);
-									update_user_meta($user_id, 'user_eveonline_character_name', $_SESSION['character_name']);
-									update_user_meta($user_id, 'user_eveonline_faction_name', $_SESSION['faction_name']);
-									set_avatar( $user_id, $characterID );
-									wp_set_auth_cookie( $user_id, true );
-									
-								}		
-							
-							
-														if(get_option('mo_eve_email_login_enable') && mo_oauth_is_customer_valid()) 
-							exit(0);
-						}	
-					} 
-					
-
+							$user_id = wp_insert_user( $userdata ) ;
+							update_user_meta($user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name']);
+							update_user_meta($user_id, 'user_eveonline_alliance_name', $_SESSION['alliance_name']);
+							update_user_meta($user_id, 'user_eveonline_character_name', $_SESSION['character_name']);
+							set_avatar( $user_id, $characterID );
+							wp_set_auth_cookie( $user_id, true );
+						}
+					} else{
+						error_reporting(0);
+						?>
+						<table>			
 								
+								<div class="rectangle" style="width:700px; height:180px;  margin:5% auto;">
+								<h1 style="text-align:center">Access Denied!</h1>
+								<div style="font-size:22px; color:#222;padding:20px;text-align:center;background:#F1F1F1;border:1.5px solid grey;  box-shadow: 10px 10px 5px grey;">It seems that either of your Corporation, Alliance or Character Name is not allowed to access this site.<br><br>
+								Please contact site Administrator to get access.<br></div>
+								</div>
+									
+						</table>
+						<?php
+						exit();
+					}
 				} else {
 					// If API and vCode is not setup - login the user using Character ID
 					$characterID = $_SESSION['character_id'];
-					$characterName = $_SESSION['character_name'];
-					$characterName1 = preg_replace('/\s+/', '', $characterName);
-					$eveonline_email = $characterName1 . '.eveonline@wordpress.com';
-					if( username_exists( $characterName ) ) {
-						$user = get_user_by( 'login', $characterName );
+					$eveonline_email = $characterID . '.eveonline@wordpress.com';
+					if( username_exists( $characterID ) ) {
+						$user = get_user_by( 'login', $characterID );
 						$user_id = $user->ID;
-					
-					update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
+						update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
 						set_avatar( $user_id, $characterID );
 						wp_set_auth_cookie( $user_id, true );
 					} else {
-						if(get_option('mo_eve_email_login_enable') && mo_oauth_is_customer_valid()){
-	                            ?>
-						<table>			
-							<form id="mo_eve_email" name="mo_eve_email"  method="post" action="">
-								<div class="rectangle" style="width:700px; height:180px; background:#F1F1F1 ; padding-top:1%; padding-left:30px; margin-top:15%; margin-left:20%;border:1.5px solid grey;  box-shadow: 10px 10px 5px grey; ">
-												<div style="font-size:17px; color:#3A2C2C;padding-left:10px;">Please Enter Your Email-ID. This Email-ID will be registered in your wordpress account.<br><br></div>
-													<label for="mo_eve_login_email" style="font-size:17px; color:#777">Email-ID  <br><div>  </div>
-													<input type="hidden" name="option" value="mo_eve_email" />
-													<input type="text" id="mo_eve_login_email" style="border:1.5px solid #ddd; font-family: sans-serif; height:40px; width:90%; text-align:center;"name="mo_eve_login_email" value="<?php echo get_option ('mo_eve_login_email');?>" placeholder="<?php echo $eveonline_email; ?>"/></label><br><br>
-												<div style="padding-left:45%;"><input type="submit" name="submit" value="Submit" style="color: white; background-color:#6666FF; display: inline-block; margin-bottom: 0; font-size: 14px; font-weight: 400; line-height: 1.4; text-align: center; white-space: nowrap;  vertical-align: middle; border: 1px solid transparent; border-radius: 4px; cursor: pointer;"  class="mo_eve_form_button" /></div>
-												</div>
-							</form>
-							
-						</table>
-				<?php		}
-						else{
-						
 						$random_password = wp_generate_password( 10, false );
-					
 						$userdata = array(
-							
+							'user_login'	=>	$characterID,
 							'user_email'	=>	$eveonline_email,
 							'user_pass'		=>	$random_password,
 							'display_name'	=>	$_SESSION['character_name'],
-							'user_login'	=>	$_SESSION['character_name']
+							'last_name'		=>	$_SESSION['character_name']
 						);
 						$user_id = wp_insert_user( $userdata ) ;
 						update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
 						set_avatar( $user_id, $characterID );
 						wp_set_auth_cookie( $user_id, true );
-						
-						}
-						
-						if(get_option('mo_eve_email_login_enable') && mo_oauth_is_customer_valid()) 
-						exit(0);
 					}
 				}
-				
-				
-
 			}
-			
-
-			$redirect_url=mo_eve_get_redirect_url();
-			wp_redirect( $redirect_url );
+			wp_redirect( site_url() );
 			exit;
 		}
 	}
 	
-	function mo_eve_get_redirect_url() {
-		$option = get_option( 'mo_eve_login_redirect' );
-		
-		if( $option == 'same' ) {
-			$redirect_url = site_url();
-		} else if( $option == 'custom' ) {
-			$redirect_url = get_option('mo_eve_login_redirect_url');
-		}else{
-		 $redirect_url = site_url();
-		}
-		
-		return $redirect_url;
-	}
 	//here entity is corporation, alliance or character name. The administrator compares these when user logs in
 	function mo_oauth_check_validity_of_entity($entityValue, $entitySessionValue, $entityName) {
 		
@@ -437,7 +287,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if( $entityString ) {			//checks if entityString is defined
 			if ( strpos( $entityString, ',' ) !== false ) {			//checks if there are more than 1 entity defined
 				$entity_list = array_map( 'trim', explode( ",", $entityString ) );
-				
 				foreach( $entity_list as $entity ) {			//checks for each entity to exist
 					if( $entity == $entitySessionValue ) {
 						$valid_entity = true;

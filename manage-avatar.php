@@ -44,7 +44,7 @@ function set_avatar($user_id, $character_id) {
     $custom_avatar = array();
  
     // Generates a resized copy of the avatar image.
-    $custom_avatar[ $options['default_size'] ] = mo_oauth_avatar_manager_avatar_resize( $avatar['url'], $options['default_size'] );
+   $custom_avatar['512'] = mo_oauth_avatar_manager_avatar_resize( $avatar['url'],'512' );
  
     // Updates attachment meta fields based on attachment ID.
     update_post_meta( $attachment_id, '_mo_oauth_avatar_manager_custom_avatar', $custom_avatar );
