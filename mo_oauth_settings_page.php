@@ -581,7 +581,7 @@ function mo_oauth_show_otp_verification(){
 							<h3>Verify Your Email</h3>
 							<tr>
 								<td><b><font color="#FF0000">*</font>Enter OTP:</b></td>
-								<td><input class="mo_table_textbox" autofocus="true" type="text" name="mo_oauth_otp_token" required placeholder="Enter OTP" style="width:61%;" pattern="{6,8}"/>
+								<td><input class="mo_table_textbox" autofocus="true" type="text" name="mo_oauth_otp_token" required placeholder="Enter OTP" style="width:61%;" pattern="[0-9]{6,8}"/>
 								 &nbsp;&nbsp;<a style="cursor:pointer;" onclick="document.getElementById('mo_oauth_resend_otp_form').submit();">Resend OTP</a></td>
 							</tr>
 							<tr>
