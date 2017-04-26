@@ -46,39 +46,55 @@ class Mo_Oauth_Widget extends WP_Widget {
 		global $post;
 		$this->error_message();
 		$appsConfigured = get_option('mo_oauth_google_enable') | get_option('mo_oauth_eveonline_enable') | get_option('mo_oauth_facebook_enable');
+		
+		$appslist = get_option('mo_oauth_apps_list');
+		if($appslist && sizeof($appslist)>0)
+			$appsConfigured = true;
+		
 		if( ! is_user_logged_in() ) {
 			?>
 			<a href="http://miniorange.com/cloud-identity-broker-service" style="display: none;">EVE Online OAuth SSO login</a>
 			<?php
 			if( $appsConfigured ) {
+				
+				$this->mo_oauth_load_login_script();
+				
 				if( get_option('mo_oauth_google_enable') ) {
-					$this->mo_oauth_load_login_script();
 				?>
-				<p>
+				<div>
 				<a href="javascript:void(0)" onClick="moOAuthLogin('google');"><img src="<?php echo plugins_url( 'images/icons/google.jpg', __FILE__ )?>"></a>
 					
 				<?php
 				}
-				if( get_option('mo_oauth_eveonline_enable') ) {
-					$this->mo_oauth_load_login_script();
-				?>
-					<a href="javascript:void(0)" onClick="moOAuthLogin('eveonline');"><img src="<?php echo plugins_url( 'images/icons/eveonline.png', __FILE__ )?>"></a>
-				<?php
+				if( get_option('mo_oauth_eveonline_enable') ) { ?>
+					<a href="javascript:void(0)" onClick="moOAuthLogin('eveonline');"><img style="width:100%;margin:2px 0px;" src="<?php echo plugins_url( 'images/icons/eveonline.png', __FILE__ )?>"></a>
+				<?php }
+				if( get_option('mo_oauth_facebook_enable') ) { ?>
+					<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a> <?php
 				}
-				if( get_option('mo_oauth_facebook_enable') ) {
-					$this->mo_oauth_load_login_script();
-				?>
-				<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a>
+				
+				foreach($appslist as $key=>$app){
+					if($key=="eveonline")
+						continue;
+					$imageurl = "";
+					if($key=='facebook')
+						$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
+					else if($key=='google')
+						$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
 					
-				<?php
+					if(!empty($imageurl)){
+					?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a><?php
+					} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;margin:2px 0px;">Login with <?php echo ucwords($key);?></div></a><?php
+					}
 				}
+				
 			} else {
 				?>
-				<div>No apps configured. Please contact your administrator.</div>
+				<div>No apps configured.</div>
 				<?php
 			}
 			?>
-			</p>
+			</div>
 			<?php 
 		} else {
 			$current_user = wp_get_current_user();
@@ -96,6 +112,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 	<script type="text/javascript">
 		function moOAuthLogin(app_name) {
 			window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
+		}
+		function moOAuthLoginNew(app_name) {
+			window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
 		}
 	</script>
 	<?php
@@ -118,7 +137,164 @@ class Mo_Oauth_Widget extends WP_Widget {
 	
 }
 	function mo_oauth_login_validate(){
-		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'generateDynmicUrl' ) !== false ) {
+		
+		/* Handle Eve Online old flow */
+		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthredirect' ) !== false ) {
+			$appname = $_REQUEST['app_name'];
+			$appslist = get_option('mo_oauth_apps_list');
+			foreach($appslist as $key => $app){
+				if($appname==$key){
+
+					$provider = new \League\OAuth2\Client\Provider\GenericProvider([
+						'clientId'                => $app['clientid'],
+						'clientSecret'            => $app['clientsecret'],
+						'redirectUri'             => $app['redirecturi'],
+						'urlAuthorize'            => $app['authorizeurl'],
+						'urlAccessToken'          => $app['accesstokenurl'],
+						'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
+					]);
+					
+					$authorizationUrl = $provider->getAuthorizationUrl();
+					if(session_id() == '' || !isset($_SESSION))
+						session_start();
+					$_SESSION['oauth2state'] = $provider->getState();
+					$_SESSION['appname'] = $appname;
+					$authorizationUrl .= "&scope=".$app['scope'];
+					header('Location: ' . $authorizationUrl);
+					exit;
+				}
+			}
+		}  else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {
+			
+			if(session_id() == '' || !isset($_SESSION))
+				session_start();
+			if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
+				if (isset($_SESSION['oauth2state'])) {
+					unset($_SESSION['oauth2state']);
+				}
+				exit('Invalid state');
+			} else {
+				
+				try {
+
+					if (!isset($_SESSION['appname']) || empty($_SESSION['appname'])) {
+						exit('No request found for this application.');
+					}
+					
+					$currentapp = $_SESSION['appname'];
+					$appslist = get_option('mo_oauth_apps_list');
+					foreach($appslist as $key => $app){
+						if($key == $currentapp){
+							$provider = new \League\OAuth2\Client\Provider\GenericProvider([
+								'clientId'                => $app['clientid'],
+								'clientSecret'            => $app['clientsecret'],
+								'redirectUri'             => $app['redirecturi'],
+								'urlAuthorize'            => $app['authorizeurl'],
+								'urlAccessToken'          => $app['accesstokenurl'],
+								'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
+							]);
+							$urlResourceOwnerDetails = $app['resourceownerdetailsurl'];
+						}
+					}
+					
+					if (!isset($provider))
+						exit('Application not configured.');
+					
+					// Try to get an access token using the authorization code grant.
+					$accessToken = $provider->getAccessToken('authorization_code', [
+						'code' => $_GET['code']
+					]);
+
+					// We have an access token, which we may use in authenticated
+					// requests against the service provider's API.
+					/*echo 'Access Token: ' . $accessToken->getToken() . "<br>";
+					echo 'Refresh Token: ' . $accessToken->getRefreshToken() . "<br>";
+					echo 'Expired in: ' . $accessToken->getExpires() . "<br>";
+					echo 'Already expired? ' . ($accessToken->hasExpired() ? 'expired' : 'not expired') . "<br>";*/
+
+					// Using the access token, we may look up details about the
+					// resource owner.
+					$resourceOwner = $provider->getResourceOwner($accessToken);
+
+					//var_export($resourceOwner->toArray());
+
+					// The provider provides a way to get an authenticated API request for
+					// the service, using the access token; it returns an object conforming
+					// to Psr\Http\Message\RequestInterface.
+					/*$request = $provider->getAuthenticatedRequest(
+						'GET',
+						$urlResourceOwnerDetails, //'https://graph.facebook.com/me/',
+						$accessToken
+					);
+					
+					//var_export($request);*/
+					
+					$resourceOwner = $resourceOwner->toArray();
+					$email = "";
+					$name = "";
+					if($currentapp == "google"){
+						if(isset($resourceOwner['emails'])){
+							foreach($resourceOwner['emails'] as $email){
+								if(isset($email['value'])){
+									$email = $email['value'];
+									break;
+								}
+							}
+						}
+						if(isset($resourceOwner['displayName']))
+							$name = $resourceOwner['displayName'];
+					} else if($currentapp == "facebook"){
+						if(isset($resourceOwner['email']))
+							$email = $resourceOwner['email'];
+						if(isset($resourceOwner['name']))
+							$name = $resourceOwner['name'];
+					} else {
+						if(isset($resourceOwner['email']))
+							$email = $resourceOwner['email'];
+						if(isset($resourceOwner['name']))
+							$name = $resourceOwner['name'];
+					}
+					
+					if(empty($email))
+						exit('Email address not received.');
+					
+					$user = get_user_by("login",$email);
+					if(!$user)
+						$user = get_user_by( 'email', $email);
+					
+					if($user){
+						$user_id = $user->ID;
+					} else {
+						$random_password = wp_generate_password( 10, false );
+						$user_id = wp_create_user( $email, $random_password, $email );
+						wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
+						wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
+					}
+					
+					if($user_id){
+						wp_set_current_user($user_id);
+						wp_set_auth_cookie($user_id);
+						wp_redirect(home_url());
+					} 
+			
+					
+					//array ( 'kind' => 'plus#person', 'etag' => '"Sh4n9u6EtD24TM0RmWv7jTXojqc/ZDsGBBupELr-xxgH9YBuGPyAxeo"', 'emails' => array ( 0 => array ( 'value' => 'administrator@miniorange.in', 'type' => 'account', ), ), 'objectType' => 'person', 'id' => '104414774625805226621', 'displayName' => '', 'name' => array ( 'familyName' => '', 'givenName' => '', ), 'image' => array ( 'url' => 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50', 'isDefault' => true, ), 'isPlusUser' => false, 'circledByCount' => 0, 'verified' => false, 'domain' => 'miniorange.in', )
+					
+					//array ( 'id' => '1499278830085196', 'name' => 'Kalpesh Hiran', 'email' => 'kalpeshhiran@gmail.com', 'age_range' => array ( 'min' => 21, ), 'first_name' => 'Kalpesh', 'gender' => 'male', 'last_name' => 'Hiran', 'link' => 'https://www.facebook.com/app_scoped_user_id/1499278830085196/', )
+					
+					
+
+				} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+
+					// Failed to get the access token or user details.
+					print_r($e);
+					exit($e->getMessage());
+
+				}
+
+			}
+			
+		} else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'generateDynmicUrl' ) !== false ) {
 			$client_id = get_option('mo_oauth_' . $_REQUEST['app_name'] . '_client_id');
 			$timestamp = round( microtime(true) * 1000 );
 			$api_key = get_option('mo_oauth_admin_api_key');
@@ -136,9 +312,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$url = get_option('host_name') . '/moas/oauth/client/authorize?token=' . $token_params . '&id=' . get_option('mo_oauth_admin_customer_key') . '&encrypted=true&app=' . $_REQUEST['app_name'] . '_oauth&returnurl=' . $return_url;
 			wp_redirect( $url );
 			exit;
-		}
-	
-		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'mooauth' ) !== false ){
+		} else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'mooauth' ) !== false ){
 
 			//do stuff after returning from oAuth processing
 			$access_token 	= $_POST['access_token'];
@@ -274,9 +448,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 					}
 				}
 			}
-			wp_redirect( site_url() );
+			wp_redirect( home_url() );
 			exit;
 		}
+		/* End of old flow */
 	}
 	
 	//here entity is corporation, alliance or character name. The administrator compares these when user logs in

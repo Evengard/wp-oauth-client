@@ -1,20 +1,20 @@
-=== miniOrange - Login with EVE Online ===
+=== Login with OAuth ( OAuth Client ) ===
 Contributors: miniOrange
-Tags: eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
+Tags: oauth, oauth client, oauth login, login with google, login with facebook, eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
 Requires at least: 3.0.1
-Tested up to: 4.7.3
-Stable tag: 5.3
+Tested up to: 4.7
+Stable tag: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth login with your EVE Online account.
+OAuth client plugin allows login with your google, facebook, EVE Online or any other OAuth account.
 
 == Description ==
 
 Login to your Wordpress site using your EVE Online account.
 
 = Features =
-*	Login to your Wordpress site using EVE Online.
+*	Login to your Wordpress site using any OAuth server account like facebook, google, eveonline.
 *	Valid user registrations verified by applications such as EVE Online.
 *	You can disable the applications which you don't require.
 *	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
@@ -30,11 +30,11 @@ Login to your Wordpress site using your EVE Online account.
 
 = From your WordPress dashboard =
 1. Visit `Plugins > Add New`
-2. Search for `EVE Online Login`. Find and Install `miniOrange - Login with EVE Online`
+2. Search for `Login with OAuth ( OAuth Client )`. Find and Install `Login with OAuth ( OAuth Client )`
 3. Activate the plugin from your Plugins page
 
 = From WordPress.org =
-1. Download miniOrange - Login with EVE Online.
+1. Download Login with OAuth ( OAuth Client ).
 2. Unzip and upload the `miniorange-oauth-login` directory to your `/wp-content/plugins/` directory.
 3. Activate miniOrange OAuth from your Plugins page.
 

@@ -1,9 +1,9 @@
 <?php
 /**
-* Plugin Name: miniOrange OAuth Login
+* Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
-* Description: This plugin enables login to your Wordpress site using apps like EVE Online, Google, Facebook.
-* Version: 5.3
+* Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
+* Version: 5.4
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -12,6 +12,7 @@ include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
 require('mo_oauth_settings_page.php');
 require('manage-avatar.php');
+require_once sprintf('vendor/autoload.php', dirname(__DIR__));
 
 class mo_oauth {
 	
@@ -294,6 +295,82 @@ class mo_oauth {
 					update_option( 'message', 'Please enter Key ID and Verification code to filter Characters. Characters of all Corporations and Alliances will be allowed.');
 					$this->mo_oauth_show_error_message();
 				}
+			}
+		}
+		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_add_app" ) {
+			$scope = '';
+			$clientid = '';
+			$clientsecret = '';
+			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_scope']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_id']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_secret'])) {
+				update_option( 'message', 'Please enter valid Client ID and Client Secret.');
+				$this->mo_oauth_show_error_message();
+				return;
+			} else{
+				$scope = sanitize_text_field( $_POST['mo_oauth_scope'] );
+				$clientid = sanitize_text_field( $_POST['mo_oauth_client_id'] );
+				$clientsecret = sanitize_text_field( $_POST['mo_oauth_client_secret'] );
+				$appname = sanitize_text_field( $_POST['mo_oauth_app_name'] );
+				
+				
+				if(get_option('mo_oauth_apps_list'))
+					$appslist = get_option('mo_oauth_apps_list');
+				else
+					$appslist = array();
+				
+				$email_attr = "";
+				$name_attr = "";
+				
+				$newapp = array();
+				$newapp['clientid'] = $clientid;
+				$newapp['clientsecret'] = $clientsecret;
+				$newapp['scope'] = $scope;
+				$newapp['redirecturi'] = site_url().'?option=oauthcallback';
+				if($appname=="facebook"){
+					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
+					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';
+					$resourceownerdetailsurl = 'https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link&access_token=';
+				} else if($appname=="google"){
+					$authorizeurl = "https://accounts.google.com/o/oauth2/auth";
+					$accesstokenurl = "https://www.googleapis.com/oauth2/v3/token";
+					//private static final String VERIFY_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v1/tokeninfo?id_token=";
+					//private static final String GET_USER_INFO_ENDPOINT = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=";
+					$resourceownerdetailsurl = "https://www.googleapis.com/plus/v1/people/me";
+				} else if($appname=="eveonline"){
+					update_option( 'mo_oauth_eveonline_enable', 1);
+					update_option( 'mo_oauth_eveonline_client_id', $clientid);
+					update_option( 'mo_oauth_eveonline_client_secret', $clientsecret);
+					if(get_option('mo_oauth_eveonline_client_id') && get_option('mo_oauth_eveonline_client_secret')) {
+						$customer = new Customer();
+						$message = $customer->add_oauth_application('eveonline', 'EVE Online OAuth');
+						if($message == 'Application Created') {
+							update_option('message', 'Your settings were saved. Go to Advanced EVE Online Settings for configuring restrictions on user sign in.');
+							$this->mo_oauth_show_success_message();
+						} else {
+							update_option('message', $message);
+							$this->mo_oauth_show_error_message();
+						}
+					}
+					$authorizeurl = "";
+					$accesstokenurl = "";
+					$resourceownerdetailsurl = "";
+				} else {
+					$authorizeurl = sanitize_text_field($_POST['mo_oauth_authorizeurl']);
+					$accesstokenurl = sanitize_text_field($_POST['mo_oauth_accesstokenurl']);
+					$resourceownerdetailsurl = sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']);
+					$appname = sanitize_text_field( $_POST['mo_oauth_custom_app_name'] );
+					$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
+					$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
+				}
+				
+				$newapp['authorizeurl'] = $authorizeurl;
+				$newapp['accesstokenurl'] = $accesstokenurl;
+				$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
+				$newapp['email_attr'] = $email_attr;
+				$newapp['name_attr'] = $name_attr;
+				$appslist[$appname] = $newapp;
+				update_option('mo_oauth_apps_list', $appslist);
+				update_option( 'message', 'Your settings are saved successfully.' );
+				$this->mo_oauth_show_success_message();
 			}
 		}
 		//submit google form

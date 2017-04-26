@@ -12,13 +12,11 @@ function mo_register() {
 <div id="tab">
 	<h2 class="nav-tab-wrapper">
 		<a class="nav-tab nav-tab-active" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> 
-		<?php if(get_option('mo_oauth_new_customer')!=1){?><a class="nav-tab" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
+		<?php if(get_option('mo_oauth_new_customer')!=1 && get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 	</h2>
 </div>
 <div id="mo_oauth_settings">
-	<h2 class="mo_heading_margin">
-		miniOrange OAuth Settings 
-	</h2>	
+	
 	<div class="miniorange_container">
 		<table style="width:100%;">
 			<tr>
@@ -156,12 +154,287 @@ function mo_oauth_show_verify_password_page() {
 		</form>
 		<?php
 }
+
+
 function mo_oauth_apps_config() {
 	?>
+	<style>
+		.tableborder {
+			border-collapse: collapse;
+			width: 100%;
+			border-color:#eee;
+		}
+
+		.tableborder th, .tableborder td {
+			text-align: left;
+			padding: 8px;
+			border-color:#eee;
+		}
+
+		.tableborder tr:nth-child(even){background-color: #f2f2f2}
+	</style>
+	<div class="mo_table_layout">
+	<?php
+	
+		if(isset($_GET['action']) && $_GET['action']=='delete'){
+			if(isset($_GET['app']))
+				delete_app($_GET['app']);
+		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
+			if(isset($_GET['app']))
+				instructions($_GET['app']);
+		}
+		
+		if(isset($_GET['action']) && $_GET['action']=='add'){
+			add_app();
+		} 
+		else if(isset($_GET['action']) && $_GET['action']=='update'){
+			if(isset($_GET['app']))
+				update_app($_GET['app']);
+		}
+		else if(get_option('mo_oauth_apps_list'))
+		{	
+			$appslist = get_option('mo_oauth_apps_list');
+			echo "<br><a href='admin.php?page=mo_oauth_settings&action=add'><button style='float:right'>Add Application</button></a>";
+			echo "<h3>Applications List</h3>";
+			echo "<table class='tableborder'>";
+			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
+			foreach($appslist as $key => $app){
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Update</a> | <a href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | <a href='admin.php?page=mo_oauth_settings&action=instructions&app=".$key."'>How to Configure?</a></td></tr>";
+			}
+			echo "</table>";
+			echo "<br><br>";
+	
+		} else {
+			add_app();
+		 } ?>
+		</div>
+<?php
+	if(get_option('mo_oauth_eveonline_enable'))
+		mo_oauth_apps_config_old();
+}
+
+function add_app(){
+	?>
+
+		<script>
+			function selectapp() {
+				var appname = document.getElementById("mo_oauth_app").value;
+				document.getElementById("instructions").innerHTML  = "";
+				if(appname=="google"){
+					document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Google :</strong><ol><li>Visit the Google website for developers <a href="https://console.developers.google.com/project"target="_blank">console.developers.google.com</a>.</li><li>Open the Google API Console Credentials page and go to API Manager -> Credentials</li><li>From the project drop-down, choose Create a new project, enter a name for the project, and optionally, edit the provided Project ID. Click Create.</li><li>On the Credentials page, select Create credentials, then select OAuth client ID.</li><li>You may be prompted to set a product name on the Consent screen; if so, click Configure consent screen, supply the requested information, and click Save to return to the Credentials screen.</li><li>Select Web Application for the Application Type. Follow the instructions to enter JavaScript origins, redirect URIs, or both. provide <b><?php echo site_url()."?option=oauthcallback";?></b> for the Redirect URI.</li><li>Click Create.</li><li>On the page that appears, copy the client ID and client secret to your clipboard, as you will need them to configure above.</li><li>Enable the Google+ API.</li><li>Go to Appearance->Widgets. Among the available widgets youwill find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+				} else if(appname=="facebook"){
+					document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>.</li><li>Click on Create a New App/Add new App button. You will need to register as a Facebook developer to create an App.</li><li>Enter <b>Display Name</b>. And choose category.</li><li>Click on <b>Create App ID</b>.</li><li>From the left pane, select <b>Settings</b>.</li><li>From the tabs above, select <b>Advanced</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b><?php echo site_url()."?option=oauthcallback";?></b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Paste your App ID/Secret provided by Facebook into the fields above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+				} else if(appname=="eveonline"){
+					document.getElementById("instructions").innerHTML  = '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b><?php echo site_url()."?option=oauthcallback";?></b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+				} else{
+					document.getElementById("instructions").innerHTML  = '<strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b><?php echo site_url()."?option=oauthcallback";?></b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+				}
+				
+				if(appname=="other"){
+					jQuery("#mo_oauth_custom_app_name_div").show();
+					jQuery("#mo_oauth_authorizeurl_div").show();
+					jQuery("#mo_oauth_accesstokenurl_div").show();
+					jQuery("#mo_oauth_resourceownerdetailsurl_div").show();
+					jQuery("#mo_oauth_email_attr_div").show();
+					jQuery("#mo_oauth_name_attr_div").show();
+					jQuery("#mo_oauth_custom_app_name").attr('required','true');
+					jQuery("#mo_oauth_authorizeurl").attr('required','true');
+					jQuery("#mo_oauth_accesstokenurl").attr('required','true');
+					jQuery("#mo_oauth_resourceownerdetailsurl").attr('required','true');
+					jQuery("#mo_oauth_email_attr").attr('required','true');
+					jQuery("#mo_oauth_name_attr").attr('required','true');
+				} else {
+					jQuery("#mo_oauth_custom_app_name_div").hide();
+					jQuery("#mo_oauth_authorizeurl_div").hide();
+					jQuery("#mo_oauth_accesstokenurl_div").hide();
+					jQuery("#mo_oauth_resourceownerdetailsurl_div").hide();
+					jQuery("#mo_oauth_email_attr_div").hide();
+					jQuery("#mo_oauth_name_attr_div").hide();
+					jQuery("#mo_oauth_custom_app_name").removeAttr('required');
+					jQuery("#mo_oauth_authorizeurl").removeAttr('required');
+					jQuery("#mo_oauth_accesstokenurl").removeAttr('required');
+					jQuery("#mo_oauth_resourceownerdetailsurl").removeAttr('required');
+					jQuery("#mo_oauth_email_attr").removeAttr('required');
+					jQuery("#mo_oauth_name_attr").removeAttr('required');
+				}
+				
+			}
+
+		</script>	
+		<div id="toggle2" class="panel_toggle">
+			<h3>Add Application</h3>
+		</div>
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<input type="hidden" name="option" value="mo_oauth_add_app" /> 
+		<table class="mo_settings_table">
+			<tr>
+			<td><strong><font color="#FF0000">*</font>Select Application:</strong></td>
+			<td>
+				<select class="mo_table_textbox" required="true" name="mo_oauth_app_name" id="mo_oauth_app" onchange="selectapp()">
+				  <option value="">Select Application</option>
+				  <option value="google">Google</option>
+				  <option value="facebook">Facebook</option>
+				  <option value="eveonline">Eve Online</option>
+				  <option value="other">Other</option>
+				</select>
+			</td>
+			</tr>
+			<tr  style="display:none" id="mo_oauth_custom_app_name_div">
+				<td><strong><font color="#FF0000">*</font>Custom App Name:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value=""></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value=""></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text"  name="mo_oauth_client_secret" value=""></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Scope:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_scope" value="email"></td>
+			</tr>
+			<tr style="display:none" id="mo_oauth_authorizeurl_div">
+				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value=""></td>
+			</tr>
+			<tr style="display:none" id="mo_oauth_accesstokenurl_div">
+				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value=""></td>
+			</tr>
+			<tr style="display:none" id="mo_oauth_resourceownerdetailsurl_div">
+				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value=""></td>
+			</tr>
+			<tr style="display:none" id="mo_oauth_email_attr_div">
+				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value=""></td>
+			</tr>
+			<tr style="display:none" id="mo_oauth_name_attr_div">
+				<td><strong><font color="#FF0000">*</font>Name Attribute:</strong></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value=""></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit" value="Save settings"
+					class="button button-primary button-large" /></td>
+			</tr>
+			</table>
+		</form>
+		
+		<div id="instructions">
+			
+		</div>
+		
+		<?php
+}
+
+function update_app($appname){
+	
+	$appslist = get_option('mo_oauth_apps_list');
+	foreach($appslist as $key => $app){
+		if($appname == $key){
+			$currentappname = $appname;
+			$currentapp = $app;
+			break;
+		}
+	}
+	
+	if(!$currentapp)
+		return;
+	
+	
+	?>
+		
+		<div id="toggle2" class="panel_toggle">
+			<h3>Update Application</h3>
+		</div>
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<input type="hidden" name="option" value="mo_oauth_add_app" /> 
+		<table class="mo_settings_table">
+			<tr>
+			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
+			<td>
+				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
+				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
+				<?php echo $currentappname;?><br><br>
+			</td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value="<?php echo $currentapp['clientid'];?>"></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_secret" value="<?php echo $currentapp['clientsecret'];?>"></td>
+			</tr>
+			<tr>
+				<td><strong><font color="#FF0000">*</font>Scope:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_scope" value="<?php echo $currentapp['scope'];?>"></td>
+			</tr>
+			<?php if(!in_array($currentappname, array("facebook","google","eveonline"))){ ?>
+			<tr  id="mo_oauth_authorizeurl_div">
+				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
+			</tr>
+			<tr id="mo_oauth_accesstokenurl_div">
+				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
+			</tr>
+			<tr id="mo_oauth_resourceownerdetailsurl_div">
+				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php echo $currentapp['resourceownerdetailsurl'];?>"></td>
+			</tr>
+			<tr id="mo_oauth_email_attr_div">
+				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php echo $currentapp['email_attr'];?>"></td>
+			</tr>
+			<tr id="mo_oauth_name_attr_div">
+				<td><strong><font color="#FF0000">*</font>Name Attribute:</strong></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value="<?php echo $currentapp['name_attr'];?>"></td>
+			</tr>
+			<?php } ?>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit" value="Save settings"
+					class="button button-primary button-large" /></td>
+			</tr>
+			</table>
+		</form>
+		<?php
+}
+
+function delete_app($appname){
+	$appslist = get_option('mo_oauth_apps_list');
+	foreach($appslist as $key => $app){
+		if($appname == $key){
+			unset($appslist[$key]);
+			if($appname=="eveonline")
+				update_option( 'mo_oauth_eveonline_enable', 0);
+		}
+	}
+	update_option('mo_oauth_apps_list', $appslist);
+}
+
+function instructions($appname){
+	if($appname=="google"){
+		echo '<br><strong>Instructions to configure Google :</strong><ol><li>Visit the Google website for developers <a href="https://console.developers.google.com/project"target="_blank">console.developers.google.com</a>.</li><li>Open the Google API Console Credentials page and go to API Manager -> Credentials</li><li>From the project drop-down, choose Create a new project, enter a name for the project, and optionally, edit the provided Project ID. Click Create.</li><li>On the Credentials page, select Create credentials, then select OAuth client ID.</li><li>You may be prompted to set a product name on the Consent screen; if so, click Configure consent screen, supply the requested information, and click Save to return to the Credentials screen.</li><li>Select Web Application for the Application Type. Follow the instructions to enter JavaScript origins, redirect URIs, or both. provide <b><?php echo site_url()."?option=oauthcallback";?></b> for the Redirect URI.</li><li>Click Create.</li><li>On the page that appears, copy the client ID and client secret to your clipboard, as you will need them to configure above.</li><li>Enable the Google+ API.</li><li>Go to Appearance->Widgets. Among the available widgets youwill find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+	} else if($appname=="facebook"){
+		echo '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>.</li><li>Click on Create a New App/Add new App button. You will need to register as a Facebook developer to create an App.</li><li>Enter <b>Display Name</b>. And choose category.</li><li>Click on <b>Create App ID</b>.</li><li>From the left pane, select <b>Settings</b>.</li><li>From the tabs above, select <b>Advanced</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b><?php echo site_url()."?option=oauthcallback";?></b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Paste your App ID/Secret provided by Facebook into the fields above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+	} else if($appname=="eveonline"){
+		echo '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b><?php echo site_url()."?option=oauthcallback";?></b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+	} else{
+		echo '<strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b><?php echo site_url()."?option=oauthcallback";?></b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+	}
+}
+
+function mo_oauth_apps_config_old() {
+	?>
 			<!-- Google configurations -->
-		<form id="form-google" name="form-google" method="post" action="">
-			<input type="hidden" name="option" value="mo_oauth_google" /> <input
-				type="hidden" name="mo_oauth_google_scope" value="email" />
+		<form id="form-google" name="form-google" method="post" action="" style="display:none">
+			<input type="hidden" name="option" value="mo_oauth_google" /> 
+			<input type="hidden" name="mo_oauth_google_scope" value="email" />
 			<div class="mo_table_layout">
 				<div id="toggle2" class="panel_toggle">
 					<h3>Login with Google</h3>
@@ -209,7 +482,7 @@ function mo_oauth_apps_config() {
 									</li>
 									<li>At Google, create a new Project and enable the Google+ API.
 										This will enable your site to access the Google+ API.</li>
-									<li>At Google, provide <b>https://auth.miniorange.com/moas/oauth/client/callback</b>
+									<li>At Google, provide <b><?php echo site_url()."?option=oauthcallback";?></b>
 										for the new Project's Redirect URI.
 									</li>
 									<li>At Google, you must also configure the Consent Screen with
@@ -284,7 +557,7 @@ function mo_oauth_apps_config() {
 										for a third-party application.</li>
 									<li>At EVE Online, add a new project/application. Generate
 										Client ID and Client Secret.</li>
-									<li>At EVE Online, set Redirect URL as <b>https://auth.miniorange.com/moas/oauth/client/callback</b></li>
+									<li>At EVE Online, set Redirect URL as <b><?php echo site_url()."?option=oauthcallback";?></b></li>
 									<li>Enter your Client ID and Client Secret above.</li>
 									<li>Click on the Save settings button.</li>
 									<li>Go to Appearance->Widgets. Among the available widgets you
@@ -303,7 +576,7 @@ function mo_oauth_apps_config() {
 		</form>
 		
 		<!-- Facebook -->
-		<form id="form-facebook" name="form-facebook" method="post" action="">
+		<form id="form-facebook" name="form-facebook" method="post" action=""  style="display:none">
 			<input type="hidden" name="option" value="mo_oauth_facebook" /> 
 			<input type="hidden" name="mo_oauth_facebook_scope" value="email" />
 			<div class="mo_table_layout">
@@ -356,7 +629,7 @@ function mo_oauth_apps_config() {
 									<li>Click on <b>Create App ID</b>.</li>
 									<li>From the left pane, select <b>Settings</b>.</li>
 									<li>From the tabs above, select <b>Advanced</b>.</li>
-									<li>Under <b>Client OAuth Settings</b>, enter <b>https://auth.miniorange.com/moas/oauth/client/callback</b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li>
+									<li>Under <b>Client OAuth Settings</b>, enter <b><?php echo site_url()."?option=oauthcallback";?></b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li>
 									<li>Paste your App ID/Secret provided by Facebook into the
 										fields above.</li>
 									<li>Click on the Save settings button.</li>
