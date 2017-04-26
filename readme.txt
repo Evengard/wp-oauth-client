@@ -11,10 +11,11 @@ OAuth client plugin allows login with your google, facebook, EVE Online or any o
 
 == Description ==
 
-Login to your Wordpress site using your EVE Online account.
+OAuth client plugin allows login with your google, facebook, EVE Online or any other OAuth account.
 
 = Features =
 *	Login to your Wordpress site using any OAuth server account like facebook, google, eveonline.
+*	Supports login with custom OAuth server.
 *	Valid user registrations verified by applications such as EVE Online.
 *	You can disable the applications which you don't require.
 *	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
