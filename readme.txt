@@ -1,4 +1,4 @@
-=== Login with OAuth ( OAuth Client ) ===
+=== Login with oAuth ( OAuth Client ) ===
 Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, EVE Online OAUTH, eveonline sso, eveonline login, eve online, eve online sso, eve online login, oauth eve online, EVE Online API Authentication
 Requires at least: 3.0.1
