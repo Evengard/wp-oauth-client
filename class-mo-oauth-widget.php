@@ -287,7 +287,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 				} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
 
 					// Failed to get the access token or user details.
-					print_r($e);
+					//print_r($e);
 					exit($e->getMessage());
 
 				}

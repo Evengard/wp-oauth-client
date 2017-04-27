@@ -7,19 +7,20 @@ Stable tag: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth client plugin allows login with your google, facebook, EVE Online or any other OAuth account.
+OAuth client plugin allows login with your google, facebook, eve online or any other OAuth account.
 
 == Description ==
 
-OAuth client plugin allows login with your google, facebook, EVE Online or any other OAuth account.
+OAuth client plugin allows login with your google, facebook, eve online or any other OAuth account.
 
 = Features =
 *	Login to your Wordpress site using any OAuth server account like facebook, google, eveonline.
-*	Supports login with custom OAuth server.
-*	Valid user registrations verified by applications such as EVE Online.
-*	You can disable the applications which you don't require.
+*	Supports login with any 3rd party OAuth server or custom OAuth server.
 *	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
 *	Automatic user registration after login if the user is not already registered with your site.
+
+= No SSL restriction =
+*	Login to wordpress using google credentials or any other app without having an SSL or HTTPS enabled site.
 
 = EVE Online specific features =
 *	One-click login to Wordpress through EVE Online application.
@@ -85,8 +86,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 
 == Screenshots ==
 
-1. Configure OAuth Applications
-2. Advanced Settings for EVE Online
+1. Add OAuth Applications
+2. List of Apps
+2. Configure Custom OAuth Application
 
 == Changelog ==
 = 5.3 =
