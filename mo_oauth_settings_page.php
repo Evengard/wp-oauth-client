@@ -254,8 +254,8 @@ function add_app(){
 					jQuery("#mo_oauth_authorizeurl").removeAttr('required');
 					jQuery("#mo_oauth_accesstokenurl").removeAttr('required');
 					jQuery("#mo_oauth_resourceownerdetailsurl").removeAttr('required');
-					jQuery("#mo_oauth_email_attr").removeAttr('required');
-					jQuery("#mo_oauth_name_attr").removeAttr('required');
+					//jQuery("#mo_oauth_email_attr").removeAttr('required');
+					//jQuery("#mo_oauth_name_attr").removeAttr('required');
 				}
 				
 			}
@@ -307,14 +307,14 @@ function add_app(){
 				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value=""></td>
 			</tr>
-			<tr style="display:none" id="mo_oauth_email_attr_div">
+			<!--<tr style="display:none" id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value=""></td>
 			</tr>
 			<tr style="display:none" id="mo_oauth_name_attr_div">
 				<td><strong><font color="#FF0000">*</font>Name Attribute:</strong></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value=""></td>
-			</tr>
+			</tr>-->
 			<tr>
 				<td>&nbsp;</td>
 				<td><input type="submit" name="submit" value="Save settings"
@@ -344,6 +344,9 @@ function update_app($appname){
 	if(!$currentapp)
 		return;
 	
+	$is_other_app = false;
+	if(!in_array($currentappname, array("facebook","google","eveonline")))
+		$is_other_app = true;
 	
 	?>
 		
@@ -373,7 +376,7 @@ function update_app($appname){
 				<td><strong><font color="#FF0000">*</font>Scope:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_scope" value="<?php echo $currentapp['scope'];?>"></td>
 			</tr>
-			<?php if(!in_array($currentappname, array("facebook","google","eveonline"))){ ?>
+			<?php if($is_other_app){ ?>
 			<tr  id="mo_oauth_authorizeurl_div">
 				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
@@ -386,6 +389,25 @@ function update_app($appname){
 				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php echo $currentapp['resourceownerdetailsurl'];?>"></td>
 			</tr>
+			<?php } ?>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
+					<?php if($is_other_app){?><input type="submit" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" /><?php } ?>
+				</td>
+			</tr>
+		</table>
+		</form>
+		
+		<?php if($is_other_app){ ?>
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<h3>Attribute Mapping</h3>
+		<p style="font-size:10px">Do <b>Test Configuration</b> above to configure attribute mapping.<br></p>
+		<input type="hidden" name="option" value="mo_oauth_attribute_mapping" />
+		<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_name" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
+		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
+		<table class="mo_settings_table">		
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php echo $currentapp['email_attr'];?>"></td>
@@ -394,7 +416,6 @@ function update_app($appname){
 				<td><strong><font color="#FF0000">*</font>Name Attribute:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value="<?php echo $currentapp['name_attr'];?>"></td>
 			</tr>
-			<?php } ?>
 			<tr>
 				<td>&nbsp;</td>
 				<td><input type="submit" name="submit" value="Save settings"
@@ -402,7 +423,13 @@ function update_app($appname){
 			</tr>
 			</table>
 		</form>
-		<?php
+		<script>
+		function testConfiguration(){
+			var mo_oauth_app_name = jQuery("#mo_oauth_app_name").val();
+			var myWindow = window.open('<?php echo site_url(); ?>' + '/?option=testattrmappingconfig&app='+mo_oauth_app_name, "Test Attribute Configuration", "width=600, height=600");	
+		}
+		</script>
+		<?php } 
 }
 
 function delete_app($appname){

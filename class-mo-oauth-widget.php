@@ -19,6 +19,13 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if( ! session_id() ) {
 			session_start();
 		}
+		
+		if($_REQUEST['option'] != null and $_REQUEST['option'] == 'testattrmappingconfig'){
+			$mo_oauth_app_name = $_REQUEST['app'];
+			wp_redirect(site_url().'?option=oauthredirect&app_name='. urlencode($mo_oauth_app_name)."&test=true");
+			exit();
+		} 
+		
 	}
 
 	function mo_oauth_end_session() {
@@ -142,6 +149,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthredirect' ) !== false ) {
 			$appname = $_REQUEST['app_name'];
 			$appslist = get_option('mo_oauth_apps_list');
+			
+			if(isset($_REQUEST['test']))
+				setcookie("mo_oauth_test", true);
+			else
+				setcookie("mo_oauth_test", false);
+			
 			foreach($appslist as $key => $app){
 				if($appname==$key){
 
@@ -164,10 +177,13 @@ class Mo_Oauth_Widget extends WP_Widget {
 					exit;
 				}
 			}
-		}  else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {
+		}  else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {			
 			
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
+			
+			
+			
 			if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
 				if (isset($_SESSION['oauth2state'])) {
 					unset($_SESSION['oauth2state']);
@@ -183,6 +199,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 					
 					$currentapp = $_SESSION['appname'];
 					$appslist = get_option('mo_oauth_apps_list');
+					$name_attr = "";
+					$email_attr = "";
 					foreach($appslist as $key => $app){
 						if($key == $currentapp){
 							$provider = new \League\OAuth2\Client\Provider\GenericProvider([
@@ -194,6 +212,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 								'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
 							]);
 							$urlResourceOwnerDetails = $app['resourceownerdetailsurl'];
+							$email_attr = $app['email_attr'];
+							$name_attr = $app['name_attr'];
 						}
 					}
 					
@@ -249,14 +269,25 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(isset($resourceOwner['name']))
 							$name = $resourceOwner['name'];
 					} else {
-						if(isset($resourceOwner['email']))
-							$email = $resourceOwner['email'];
-						if(isset($resourceOwner['name']))
-							$name = $resourceOwner['name'];
+						
+						//TEST Configuration
+						if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
+							echo '<style>table{border-collapse: collapse;}table, td, th {border: 1px solid black;padding:4px}</style>';
+							echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
+							testattrmappingconfig("",$resourceOwner);
+							echo "</table>";
+							exit();
+						}
+						
+						if(!empty($email_attr))
+							$email = getnestedattribute($resourceOwner, $email_attr); //$resourceOwner[$email_attr];
+						if(!empty($name_attr))
+							$name = getnestedattribute($resourceOwner, $name_attr); //$resourceOwner[$name_attr];
+						
 					}
 					
 					if(empty($email))
-						exit('Email address not received.');
+						exit('Email address not received. Check your <b>Attribute Mapping</b> configuration.');
 					
 					$user = get_user_by("login",$email);
 					if(!$user)
@@ -479,6 +510,38 @@ class Mo_Oauth_Widget extends WP_Widget {
 		return $valid_entity;
 	}
 
+	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails){
+		foreach($resourceOwnerDetails as $key => $resource){
+			if(is_array($resource) || is_object($resource)){
+				if(!empty($nestedprefix))
+					$nestedprefix .= ".";
+				testattrmappingconfig($nestedprefix.$key,$resource);
+			} else {
+				echo "<tr><td>";
+				if(!empty($nestedprefix))
+					echo $nestedprefix.".";
+				echo $key."</td><td>".$resource."</td></tr>";
+			}
+		}
+	}
+	
+	function getnestedattribute($resource, $key){
+		//echo $key." : ";print_r($resource); echo "<br>";
+		if(empty($key))
+			return "";
+		
+		$keys = explode(".",$key);
+		if(sizeof($keys)>1){
+			$current_key = $keys[0];
+			if(isset($resource[$current_key]))
+				return getnestedattribute($resource[$current_key], str_replace($current_key.".","",$key));
+		} else {
+			$current_key = $keys[0];
+			if(isset($resource[$current_key]))
+				return $resource[$current_key];
+		}
+	}
+	
 	function register_mo_oauth_widget() {
 		register_widget('mo_oauth_widget');
 	}

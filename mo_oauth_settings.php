@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 5.5
+* Version: 5.6
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -319,8 +319,15 @@ class mo_oauth {
 				
 				$email_attr = "";
 				$name_attr = "";
-				
 				$newapp = array();
+				
+				foreach($appslist as $key => $currentapp){
+					if($appname == $key){
+						$newapp = $currentapp;
+						break;
+					}
+				}
+				
 				$newapp['clientid'] = $clientid;
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
@@ -358,20 +365,40 @@ class mo_oauth {
 					$accesstokenurl = sanitize_text_field($_POST['mo_oauth_accesstokenurl']);
 					$resourceownerdetailsurl = sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']);
 					$appname = sanitize_text_field( $_POST['mo_oauth_custom_app_name'] );
-					$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
-					$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
+					//$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
+					//$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
 				}
 				
 				$newapp['authorizeurl'] = $authorizeurl;
 				$newapp['accesstokenurl'] = $accesstokenurl;
 				$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
-				$newapp['email_attr'] = $email_attr;
-				$newapp['name_attr'] = $name_attr;
+				//$newapp['email_attr'] = $email_attr;
+				//$newapp['name_attr'] = $name_attr;
 				$appslist[$appname] = $newapp;
 				update_option('mo_oauth_apps_list', $appslist);
-				update_option( 'message', 'Your settings are saved successfully.' );
-				$this->mo_oauth_show_success_message();
+				//update_option( 'message', 'Your settings are saved successfully.' );
+				//$this->mo_oauth_show_success_message();
+				wp_redirect('admin.php?page=mo_oauth_settings&action=update&app='.urlencode($appname));
 			}
+		}
+		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_attribute_mapping" ) {
+			$appname = sanitize_text_field( $_POST['mo_oauth_app_name'] );
+			$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
+			$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
+					
+			$appslist = get_option('mo_oauth_apps_list');
+			foreach($appslist as $key => $currentapp){
+				if($appname == $key){
+					$currentapp['email_attr'] = $email_attr;
+					$currentapp['name_attr'] = $name_attr;
+					$appslist[$key] = $currentapp;
+					break;
+				}
+			}
+			update_option('mo_oauth_apps_list', $appslist);
+			update_option( 'message', 'Your settings are saved successfully.' );
+			$this->mo_oauth_show_success_message();
+			wp_redirect('admin.php?page=mo_oauth_settings&action=update&app='.urlencode($appname));
 		}
 		//submit google form
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_google" ) {
