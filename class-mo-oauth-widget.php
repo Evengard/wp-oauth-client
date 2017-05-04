@@ -68,7 +68,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 				
 				if( get_option('mo_oauth_google_enable') ) {
 				?>
-				<div>
+				
 				<a href="javascript:void(0)" onClick="moOAuthLogin('google');"><img src="<?php echo plugins_url( 'images/icons/google.jpg', __FILE__ )?>"></a>
 					
 				<?php
@@ -90,7 +90,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 						$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
 					
 					if(!empty($imageurl)){
-					?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a><?php
+					?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a></div><?php
 					} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;margin:2px 0px;">Login with <?php echo ucwords($key);?></div></a><?php
 					}
 				}
@@ -101,7 +101,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 				<?php
 			}
 			?>
-			</div>
+			
 			<?php 
 		} else {
 			$current_user = wp_get_current_user();
