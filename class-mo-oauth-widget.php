@@ -20,7 +20,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			session_start();
 		}
 		
-		if($_REQUEST['option'] != null and $_REQUEST['option'] == 'testattrmappingconfig'){
+		if(isset($_REQUEST['option']) and $_REQUEST['option'] == 'testattrmappingconfig'){
 			$mo_oauth_app_name = $_REQUEST['app'];
 			wp_redirect(site_url().'?option=oauthredirect&app_name='. urlencode($mo_oauth_app_name)."&test=true");
 			exit();
@@ -29,6 +29,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 	}
 
 	function mo_oauth_end_session() {
+		if( ! session_id() ) 
+		{ 	session_start();
+        }
 		session_destroy();
 	}
 	 
@@ -79,19 +82,21 @@ class Mo_Oauth_Widget extends WP_Widget {
 				if( get_option('mo_oauth_facebook_enable') ) { ?>
 					<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a> <?php
 				}
-				
-				foreach($appslist as $key=>$app){
-					if($key=="eveonline")
-						continue;
-					$imageurl = "";
-					if($key=='facebook')
-						$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
-					else if($key=='google')
-						$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
+				if (is_array($appslist)) {
+					foreach($appslist as $key=>$app){
+						if($key=="eveonline")
+							continue;
+							$imageurl = "";
+						if($key=='facebook')
+							$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
+						else if($key=='google')
+							$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
 					
-					if(!empty($imageurl)){
-					?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a></div><?php
-					} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;margin:2px 0px;">Login with <?php echo ucwords($key);?></div></a><?php
+						if(!empty($imageurl)){
+						?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a></div><?php
+						} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;margin:2px 0px;">Login with <?php echo ucwords($key);?></div></a><?php
+						}
+				
 					}
 				}
 				
@@ -212,8 +217,13 @@ class Mo_Oauth_Widget extends WP_Widget {
 								'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
 							]);
 							$urlResourceOwnerDetails = $app['resourceownerdetailsurl'];
-							$email_attr = $app['email_attr'];
-							$name_attr = $app['name_attr'];
+							
+							if(isset($app['email_attr'])){
+								$email_attr = $app['email_attr'];
+							}
+							if(isset($app['name_attr'])){
+								$name_attr = $app['name_attr'];
+							}
 						}
 					}
 					
