@@ -69,6 +69,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 				
 				$this->mo_oauth_load_login_script();
 				
+				$style = get_option('mo_oauth_icon_width') ? "width:".get_option('mo_oauth_icon_width').";" : "";
+				$style .= get_option('mo_oauth_icon_height') ? "height:".get_option('mo_oauth_icon_height').";" : "";
+				$style .= get_option('mo_oauth_icon_margin') ? "margin:".get_option('mo_oauth_icon_margin').";" : "";
+				
 				if( get_option('mo_oauth_google_enable') ) {
 				?>
 				
@@ -77,7 +81,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 				<?php
 				}
 				if( get_option('mo_oauth_eveonline_enable') ) { ?>
-					<a href="javascript:void(0)" onClick="moOAuthLogin('eveonline');"><img style="width:100%;margin:2px 0px;" src="<?php echo plugins_url( 'images/icons/eveonline.png', __FILE__ )?>"></a>
+					<a href="javascript:void(0)" onClick="moOAuthLogin('eveonline');"><img style="<?php echo $style;?>" src="<?php echo plugins_url( 'images/icons/eveonline.png', __FILE__ )?>"></a>
 				<?php }
 				if( get_option('mo_oauth_facebook_enable') ) { ?>
 					<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a> <?php
@@ -93,8 +97,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
 					
 						if(!empty($imageurl)){
-						?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="width:100%;margin:2px 0px;" src="<?php echo $imageurl; ?>"></a></div><?php
-						} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;margin:2px 0px;">Login with <?php echo ucwords($key);?></div></a><?php
+						?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="<?php echo $style;?>" src="<?php echo $imageurl; ?>"></a></div><?php
+						} else { ?><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');" style="color:#fff"><div style="background: #7272dc;height:40px;padding:8px;text-align:center;<?php echo $style;?>">Login with <?php echo ucwords($key);?></div></a><?php
 						}
 				
 					}

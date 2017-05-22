@@ -2,6 +2,10 @@
 
 
 function mo_register() {
+	
+	$currenttab = "";
+	if(isset($_GET['tab']))
+		$currenttab = $_GET['tab'];
 	?>
 	<?php
 		if(mo_oauth_is_curl_installed()==0){ ?>
@@ -11,7 +15,8 @@ function mo_register() {
 	?>
 <div id="tab">
 	<h2 class="nav-tab-wrapper">
-		<a class="nav-tab nav-tab-active" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> 
+		<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> 
+		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a> 
 		<?php if(get_option('mo_oauth_new_customer')!=1 && get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 	</h2>
 </div>
@@ -32,7 +37,11 @@ function mo_register() {
 		delete_option ( 'password_mismatch' );
 		mo_oauth_show_new_registration_page();
 	} else {
-		mo_oauth_apps_config ();
+		
+		if($currenttab == 'customization')
+			mo_oauth_app_customization();
+		else
+			mo_oauth_apps_config();
 	}
 	?>
 			</td>
@@ -155,6 +164,35 @@ function mo_oauth_show_verify_password_page() {
 		<?php
 }
 
+function mo_oauth_app_customization(){
+	?>
+	<div class="mo_table_layout">
+	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
+		<input type="hidden" name="option" value="mo_oauth_app_customization" /> 
+		<h2>Customize Icons</h2>
+		<table class="mo_settings_table">
+			<tr>
+				<td><strong>Icon Width:</strong></td>
+				<td><input type="text" id="mo_oauth_icon_width" name="mo_oauth_icon_width" value="<?php echo get_option('mo_oauth_icon_width');?>"> e.g. 200px or 100%</td>
+			</tr>
+			<tr>
+				<td><strong>Icon Height:</strong></td>
+				<td><input  type="text" id="mo_oauth_icon_height" name="mo_oauth_icon_height" value="<?php echo get_option('mo_oauth_icon_height');?>"> e.g. 50px or auto</td>
+			</tr>
+			<tr>
+				<td><strong>Icon Margins:</strong></td>
+				<td><input  type="text" id="mo_oauth_icon_margin" name="mo_oauth_icon_margin" value="<?php echo get_option('mo_oauth_icon_margin');?>"> e.g. 2px 0px or auto</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit" value="Save settings"
+					class="button button-primary button-large" /></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	<?php
+}
 
 function mo_oauth_apps_config() {
 	?>
