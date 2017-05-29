@@ -181,17 +181,18 @@ class Mo_Oauth_Widget extends WP_Widget {
 						session_start();
 					$_SESSION['oauth2state'] = $provider->getState();
 					$_SESSION['appname'] = $appname;
-					$authorizationUrl .= "&scope=".$app['scope'];
+					if(!empty($app['scope']))
+						$authorizationUrl .= "&scope=".$app['scope'];
 					header('Location: ' . $authorizationUrl);
 					exit;
 				}
 			}
-		}  else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {			
-			
+		}  
+		
+		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false) {  //if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {
+		
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
-			
-			
 			
 			if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
 				if (isset($_SESSION['oauth2state'])) {

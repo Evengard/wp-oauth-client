@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 5.9
+* Version: 5.10
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -301,7 +301,7 @@ class mo_oauth {
 			$scope = '';
 			$clientid = '';
 			$clientsecret = '';
-			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_scope']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_id']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_secret'])) {
+			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_id']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_client_secret'])) {
 				update_option( 'message', 'Please enter valid Client ID and Client Secret.');
 				$this->mo_oauth_show_error_message();
 				return;
@@ -331,7 +331,7 @@ class mo_oauth {
 				$newapp['clientid'] = $clientid;
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
-				$newapp['redirecturi'] = site_url().'?option=oauthcallback';
+				$newapp['redirecturi'] = site_url().'/oauthcallback';
 				if($appname=="facebook"){
 					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
 					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';

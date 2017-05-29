@@ -1,9 +1,9 @@
 === oAuth Login ( OAuth Client ) ===
 Contributors: miniOrange
-Tags: oauth, oauth client, oauth login, login with google, login with facebook, eveonline, Login with EVE Online, EVE Online Login, EVE Online SSO, EVE Online Single Sign on, eveonline sso, eveonline login, eve online, oauth eve online
+Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.7
-Stable tag: 5.9
+Stable tag: 5.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+= 5.10 =
+* Changed callback url
+
 = 5.9 =
 * Added UI customizations.
 
@@ -165,6 +168,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 5.10 =
+* Changed callback url
+
 = 5.9 =
 * Added UI customizations.
 
