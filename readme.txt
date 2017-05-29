@@ -7,14 +7,14 @@ Stable tag: 5.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth Login plugin allows login with your google, facebook, eve online or other custom OAuth server.
+OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server.
 
 == Description ==
 
-OAuth Login plugin allows login with your google, facebook, eve online or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 standard.
+OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 standard.
 
 = Features =
-*	Login to your Wordpress site using any OAuth server account like facebook, google, eveonline.
+*	Login to your Wordpress site using any OAuth server account like facebook, google, twitter, windows live.
 *	Supports login with any 3rd party OAuth server or custom OAuth server.
 *	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
 *	Automatic user registration after login if the user is not already registered with your site.
@@ -22,11 +22,6 @@ OAuth Login plugin allows login with your google, facebook, eve online or other 
 = No SSL restriction =
 *	Login to wordpress using google credentials or any other app without having an SSL or HTTPS enabled site.
 
-= EVE Online specific features =
-*	One-click login to Wordpress through EVE Online application.
-*	Restrict who logs in - administrators can restrict users which can log in through Eve Online. This can be on the basis of user's Corporation Name, Alliance Name and Character Name.
-*	Save the Corporation Name, Alliance Name, Character Name of characters who login to their profiles.
-*	Also takes care of updating the Corporation or Alliance name of the user if it changes.
 
 == Installation ==
 
@@ -62,18 +57,12 @@ Our very simple and easy registration lets you register to miniOrange. OAuth log
 = How to configure the applications? =
 When you want to configure a particular application, you will see a Save Settings button, and beside that a Help button. Click on the Help button to see configuration instructions.
 
-= How do I see Corporation, Alliance and Character Name from EVE Online? =
-You can view your Corporation, Alliance and Character Name in your Edit Profile. Copy the following code at the end of your theme's `Theme Functions(functions.php)` page. You can find `Theme Functions(functions.php)` in `Appearance->Editor`.
 
 <code>
 add_action( 'show_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 </code>
 
-If you still can't see any values in the textbox. You need to login through EVE Online to Wordpress site to get those values.
-
-= I already have existing user in my wordpress site. I want this plugin to use the user's existing profile and do not create another profile? =
-We will help you in this migration process. Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = I need integration of this plugin with my other installed plugins like BuddyPress, etc.? =
 We will help you in integrating this plugin with your other installed plugins. Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
