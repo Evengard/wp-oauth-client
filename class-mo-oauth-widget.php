@@ -95,6 +95,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
 						else if($key=='google')
 							$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
+						else if($key=='windows')
+							$imageurl = plugins_url( 'images/windowslogin.png', __FILE__ );
 					
 						if(!empty($imageurl)){
 						?><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="<?php echo $style;?>" src="<?php echo $imageurl; ?>"></a></div><?php
@@ -239,6 +241,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$accessToken = $provider->getAccessToken('authorization_code', [
 						'code' => $_GET['code']
 					]);
+				
 
 					// We have an access token, which we may use in authenticated
 					// requests against the service provider's API.
@@ -283,6 +286,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$email = $resourceOwner['email'];
 						if(isset($resourceOwner['name']))
 							$name = $resourceOwner['name'];
+					}  else if($currentapp == "windows"){
+						if(isset($resourceOwner['emails']['preferred']))
+							$email = $resourceOwner['emails']['preferred'];
+						if(isset($resourceOwner['name']))
+							$name = $resourceOwner['name'];
 					} else {
 						
 						//TEST Configuration
@@ -321,13 +329,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 						wp_set_current_user($user_id);
 						wp_set_auth_cookie($user_id);
 						wp_redirect(home_url());
-					} 
-			
-					
-					//array ( 'kind' => 'plus#person', 'etag' => '"Sh4n9u6EtD24TM0RmWv7jTXojqc/ZDsGBBupELr-xxgH9YBuGPyAxeo"', 'emails' => array ( 0 => array ( 'value' => 'administrator@miniorange.in', 'type' => 'account', ), ), 'objectType' => 'person', 'id' => '104414774625805226621', 'displayName' => '', 'name' => array ( 'familyName' => '', 'givenName' => '', ), 'image' => array ( 'url' => 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50', 'isDefault' => true, ), 'isPlusUser' => false, 'circledByCount' => 0, 'verified' => false, 'domain' => 'miniorange.in', )
-					
-					//array ( 'id' => '1499278830085196', 'name' => 'Kalpesh Hiran', 'email' => 'kalpeshhiran@gmail.com', 'age_range' => array ( 'min' => 21, ), 'first_name' => 'Kalpesh', 'gender' => 'male', 'last_name' => 'Hiran', 'link' => 'https://www.facebook.com/app_scoped_user_id/1499278830085196/', )
-					
+						exit;
+					} 					
 					
 
 				} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {

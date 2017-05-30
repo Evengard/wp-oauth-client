@@ -80,6 +80,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+= 5.12 =
+Added Windows Live app and bug fixes
+
 = 5.10 =
 * Changed callback url
 
@@ -157,6 +160,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 5.12 =
+Added Windows Live app and bug fixes
+
 = 5.10 =
 * Changed callback url
 

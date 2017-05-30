@@ -31,6 +31,10 @@ class IdentityProviderException extends \Exception
      */
     public function __construct($message, $code, $response)
     {
+		if(is_array($message))
+			$message = json_encode($message);
+	
+		
         $this->response = $response;
 
         parent::__construct($message, $code);

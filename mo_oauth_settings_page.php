@@ -312,6 +312,7 @@ function add_app(){
 				  <option value="">Select Application</option>
 				  <option value="google">Google</option>
 				  <option value="facebook">Facebook</option>
+				  <option value="windows">Windows Live</option>
 				  <option value="eveonline">Eve Online</option>
 				  <option value="other">Other</option>
 				</select>
@@ -383,7 +384,7 @@ function update_app($appname){
 		return;
 	
 	$is_other_app = false;
-	if(!in_array($currentappname, array("facebook","google","eveonline")))
+	if(!in_array($currentappname, array("facebook","google","eveonline","windows")))
 		$is_other_app = true;
 	
 	?>

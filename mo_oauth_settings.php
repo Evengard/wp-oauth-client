@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 5.11
+* Version: 5.12
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -342,6 +342,10 @@ class mo_oauth {
 					//private static final String VERIFY_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v1/tokeninfo?id_token=";
 					//private static final String GET_USER_INFO_ENDPOINT = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=";
 					$resourceownerdetailsurl = "https://www.googleapis.com/plus/v1/people/me";
+				}  else if($appname=="windows"){
+					$authorizeurl = "https://login.live.com/oauth20_authorize.srf";
+					$accesstokenurl = "https://login.live.com/oauth20_token.srf";
+					$resourceownerdetailsurl = "https://apis.live.net/v5.0/me";
 				} else if($appname=="eveonline"){
 					update_option( 'mo_oauth_eveonline_enable', 1);
 					update_option( 'mo_oauth_eveonline_client_id', $clientid);
