@@ -241,6 +241,18 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$accessToken = $provider->getAccessToken('authorization_code', [
 						'code' => $_GET['code']
 					]);
+									
+
+					if (substr($app['resourceownerdetailsurl'], -1) == "=") {
+						$provider = new \League\OAuth2\Client\Provider\GenericProvider([
+							'clientId'                => $app['clientid'],
+							'clientSecret'            => $app['clientsecret'],
+							'redirectUri'             => $app['redirecturi'],
+							'urlAuthorize'            => $app['authorizeurl'],
+							'urlAccessToken'          => $app['accesstokenurl'],
+							'urlResourceOwnerDetails' => $app['resourceownerdetailsurl'].$accessToken
+						]);
+					}
 				
 
 					// We have an access token, which we may use in authenticated
