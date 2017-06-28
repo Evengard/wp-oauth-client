@@ -37,6 +37,8 @@ class CurlHandler
         }
 
         $easy = $this->factory->create($request, $options);
+		curl_setopt($easy->handle, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($easy->handle, CURLOPT_SSL_VERIFYPEER, 0);
         curl_exec($easy->handle);
         $easy->errno = curl_errno($easy->handle);
 

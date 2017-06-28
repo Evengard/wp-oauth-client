@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 5.21
+* Version: 5.22
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -273,9 +273,9 @@ class mo_oauth {
 				return $this->mo_oauth_show_curl_error();
 			}
 			//sanitization of corporations and alliance fields
-			$corps = sanitize_text_field( $_POST['mo_eve_allowed_corps'] );
-			$alliances = sanitize_text_field( $_POST['mo_eve_allowed_alliances'] );
-			$charName = sanitize_text_field( $_POST['mo_eve_allowed_char_name'] );
+			$corps = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_corps'] ));
+			$alliances = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_alliances'] ));
+			$charName = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_char_name'] ));
 			
 			update_option( 'mo_eve_allowed_corps' ,$corps );
 			update_option( 'mo_eve_allowed_alliances', $alliances );
@@ -307,10 +307,10 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$scope = sanitize_text_field( $_POST['mo_oauth_scope'] );
-				$clientid = sanitize_text_field( $_POST['mo_oauth_client_id'] );
-				$clientsecret = sanitize_text_field( $_POST['mo_oauth_client_secret'] );
-				$appname = sanitize_text_field( $_POST['mo_oauth_app_name'] );
+				$scope = stripslashes(sanitize_text_field( $_POST['mo_oauth_scope'] ));
+				$clientid = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_id'] ));
+				$clientsecret = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_secret'] ));
+				$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
 				
 				
 				if(get_option('mo_oauth_apps_list'))
@@ -366,10 +366,10 @@ class mo_oauth {
 					$accesstokenurl = "";
 					$resourceownerdetailsurl = "";
 				} else {
-					$authorizeurl = sanitize_text_field($_POST['mo_oauth_authorizeurl']);
-					$accesstokenurl = sanitize_text_field($_POST['mo_oauth_accesstokenurl']);
-					$resourceownerdetailsurl = sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']);
-					$appname = sanitize_text_field( $_POST['mo_oauth_custom_app_name'] );
+					$authorizeurl = stripslashes(sanitize_text_field($_POST['mo_oauth_authorizeurl']));
+					$accesstokenurl = stripslashes(sanitize_text_field($_POST['mo_oauth_accesstokenurl']));
+					$resourceownerdetailsurl = stripslashes(sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']));
+					$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_custom_app_name'] ));
 					//$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
 					//$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
 				}
@@ -387,16 +387,16 @@ class mo_oauth {
 			}
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_app_customization" ) {
-			update_option( 'mo_oauth_icon_width', sanitize_text_field($_POST['mo_oauth_icon_width']));
-			update_option( 'mo_oauth_icon_height', sanitize_text_field($_POST['mo_oauth_icon_height']));
-			update_option( 'mo_oauth_icon_margin', sanitize_text_field($_POST['mo_oauth_icon_margin']));
+			update_option( 'mo_oauth_icon_width', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_width'])));
+			update_option( 'mo_oauth_icon_height', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_height'])));
+			update_option( 'mo_oauth_icon_margin', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_margin'])));
 			update_option( 'message', 'Your settings were saved' );
 			$this->mo_oauth_show_success_message();
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_attribute_mapping" ) {
-			$appname = sanitize_text_field( $_POST['mo_oauth_app_name'] );
-			$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
-			$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
+			$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
+			$email_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_email_attr'] ));
+			$name_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_name_attr'] ));
 					
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
