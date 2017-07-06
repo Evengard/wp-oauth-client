@@ -3,7 +3,7 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 5.22
+Stable tag: 6.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,14 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 = No SSL restriction =
 *	Login to wordpress using google credentials or any other app without having an SSL or HTTPS enabled site.
 
+= List of popular OAuth Providers we support =
+*	Google
+*	Facebook
+*	Windows Account
+*	Azure AD
+*	Slack
+*	HR Answerlink
+*	Discord
 
 == Installation ==
 
@@ -80,6 +88,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+= 6.0.1 =
+Updated list of OAuth Providers.
+
 = 5.22 =
 Handled self signed SSL sites and slashes.
 
@@ -169,6 +180,9 @@ Added Windows Live app and bug fixes
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 6.0.1 =
+Updated list of OAuth Providers.
+
 = 5.22 =
 Handled self signed SSL sites and slashes.
 
