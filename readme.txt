@@ -3,7 +3,7 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 6.0.1
+Stable tag: 6.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,8 +28,12 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 *	Windows Account
 *	Azure AD
 *	Slack
-*	HR Answerlink
+*	HR Answerlink / Support center
 *	Discord
+
+= Other OAuth Providers we support =
+*	Other OAuth Providers OAuth client plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, WHMCS  etc.
+
 
 == Installation ==
 
@@ -88,6 +92,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+= 6.0.2 =
+Added premium features page.
+
 = 6.0.1 =
 Updated list of OAuth Providers.
 
@@ -180,6 +187,9 @@ Added Windows Live app and bug fixes
 * First version with supported applications as EVE Online and Google.
 
 == Upgrade Notice ==
+= 6.0.2 =
+Added premium features page.
+
 = 6.0.1 =
 Updated list of OAuth Providers.
 

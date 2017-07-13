@@ -18,6 +18,7 @@ function mo_register() {
 		<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> 
 		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a> 
 		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a> 
+		<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> 
 		<?php if(get_option('mo_oauth_new_customer')!=1 && get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 	</h2>
 </div>
@@ -43,6 +44,8 @@ function mo_register() {
 			mo_oauth_app_customization();
 		else if($currenttab == 'signinsettings')
 			mo_oauth_sign_in_settings();
+		else if($currenttab == 'licensing')
+			mo_oauth_licensing();
 		else
 			mo_oauth_apps_config();
 	}
@@ -186,6 +189,125 @@ function mo_oauth_sign_in_settings(){
 	<?php
 }
 
+
+function mo_oauth_licensing(){
+	
+?>
+		<div class="mo_table_layout">
+		
+		<span style="float:right;margin-top:5px"><input type="button" name="ok_btn" id="ok_btn" class="button button-primary button-large" value="OK, Got It" onclick="window.location.href='admin.php?page=mo_oauth_settings'" /></span>
+		<h2>Licensing Plans</h2>
+		<hr>
+		<table class="mo_oauth_pricing_table">
+		<tr style="vertical-align:top;">
+		
+				
+				<td>
+				<div class="mo_oauth_thumbnail mo_oauth_pricing_paid_tab" >
+				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header"><br>FREE</h3></div>
+				<hr>
+				<p class="mo_oauth_pricing_text">$0</p>
+				<p></p><p></p>
+				<hr>
+				<p class="mo_oauth_pricing_text" style="line-height:30px">
+					Auto register users<br>
+					Basic Attribute Mapping<br>
+					Basic Role Mapping<br>
+					1 OAuth provider support<br>
+					Customize Login Buttons / Icons / Text<br>
+					Login widget<br>
+					Support for shortcode<br>
+					Display Options (on login form or registration form)<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</p>
+				<hr>
+				
+				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support by Email</p>
+				</div></td>
+				<td>
+				<div class="mo_oauth_thumbnail mo_oauth_pricing_free_tab" >
+				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header">Premium</h3>
+				<span>
+				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_premium_plan')" /> </span></div>
+				
+				<hr>
+				<p class="mo_oauth_pricing_text">$149 + One Time Setup Fees (Optional)</p>
+				<hr>
+				
+				<p class="mo_oauth_pricing_text" style="line-height:30px">
+					Auto register users<br>
+					Advanced Attribute Mapping<br>
+					Advanced Role Mapping<br>
+					Multiple OAuth provider support<br>
+					Customize Login Buttons / Icons / Text<br>
+					Login widget<br>
+					Support for shortcode<br>
+					Display Options (on login form or registration form)<br>
+					Extended OAuth API support after login **<br>
+					Multi-site Support<br>
+					Account Linking<br>
+					Login Reports<br>
+					Auto redirect / Protect your complete site<br>
+					Page Restriction according to roles<br>
+					Redirect to URL after login<br>
+					Redirect to URL after logout<br>
+					Domain specific registration restricitons<br>
+					Email notifications<br>
+					Reverse Proxy Support<br>
+					End to End Integration **<br>
+				</p>
+				
+				<hr>
+				
+				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Premium Support Plans Available</p>
+				
+				</div></td>
+			
+		</tr>	
+		</table>
+		<form style="display:none;" id="loginform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>" 
+		target="_blank" method="post">
+		<input type="email" name="username" value="<?php echo get_option('mo_oauth_admin_email'); ?>" />
+		<input type="text" name="redirectUrl" value="<?php echo get_option( 'host_name').'/moas/viewlicensekeys'; ?>" />
+		<input type="text" name="requestOrigin" id="requestOrigin1"  />
+		</form>
+		<form style="display:none;" id="licenseform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>" 
+		target="_blank" method="post">
+		<input type="email" name="username" value="<?php echo get_option('mo_oauth_admin_email'); ?>" />
+		<input type="text" name="redirectUrl" value="<?php echo get_option( 'host_name').'/moas/initializepayment'; ?>" />
+		<input type="text" name="requestOrigin" id="requestOrigin2"  />
+		</form>
+		<script>
+			
+			function getupgradelicensesform(planType){
+				jQuery('#requestOrigin2').val(planType);
+				jQuery('#licenseform').submit();
+			}
+		
+		</script>
+		<br>
+		<h3>* Steps to upgrade to premium plugin -</h3>
+		<p>1. You will be redirected to miniOrange Login Console. Enter your password with which you created an account with us. After that you will be redirected to payment page.</p>
+		<p>2. Enter you card details and complete the payment. On successful payment completion, you will see the link to download the premium plugin.</p>
+		
+		<h3>** End to End Integration - We will setup a conference and do end to end configuration for you. We provide services to do the configuration on your behalf. </h3>
+		
+		<h3>* Multi-Site Support - We have a separate plugin for the multisite version. </h3>
+		</div>
+		
+	<?php	
+}
 function mo_oauth_app_customization(){
 	?>
 	<div class="mo_table_layout">

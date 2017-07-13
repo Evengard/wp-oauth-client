@@ -93,3 +93,39 @@
 	float:left;
 	margin:2px;
 }
+
+
+.mo_oauth_pricing_table{
+	text-align:center;
+	font-size: 15px !important;
+	background-color:#FFFFFF; 
+}
+
+.mo_oauth_pricing_header{
+	color: #fff !important;
+	margin: 4px !important;
+}
+
+.mo_oauth_pricing_sub_header{
+	margin: 2px !important;
+	color: #fff !important;
+	
+}
+
+.mo_oauth_pricing_text{
+	font-size: 15px !important;
+	color: #fff !important;
+	font-weight: bold !important;
+}
+
+.mo_oauth_pricing_free_tab{
+	background-color: rgba(34, 153, 221, 0.82)!important;
+	
+	
+}
+
+.mo_oauth_pricing_paid_tab{
+	background-color: #1a71a4 !important;
+
+	
+}
