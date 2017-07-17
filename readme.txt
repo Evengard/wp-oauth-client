@@ -3,7 +3,7 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,11 +13,37 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 
 OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 standard.
 
-= Features =
-*	Login to your Wordpress site using any OAuth server account like facebook, google, twitter, windows live.
+OAuth login supports different Applications like Eve Online, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon etc.
+
+
+= FREE VERSION FEATURES =
+
 *	Supports login with any 3rd party OAuth server or custom OAuth server.
-*	Easily integrate plugin with your Wordpress website using widgets. Just drop it in a desirable place in your website.
-*	Automatic user registration after login if the user is not already registered with your site.
+*	Optionally Auto Register Users- Automatic user registration after login if the user is not already registered with your site
+*	Attribute Mapping- Basic Attribute Mapping feature to map wordpress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
+*	Role Mapping- Assign roles to users registering through Oauth Login based on rules you define.
+*	Oauth Provider Support- It Supports only one Oauth Provider. (PREMIUM : Supports Multiple Oauth Provider)
+*	Redirect URL after Login- Automatically Redirect user after successful login. Note: Does not include custom redirect URL
+*	Customize Login Buttons / Icons / Text- Wide range of Oauth login Buttons/Icons and it allows you to customize Text shadow and 
+*	Login Widget- Use Widgets to easily integrate the login link with your WordPress site
+*	Support for Shortcode- Use shortcode to place login button anywhere in your Theme or Plugin
+*	Display Options- Oauth Login Provides Display Option for both Login form and Registration form
+*	Logging- If you run into issues it can be helpful to enable debug logging
+
+= PREMIUM VERSION FEATURES =
+
+*	All the Free Version Features
+*	Auto Redirect- Provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
+*	Extended OAuth API support- Extend OAuth API support to extend functionality to the existing OAuth client.
+*	Multi-site Support- Unique ability to support multiple sites under one account
+*	Redirect URL after logout- Auto Redirect Users to custom url after logout in WordPress
+*	Reverse Proxy Support- Support for sites behind a reverse-proxy or on-prem instances with no internet access.
+*	Account Linking- Supports the linking of user accounts from OAuth Providers to Wordpress account.
+*	Login Reports- Creates user login and registration reports based on application used. 
+*	App domain specific Registration Restrictions- Restricts registration on your site based on the person's email address domain
+*	Email notifications- You can customize the E-mail templates used for the automatic email notifications related to user registration.
+*	Page Restriction according to roles- Limit Access to pages based on user status or roles. This WordPress plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.
+
 
 = No SSL restriction =
 *	Login to wordpress using google credentials or any other app without having an SSL or HTTPS enabled site.
