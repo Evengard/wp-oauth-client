@@ -3,7 +3,7 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.8
-Stable tag: 6.0.3
+Stable tag: 6.0.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,8 +12,6 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 == Description ==
 
 OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 standard.
-
-OAuth login supports different Applications like Eve Online, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon etc.
 
 
 = FREE VERSION FEATURES =
