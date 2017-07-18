@@ -593,11 +593,11 @@ function update_app($appname){
 		<table class="mo_settings_table">		
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php echo $currentapp['email_attr'];?>"></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
 			</tr>
 			<tr id="mo_oauth_name_attr_div">
 				<td><strong><font color="#FF0000">*</font>Name Attribute:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value="<?php echo $currentapp['name_attr'];?>"></td>
+				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value="<?php if(isset( $currentapp['name_attr'])) echo $currentapp['name_attr'];?>"></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
