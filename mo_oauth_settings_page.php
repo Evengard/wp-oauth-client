@@ -26,8 +26,8 @@ function mo_register() {
 	
 	<div class="miniorange_container">
 		<table style="width:100%;">
-			<tr>
-				<td style="vertical-align:top;width:65%;">
+		<tr>
+		<td style="vertical-align:top;width:65%;" class="mo_oauth_content">
 		<?php
 	if (get_option ( 'verify_customer' ) == 'true') {
 		mo_oauth_show_verify_password_page();
@@ -51,10 +51,12 @@ function mo_register() {
 	}
 	?>
 			</td>
-					<td style="vertical-align:top;padding-left:1%;">
-						<?php echo miniorange_support(); ?>	
-					</td>
-				</tr>
+			<?php if($currenttab != 'licensing') { ?>
+				<td style="vertical-align:top;padding-left:1%;" class="mo_oauth_sidebar">
+					<?php echo miniorange_support(); ?>	
+				</td>
+			<?php } ?>
+			</tr>
 			</table>
 		</div>
 		<?php
@@ -82,30 +84,30 @@ function mo_oauth_show_new_registration_page() {
 								value="<?php echo get_option('mo_oauth_admin_email');?>" />
 							</td>
 						</tr>
-							<tr>
+						<tr class="hidden">
 							<td><b><font color="#FF0000">*</font>Website/Company Name:</b></td>
 							<td><input class="mo_table_textbox" type="text" name="company"
 							required placeholder="Enter website or company name" 
 							value="<?php echo $_SERVER['SERVER_NAME']; ?>"/></td>
 						</tr>
-						<tr>
+						<tr  class="hidden">
 							<td><b>&nbsp;&nbsp;First Name:</b></td>
 							<td><input class="mo_openid_table_textbox" type="text" name="fname"
 							placeholder="Enter first name" value="<?php echo $current_user->user_firstname;?>" /></td>
 						</tr>
-						<tr>
+						<tr class="hidden">
 							<td><b>&nbsp;&nbsp;Last Name:</b></td>
 							<td><input class="mo_openid_table_textbox" type="text" name="lname"
 							placeholder="Enter last name" value="<?php echo $current_user->user_lastname;?>" /></td>
 						</tr>
 
-						<tr>
+						<tr  class="hidden">
 							<td><b>&nbsp;&nbsp;Phone number :</b></td>
 							 <td><input class="mo_table_textbox" type="text" name="phone" pattern="[\+]?([0-9]{1,4})?\s?([0-9]{7,12})?" id="phone" title="Phone with country code eg. +1xxxxxxxxxx" placeholder="Phone with country code eg. +1xxxxxxxxxx" value="<?php echo get_option('mo_oauth_admin_phone');?>" />
 							 This is an optional field. We will contact you only if you need support.</td>
 							</tr>
 						</tr>
-						<tr>
+						<tr  class="hidden">
 							<td></td>
 							<td>We will call only if you need support.</td>
 						</tr>
@@ -202,49 +204,80 @@ function mo_oauth_licensing(){
 		<tr style="vertical-align:top;">
 		
 				
-				<td>
-				<div class="mo_oauth_thumbnail mo_oauth_pricing_paid_tab" >
-				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header"><br>FREE</h3></div>
+			<td>
+			<div class="mo_oauth_thumbnail mo_oauth_pricing_paid_tab" >
+			<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header"><br>FREE</h3></div>
+			<hr>
+			<p class="mo_oauth_pricing_text">$0</p>
+			<p></p><p></p>
+			<hr>
+			<p class="mo_oauth_pricing_text" style="line-height:30px">
+				Auto register users<br>
+				Basic Attribute Mapping<br>
+				Basic Role Mapping<br>
+				1 OAuth provider support<br>
+				Customize Login Buttons / Icons / Text<br>
+				Login widget<br>
+				Support for shortcode<br>
+				Display Options (on login form or registration form)<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</p>
+			<hr>
+			<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support by Email</p>
+			</div></td>
+			<td>
+				<div class="mo_oauth_thumbnail mo_oauth_pricing_free_tab" >
+				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header">Do It Yourself</h3>
+				<span>
+				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_basic_plan')" /></span></div>
 				<hr>
-				<p class="mo_oauth_pricing_text">$0</p>
-				<p></p><p></p>
+				<p class="mo_oauth_pricing_text">$149</p>
 				<hr>
 				<p class="mo_oauth_pricing_text" style="line-height:30px">
 					Auto register users<br>
-					Basic Attribute Mapping<br>
-					Basic Role Mapping<br>
-					1 OAuth provider support<br>
+					Advanced Attribute Mapping<br>
+					Advanced Role Mapping<br>
+					Multiple OAuth provider support<br>
 					Customize Login Buttons / Icons / Text<br>
 					Login widget<br>
 					Support for shortcode<br>
 					Display Options (on login form or registration form)<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
+					Extended OAuth API support after login **<br>
+					Multi-site Support<br>
+					Account Linking<br>
+					Login Reports<br>
+					Auto redirect / Protect your complete site<br>
+					Page Restriction according to roles<br>
+					Redirect to URL after login<br>
+					Redirect to URL after logout<br>
+					Domain specific registration restricitons<br>
+					Email notifications<br>
+					Reverse Proxy Support<br>
 					<br>
 				</p>
 				<hr>
-				
-				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support by Email</p>
-				</div></td>
-				<td>
+				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support with Email</p>
+				</div>
+			</td>
+			<td>
 				<div class="mo_oauth_thumbnail mo_oauth_pricing_free_tab" >
 				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header">Premium</h3>
 				<span>
-				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_premium_plan')" /> </span></div>
-				
+				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_premium_plan')" /></span></div>
 				<hr>
 				<p class="mo_oauth_pricing_text">$149 + One Time Setup Fees (Optional)</p>
 				<hr>
-				
 				<p class="mo_oauth_pricing_text" style="line-height:30px">
 					Auto register users<br>
 					Advanced Attribute Mapping<br>
@@ -267,13 +300,10 @@ function mo_oauth_licensing(){
 					Reverse Proxy Support<br>
 					End to End Integration **<br>
 				</p>
-				
 				<hr>
-				
 				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Premium Support Plans Available</p>
-				
-				</div></td>
-			
+				</div>
+			</td>			
 		</tr>	
 		</table>
 		<form style="display:none;" id="loginform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>" 
@@ -294,7 +324,7 @@ function mo_oauth_licensing(){
 				jQuery('#requestOrigin2').val(planType);
 				jQuery('#licenseform').submit();
 			}
-		
+			jQuery('.mo_oauth_content').css("width","100%");
 		</script>
 		<br>
 		<h3>* Steps to upgrade to premium plugin -</h3>
