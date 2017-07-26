@@ -266,18 +266,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 					// resource owner.
 					$resourceOwner = $provider->getResourceOwner($accessToken);
 
-					//var_export($resourceOwner->toArray());
-
-					// The provider provides a way to get an authenticated API request for
-					// the service, using the access token; it returns an object conforming
-					// to Psr\Http\Message\RequestInterface.
-					/*$request = $provider->getAuthenticatedRequest(
-						'GET',
-						$urlResourceOwnerDetails, //'https://graph.facebook.com/me/',
-						$accessToken
-					);
-					
-					//var_export($request);*/
 					
 					$resourceOwner = $resourceOwner->toArray();
 					$email = "";
@@ -333,6 +321,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					} else {
 						$random_password = wp_generate_password( 10, false );
 						$user_id = wp_create_user( $email, $random_password, $email );
+						$user = get_user_by( 'email', $email);
 						wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
 						wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
 					}
@@ -340,6 +329,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if($user_id){
 						wp_set_current_user($user_id);
 						wp_set_auth_cookie($user_id);
+						do_action( 'wp_login', $user->user_login );
 						wp_redirect(home_url());
 						exit;
 					} 					
