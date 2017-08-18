@@ -201,6 +201,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 					unset($_SESSION['oauth2state']);
 				}
 				exit('Invalid state');
+			} else if (!isset($_GET['code'])){
+				if(isset($_GET['error_description']))
+					exit($_GET['error_description']);
+				else if(isset($_GET['error']))
+					exit($_GET['error']);
+				exit('Invalid response');
 			} else {
 				
 				try {
