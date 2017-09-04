@@ -2,8 +2,6 @@
 
 include_once dirname( __FILE__ ) . '/eveonline/vendor/autoload.php';
 
-use Pheal\Pheal;
-use Pheal\Core\Config;
 
 class Mo_Oauth_Widget extends WP_Widget {
 	
@@ -128,11 +126,17 @@ class Mo_Oauth_Widget extends WP_Widget {
 	private function mo_oauth_load_login_script() {
 	?>
 	<script type="text/javascript">
+	
+		function HandlePopupResult(result) {
+			window.location.href = result;
+		}
+		
 		function moOAuthLogin(app_name) {
 			window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
 		}
 		function moOAuthLoginNew(app_name) {
-			window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
+			//window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
+			var myWindow = window.open('<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name, "", "width=500,height=500");
 		}
 	</script>
 	<?php
@@ -169,22 +173,15 @@ class Mo_Oauth_Widget extends WP_Widget {
 			foreach($appslist as $key => $app){
 				if($appname==$key){
 
-					$provider = new \League\OAuth2\Client\Provider\GenericProvider([
-						'clientId'                => $app['clientid'],
-						'clientSecret'            => $app['clientsecret'],
-						'redirectUri'             => $app['redirecturi'],
-						'urlAuthorize'            => $app['authorizeurl'],
-						'urlAccessToken'          => $app['accesstokenurl'],
-						'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
-					]);
-					
-					$authorizationUrl = $provider->getAuthorizationUrl();
+					$state = base64_encode($appname);
+					$authorizationUrl = $app['authorizeurl'];
+					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
+		
 					if(session_id() == '' || !isset($_SESSION))
 						session_start();
-					$_SESSION['oauth2state'] = $provider->getState();
+					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
-					if(!empty($app['scope']))
-						$authorizationUrl .= "&scope=".$app['scope'];
+					
 					header('Location: ' . $authorizationUrl);
 					exit;
 				}
@@ -196,12 +193,16 @@ class Mo_Oauth_Widget extends WP_Widget {
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
 			
+			// OAuth state security check
+			/*
 			if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
 				if (isset($_SESSION['oauth2state'])) {
 					unset($_SESSION['oauth2state']);
 				}
 				exit('Invalid state');
-			} else if (!isset($_GET['code'])){
+			} */
+			
+			if (!isset($_GET['code'])){
 				if(isset($_GET['error_description']))
 					exit($_GET['error_description']);
 				else if(isset($_GET['error']))
@@ -211,26 +212,25 @@ class Mo_Oauth_Widget extends WP_Widget {
 				
 				try {
 
-					if (!isset($_SESSION['appname']) || empty($_SESSION['appname'])) {
+					$currentappname = "";
+					
+					if (isset($_SESSION['appname']) && !empty($_SESSION['appname']))
+						$currentappname = $_SESSION['appname'];
+					else if (isset($_GET['state']) && !empty($_GET['state'])){
+						$currentappname = base64_decode($_GET['state']);
+					}
+					
+					if (empty($currentappname)) {
 						exit('No request found for this application.');
 					}
 					
-					$currentapp = $_SESSION['appname'];
 					$appslist = get_option('mo_oauth_apps_list');
 					$name_attr = "";
 					$email_attr = "";
+					$currentapp = false;
 					foreach($appslist as $key => $app){
-						if($key == $currentapp){
-							$provider = new \League\OAuth2\Client\Provider\GenericProvider([
-								'clientId'                => $app['clientid'],
-								'clientSecret'            => $app['clientsecret'],
-								'redirectUri'             => $app['redirecturi'],
-								'urlAuthorize'            => $app['authorizeurl'],
-								'urlAccessToken'          => $app['accesstokenurl'],
-								'urlResourceOwnerDetails' => $app['resourceownerdetailsurl']
-							]);
-							$urlResourceOwnerDetails = $app['resourceownerdetailsurl'];
-							
+						if($key == $currentappname){
+							$currentapp = $app;
 							if(isset($app['email_attr'])){
 								$email_attr = $app['email_attr'];
 							}
@@ -240,43 +240,25 @@ class Mo_Oauth_Widget extends WP_Widget {
 						}
 					}
 					
-					if (!isset($provider))
+					if (!$currentapp)
 						exit('Application not configured.');
 					
-					// Try to get an access token using the authorization code grant.
-					$accessToken = $provider->getAccessToken('authorization_code', [
-						'code' => $_GET['code']
-					]);
-									
-
-					if (substr($app['resourceownerdetailsurl'], -1) == "=") {
-						$provider = new \League\OAuth2\Client\Provider\GenericProvider([
-							'clientId'                => $app['clientid'],
-							'clientSecret'            => $app['clientsecret'],
-							'redirectUri'             => $app['redirecturi'],
-							'urlAuthorize'            => $app['authorizeurl'],
-							'urlAccessToken'          => $app['accesstokenurl'],
-							'urlResourceOwnerDetails' => $app['resourceownerdetailsurl'].$accessToken
-						]);
-					}
+					$mo_oauth_handler = new Mo_OAuth_Hanlder();
+					$accessToken = $mo_oauth_handler->getAccessToken($currentapp['accesstokenurl'], 'authorization_code', 
+						$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
+						
+					if(!$accessToken)
+						exit('Invalid token received.');
 				
-
-					// We have an access token, which we may use in authenticated
-					// requests against the service provider's API.
-					/*echo 'Access Token: ' . $accessToken->getToken() . "<br>";
-					echo 'Refresh Token: ' . $accessToken->getRefreshToken() . "<br>";
-					echo 'Expired in: ' . $accessToken->getExpires() . "<br>";
-					echo 'Already expired? ' . ($accessToken->hasExpired() ? 'expired' : 'not expired') . "<br>";*/
-
-					// Using the access token, we may look up details about the
-					// resource owner.
-					$resourceOwner = $provider->getResourceOwner($accessToken);
-
+					$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
+					if (substr($resourceownerdetailsurl, -1) == "=") {
+						$resourceownerdetailsurl .= $accessToken;
+					}
+					$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 					
-					$resourceOwner = $resourceOwner->toArray();
 					$email = "";
 					$name = "";
-					if($currentapp == "google"){
+					if($currentappname == "google"){
 						if(isset($resourceOwner['emails'])){
 							foreach($resourceOwner['emails'] as $email){
 								if(isset($email['value'])){
@@ -287,12 +269,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 						}
 						if(isset($resourceOwner['displayName']))
 							$name = $resourceOwner['displayName'];
-					} else if($currentapp == "facebook"){
+					} else if($currentappname == "facebook"){
 						if(isset($resourceOwner['email']))
 							$email = $resourceOwner['email'];
 						if(isset($resourceOwner['name']))
 							$name = $resourceOwner['name'];
-					}  else if($currentapp == "windows"){
+					}  else if($currentappname == "windows"){
 						if(isset($resourceOwner['emails']['preferred']))
 							$email = $resourceOwner['emails']['preferred'];
 						if(isset($resourceOwner['name']))
@@ -336,12 +318,16 @@ class Mo_Oauth_Widget extends WP_Widget {
 						wp_set_current_user($user_id);
 						wp_set_auth_cookie($user_id);
 						do_action( 'wp_login', $user->user_login );
-						wp_redirect(home_url());
+						//wp_redirect(home_url());
+						
+						$relaystate = home_url();
+						echo '<script>window.opener.HandlePopupResult("'.$relaystate.'");window.close();</script>';
 						exit;
+					
 					} 					
 					
 
-				} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+				} catch (Exception $e) {
 
 					// Failed to get the access token or user details.
 					//print_r($e);

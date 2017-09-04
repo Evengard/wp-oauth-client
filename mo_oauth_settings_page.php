@@ -1055,16 +1055,14 @@ function mo_eve_online_config() {
 				<input type="hidden" name="option" value="mo_oauth_contact_us_query_option" />
 				<table class="mo_settings_table">
 					<tr>
-						<td><b><font color="#FF0000">*</font>Email:</b></td>
-						<td><input type="email" class="mo_table_textbox" required name="mo_oauth_contact_us_email" value="<?php echo get_option("mo_oauth_admin_email"); ?>"></td>
+						<td><input type="email" class="mo_table_textbox" required name="mo_oauth_contact_us_email" placeholder="Enter email here"
+						value="<?php echo get_option("mo_oauth_admin_email"); ?>"></td>
 					</tr>
 					<tr>
-						<td><b>Phone:</b></td>
-						<td><input type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}" class="mo_table_textbox" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_admin_phone');?>"></td>
+						<td><input type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}" placeholder="Enter phone here" class="mo_table_textbox" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_admin_phone');?>"></td>
 					</tr>
 					<tr>
-						<td><b><font color="#FF0000">*</font>Query:</b></td>
-						<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
+						<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" placeholder="Enter your query here" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
 					</tr>
 				</table>
 				<div style="text-align:center;">
