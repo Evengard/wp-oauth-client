@@ -64,9 +64,17 @@ class Mo_OAuth_Hanlder {
 		
 		$content = json_decode($content,true);
 		if(isset($content["error_description"])){
-			exit($content["error_description"]);
+			if(is_array($content["error_description"]))
+				print_r($content["error_description"]);
+			else
+				echo $content["error_description"];
+			exit;
 		} else if(isset($content["error"])){
-			exit($content["error"]);
+			if(is_array($content["error"]))
+				print_r($content["error"]);
+			else
+				echo $content["error"];
+			exit;
 		} 
 		
 		return $content;
