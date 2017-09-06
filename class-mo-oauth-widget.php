@@ -1,7 +1,8 @@
 <?php
 
 include_once dirname( __FILE__ ) . '/eveonline/vendor/autoload.php';
-
+use Pheal\Pheal;
+use Pheal\Core\Config;
 
 class Mo_Oauth_Widget extends WP_Widget {
 	
@@ -11,6 +12,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		add_action( 'init', array( $this, 'mo_oauth_start_session' ) );
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
 		parent::__construct( 'mo_oauth_widget', 'miniOrange OAuth', array( 'description' => __( 'Login to Apps with OAuth', 'flw' ), ) );
+
 	 }
 	 
 	function mo_oauth_start_session() {
