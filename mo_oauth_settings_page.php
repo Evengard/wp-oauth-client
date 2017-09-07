@@ -411,7 +411,7 @@ function mo_oauth_apps_config() {
 			else
 				echo "<br><a href='admin.php?page=mo_oauth_settings&action=add'><button style='float:right'>Add Application</button></a>";
 			echo "<h3>Applications List</h3>";
-			if(sizeof($appslist)>0)
+			if(is_array($appslist) && sizeof($appslist)>0)
 				echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>You can only add 1 application with free version. Upgrade to <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>premium</b></a> to add more.</p>";
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
@@ -434,7 +434,7 @@ function add_app(){
 	
 		
 		$appslist = get_option('mo_oauth_apps_list');
-		if(sizeof($appslist)>0) {
+		if(is_array($appslist) && sizeof($appslist)>0) {
 			echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>You can only add 1 application with free version. Upgrade to <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>premium</b></a> to add more.</p>";
 			exit;
 		}
