@@ -90,7 +90,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					foreach($appslist as $key=>$app){
 						if($key=="eveonline")
 							continue;
-							$imageurl = "";
+						$imageurl = "";
 						if($key=='facebook')
 							$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
 						else if($key=='google')

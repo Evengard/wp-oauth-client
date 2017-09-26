@@ -202,6 +202,7 @@ class Customer {
 
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
 			$currentTimeInMillis = round(microtime(true) * 1000);
+			$currentTimeInMillis = number_format ( $currentTimeInMillis, 0, '', '' );
 
 			/* Creating the Hash using SHA-512 algorithm */
 			$stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
@@ -250,6 +251,7 @@ class Customer {
 
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
 			$currentTimeInMillis = round(microtime(true) * 1000);
+			$currentTimeInMillis = number_format ( $currentTimeInMillis, 0, '', '' );
 
 			/* Creating the Hash using SHA-512 algorithm */
 			$stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
