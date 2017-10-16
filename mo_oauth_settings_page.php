@@ -2,7 +2,7 @@
 
 
 function mo_register() {
-	
+
 	$currenttab = "";
 	if(isset($_GET['tab']))
 		$currenttab = $_GET['tab'];
@@ -12,40 +12,40 @@ function mo_register() {
 			<p style="color:red;">(Warning: <a href="http://php.net/manual/en/curl.installation.php" target="_blank">PHP CURL extension</a> is not installed or disabled. Please install/enable it before you proceed.)</p>
 		<?php
 		}
+		
+		mo_oauth_client_menu($currenttab);
 	?>
-<div id="tab">
-	<h2 class="nav-tab-wrapper">
-		<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> 
-		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a> 
-		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a> 
-		<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> 
-		<?php if(get_option('mo_oauth_new_customer')!=1 && get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
-	</h2>
-</div>
+
 <div id="mo_oauth_settings">
-	
+
 	<div class="miniorange_container">
 		<table style="width:100%;">
 		<tr>
 		<td style="vertical-align:top;width:65%;" class="mo_oauth_content">
 		<?php
+
 	if (get_option ( 'verify_customer' ) == 'true') {
+
 		mo_oauth_show_verify_password_page();
 	} else if (trim ( get_option ( 'mo_oauth_admin_email' ) ) != '' && trim ( get_option ( 'mo_oauth_admin_api_key' ) ) == '' && get_option ( 'new_registration' ) != 'true') {
 		mo_oauth_show_verify_password_page();
-	} else if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status') == 'MO_OTP_VALIDATION_FAILURE' ){
+	} else if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status')=='MO_OTP_VALIDATION_FAILURE' ||get_option('mo_oauth_registration_status') ==  'MO_OTP_DELIVERED_SUCCESS_PHONE' ||get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_FAILURE_PHONE'){
 		mo_oauth_show_otp_verification();
 	} else if (! mo_oauth_is_customer_registered()) {
 		delete_option ( 'password_mismatch' );
 		mo_oauth_show_new_registration_page();
 	} else {
-		
+
 		if($currenttab == 'customization')
 			mo_oauth_app_customization();
 		else if($currenttab == 'signinsettings')
 			mo_oauth_sign_in_settings();
 		else if($currenttab == 'licensing')
 			mo_oauth_licensing();
+		else if($currenttab == 'mapping')
+			mo_oauth_client_save_optional_config();
+		else if($currenttab == 'reports')
+			mo_oauth_client_reports();
 		else
 			mo_oauth_apps_config();
 	}
@@ -53,7 +53,7 @@ function mo_register() {
 			</td>
 			<?php if($currenttab != 'licensing') { ?>
 				<td style="vertical-align:top;padding-left:1%;" class="mo_oauth_sidebar">
-					<?php echo miniorange_support(); ?>	
+					<?php echo miniorange_support(); ?>
 				</td>
 			<?php } ?>
 			</tr>
@@ -87,7 +87,7 @@ function mo_oauth_show_new_registration_page() {
 						<tr class="hidden">
 							<td><b><font color="#FF0000">*</font>Website/Company Name:</b></td>
 							<td><input class="mo_table_textbox" type="text" name="company"
-							required placeholder="Enter website or company name" 
+							required placeholder="Enter website or company name"
 							value="<?php echo $_SERVER['SERVER_NAME']; ?>"/></td>
 						</tr>
 						<tr  class="hidden">
@@ -144,6 +144,8 @@ function mo_oauth_show_verify_password_page() {
 				<div id="toggle1" class="panel_toggle">
 					<h3>Login with miniOrange</h3>
 				</div>
+				<p><b>It seems you already have an account with miniOrange. Please enter your miniOrange email and password.<br/> <a href="#mo_oauth_forgot_password_link">Click here if you forgot your password?</a></b></p>
+
 				<div id="panel1">
 					</p>
 					<table class="mo_settings_table">
@@ -160,15 +162,31 @@ function mo_oauth_show_verify_password_page() {
 						<tr>
 							<td>&nbsp;</td>
 							<td><input type="submit" name="submit"
-								class="button button-primary button-large" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-								target="_blank"
-								href="<?php echo get_option('host_name') . "/moas/idp/userforgotpassword"; ?>">Forgot
-									your password?</a></td>
+								class="button button-primary button-large" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</form>
+
+								<input type="button" name="back-button" id="mo_oauth_back_button" onclick="document.getElementById('mo_oauth_change_email_form').submit();" value="Back" class="button button-primary button-large" />
+
+								<form id="mo_oauth_change_email_form" method="post" action="">
+									<input type="hidden" name="option" value="mo_oauth_change_email" />
+								</form></td>
+
+
+							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
+
+		<form name="f" method="post" action="" id="mo_oauth_forgotpassword_form">
+				<input type="hidden" name="option" value="mo_oauth_forgot_password_form_option"/>
 		</form>
+		<script>
+
+			jQuery("a[href=\"#mo_oauth_forgot_password_link\"]").click(function(){
+				jQuery("#mo_oauth_forgotpassword_form").submit();
+			});
+		</script>';
+
 		<?php
 }
 
@@ -176,34 +194,87 @@ function mo_oauth_sign_in_settings(){
 	?>
 	<div class="mo_table_layout">
 		<h2>Sign in options</h2>
-		
+
 		<h4>Option 1: Use a Widget</h4>
 		<ol>
 			<li>Go to Appearances > Widgets.</li>
 			<li>Select <b>"miniOrange OAuth"</b>. Drag and drop to your favourite location and save.</li>
 		</ol>
-		
+
 		<h4>Option 2: Use a Shortcode</h4>
 		<ul>
 			<li>Place shortcode <b>[mo_oauth_login]</b> in wordpress pages or posts.</li>
 		</ul>
 	</div>
+	
+	<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
+	<div class="mo_table_layout mo_oauth_premium_option">
+		<h3>Advanced Settings</h3>
+		<br><br>
+		<form id="role_mapping_form" name="f" method="post" action="">
+		<input disabled="true" type="checkbox" name="restrict_to_logged_in_users" value="1"><strong> Restrict site to logged in users</strong> ( Users will be auto redirected to OAuth login if not logged in )
+		<p><input disabled="true" type="checkbox" name="popup_login" value="1"><strong> Open login window in Popup</strong></p>
+		<table class="mo_oauth_client_mapping_table" id="mo_oauth_client_role_mapping_table" style="width:90%">
+			<tbody><tr>
+				<td><font style="font-size:13px;font-weight:bold;">Custom redirect URL after login </font>
+				</td>
+				<td><input disabled="true" type="text" name="custom_after_login_url" placeholder="" style="width:100%;" value=""></td>
+			</tr>
+			<tr>
+				<td><font style="font-size:13px;font-weight:bold;">Custom redirect URL after logout </font>
+				</td>
+				<td><input disabled="true" type="text" name="custom_after_logout_url" placeholder="" style="width:100%;" value=""></td>
+			</tr>
+			<tr><td>&nbsp;</td></tr>				
+			<tr>
+				<td><input disabled="true" type="submit" class="button button-primary button-large" value="Save Settings"></td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody></table>
+	</form>
+	</div>
+		
 	<?php
 }
 
 
-function mo_oauth_licensing(){
+function mo_oauth_client_menu($currenttab){
+	?>
 	
+	<div class="wrap">
+		<div><img style="float:left;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/logo.png"></div>
+		<h1>
+			OAuth Client 
+			<a class="license-button add-new-h2" href="admin.php?page=mo_oauth_settings&tab=licensing">Upgrade</a>
+		</h1>			
+	</div>
+				
+	<div id="tab">
+	<h2 class="nav-tab-wrapper">
+		<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a>
+		<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
+		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
+		<a class="nav-tab <?php if($currenttab == 'mapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=mapping">Attribute / Role Mapping</a>
+		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
+		<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
+		<!--<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>-->	
+		</h2>
+	</div>
+<?php }
+
+function mo_oauth_licensing(){
+
 ?>
 		<div class="mo_table_layout">
-		
+
 		<span style="float:right;margin-top:5px"><input type="button" name="ok_btn" id="ok_btn" class="button button-primary button-large" value="OK, Got It" onclick="window.location.href='admin.php?page=mo_oauth_settings'" /></span>
 		<h2>Licensing Plans</h2>
 		<hr>
 		<table class="mo_oauth_pricing_table">
 		<tr style="vertical-align:top;">
-		
-				
+
+
 			<td>
 			<div class="mo_oauth_thumbnail mo_oauth_pricing_paid_tab" >
 			<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header"><br>FREE</h3></div>
@@ -303,23 +374,23 @@ function mo_oauth_licensing(){
 				<hr>
 				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Premium Support Plans Available</p>
 				</div>
-			</td>			
-		</tr>	
+			</td>
+		</tr>
 		</table>
-		<form style="display:none;" id="loginform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>" 
+		<form style="display:none;" id="loginform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>"
 		target="_blank" method="post">
 		<input type="email" name="username" value="<?php echo get_option('mo_oauth_admin_email'); ?>" />
 		<input type="text" name="redirectUrl" value="<?php echo get_option( 'host_name').'/moas/viewlicensekeys'; ?>" />
 		<input type="text" name="requestOrigin" id="requestOrigin1"  />
 		</form>
-		<form style="display:none;" id="licenseform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>" 
+		<form style="display:none;" id="licenseform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>"
 		target="_blank" method="post">
 		<input type="email" name="username" value="<?php echo get_option('mo_oauth_admin_email'); ?>" />
 		<input type="text" name="redirectUrl" value="<?php echo get_option( 'host_name').'/moas/initializepayment'; ?>" />
 		<input type="text" name="requestOrigin" id="requestOrigin2"  />
 		</form>
 		<script>
-			
+
 			function getupgradelicensesform(planType){
 				jQuery('#requestOrigin2').val(planType);
 				jQuery('#licenseform').submit();
@@ -330,19 +401,19 @@ function mo_oauth_licensing(){
 		<h3>* Steps to upgrade to premium plugin -</h3>
 		<p>1. You will be redirected to miniOrange Login Console. Enter your password with which you created an account with us. After that you will be redirected to payment page.</p>
 		<p>2. Enter you card details and complete the payment. On successful payment completion, you will see the link to download the premium plugin.</p>
-		
+
 		<h3>** End to End Integration - We will setup a conference and do end to end configuration for you. We provide services to do the configuration on your behalf. </h3>
-		
+
 		<h3>* Multi-Site Support - We have a separate plugin for the multisite version. </h3>
 		</div>
-		
-	<?php	
+
+	<?php
 }
 function mo_oauth_app_customization(){
 	?>
 	<div class="mo_table_layout">
 	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
-		<input type="hidden" name="option" value="mo_oauth_app_customization" /> 
+		<input type="hidden" name="option" value="mo_oauth_app_customization" />
 		<h2>Customize Icons</h2>
 		<table class="mo_settings_table">
 			<tr>
@@ -387,7 +458,7 @@ function mo_oauth_apps_config() {
 	</style>
 	<div class="mo_table_layout">
 	<?php
-	
+
 		if(isset($_GET['action']) && $_GET['action']=='delete'){
 			if(isset($_GET['app']))
 				delete_app($_GET['app']);
@@ -395,16 +466,16 @@ function mo_oauth_apps_config() {
 			if(isset($_GET['app']))
 				instructions($_GET['app']);
 		}
-		
+
 		if(isset($_GET['action']) && $_GET['action']=='add'){
 			add_app();
-		} 
+		}
 		else if(isset($_GET['action']) && $_GET['action']=='update'){
 			if(isset($_GET['app']))
 				update_app($_GET['app']);
 		}
 		else if(get_option('mo_oauth_apps_list'))
-		{	
+		{
 			$appslist = get_option('mo_oauth_apps_list');
 			if(sizeof($appslist)>0)
 				echo "<br><a href='#'><button disabled style='float:right'>Add Application</button></a>";
@@ -420,7 +491,7 @@ function mo_oauth_apps_config() {
 			}
 			echo "</table>";
 			echo "<br><br>";
-	
+
 		} else {
 			add_app();
 		 } ?>
@@ -431,15 +502,15 @@ function mo_oauth_apps_config() {
 }
 
 function add_app(){
-	
-		
+
+
 		$appslist = get_option('mo_oauth_apps_list');
 		if(is_array($appslist) && sizeof($appslist)>0) {
 			echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>You can only add 1 application with free version. Upgrade to <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>premium</b></a> to add more.</p>";
 			exit;
 		}
 
-			
+
 	?>
 
 		<script>
@@ -451,11 +522,11 @@ function add_app(){
 				} else if(appname=="facebook"){
 					document.getElementById("instructions").innerHTML  = '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>.</li><li>Click on Create a New App/Add new App button. You will need to register as a Facebook developer to create an App.</li><li>Enter <b>Display Name</b>. And choose category.</li><li>Click on <b>Create App ID</b>.</li><li>From the left pane, select <b>Settings</b>.</li><li>From the tabs above, select <b>Advanced</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b><?php echo site_url()."/oauthcallback";?></b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Paste your App ID/Secret provided by Facebook into the fields above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 				} else if(appname=="eveonline"){
-					document.getElementById("instructions").innerHTML  = '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b><?php echo site_url()."/oauthcallback";?></b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+					document.getElementById("instructions").innerHTML  = '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b>https://auth.miniorange.com/moas/oauth/client/callback</b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 				} else{
 					document.getElementById("instructions").innerHTML  = '<strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b><?php echo site_url()."/oauthcallback";?></b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 				}
-				
+
 				if(appname=="other"){
 					jQuery("#mo_oauth_custom_app_name_div").show();
 					jQuery("#mo_oauth_authorizeurl_div").show();
@@ -483,15 +554,15 @@ function add_app(){
 					//jQuery("#mo_oauth_email_attr").removeAttr('required');
 					//jQuery("#mo_oauth_name_attr").removeAttr('required');
 				}
-				
+
 			}
 
-		</script>	
+		</script>
 		<div id="toggle2" class="panel_toggle">
 			<h3>Add Application</h3>
 		</div>
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
-		<input type="hidden" name="option" value="mo_oauth_add_app" /> 
+		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
 			<tr>
 			<td><strong><font color="#FF0000">*</font>Select Application:</strong></td>
@@ -549,16 +620,16 @@ function add_app(){
 			</tr>
 			</table>
 		</form>
-		
+
 		<div id="instructions">
-			
+
 		</div>
-		
+
 		<?php
 }
 
 function update_app($appname){
-	
+
 	$appslist = get_option('mo_oauth_apps_list');
 	foreach($appslist as $key => $app){
 		if($appname == $key){
@@ -567,21 +638,21 @@ function update_app($appname){
 			break;
 		}
 	}
-	
+
 	if(!$currentapp)
 		return;
-	
+
 	$is_other_app = false;
 	if(!in_array($currentappname, array("facebook","google","eveonline","windows")))
 		$is_other_app = true;
-	
+
 	?>
-		
+
 		<div id="toggle2" class="panel_toggle">
 			<h3>Update Application</h3>
 		</div>
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
-		<input type="hidden" name="option" value="mo_oauth_add_app" /> 
+		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
 			<tr>
 			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
@@ -626,7 +697,7 @@ function update_app($appname){
 			</tr>
 		</table>
 		</form>
-		
+
 		<?php if($is_other_app){ ?>
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
 		<h3>Attribute Mapping</h3>
@@ -634,7 +705,7 @@ function update_app($appname){
 		<input type="hidden" name="option" value="mo_oauth_attribute_mapping" />
 		<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_name" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
 		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
-		<table class="mo_settings_table">		
+		<table class="mo_settings_table">
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Email Attribute:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
@@ -653,10 +724,10 @@ function update_app($appname){
 		<script>
 		function testConfiguration(){
 			var mo_oauth_app_name = jQuery("#mo_oauth_app_name").val();
-			var myWindow = window.open('<?php echo site_url(); ?>' + '/?option=testattrmappingconfig&app='+mo_oauth_app_name, "Test Attribute Configuration", "width=600, height=600");	
+			var myWindow = window.open('<?php echo site_url(); ?>' + '/?option=testattrmappingconfig&app='+mo_oauth_app_name, "Test Attribute Configuration", "width=600, height=600");
 		}
 		</script>
-		<?php } 
+		<?php }
 }
 
 function delete_app($appname){
@@ -677,7 +748,7 @@ function instructions($appname){
 	} else if($appname=="facebook"){
 		echo '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>.</li><li>Click on Create a New App/Add new App button. You will need to register as a Facebook developer to create an App.</li><li>Enter <b>Display Name</b>. And choose category.</li><li>Click on <b>Create App ID</b>.</li><li>From the left pane, select <b>Settings</b>.</li><li>From the tabs above, select <b>Advanced</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b>'.site_url().'/oauthcallback</b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Paste your App ID/Secret provided by Facebook into the fields above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 	} else if($appname=="eveonline"){
-		echo '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b>'.site_url().'/oauthcallback</b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+		echo '<strong>Instructions:</strong><ol><li>Log in to your EVE Online account</li><li>At EVE Online, go to Support. Request for enabling OAuthfor a third-party application.</li><li>At EVE Online, add a new project/application. GenerateClient ID and Client Secret.</li><li>At EVE Online, set Redirect URL as <b>https://auth.miniorange.com/moas/oauth/client/callback</b></li><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 	} else{
 		echo '<br><strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b>'.site_url().'/oauthcallback</b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 	}
@@ -687,7 +758,7 @@ function mo_oauth_apps_config_old() {
 	?>
 			<!-- Google configurations -->
 		<form id="form-google" name="form-google" method="post" action="" style="display:none">
-			<input type="hidden" name="option" value="mo_oauth_google" /> 
+			<input type="hidden" name="option" value="mo_oauth_google" />
 			<input type="hidden" name="mo_oauth_google_scope" value="email" />
 			<div class="mo_table_layout">
 				<div id="toggle2" class="panel_toggle">
@@ -728,7 +799,7 @@ function mo_oauth_apps_config_old() {
 							<td colspan="2" id="google_instru" hidden>
 								<p>
 									<strong>Instructions:</strong>
-								
+
 								<ol>
 									<li>Visit the Google website for developers <a
 										href='https://console.developers.google.com/project'
@@ -804,7 +875,7 @@ function mo_oauth_apps_config_old() {
 							<td colspan="2" id="eve_instru" hidden>
 								<p>
 									<strong>Instructions:</strong>
-								
+
 								<ol>
 									<li>Log in to your EVE Online account</li>
 									<li>At EVE Online, go to Support. Request for enabling OAuth
@@ -828,10 +899,10 @@ function mo_oauth_apps_config_old() {
 				</div>
 			</div>
 		</form>
-		
+
 		<!-- Facebook -->
 		<form id="form-facebook" name="form-facebook" method="post" action=""  style="display:none">
-			<input type="hidden" name="option" value="mo_oauth_facebook" /> 
+			<input type="hidden" name="option" value="mo_oauth_facebook" />
 			<input type="hidden" name="mo_oauth_facebook_scope" value="email" />
 			<div class="mo_table_layout">
 				<div id="toggle4" class="panel_toggle">
@@ -872,7 +943,7 @@ function mo_oauth_apps_config_old() {
 							<td colspan="2" id="facebook_instru" hidden>
 								<p>
 									<strong>Instructions:</strong>
-								
+
 								<ol>
 									<li>Go to Facebook developers console <a
 										href='https://developers.facebook.com/apps/'
@@ -906,13 +977,10 @@ function mo_oauth_apps_config_old() {
 <?php
 }
 function mo_eve_online_config() {
-	?>
-<div id="tab">
-	<h2 class="nav-tab-wrapper">
-		<a class="nav-tab" href="admin.php?page=mo_oauth_settings">Configure OAuth</a> <a class="nav-tab  nav-tab-active"
-			href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a>
-	</h2>
-</div>
+	
+	mo_oauth_client_menu("mo_oauth_eve_online_setup");
+?>
+
 <div id="mo_eve_online_config">
 		<?php
 	$customerRegistered = mo_oauth_is_customer_registered ();
@@ -962,8 +1030,8 @@ function mo_eve_online_config() {
 							</p>
 							<p>
 								<strong>How to get Key ID and Verification Code:</strong>
-							
-							
+
+
 							<ol>
 								<li>Login to your EVE Online account from <a
 									href="https://community.eveonline.com/support/api-key/"
@@ -1112,20 +1180,291 @@ function mo_oauth_show_otp_verification(){
 							<tr>
 								<td>&nbsp;</td>
 								<td><br /><input type="submit" name="submit" value="Validate OTP" class="button button-primary button-large" />
+
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="button" name="back-button" id="mo_oauth_back_button" onclick="document.getElementById('mo_oauth_change_email_form').submit();" value="Back" class="button button-primary button-large" />
 								</td>
 							</tr>
 						</table>
-					</div>
+
 				</div>
 		</form>
 		<form name="f" id="mo_oauth_resend_otp_form" method="post" action="">
-			<input type="hidden" name="option" value="mo_oauth_resend_otp"/>
-		</form>	
+			<?php
+
+
+			if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status') == 'MO_OTP_VALIDATION_FAILURE') {
+				echo '<input type="hidden" name="option" value="mo_oauth_resend_otp_email"/>';
+			} else {
+				echo '<input type="hidden" name="option" value="mo_oauth_resend_otp_phone"/>';
+			}
+			?>
+		</form>
 		<form id="mo_oauth_change_email_form" method="post" action="">
 			<input type="hidden" name="option" value="mo_oauth_change_email" />
 		</form>
+		<?php
+
+			if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_FAILURE'|| get_option('mo_oauth_registration_status')=='MO_OTP_VALIDATION_FAILURE') {
+			echo '<hr>
+
+			<h3>I did not recieve any email with OTP . What should I do ?</h3>
+			<form id="mo_oauth_register_with_phone_form" method="post" action="">
+				<input type="hidden" name="option" value="mo_oauth_register_with_phone_option" />
+				If you cannot see the email from miniOrange in your mails, please check your <b>SPAM</b> folder. If you don\'t see an email even in the SPAM folder, verify your identity with our alternate method.
+				<br><br>
+				<b>Enter your valid phone number here and verify your identity using one time passcode sent to your phone.</b><br><br>
+				<input class="mo_oauth_table_textbox" type="tel" id="phone_contact" style="width:40%;"
+				pattern="[\+]\d{11,14}|[\+]\d{1,4}([\s]{0,1})(\d{0}|\d{9,10})" class="mo_oauth_table_textbox" name="phone"
+				title="Phone with country code eg. +1xxxxxxxxxx" required
+				placeholder="Phone with country code eg. +1xxxxxxxxxx"
+				value="'. get_site_option('mo_oauth_admin_phone').'" />
+				<br /><br /><input type="submit" value="Send OTP" class="button button-primary button-large" />
+
+			</form>';
+		}?></div>
 <?php
 }
+
+
+
+
+function mo_oauth_client_save_optional_config(){
+	
+	//Attribute mapping
+	
+	echo '
+	<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
+		<form name="" method="post" action="" class="mo_oauth_premium_option">
+		
+		<table id="myTable" width="98%" border="0" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:0px 0px 0px 10px;">
+		  <tr><td colspan="2"><h3>Attribute Mapping</h3><hr></td></tr>';
+		  
+		  echo '
+			<tr>
+			  <td style="width:200px;"><strong>Login/Create Wordpress account by: </strong></td>
+			  <td><select name="oauth_client_am_account_matcher" id="oauth_client_am_account_matcher">';
+				  echo '<option value="email" >Email</option>
+				  <option value="username" >Username</option>
+				</select>
+			  </td>
+			  </tr>
+			  <tr>
+				<td>&nbsp;</td>
+				<td><i>Users in Wordpress will be searched (existing wordpress users) or created (new users) based on this attribute. Use Email by default.</i></td>
+			  </tr>
+			  <tr>
+				<td style="width:150px;"><strong>Username <span style="color:red;">*</span>:</strong></td>
+				<td><input type="text" name="mo_oauth_client_am_username" placeholder="Enter attribute name for Username" style="width: 350px;" value="'.$mo_oauth_client_am_username.'" required /></td>
+			  </tr>
+			  <tr>
+				<td><strong>Email <span style="color:red;">*</span>:</strong></td>
+				<td><input type="text" name="oauth_client_am_email" placeholder="Enter attribute name for Email" style="width: 350px;" value="'.$oauth_client_am_email.'" required /></td>
+			  </tr>
+			  <tr>
+				<td><strong>First Name:</strong></td>
+				<td><input type="text" name="oauth_client_am_first_name" placeholder="Enter attribute name for First Name" style="width: 350px;" value="'.$oauth_client_am_first_name.'" /></td>
+			  </tr>
+			  <tr>
+				<td><strong>Last Name:</strong></td>
+				<td><input type="text" name="oauth_client_am_last_name" placeholder="Enter attribute name for Last Name" style="width: 350px;" value="'. $oauth_client_am_last_name.'" /></td>
+			  </tr>
+			  <tr>
+				<td><strong>Group/Role:</strong></td>
+				<td><input type="text" name="oauth_client_am_group_name" placeholder="Enter attribute name for Group/Role" style="width: 350px;" value="'. $oauth_client_am_group_name.'" /></td>
+			  </tr>
+			  <tr>
+				<td><strong>Display Name:</strong></td>
+				<td>
+					<select name="oauth_client_am_display_name" id="oauth_client_am_display_name" >
+						<option value="USERNAME"';
+						if(get_option('oauth_client_am_display_name') == 'USERNAME') { echo 'selected="selected"' ; }
+						echo '>Username</option>
+						<option value="FNAME"';
+						if(get_option('oauth_client_am_display_name') == 'FNAME') { echo 'selected="selected"' ; }
+						echo '>FirstName</option>
+						<option value="LNAME"';
+						if(get_option('oauth_client_am_display_name') == 'LNAME') { echo 'selected="selected"' ; }
+						echo '>LastName</option>
+						<option value="FNAME_LNAME"';
+						if(get_option('oauth_client_am_display_name') == 'FNAME_LNAME') {
+						echo 'selected="selected"' ;}
+						echo '>FirstName LastName</option>
+						<option value="LNAME_FNAME"';
+						if(get_option('oauth_client_am_display_name') == 'LNAME_FNAME') { echo 'selected="selected"' ; }
+						echo '>LastName FirstName</option>
+					</select>
+				</td>
+			  </tr>
+			  <tr><td colspan="2">
+				<h3>Map Custom Attributes</h3>Map extra IDP attributes which you wish to be included in the user profile below
+			</td><td><input type="button" name="add_attribute" value="+" onclick="add_custom_attribute();" class="button button-primary"  /></td>
+							<td><input type="button" name="remove_attribute" value="-" onclick="remove_custom_attribute();" class="button button-primary"   /></td></tr>
+			';
+		if(get_option('mo_oauth_client_custom_attrs_mapping')){
+			$custom_attributes = get_option('mo_oauth_client_custom_attrs_mapping');
+			$i = 0;
+			foreach($custom_attributes as $key=>$value){ $i++;
+			 echo '<tr class="rows"><td><input type="text" name="mo_oauth_client_custom_attribute_key_'.$i.'" placeholder="Enter field meta name"  value="'.$key.'" /></td>
+			 <td><input type="text" name="mo_oauth_client_custom_attribute_value_'.$i.'" placeholder="Enter attribute name from idp" style="width:74%;" value="'.$value.'" /></td>
+			 </tr>';
+			}
+		}else {
+			echo '<tr><td><input type="text" name="mo_oauth_client_custom_attribute_key_1" placeholder="Enter field meta name"   /></td>
+			 <td><input type="text" name="mo_oauth_client_custom_attribute_value_1" placeholder="Enter attribute name from idp" style="width:74%;"  /></td>
+			 </tr>';
+
+		}
+				echo '<tr id="save_config_element">
+				<td><br /><input type="submit" style="width:100px;" name="submit" value="Save" class="button button-primary button-large" /> &nbsp;
+				<br /><br />
+				</td>
+			  </tr>
+			 </table>
+			 </form>
+<script>
+		var countAttributes = jQuery("#myTable tr.rows").length;
+		function add_custom_attribute(){
+			countAttributes += 1;
+			rows = "<tr id=\"row_" +countAttributes + "\"><td><input type=\"text\" name=\"mo_oauth_client_custom_attribute_key_" + countAttributes + "\" id=\"mo_oauth_client_custom_attribute_key_" +countAttributes + "\"  placeholder=\"Enter field meta name\"  ></td><td><input type=\"text\" name=\"mo_oauth_client_custom_attribute_value_" +countAttributes + "\" id=\"mo_oauth_client_custom_attribute_value_" +countAttributes + "\" placeholder=\"Enter Attribute Name from Idp\" style=\"width:74%;\" /></td></tr>";
+
+			jQuery(rows).insertBefore(jQuery("#save_config_element"));
+
+
+			}
+
+			function remove_custom_attribute(){
+				jQuery("#row_" + countAttributes).remove();
+				countAttributes -= 1;
+				if(countAttributes == 0)
+					countAttributes = 1;
+			}
+			</script>
+			 <br />
+			 
+			 <div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
+		<form name="oauth_client_form_am_role_mapping" method="post" action=""  class="mo_oauth_premium_option">
+				
+				<table width="98%" border="0" style="background-color:#FFFFFF; border:1px solid #CCCCCC; padding:0px 0px 0px 10px;">
+					<tr>
+						<td colspan="2">
+							<h3>Role Mapping (Optional)</h3><hr>
+						</td>
+					</tr>
+					 
+					<tr><td colspan="2"><br/><b>NOTE: </b>Role will be assigned only to non-admin users (user that do NOT have Administrator privileges). You will have to manually change the role of Administrator users.<br /><br/></td></tr>
+					<tr><td colspan="2"><input type="checkbox" id="dont_create_user_if_role_not_mapped" name="mo_oauth_client_dont_create_user_if_role_not_mapped" value="checked"'
+					.get_option('mo_oauth_client_dont_create_user_if_role_not_mapped');
+					echo '/>&nbsp;&nbsp;Do not auto create users if roles are not mapped here.<br /></td></tr>
+					<tr><td colspan="2"><input type="checkbox" id="dont_allow_unlisted_user_role" name="oauth_client_am_dont_allow_unlisted_user_role" value="checked"'.get_option('oauth_client_am_dont_allow_unlisted_user_role');
+					echo' />&nbsp;&nbsp;Do not assign role to unlisted users.<br /></td></tr>
+					<tr><td colspan="2"><input type="checkbox" id="dont_update_existing_user_role" name="mo_oauth_client_dont_update_existing_user_role" value="checked"'
+					.get_option('oauth_client_am_dont_update_existing_user_role');
+					echo '/>&nbsp;&nbsp;Do not update existing user\'s roles.<br /><br /></td></tr>
+					<tr>
+						<td><strong>Default Role:</strong></td>
+						<td>';
+								$disabled = '';
+								echo '<select id="oauth_client_am_default_user_role" name="oauth_client_am_default_user_role"'. $disabled.' style="width:150px;" >';
+								$default_role = get_option('oauth_client_am_default_user_role');
+								if(empty($default_role))
+									$default_role = get_option('default_role');
+								echo wp_dropdown_roles( $default_role );
+							echo'	</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;<i>Select the default role to assign to Users.</i>
+						</td>
+				  	</tr>';
+						$is_disabled = "";
+						$wp_roles = new WP_Roles();
+						$roles = $wp_roles->get_names();
+						$roles_configured = get_option('oauth_client_am_role_mapping');
+						foreach ($roles as $role_value => $role_name) {
+							echo '<tr><td><b>' . $role_name .'</b></td><td><input type="text" name="oauth_client_am_group_attr_values_' . $role_value . '" value="' . $roles_configured[$role_value] .'" placeholder="Semi-colon(;) separated Group/Role value for ' . $role_name . '" style="width: 400px;"' . $is_disabled . ' /></td></tr>';
+						}
+					echo '<tr>
+						<td>&nbsp;</td>
+						<td><br /><input type="submit" style="width:100px;" name="submit" value="Save" class="button button-primary button-large"';
+						echo '/> &nbsp;
+						<br /><br />
+						</td>
+					</tr>
+				</table>
+			</form>';
+
+}
+
+function mo_oauth_client_reports(){
+	
+	$disabled = true;
+	echo'<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
+		<div class="mo_table_layout mo_oauth_premium_option">
+		<div class="mo_oauth_client_small_layout">';
+	echo'<h2>Login Transactions Report</h2>
+			<div class="mo_oauth_client_small_layout hidden">	
+				<div style="float:right;margin-top:10px">
+					<input type="submit" '.$disabled.' name="printcsv" style="width:100px;" value="Print PDF" class="button button-success button-large">
+					<input type="submit" '.$disabled.' name="printpdf" style="width:100px;" value="Print CSV" class="button button-success button-large">
+				</div>
+				<h3>Advanced Report</h3>
+				
+				<form id="mo_oauth_client_advanced_reports" method="post" action="">
+					<input type="hidden" name="option" value="mo_oauth_client_advanced_reports">
+					<table style="width:100%">
+					<tr>
+					<td width="33%">WordPress Username : <input class="mo_oauth_client_table_textbox" type="text" '.$disabled.' name="username" required="" placeholder="Search by username" value=""></td>
+					<td width="33%">IP Address :<input class="mo_oauth_client_table_textbox" type="text" '.$disabled.' name="ip" required="" placeholder="Search by IP" value=""></td>
+					<td width="33%">Status : <select '.$disabled.' name="status" style="width:100%;">
+						  <option value="success" selected="">Success</option>
+						  <option value="failed">Failed</option>
+						</select>
+					</td>
+					</tr>
+					<tr><td><br></td></tr>
+					<tr>
+					<td width="33%">User Action : <select '.$disabled.' name="action" style="width:100%;">
+						  <option value="login" selected="">User Login</option>
+						  <option value="register">User Registeration</option>
+						</select>
+					</td>
+					<td width="33%">From Date : <input '.$disabled.' class="mo_oauth_client_table_textbox" type="date"  name="fromdate"></td>
+					<td width="33%">To Date :<input '.$disabled.' class="mo_oauth_client_table_textbox" type="date"  name="todate"></td>
+					</tr>
+					</table>
+					<br><input type="submit" '.$disabled.' name="Search" style="width:100px;" value="Search" class="button button-primary button-large">
+				</form>
+				<br>
+			</div>
+			
+			<table id="login_reports" class="display" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		                <th>IP Address</th>
+						<th>Username</th>
+						<th>Status</th>
+		                <th>TimeStamp</th>
+		            </tr>
+		        </thead>
+		        <tbody>';
+		           
+echo'	        </tbody>
+		    </table>
+		</div>
+		
+	</div>
+<script>
+	jQuery(document).ready(function() {
+		jQuery("#login_reports").DataTable({
+			"order": [[ 3, "desc" ]]
+		});
+		jQuery("#error_reports").DataTable({
+			"order": [[ 4, "desc" ]]
+		});
+	} );
+</script>';
+
+}
+
 ?>

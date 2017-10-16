@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.0.41
+* Version: 6.0.42
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -16,7 +16,7 @@ require('mo_oauth_settings_page.php');
 require('manage-avatar.php');
 
 class mo_oauth {
-	
+
 	function __construct() {
 		add_action( 'admin_menu', array( $this, 'miniorange_menu' ) );
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
@@ -28,19 +28,19 @@ class mo_oauth {
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
 	}
- 	
+
 	function mo_oauth_success_message() {
 		$class = "error";
 		$message = get_option('message');
-		echo "<div class='" . $class . "'> <p>" . $message . "</p></div>"; 
+		echo "<div class='" . $class . "'> <p>" . $message . "</p></div>";
 	}
-	
+
 	function mo_oauth_error_message() {
 		$class = "updated";
 		$message = get_option('message');
-		echo "<div class='" . $class . "'><p>" . $message . "</p></div>"; 
+		echo "<div class='" . $class . "'><p>" . $message . "</p></div>";
 	}
-	
+
 	public function mo_oauth_deactivate() {
 		//delete all stored key-value pairs
 		delete_option('host_name');
@@ -54,28 +54,28 @@ class mo_oauth {
 		delete_option('message');
 		delete_option('mo_oauth_registration_status');
 	}
-	
+
 	private $settings = array(
 		'mo_oauth_facebook_client_secret'	=> '',
 		'mo_oauth_facebook_client_id' 		=> '',
 		'mo_oauth_facebook_enabled' 		=> 0
 	);
-	
+
 	function miniorange_menu() {
-		
+
 		//Add miniOrange plugin to the menu
 		$page = add_menu_page( 'MO OAuth Settings ' . __( 'Configure OAuth', 'mo_oauth_settings' ), 'miniOrange OAuth', 'administrator', 'mo_oauth_settings', array( $this, 'mo_oauth_login_options' ) ,plugin_dir_url(__FILE__) . 'images/miniorange.png');
 
 		if(get_option('mo_oauth_new_customer')!=1)
 			$page = add_submenu_page( 'mo_oauth_settings', 'MO Login ' . __('Advanced EVE Online Settings'), __('Advanced EVE Online Settings'), 'administrator', 'mo_oauth_eve_online_setup', 'mo_eve_online_config' );
-		
+
 		global $submenu;
 		if ( is_array( $submenu ) AND isset( $submenu['mo_oauth_settings'] ) )
 		{
 			$submenu['mo_oauth_settings'][0][0] = __( 'Configure OAuth', 'mo_oauth_login' );
 		}
 	}
-	
+
 	function  mo_oauth_login_options () {
 		global $wpdb;
 		update_option( 'host_name', 'https://auth.miniorange.com' );
@@ -84,40 +84,42 @@ class mo_oauth {
 			mo_register();
 		} else {
 			mo_register();
-		}	
+		}
 	}
-	
+
 	function plugin_settings_style() {
-		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugins_url( 'style_settings.css', __FILE__ ) );
-		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugins_url( 'phone.css', __FILE__ ) );
+		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugins_url( 'css/style_settings.css', __FILE__ ) );
+		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugins_url( 'css/phone.css', __FILE__ ) );
+		wp_enqueue_style( 'mo_oauth_admin_settings_datatable', plugins_url( 'css/jquery.dataTables.min.css', __FILE__ ) );
 	}
-	
+
 	function plugin_settings_script() {
-		wp_enqueue_script( 'mo_oauth_admin_settings_script', plugins_url( 'settings.js', __FILE__ ) );
-		wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugins_url('phone.js', __FILE__ ) );
+		wp_enqueue_script( 'mo_oauth_admin_settings_script', plugins_url( 'js/settings.js', __FILE__ ) );
+		wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugins_url('js/phone.js', __FILE__ ) );
+		wp_enqueue_script( 'mo_oauth_admin_settings_datatable', plugins_url( 'js/jquery.dataTables.min.js', __FILE__ ) );
 	}
-	
+
 	function mo_login_widget_text_domain(){
 		load_plugin_textdomain( 'flw', FALSE, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
-	
+
 	private function mo_oauth_show_success_message() {
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 		add_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 	}
-	
+
 	private function mo_oauth_show_error_message() {
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 	}
-	
+
 	public function mo_oauth_check_empty_or_null( $value ) {
 		if( ! isset( $value ) || empty( $value ) ) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	function miniorange_oauth_save_settings(){
 		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {	//register the admin to miniOrange
 			//validation and sanitization
@@ -145,23 +147,24 @@ class mo_oauth {
 				$lname = sanitize_text_field( $_POST['lname'] );
 				$company = sanitize_text_field( $_POST['company'] );
 			}
-			
+
 			update_option( 'mo_oauth_admin_email', $email );
 			update_option( 'mo_oauth_admin_phone', $phone );
 			update_option( 'mo_oauth_admin_fname', $fname );
 			update_option( 'mo_oauth_admin_lname', $lname );
 			update_option( 'mo_oauth_admin_company', $company );
-			
+
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
 			}
-			
+
 			if( strcmp( $password, $confirmPassword) == 0 ) {
 				update_option( 'password', $password );
 				$customer = new Customer();
+				$email=get_option('mo_oauth_admin_email');
 				$content = json_decode($customer->check_customer(), true);
 				if( strcasecmp( $content['status'], 'CUSTOMER_NOT_FOUND') == 0 ){
-					$content = json_decode($customer->send_otp_token(), true);
+					$content = json_decode($customer->send_otp_token($email,''), true);
 					if(strcasecmp($content['status'], 'SUCCESS') == 0) {
 						update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . '. Please enter the OTP here to verify your email.');
 						$_SESSION['mo_oauth_transactionId'] = $content['txId'];
@@ -221,7 +224,7 @@ class mo_oauth {
 				$email = sanitize_email( $_POST['email'] );
 				$password = sanitize_text_field( $_POST['password'] );
 			}
-		
+
 			update_option( 'mo_oauth_admin_email', $email );
 			update_option( 'password', $password );
 			$customer = new Customer();
@@ -235,10 +238,10 @@ class mo_oauth {
 				delete_option('password');
 				update_option( 'message', 'Customer retrieved successfully');
 				delete_option('verify_customer');
-				$this->mo_oauth_show_success_message(); 
+				$this->mo_oauth_show_success_message();
 			} else {
 				update_option( 'message', 'Invalid username or password. Please try again.');
-				$this->mo_oauth_show_error_message();		
+				$this->mo_oauth_show_error_message();
 			}
 		}
 		//save API KEY for eveonline from eveonline setup
@@ -257,7 +260,7 @@ class mo_oauth {
 				$apiKey = sanitize_text_field( $_POST['mo_eve_api_key'] );
 				$verificationCode = sanitize_text_field( $_POST['mo_eve_verification_code'] );
 			}
-			
+
 			update_option( 'mo_eve_api_key' ,$apiKey);
 			update_option('mo_eve_verification_code', $verificationCode);
 			if( get_option('mo_eve_api_key') && get_option('mo_eve_verification_code') ) {
@@ -277,7 +280,7 @@ class mo_oauth {
 			$corps = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_corps'] ));
 			$alliances = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_alliances'] ));
 			$charName = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_char_name'] ));
-			
+
 			update_option( 'mo_eve_allowed_corps' ,$corps );
 			update_option( 'mo_eve_allowed_alliances', $alliances );
 			update_option( 'mo_eve_allowed_char_name', $charName );
@@ -312,17 +315,17 @@ class mo_oauth {
 				$clientid = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_id'] ));
 				$clientsecret = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_secret'] ));
 				$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
-				
-				
+
+
 				if(get_option('mo_oauth_apps_list'))
 					$appslist = get_option('mo_oauth_apps_list');
 				else
 					$appslist = array();
-				
+
 				$email_attr = "";
 				$name_attr = "";
 				$newapp = array();
-				
+
 				$isupdate = false;
 				foreach($appslist as $key => $currentapp){
 					if($appname == $key){
@@ -331,14 +334,14 @@ class mo_oauth {
 						break;
 					}
 				}
-				
+
 				if(!$isupdate && sizeof($appslist)>0){
 					update_option( 'message', 'You can only add 1 application with free version. Upgrade to premium version if you want to add more applications.');
 					$this->mo_oauth_show_error_message();
 					return;
 				}
-					
-				
+
+
 				$newapp['clientid'] = $clientid;
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
@@ -383,7 +386,7 @@ class mo_oauth {
 					//$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
 					//$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
 				}
-				
+
 				$newapp['authorizeurl'] = $authorizeurl;
 				$newapp['accesstokenurl'] = $accesstokenurl;
 				$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
@@ -407,7 +410,7 @@ class mo_oauth {
 			$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
 			$email_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_email_attr'] ));
 			$name_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_name_attr'] ));
-					
+
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
 				if($appname == $key){
@@ -440,7 +443,7 @@ class mo_oauth {
 				$clientid = sanitize_text_field( $_POST['mo_oauth_google_client_id'] );
 				$clientsecret = sanitize_text_field( $_POST['mo_oauth_google_client_secret'] );
 			}
-			
+
 			if(mo_oauth_is_customer_registered()) {
 				update_option( 'mo_oauth_google_enable', isset( $_POST['mo_oauth_google_enable']) ? $_POST['mo_oauth_google_enable'] : 0);
 				update_option( 'mo_oauth_google_scope', $scope);
@@ -465,7 +468,7 @@ class mo_oauth {
 				update_option('message', 'Please register customer before trying to save other configurations');
 				$this->mo_oauth_show_error_message();
 			}
-		} 
+		}
 		//submit eveonline form
 		else if(isset($_POST['option']) and $_POST['option'] == "mo_oauth_eveonline"){
 			if( mo_oauth_is_curl_installed() == 0 ) {
@@ -482,7 +485,7 @@ class mo_oauth {
 				$clientid = sanitize_text_field($_POST['mo_oauth_eveonline_client_id']);
 				$clientsecret = sanitize_text_field($_POST['mo_oauth_eveonline_client_secret']);
 			}
-			
+
 			if(mo_oauth_is_customer_registered()) {
 				update_option( 'mo_oauth_eveonline_enable', isset($_POST['mo_oauth_eveonline_enable']) ? $_POST['mo_oauth_eveonline_enable'] : 0);
 				update_option( 'mo_oauth_eveonline_client_id', $clientid);
@@ -506,7 +509,7 @@ class mo_oauth {
 				update_option('message', 'Please register customer before trying to save other configurations');
 				$this->mo_oauth_show_error_message();
 			}
-		} 
+		}
 		// submit facebook app
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_facebook" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
@@ -525,7 +528,7 @@ class mo_oauth {
 				$clientid = sanitize_text_field( $_POST['mo_oauth_facebook_client_id'] );
 				$clientsecret = sanitize_text_field( $_POST['mo_oauth_facebook_client_secret'] );
 			}
-			
+
 			if(mo_oauth_is_customer_registered()) {
 				update_option( 'mo_oauth_facebook_enable', isset( $_POST['mo_oauth_facebook_enable']) ? $_POST['mo_oauth_facebook_enable'] : 0);
 				update_option( 'mo_oauth_facebook_scope', $scope);
@@ -550,7 +553,7 @@ class mo_oauth {
 				update_option('message', 'Please register customer before trying to save other configurations');
 				$this->mo_oauth_show_error_message();
 			}
-		} 
+		}
 		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_contact_us_query_option" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
@@ -574,12 +577,14 @@ class mo_oauth {
 				}
 			}
 		}
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_resend_otp" ) {
+		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_resend_otp_email" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
 			}
+
 			$customer = new Customer();
-			$content = json_decode($customer->send_otp_token(), true);
+			$email=get_option('mo_oauth_admin_email');
+			$content = json_decode($customer->send_otp_token($email, ''), true);
 			if(strcasecmp($content['status'], 'SUCCESS') == 0) {
 					update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . ' again. Please check if you got the otp and enter it here.');
 					$_SESSION['mo_oauth_transactionId'] = $content['txId'];
@@ -590,12 +595,69 @@ class mo_oauth {
 					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
 					$this->mo_oauth_show_error_message();
 			}
+		}else if (isset($_POST ['option']) and $_POST ['option'] == "mo_oauth_resend_otp_phone") {
+
+				if( mo_oauth_is_curl_installed() == 0 ) {
+				return $this->mo_oauth_show_curl_error();
+			}
+				$phone = get_option('mo_oauth_admin_phone');
+				$customer = new Customer();
+				$content = json_decode($customer->send_otp_token('', $phone, FALSE, TRUE), true);
+				if (strcasecmp($content ['status'], 'SUCCESS') == 0) {
+					update_option('message', ' A one time passcode is sent to ' . $phone . ' again. Please check if you got the otp and enter it here.');
+					update_option('mo_oauth_transactionId', $content ['txId']);
+					update_option('mo_oauth_registration_status', 'MO_OTP_DELIVERED_SUCCESS_PHONE');
+					$this->mo_oauth_show_success_message();
+				} else {
+					update_option('message', 'There was an error in sending email. Please click on Resend OTP to try again.');
+					update_option('mo_oauth_registration_status', 'MO_OTP_DELIVERED_FAILURE_PHONE');
+					$this->mo_oauth_show_error_message();
+				}
+			}else if (isset($_POST ['option']) && $_POST ['option'] == 'mo_oauth_forgot_password_form_option') {
+				if (! mo_oauth_is_curl_installed()) {
+					update_option('mo_oauth_message', 'ERROR: <a href="http://php.net/manual/en/curl.installation.php" target="_blank">PHP cURL extension</a> is not installed or disabled. Resend OTP failed.');
+					$this->mo_oauth_show_error_message();
+					return;
+				}
+
+				$email = get_option('mo_oauth_admin_email');
+
+				$customer = new Customer();
+				$content = json_decode($customer->mo_oauth_forgot_password($email), true);
+				
+				if (strcasecmp($content ['status'], 'SUCCESS') == 0) {
+					update_option('message', 'Your password has been reset successfully. Please enter the new password sent to ' . $email . '.');
+					$this->mo_oauth_show_success_message();
+			}
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_change_email" ) {
+			//Adding back button
+			update_option('verify_customer', '');
 			update_option('mo_oauth_registration_status','');
-		}
+			update_option('new_registration','true');
+		}else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_with_phone_option" ) {
+				if(!mo_oauth_is_curl_installed()) {
+					return $this->mo_oauth_show_curl_error();
+				}
+				$phone = sanitize_text_field($_POST['phone']);
+				$phone = str_replace(' ', '', $phone);
+				$phone = str_replace('-', '', $phone);
+				update_option('mo_oauth_admin_phone', $phone);
+				$customer = new Customer();
+				$content=json_decode( $customer->send_otp_token('', $phone, FALSE, TRUE),true);
+				if($content) {
+					update_option( 'message', ' A one time passcode is sent to ' . get_site_option('mo_oauth_admin_phone') . '. Please enter the otp here to verify your email.');
+					$_SESSION['mo_oauth_transactionId'] = $content['txId'];
+					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS_PHONE');
+					$this->mo_oauth_show_success_message();
+				}else{
+					update_option('message','There was an error in sending SMS. Please click on Resend OTP to try again.');
+					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE_PHONE');
+					$this->mo_oauth_show_error_message();
+				}
+			}
 	}
-	
+
 	function mo_oauth_get_current_customer(){
 		$customer = new Customer();
 		$content = $customer->get_customer_key();
@@ -613,13 +675,13 @@ class mo_oauth {
 		} else {
 			update_option( 'message', 'You already have an account with miniOrange. Please enter a valid password.');
 			update_option('verify_customer', 'true');
-			delete_option('new_registration');
+			///delete_option('new_registration');
 			//mo_register();
 			$this->mo_oauth_show_error_message();
-			
+
 		}
 	}
-	
+
 	function create_customer(){
 		$customer = new Customer();
 		$customerKey = json_decode( $customer->create_customer(), true );
@@ -639,7 +701,7 @@ class mo_oauth {
 			$this->mo_oauth_show_success_message();
 		}
 	}
-	
+
 	function mo_oauth_show_curl_error() {
 		if( mo_oauth_is_curl_installed() == 0 ) {
 			update_option( 'message', '<a href="http://php.net/manual/en/curl.installation.php" target="_blank">PHP CURL extension</a> is not installed or disabled. Please enable it to continue.');
@@ -647,12 +709,12 @@ class mo_oauth {
 			return;
 		}
 	}
-	
+
 	function mo_oauth_shortcode_login(){
 		$mowidget = new Mo_Oauth_Widget;
 		$mowidget->mo_oauth_login_form();
 	}
-	
+
 }
 
 	function mo_oauth_my_show_extra_profile_fields($user) {
@@ -692,7 +754,7 @@ class mo_oauth {
 			return 1;
 		}
 	}
-	
+
 	function mo_oauth_is_curl_installed() {
 		if  (in_array  ('curl', get_loaded_extensions())) {
 			return 1;
@@ -700,5 +762,5 @@ class mo_oauth {
 			return 0;
 		}
 	}
-	
+
 new mo_oauth;
