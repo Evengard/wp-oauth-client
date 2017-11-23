@@ -2,8 +2,8 @@
 Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 6.0.43
+Tested up to: 4.9
+Stable tag: 6.0.44
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
