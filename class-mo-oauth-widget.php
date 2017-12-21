@@ -323,7 +323,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if($user_id){
 						wp_set_current_user($user_id);
 						wp_set_auth_cookie($user_id);
-						do_action( 'wp_login', $user->user_login );
+						$user  = get_user_by( 'ID',$user_id );
+						do_action( 'wp_login', $user->user_login, $user );
 						//wp_redirect(home_url());
 
 						$relaystate = home_url();
