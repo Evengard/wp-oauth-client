@@ -98,11 +98,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 							continue;
 							$imageurl = "";
 						if($key=='facebook')
-							$imageurl = plugins_url( 'images/icons/icon_facebook.png', __FILE__ );
+							$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
 						else if($key=='google')
-							$imageurl = plugins_url( 'images/icons/icon_google.png', __FILE__ );
+							$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
 						else if($key=='windows')
-							$imageurl = plugins_url( 'images/icons/windowslive.png', __FILE__ );
+							$imageurl = plugins_url( 'images/windowslogin.png', __FILE__ );
 
 						if(!empty($imageurl) && empty($custom_css)){
 						?><br/><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="<?php echo $style;?>" src="<?php echo $imageurl; ?>"></a></div><?php
