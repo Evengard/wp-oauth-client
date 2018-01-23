@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.0.45
+* Version: 6.1.1
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -403,6 +403,7 @@ class mo_oauth {
 			update_option( 'mo_oauth_icon_width', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_width'])));
 			update_option( 'mo_oauth_icon_height', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_height'])));
 			update_option( 'mo_oauth_icon_margin', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_margin'])));
+			update_option('mo_oauth_icon_configure_css', stripcslashes(sanitize_text_field($_POST['mo_oauth_icon_configure_css'])));
 			update_option( 'message', 'Your settings were saved' );
 			$this->mo_oauth_show_success_message();
 		}

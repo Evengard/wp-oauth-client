@@ -3,11 +3,11 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 6.0.45
+Stable tag: 6.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server.
+OAuth Login plugin allows login with your google, facebook, twitter, Custom OAuth server, Openid Connect app.
 
 == Description ==
 
@@ -22,6 +22,7 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 *	Role Mapping- Assign roles to users registering through Oauth Login based on rules you define.
 *	Oauth Provider Support- It Supports only one Oauth Provider. (PREMIUM : Supports Multiple Oauth Provider)
 *	Redirect URL after Login- Automatically Redirect user after successful login. Note: Does not include custom redirect URL
+*	Custom CSS
 *	Customize Login Buttons / Icons / Text- Wide range of Oauth login Buttons/Icons and it allows you to customize Text shadow and 
 *	Login Widget- Use Widgets to easily integrate the login link with your WordPress site
 *	Support for Shortcode- Use shortcode to place login button anywhere in your Theme or Plugin
@@ -41,6 +42,7 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 *	App domain specific Registration Restrictions- Restricts registration on your site based on the person's email address domain
 *	Email notifications- You can customize the E-mail templates used for the automatic email notifications related to user registration.
 *	Page Restriction according to roles- Limit Access to pages based on user status or roles. This WordPress plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.
+*	Openid Connect support *
 
 
 = No SSL restriction =
@@ -74,7 +76,7 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 = Once Activated =
 1. Go to `Settings-> miniOrange OAuth -> Configure OAuth`, and follow the instructions
 2. Go to `Appearance->Widgets` ,in available widgets you will find `miniOrange OAuth` widget, drag it to chosen widget area where you want it to appear.
-3. Now visit your site and you will see login with widget.
+3. Now visit your site and y-ou will see login with widget.
 
 = For Viewing Corporation, Alliance, Character Name in user profile =
 To view Corporation, Alliance and Character Name in edit user profile, copy the following code in the end of your theme's `Theme Functions(functions.php)`. You can find `Theme Functions(functions.php)` in `Appearance->Editor`.
@@ -116,6 +118,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+
+= 6.1.1 =
+CSS customizations
+
 = 6.0.2 =
 Added premium features page.
 
@@ -209,98 +215,3 @@ Added Windows Live app and bug fixes
 
 = 1.0 =
 * First version with supported applications as EVE Online and Google.
-
-== Upgrade Notice ==
-= 6.0.2 =
-Added premium features page.
-
-= 6.0.1 =
-Updated list of OAuth Providers.
-
-= 5.22 =
-Handled self signed SSL sites and slashes.
-
-= 5.21 =
-Bug fixes fetching user resource
-
-= 5.20 =
-Added shortcode option
-
-= 5.12 =
-Added Windows Live app and bug fixes
-
-= 5.10 =
-* Changed callback url
-
-= 5.9 =
-* Added UI customizations.
-
-= 5.8 =
-* Bug fix for warnings showing up.
-
-= 5.3 =
-* Compatibility with WordPress 4.7.3
-
-= 2.4 =
-* Registration Fixes 
-
-= 2.3 =
-* Eve Online Changes
-* Compatibility with WordPress 4.5.1
-
-= 2.2 =
-* Bug fixes
-* Compatibility with WordPress 4.5
-
-= 2.1 =
-* Bug fixes
-
-= 2.0 =
-* Email after first login.
-* Redirection after login - same page or custom.
-* Shortcode
-* Added option for alllowed faction.
-* Denied access for character, alliance, corp, faction.
-
-
-= 1.8 =
-* Sets last_name as EVE Online Character Name when user logs in for the first time
-
-= 1.7 =
-* Bug fixes for some users facing problem after sign in
-
-= 1.6 =
-* Bug fixes.
-
-= 1.5 =
-* Fixed bug where user was not redirecting to EVE Online in some php versions.
-
-= 1.4 =
-* Bug fixes
-
-= 1.3 =
-* Bug fixes
-
-= 1.2 =
-* Bug fixes
-
-= 1.1 =
-* Added email ID verification during registration.
-
-= 1.0.5 =
-* Added Login with Facebook
-
-= 1.0.4 =
-* Updates user's profile picture with his EVE Online charcater image.
-
-= 1.0.3 =
-* Bug fix
-
-= 1.0.2 =
-* Updated version
-
-= 1.0.1 =
-* Updated version
-
-= 1.0 =
-First version of plugin.

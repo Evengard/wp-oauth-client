@@ -253,10 +253,10 @@ function mo_oauth_client_menu($currenttab){
 	<div id="tab">
 	<h2 class="nav-tab-wrapper">
 		<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a>
+		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 		<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
 		<a class="nav-tab <?php if($currenttab == 'mapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=mapping">Attribute / Role Mapping</a>
-		<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 		<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
 		<!--<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>-->	
 		</h2>
@@ -410,6 +410,19 @@ function mo_oauth_licensing(){
 	<?php
 }
 function mo_oauth_app_customization(){
+	
+	$custom_css = get_option('mo_oauth_icon_configure_css');
+	function format_custom_css_value( $textarea ){ 
+		$lines = explode(";", $textarea);
+		for($i=0;$i<count($lines);$i++)
+		{if($i<count($lines)-1)
+			echo $lines[$i].";\r\n";
+		
+		else if($i==count($lines)-1)
+			echo $lines[$i]."\r\n";
+		}
+	}
+	
 	?>
 	<div class="mo_table_layout">
 	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
@@ -427,6 +440,18 @@ function mo_oauth_app_customization(){
 			<tr>
 				<td><strong>Icon Margins:</strong></td>
 				<td><input  type="text" id="mo_oauth_icon_margin" name="mo_oauth_icon_margin" value="<?php echo get_option('mo_oauth_icon_margin');?>"> e.g. 2px 0px or auto</td>
+			</tr>
+			<tr>
+				<td><strong>Custom CSS:</strong></td>
+				<td><textarea type="text" id="mo_oauth_icon_configure_css" style="resize: vertical; width:400px; height:180px;  margin:5% auto;" rows="6" name="mo_oauth_icon_configure_css"><?php echo rtrim(trim(format_custom_css_value( $custom_css )),';');?></textarea><br/><b>Example CSS:</b> 
+<pre>.oauthloginbutton{
+	background: #7272dc;
+	height:40px;
+	padding:8px;
+	text-align:center;
+	color:#fff;
+}</pre>
+			</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

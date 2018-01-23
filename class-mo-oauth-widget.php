@@ -72,6 +72,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 				$style = get_option('mo_oauth_icon_width') ? "width:".get_option('mo_oauth_icon_width').";" : "";
 				$style .= get_option('mo_oauth_icon_height') ? "height:".get_option('mo_oauth_icon_height').";" : "";
 				$style .= get_option('mo_oauth_icon_margin') ? "margin:".get_option('mo_oauth_icon_margin').";" : "";
+				$custom_css = get_option('mo_oauth_icon_configure_css');
+				if(empty($custom_css))
+					echo '<style>.oauthloginbutton{background: #7272dc;height:40px;padding:8px;text-align:center;color:#fff;}</style>';
+				else
+					echo '<style>'.$custom_css.'</style>';
 
 				if( get_option('mo_oauth_google_enable') ) {
 				?>
@@ -86,6 +91,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 				if( get_option('mo_oauth_facebook_enable') ) { ?>
 					<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a> <?php
 				}
+				
 				if (is_array($appslist)) {
 					foreach($appslist as $key=>$app){
 						if($key=="eveonline")
@@ -97,17 +103,23 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$imageurl = plugins_url( 'images/icons/icon_google.png', __FILE__ );
 						else if($key=='windows')
 							$imageurl = plugins_url( 'images/icons/windowslive.png', __FILE__ );
-						
-						if(!empty($imageurl)){
-						?><button style="<?php echo $style;?>" class="loginBtn loginBtn--<?php echo $key?>" onclick="moOAuthLoginNew('<?php echo $key;?>');">
-  								Login with <?php echo ucwords($key);?></button><?php
-						} else { ?><button style="<?php echo $style;?>" class="loginBtn loginBtn--generic" onclick="moOAuthLoginNew('<?php echo $key;?>');">
-  								Login with <?php echo ucwords($key);?></button><?php
-						}?>
-						
-					<?php
+
+						if(!empty($imageurl) && empty($custom_css)){
+						?><br/><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="<?php echo $style;?>" src="<?php echo $imageurl; ?>"></a></div><?php
+						} else { 
+							$appclass = "oauth_app_".str_replace(" ","-",$key);
+							echo '<br/><a href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div  style="'.$style.'" class="oauthloginbutton '.$appclass.'">';
+							if (array_key_exists('displayappname', $app) && !empty($app['displayappname']) ) {
+								echo $app['displayappname'];
+							} else {
+								echo 'Login with '.ucwords($key);
+							}
+							echo '</div></a>';
+						}
+
 					}
 				}
+
 
 			} else {
 				?>
