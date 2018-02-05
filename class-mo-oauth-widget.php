@@ -62,9 +62,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$appsConfigured = true;
 
 		if( ! is_user_logged_in() ) {
-			?>
-			<a href="http://miniorange.com/cloud-identity-broker-service" style="display: none;">EVE Online OAuth SSO login</a>
-			<?php
+			
 			if( $appsConfigured ) {
 
 				$this->mo_oauth_load_login_script();
