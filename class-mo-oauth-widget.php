@@ -323,8 +323,13 @@ class Mo_Oauth_Widget extends WP_Widget {
 						$user_id = $user->ID;
 					} else {
 						$random_password = wp_generate_password( 10, false );
-						$user_id = wp_create_user( $email, $random_password, $email );
-						$user = get_user_by( 'email', $email);
+						
+						if(is_email($email))
+							$user_id = wp_create_user( $email, $random_password, $email );
+						else
+							$user_id = wp_create_user( $email, $random_password);
+						
+						$user = get_user_by( 'login', $email);
 						
 						wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
 						wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
