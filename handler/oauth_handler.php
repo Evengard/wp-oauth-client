@@ -13,6 +13,7 @@ class Mo_OAuth_Hanlder {
 		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
 		curl_setopt( $ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Authorization: Basic '.base64_encode($clientid.":".$clientsecret),
 			'Accept: application/json'
 		));
 		
