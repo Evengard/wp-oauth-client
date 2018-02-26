@@ -20,12 +20,16 @@ class Mo_OAuth_Hanlder {
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, 'redirect_uri='.urlencode($redirect_url).'&grant_type='.$grant_type.'&client_id='.$clientid.'&client_secret='.$clientsecret.'&code='.$code);
 		$content = curl_exec($ch);
 		
+		
 		if(curl_error($ch)){
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
 			exit( curl_error($ch) );
 		}
 
-		if(!is_array(json_decode($content, true)))
+		if(!is_array(json_decode($content, true))){
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
 			exit("Invalid response received.");
+		}
 		
 		$content = json_decode($content,true);
 		if(isset($content["error_description"])){
@@ -35,6 +39,7 @@ class Mo_OAuth_Hanlder {
 		} else if(isset($content["access_token"])) {
 			$access_token = $content["access_token"];
 		} else {
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
 			exit('Invalid response received from OAuth Provider. Contact your administrator for more details.');
 		}
 		
@@ -56,12 +61,16 @@ class Mo_OAuth_Hanlder {
 				));
 				
 		$content = curl_exec($ch);
+		
 		if(curl_error($ch)){
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
 			exit( curl_error($ch) );
 		}
 		
-		if(!is_array(json_decode($content, true)))
+		if(!is_array(json_decode($content, true))) {
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
 			exit("Invalid response received.");
+		}
 		
 		$content = json_decode($content,true);
 		if(isset($content["error_description"])){

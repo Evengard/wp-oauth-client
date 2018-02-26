@@ -724,8 +724,8 @@ function update_app($appname){
 		</form>
 		</div>
 
-		<div class="mo_table_layout" id="attribute-mapping">
 		<?php if($is_other_app){ ?>
+		<div class="mo_table_layout" id="attribute-mapping">
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
 		<h3>Attribute Mapping</h3>
 		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> above to get configuration for attribute mapping.<br></p>
