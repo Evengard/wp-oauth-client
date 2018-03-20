@@ -244,10 +244,6 @@ function mo_oauth_client_menu($currenttab){
 	
 	<div class="wrap">
 		<div><img style="float:left;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/logo.png"></div>
-		<h1>
-			OAuth Client 
-			<a class="license-button add-new-h2" href="admin.php?page=mo_oauth_settings&tab=licensing">Upgrade</a>
-		</h1>			
 	</div>
 				
 	<div id="tab">
@@ -258,125 +254,218 @@ function mo_oauth_client_menu($currenttab){
 		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
 		<a class="nav-tab <?php if($currenttab == 'mapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=mapping">Attribute / Role Mapping</a>
 		<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
-		<!--<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>-->	
+		<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
 		</h2>
 	</div>
 <?php }
 
+
+
 function mo_oauth_licensing(){
 
 ?>
-		<div class="mo_table_layout">
+		<div class="mo_oauth_table_layout">
 
 		<span style="float:right;margin-top:5px"><input type="button" name="ok_btn" id="ok_btn" class="button button-primary button-large" value="OK, Got It" onclick="window.location.href='admin.php?page=mo_oauth_settings'" /></span>
 		<h2>Licensing Plans</h2>
 		<hr>
-		<table class="mo_oauth_pricing_table">
-		<tr style="vertical-align:top;">
+		<table class="table mo_table-bordered mo_table-striped">
+
+            <thead>
+            <tr style="background-color:#0085ba">
+                <th width="20%"><br><br><br>
+                    <h3><font color="#FFFFFF">Features \ Plans</font></h3></th>
+                <th class="text-center" width="10%"><br><br><br></h3><p class="mo_plan-desc"></p><h3><font color="#FFFFFF">FREE</font><b class="tooltip"><span class="tooltiptext"></span></b><br><span>
+                </span></h3></th>
+                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Standard<br></font></h3><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$99</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+
+                <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
+                       onclick="getupgradelicensesform('wp_oauth_client_standard_plan')"/>
 
 
-			<td>
-			<div class="mo_oauth_thumbnail mo_oauth_pricing_paid_tab" >
-			<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header"><br>FREE</h3></div>
-			<hr>
-			<p class="mo_oauth_pricing_text">$0</p>
-			<p></p><p></p>
-			<hr>
-			<p class="mo_oauth_pricing_text" style="line-height:30px">
-				Auto register users<br>
-				Basic Attribute Mapping<br>
-				Basic Role Mapping<br>
-				1 OAuth provider support<br>
-				Customize Login Buttons / Icons / Text<br>
-				Login widget<br>
-				Support for shortcode<br>
-				Display Options (on login form or registration form)<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-			</p>
-			<hr>
-			<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support by Email</p>
-			</div></td>
-			<td>
-				<div class="mo_oauth_thumbnail mo_oauth_pricing_free_tab" >
-				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header">Do It Yourself</h3>
-				<span>
-				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_basic_plan')" /></span></div>
-				<hr>
-				<p class="mo_oauth_pricing_text">$149</p>
-				<hr>
-				<p class="mo_oauth_pricing_text" style="line-height:30px">
-					Auto register users<br>
-					Advanced Attribute Mapping<br>
-					Advanced Role Mapping<br>
-					Multiple OAuth provider support<br>
-					Customize Login Buttons / Icons / Text<br>
-					Login widget<br>
-					Support for shortcode<br>
-					Display Options (on login form or registration form)<br>
-					Extended OAuth API support after login **<br>
-					Multi-site Support<br>
-					Account Linking<br>
-					Login Reports<br>
-					Auto redirect / Protect your complete site<br>
-					Page Restriction according to roles<br>
-					Redirect to URL after login<br>
-					Redirect to URL after logout<br>
-					Domain specific registration restricitons<br>
-					Email notifications<br>
-					Reverse Proxy Support<br>
-					<br>
-				</p>
-				<hr>
-				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Basic Support with Email</p>
-				</div>
-			</td>
-			<td>
-				<div class="mo_oauth_thumbnail mo_oauth_pricing_free_tab" >
-				<div style="height:50px;padding:10px 0px"><h3 class="mo_oauth_pricing_header">Premium</h3>
-				<span>
-				<input type="button" name="upgrade_btn" class="button button-primary button-large" value="Upgrade Now" onclick="getupgradelicensesform('wp_oauth_client_premium_plan')" /></span></div>
-				<hr>
-				<p class="mo_oauth_pricing_text">$149 + One Time Setup Fees (Optional)</p>
-				<hr>
-				<p class="mo_oauth_pricing_text" style="line-height:30px">
-					Auto register users<br>
-					Advanced Attribute Mapping<br>
-					Advanced Role Mapping<br>
-					Multiple OAuth provider support<br>
-					Customize Login Buttons / Icons / Text<br>
-					Login widget<br>
-					Support for shortcode<br>
-					Display Options (on login form or registration form)<br>
-					Extended OAuth API support after login **<br>
-					Multi-site Support<br>
-					Account Linking<br>
-					Login Reports<br>
-					Auto redirect / Protect your complete site<br>
-					Page Restriction according to roles<br>
-					Redirect to URL after login<br>
-					Redirect to URL after logout<br>
-					Domain specific registration restricitons<br>
-					Email notifications<br>
-					Reverse Proxy Support<br>
-					End to End Integration **<br>
-				</p>
-				<hr>
-				<p class="mo_oauth_pricing_text"  style="height:30px;padding:10px 0px">Premium Support Plans Available</p>
-				</div>
-			</td>
-		</tr>
-		</table>
+                </span></h3></th>
+
+                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Premium</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$149</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+      <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
+                       onclick="getupgradelicensesform('wp_oauth_client_premium_plan')"/>
+
+            </th>
+			<th class="text-center" width="10%"><h3><font color="#FFFFFF">Enterprise</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$249</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+      <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
+                       onclick="getupgradelicensesform('wp_oauth_client_enterprise_plan')"/>
+
+            </th></tr>
+            </thead>
+            <tbody class="mo_align-center mo-fa-icon">
+			<tr>
+                <td>OAuth Provider Support</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+				<td>Unlimited</td>
+            </tr>
+            <tr>
+			<td>Auto register users</td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+            <td>Auto fill OAuth servers configuration</td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+            <td>Basic Attribute Mapping (Email, FirstName)</td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Login using the link</td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Auto Create Users</td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Custom Attribute Mapping (Username, FirstName, LastName, Email, custom attributes in user_meta table)</td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Login widget / shortcode</td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Custom login buttons and CSS</td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+                <td>Custom Redirect URL after login and logout</td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			 <tr>
+                <td>Basic Role Mapping (Support for default role for new users)</td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Advanced Role Mapping</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Force authentication / Protect complete site</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Force authentication / Protect complete site</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>OpenId Connect Support (Login using OpenId Connect Server)</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Multiple Userinfo endpoints support</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Account Linking </td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Domain specific registration </td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Multi-site Support</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Reverse Proxy Support</td>
+                <td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+                <td>BuddyPress Attribute Mapping</td>
+                <td></td>
+				<td></td>
+				<td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+                <td>Page Restriction</td>
+                <td></td>
+				<td></td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+                <td>WP hooks for different events</td>
+                <td></td>
+				<td></td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+			<tr>
+                <td>Login Reports / Analytics</td>
+                <td></td>
+				<td></td>
+                <td></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+        </table>
 		<form style="display:none;" id="loginform" action="<?php echo get_option( 'host_name').'/moas/login'; ?>"
 		target="_blank" method="post">
 		<input type="email" name="username" value="<?php echo get_option('mo_oauth_admin_email'); ?>" />
@@ -401,14 +490,12 @@ function mo_oauth_licensing(){
 		<h3>* Steps to upgrade to premium plugin -</h3>
 		<p>1. You will be redirected to miniOrange Login Console. Enter your password with which you created an account with us. After that you will be redirected to payment page.</p>
 		<p>2. Enter you card details and complete the payment. On successful payment completion, you will see the link to download the premium plugin.</p>
-
-		<h3>** End to End Integration - We will setup a conference and do end to end configuration for you. We provide services to do the configuration on your behalf. </h3>
-
-		<h3>* Multi-Site Support - We have a separate plugin for the multisite version. </h3>
 		</div>
 
 	<?php
 }
+
+
 function mo_oauth_app_customization(){
 	
 	$custom_css = get_option('mo_oauth_icon_configure_css');
