@@ -201,8 +201,7 @@ class Customer {
 			$username = get_option('mo_oauth_admin_email');
 			$phone=get_option('mo_oauth_admin_phone');
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-			$currentTimeInMillis = round(microtime(true) * 1000);
-			$currentTimeInMillis = number_format ( $currentTimeInMillis, 0, '', '' );
+			$currentTimeInMillis = self::get_timestamp();
 
 			/* Creating the Hash using SHA-512 algorithm */
 			$stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
@@ -247,6 +246,38 @@ class Customer {
 			return $content;
 		}
 
+		public function get_timestamp() {
+		    $url = get_option ( 'host_name' ) . '/moas/rest/mobile/get-timestamp';
+		    $ch = curl_init ( $url );
+
+		    curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true );
+		    curl_setopt ( $ch, CURLOPT_ENCODING, "" );
+		    curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+		    curl_setopt ( $ch, CURLOPT_AUTOREFERER, true );
+		    curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false );
+		    curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false ); // required for https urls
+
+		    curl_setopt ( $ch, CURLOPT_MAXREDIRS, 10 );
+
+		    curl_setopt ( $ch, CURLOPT_POST, true );
+
+		    $proxy_host = get_option("mo_proxy_host");
+		    if(!empty($proxy_host)){
+		        curl_setopt($ch, CURLOPT_PROXY, get_option("mo_proxy_host"));
+		        curl_setopt($ch, CURLOPT_PROXYPORT, get_option("mo_proxy_port"));
+		        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		        curl_setopt($ch, CURLOPT_PROXYUSERPWD, get_option("mo_proxy_username").':'.get_option("mo_proxy_password"));
+		    }
+		    $content = curl_exec ( $ch );
+
+		    if (curl_errno ( $ch )) {
+		        echo 'Error in sending curl Request';
+		        exit ();
+		    }
+		    curl_close ( $ch );
+		    return $content;
+		}
+
 		function validate_otp_token($transactionId,$otpToken){
 			$url = get_option('host_name') . '/moas/api/auth/validate';
 			$ch = curl_init($url);
@@ -257,8 +288,7 @@ class Customer {
 			$username = get_option('mo_oauth_admin_email');
 
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-			$currentTimeInMillis = round(microtime(true) * 1000);
-			$currentTimeInMillis = number_format ( $currentTimeInMillis, 0, '', '' );
+			$currentTimeInMillis = self::get_timestamp();
 
 			/* Creating the Hash using SHA-512 algorithm */
 			$stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
@@ -339,10 +369,10 @@ class Customer {
 		$apiKey = get_option ( 'mo_oauth_admin_api_key' );
 		
 		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
-		$currentTimeInMillis = round ( microtime ( true ) * 1000 );
+		$currentTimeInMillis = self::get_timestamp();
 		
 		/* Creating the Hash using SHA-512 algorithm */
-		$stringToHash = $customerKey . number_format ( $currentTimeInMillis, 0, '', '' ) . $apiKey;
+		$stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
 		$hashValue = hash ( "sha512", $stringToHash );
 		
 		$customerKeyHeader = "Customer-Key: " . $customerKey;
