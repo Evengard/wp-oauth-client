@@ -168,7 +168,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 	}
 
 	public function register_plugin_styles() {
-		wp_enqueue_style( 'style_login_widget', plugins_url( 'style_login_widget.css', __FILE__ ) );
+		wp_enqueue_style( 'style_login_widget', plugins_url( 'css/style_login_widget.css', __FILE__ ) );
 	}
 
 
@@ -190,6 +190,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					$state = base64_encode($appname);
 					$authorizationUrl = $app['authorizeurl'];
+					if(strpos($authorizationUrl, '?' ) !== false)
+					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
+				    else 
 					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
 
 					if(session_id() == '' || !isset($_SESSION))
@@ -366,11 +369,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$token = $client_id . ':' . number_format($timestamp, 0, '', '') . ':' . $api_key;
 
 			$customer_token = get_option('customer_token');
-			$blocksize = 16;
-			$pad = $blocksize - ( strlen( $token ) % $blocksize );
-			$token =  $token . str_repeat( chr( $pad ), $pad );
-			$token_params_encrypt = mcrypt_encrypt( MCRYPT_RIJNDAEL_128, $customer_token, $token, MCRYPT_MODE_ECB );
-			$token_params_encode = base64_encode( $token_params_encrypt );
+			$method = 'AES-128-ECB';
+			$ivSize = openssl_cipher_iv_length($method);
+			$iv     = openssl_random_pseudo_bytes($ivSize);
+			$token_params_encrypt = openssl_encrypt ($token, $method, $customer_token,OPENSSL_RAW_DATA||OPENSSL_ZERO_PADDING, $iv);
+			$token_params_encode = base64_encode( $iv.$token_params_encrypt );
 			$token_params = urlencode( $token_params_encode );
 
 			$return_url = urlencode( site_url() . '/?option=mooauth' );

@@ -667,6 +667,15 @@ function add_app(){
 					//jQuery("#mo_oauth_name_attr").removeAttr('required');
 				}
 
+				if(appname == 'eveonline')
+					{
+						jQuery("#callbackurl").val("https://auth.miniorange.com/moas/oauth/client/callback");
+					}
+					else
+					{
+						jQuery("#callbackurl").val("<?php echo site_url().'/oauthcallback';?>");
+					}
+
 			}
 
 		</script>
@@ -688,6 +697,9 @@ function add_app(){
 				  <option value="other">Other</option>
 				</select>
 			</td>
+			</tr>
+			<tr><td><strong>Redirect / Callback URL</strong></td>
+			<td><input class="mo_table_textbox" id="callbackurl"  type="text" readonly="true" value='<?php echo site_url()."/oauthcallback";?>'></td>
 			</tr>
 			<tr  style="display:none" id="mo_oauth_custom_app_name_div">
 				<td><strong><font color="#FF0000">*</font>Custom App Name:</strong></td>
@@ -774,6 +786,9 @@ function update_app($appname){
 				<?php echo $currentappname;?><br><br>
 			</td>
 			</tr>
+			<tr><td><strong>Redirect / Callback URL</strong></td>
+			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php if($currentappname != 'eveonline'){ echo site_url()."/oauthcallback"; } else { echo "https://auth.miniorange.com/moas/oauth/client/callback";} ?>'></td>
+			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value="<?php echo $currentapp['clientid'];?>"></td>
@@ -804,7 +819,7 @@ function update_app($appname){
 				<td>&nbsp;</td>
 				<td>
 					<input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
-					<?php if($is_other_app){?><input type="submit" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" /><?php } ?>
+					<?php if($is_other_app){?><input type="button" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" /><?php } ?>
 				</td>
 			</tr>
 		</table>
