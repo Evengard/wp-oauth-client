@@ -3,7 +3,7 @@ Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 6.1.23
+Stable tag: 6.1.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,6 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 = FREE VERSION FEATURES =
 
 *	Supports login with any 3rd party OAuth server or custom OAuth server.
-*	Optionally Auto Register Users- Automatic user registration after login if the user is not already registered with your site
 *	Attribute Mapping- Basic Attribute Mapping feature to map wordpress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
 *	Role Mapping- Assign roles to users registering through Oauth Login based on rules you define.
 *	Oauth Provider Support- It Supports only one Oauth Provider. (PREMIUM : Supports Multiple Oauth Provider)
@@ -32,6 +31,7 @@ OAuth Login plugin allows login with your google, facebook, twitter or other cus
 = PREMIUM VERSION FEATURES =
 
 *	All the Free Version Features
+*	Optionally Auto Register Users- Automatic user registration after login if the user is not already registered with your site
 *	Auto Redirect- Provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
 *	Extended OAuth API support- Extend OAuth API support to extend functionality to the existing OAuth client.
 *	Multi-site Support- Unique ability to support multiple sites under one account

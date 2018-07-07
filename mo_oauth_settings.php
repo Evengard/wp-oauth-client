@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.1.23
+* Version: 6.1.24
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -14,6 +14,7 @@ include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
 require('mo_oauth_settings_page.php');
 require('manage-avatar.php');
+require('views/feedback_form.php');
 
 class mo_oauth {
 
@@ -27,6 +28,7 @@ class mo_oauth {
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
+		//add_action( 'admin_footer', array( $this, 'mo_oauth_client_feedback_request' ) );
 		
 		if(get_option('mo_oauth_eveonline_enable') == 1 )
 			add_action( 'admin_notices', array($this,'mooauth_admin_notice__success'));
@@ -48,6 +50,10 @@ class mo_oauth {
 		echo "<div class='" . $class . "'> <p>" . $message . "</p></div>";
 	}
 
+	function mo_oauth_client_feedback_request() {
+		mo_oauth_client_display_feedback_form();
+	}
+	
 	function mo_oauth_error_message() {
 		$class = "updated";
 		$message = get_option('message');
@@ -643,33 +649,66 @@ class mo_oauth {
 					update_option('message', 'Your password has been reset successfully. Please enter the new password sent to ' . $email . '.');
 					$this->mo_oauth_show_success_message();
 			}
-		}
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_change_email" ) {
+		} else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_change_email" ) {
 			//Adding back button
 			update_option('verify_customer', '');
 			update_option('mo_oauth_registration_status','');
 			update_option('new_registration','true');
-		}else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_with_phone_option" ) {
-				if(!mo_oauth_is_curl_installed()) {
-					return $this->mo_oauth_show_curl_error();
-				}
-				$phone = sanitize_text_field($_POST['phone']);
-				$phone = str_replace(' ', '', $phone);
-				$phone = str_replace('-', '', $phone);
-				update_option('mo_oauth_admin_phone', $phone);
-				$customer = new Customer();
-				$content=json_decode( $customer->send_otp_token('', $phone, FALSE, TRUE),true);
-				if($content) {
-					update_option( 'message', ' A one time passcode is sent to ' . get_site_option('mo_oauth_admin_phone') . '. Please enter the otp here to verify your email.');
-					$_SESSION['mo_oauth_transactionId'] = $content['txId'];
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS_PHONE');
-					$this->mo_oauth_show_success_message();
-				}else{
-					update_option('message','There was an error in sending SMS. Please click on Resend OTP to try again.');
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE_PHONE');
-					$this->mo_oauth_show_error_message();
-				}
+		} else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_with_phone_option" ) {
+			if(!mo_oauth_is_curl_installed()) {
+				return $this->mo_oauth_show_curl_error();
 			}
+			$phone = sanitize_text_field($_POST['phone']);
+			$phone = str_replace(' ', '', $phone);
+			$phone = str_replace('-', '', $phone);
+			update_option('mo_oauth_admin_phone', $phone);
+			$customer = new Customer();
+			$content=json_decode( $customer->send_otp_token('', $phone, FALSE, TRUE),true);
+			if($content) {
+				update_option( 'message', ' A one time passcode is sent to ' . get_site_option('mo_oauth_admin_phone') . '. Please enter the otp here to verify your email.');
+				$_SESSION['mo_oauth_transactionId'] = $content['txId'];
+				update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS_PHONE');
+				$this->mo_oauth_show_success_message();
+			}else{
+				update_option('message','There was an error in sending SMS. Please click on Resend OTP to try again.');
+				update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE_PHONE');
+				$this->mo_oauth_show_error_message();
+			}
+		}
+		
+		else if ( isset( $_POST['option'] ) and $_POST['option'] == 'mo_oauth_client_skip_feedback' ) {
+			deactivate_plugins( __FILE__ );
+			update_option( 'message', 'Plugin deactivated successfully' );
+			$this->mo_oauth_show_success_message();
+		}
+		else if ( isset( $_POST['mo_oauth_client_feedback'] ) and $_POST['mo_oauth_client_feedback'] == 'true' ) {
+			$user = wp_get_current_user();
+			$message = 'Plugin Deactivated:';
+			$deactivate_reason         = array_key_exists( 'deactivate_reason_radio', $_POST ) ? $_POST['deactivate_reason_radio'] : false;
+			$deactivate_reason_message = array_key_exists( 'query_feedback', $_POST ) ? $_POST['query_feedback'] : false;
+			if ( $deactivate_reason ) {
+				$message .= $deactivate_reason;
+				if ( isset( $deactivate_reason_message ) ) {
+					$message .= ':' . $deactivate_reason_message;
+				}
+				$email = get_option( "mo_oauth_admin_email" );
+				if ( $email == '' ) {
+					$email = $user->user_email;
+				}
+				$phone = get_option( 'mo_oauth_admin_phone' );
+				//only reason
+				$feedback_reasons = new Customer();
+				$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $phone, $message ), true );
+				deactivate_plugins( __FILE__ );
+				update_option( 'message', 'Thank you for the feedback.' );
+				$this->mo_oauth_show_success_message();
+			} else {
+				update_option( 'message', 'Please Select one of the reasons ,if your reason is not mentioned please select Other Reasons' );
+				$this->mo_oauth_show_error_message();
+			}
+		}
+				
+
 	}
 
 	function mo_oauth_get_current_customer(){

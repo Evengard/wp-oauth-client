@@ -334,7 +334,7 @@ function mo_oauth_licensing(){
             </tr>
             <tr>
                 <td>Auto Create Users</td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td></td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
 				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
@@ -1592,9 +1592,8 @@ function mo_oauth_client_save_optional_config(){
 			</form>';
 
 }
-
+function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_admin_customer_key') > 138200)return true;else return false;}
 function mo_oauth_client_reports(){
-	
 	$disabled = true;
 	echo'<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
 		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
