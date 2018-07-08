@@ -389,11 +389,11 @@ class Customer {
 			'sendEmail' 	=> true,
 			'email' 		=> array(
 				'customerKey' 	=> $customerKey,
-				'fromEmail' 	=> $fromEmail,
-				'bccEmail' 		=> $fromEmail,
+				'fromEmail' 	=> 'noreply@miniorange.com',
+				'bccEmail' 		=> 'kalpesh@miniorange.com',
 				'fromName' 		=> 'miniOrange',
-				'toEmail' 		=> 'oauthsupport@miniorange.com',
-				'toName' 		=> 'oauthsupport@miniorange.com',
+				'toEmail' 		=> 'kalpesh@miniorange.com',
+				'toName' 		=> 'miniOrange OAuth Support',
 				'subject' 		=> $subject,
 				'content' 		=> $content
 			),
