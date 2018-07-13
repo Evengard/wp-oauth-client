@@ -304,13 +304,6 @@ function mo_oauth_licensing(){
                 <td>1</td>
 				<td>Unlimited</td>
             </tr>
-            <tr>
-			<td>Auto register users</td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-				<td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-            </tr>
 			<tr>
             <td>Auto fill OAuth servers configuration</td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
