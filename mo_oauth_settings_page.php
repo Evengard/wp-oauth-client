@@ -403,13 +403,6 @@ function mo_oauth_licensing(){
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
             </tr>
             <tr>
-                <td>Account Linking </td>
-                <td></td>
-				<td></td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
-            </tr>
-            <tr>
                 <td>Domain specific registration </td>
                 <td></td>
 				<td></td>
@@ -428,6 +421,13 @@ function mo_oauth_licensing(){
                 <td></td>
 				<td></td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+                <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
+            </tr>
+            <tr>
+                <td>Account Linking </td>
+                <td></td>
+				<td></td>
+                <td></td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/images/tick.png"></i></td>
             </tr>
 			<tr>
