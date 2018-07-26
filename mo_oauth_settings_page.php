@@ -17,7 +17,25 @@ function mo_register() {
 	?>
 
 <div id="mo_oauth_settings">
-
+	<?php
+        if ( $currenttab == 'licensing' || ! get_option( 'mo_oauth_client_show_mo_server_message' ) ) {
+            ?>
+            <form name="f" method="post" action="" id="mo_oauth_client_mo_server_form">
+                <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
+                <div class="notice notice-info" style="padding-right: 38px;position: relative;">
+                    <h4>If you are looking for an OAuth Server, you can try out <a href="https://idp.miniorange.com" target="_blank">miniOrange On-Premise OAuth Server</a>.</h4>
+                    <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
+                    </button>
+                </div>
+            </form>
+            <script>
+                jQuery("#mo_oauth_client_mo_server").click(function () {
+                    jQuery("#mo_oauth_client_mo_server_form").submit();
+                });
+            </script>
+            <?php
+        }
+    ?>
 	<div class="miniorange_container">
 		<table style="width:100%;">
 		<tr>
