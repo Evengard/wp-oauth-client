@@ -327,7 +327,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					} else {
 						
 						if(mo_oauth_hbca_xyake()) {
-							wp_die("<div style='text-align:center;'><b>\x55\163\145\x72\x20\101\143\143\157\165\156\164\40\144\157\x65\x73\x20\156\x6f\x74\40\145\x78\151\163\x74\56\x20</b></div><br><small>\124\150\151\163\40\166\x65\x72\163\151\157\x6e\40\144\157\145\163\40\156\x6f\164\x20\x73\x75\160\x70\x6f\162\164\x20\101\165\164\157\40\103\x72\x65\141\164\x65\40\125\x73\x65\x72\x20\x66\145\141\x74\165\162\145\56\40\120\154\145\141\163\x65\x20\165\x70\x67\x72\x61\x64\145\40\x74\x6f\40\x74\x68\x65\40\x68\151\x67\150\145\x72\40\166\x65\162\163\151\x6f\x6e\x20\157\146\x20\164\150\145\40\x70\x6c\x75\147\x69\x6e\x20\x74\157\40\145\x6e\141\142\154\x65\x20\x61\165\164\157\40\143\x72\145\141\164\145\40\165\163\x65\162\40\x6f\162\x20\x61\x64\144\40\165\x73\x65\x72\40\x6d\141\156\165\x61\154\154\171\x2e</small>");
+							wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIGRvZXMgbm90IHN1cHBvcnQgQXV0byBDcmVhdGUgVXNlciBmZWF0dXJlLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBvciBhZGQgdXNlciBtYW51YWxseS48L3NtYWxsPg=='));
 						} else  {
 						
 							$random_password = wp_generate_password( 10, false );

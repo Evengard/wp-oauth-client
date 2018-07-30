@@ -6,7 +6,7 @@ function mo_oauth_client_display_feedback_form() {
 		return;
 	}
 	$deactivate_reasons = array("Does not have the features I'm looking for", "Do not want to upgrade to Premium version", "Confusing Interface",
-		"Bugs in the plugin", "Other Reasons:");
+		"Bugs in the plugin", "Bugs in the plugin", "Other Reasons:");
 	wp_enqueue_style( 'wp-pointer' );
 	wp_enqueue_script( 'wp-pointer' );
 	wp_enqueue_script( 'utils' );
@@ -67,6 +67,8 @@ function mo_oauth_client_display_feedback_form() {
 
                 } else if (reason === "Confusing Interface") {
                     query_feedback.attr("placeholder", "Finding it confusing? let us know so that we can improve the interface");
+                } else if (reason === "Endpoints not available") {
+                    query_feedback.attr("placeholder", "We will send you the Endpoints shortly, if you can tell us the name of your OAuth Server/App?");
                 }
 
 
