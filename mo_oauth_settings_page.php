@@ -295,7 +295,7 @@ function mo_oauth_licensing(){
                     <h3><font color="#FFFFFF">Features \ Plans</font></h3></th>
                 <th class="text-center" width="10%"><br><br><br></h3><p class="mo_plan-desc"></p><h3><font color="#FFFFFF">FREE</font><b class="tooltip"><span class="tooltiptext"></span></b><br><span>
                 </span></h3></th>
-                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Standard<br></font></h3><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$99</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Standard<br></font></h3><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$149</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
 
                 <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
                        onclick="getupgradelicensesform('wp_oauth_client_standard_plan')"/>
@@ -303,12 +303,12 @@ function mo_oauth_licensing(){
 
                 </span></h3></th>
 
-                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Premium</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$149</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Premium</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$349</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
       <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
                        onclick="getupgradelicensesform('wp_oauth_client_premium_plan')"/>
 
             </th>
-			<th class="text-center" width="10%"><h3><font color="#FFFFFF">Enterprise</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$249</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+			<th class="text-center" width="10%"><h3><font color="#FFFFFF">Enterprise</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$449</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
       <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
                        onclick="getupgradelicensesform('wp_oauth_client_enterprise_plan')"/>
 
