@@ -1,4 +1,4 @@
-=== oAuth Login ( OAuth Client ) ===
+=== WordPress OAuth Login ( OAuth Client ) ===
 Contributors: miniOrange
 Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
 Requires at least: 3.0.1
