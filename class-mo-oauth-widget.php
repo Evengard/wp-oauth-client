@@ -262,18 +262,31 @@ class Mo_Oauth_Widget extends WP_Widget {
 						exit('Application not configured.');
 
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
-					$accessToken = $mo_oauth_handler->getAccessToken($currentapp['accesstokenurl'], 'authorization_code',
-						$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
+					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
+							// OpenId connect
+							$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
+								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
-					if(!$accessToken)
-						exit('Invalid token received.');
+							$idToken = $tokenResponse["id_token"];
+								
+							if(!$idToken)
+								exit('Invalid token received.');
+							else
+								$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
-					$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
-					if (substr($resourceownerdetailsurl, -1) == "=") {
-						$resourceownerdetailsurl .= $accessToken;
-					}
-					$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
+						} else {
+							$accessToken = $mo_oauth_handler->getAccessToken($currentapp['accesstokenurl'], 'authorization_code',
+								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
+							if(!$accessToken)
+								exit('Invalid token received.');
+
+							$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
+							if (substr($resourceownerdetailsurl, -1) == "=") {
+								$resourceownerdetailsurl .= $accessToken;
+							}
+							$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
+						}
 					$email = "";
 					$name = "";
 					if($currentappname == "google"){

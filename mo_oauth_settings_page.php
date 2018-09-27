@@ -303,12 +303,12 @@ function mo_oauth_licensing(){
 
                 </span></h3></th>
 
-                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Premium</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$349</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+                <th class="text-center" width="10%"><h3><font color="#FFFFFF">Premium</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$249</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
       <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
                        onclick="getupgradelicensesform('wp_oauth_client_premium_plan')"/>
 
             </th>
-			<th class="text-center" width="10%"><h3><font color="#FFFFFF">Enterprise</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$449</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
+			<th class="text-center" width="10%"><h3><font color="#FFFFFF">Enterprise</font></h3><p></p><p class="mo_plan-desc"></p><h3><b class="tooltip"><font color="#FFFFFF">$349</font><span class="tooltiptext">Cost applicable for one instance only.</span></b><br><br><span>
       <input type="button" name="upgrade_btn" class="button button-default button-large" value="Upgrade Now"
                        onclick="getupgradelicensesform('wp_oauth_client_enterprise_plan')"/>
 
@@ -650,17 +650,21 @@ function add_app(){
 					document.getElementById("instructions").innerHTML  = '<strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b><?php echo site_url()."/oauthcallback";?></b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
 				}
 
-				if(appname=="other"){
+				if(appname=="other" || appname == "openidconnect"){
 					jQuery("#mo_oauth_custom_app_name_div").show();
 					jQuery("#mo_oauth_authorizeurl_div").show();
 					jQuery("#mo_oauth_accesstokenurl_div").show();
-					jQuery("#mo_oauth_resourceownerdetailsurl_div").show();
+					if(appname == "openidconnect") 
+						jQuery("#mo_oauth_resourceownerdetailsurl_div").hide();
+					else
+						jQuery("#mo_oauth_resourceownerdetailsurl_div").show();
 					jQuery("#mo_oauth_email_attr_div").show();
 					jQuery("#mo_oauth_name_attr_div").show();
 					jQuery("#mo_oauth_custom_app_name").attr('required','true');
 					jQuery("#mo_oauth_authorizeurl").attr('required','true');
 					jQuery("#mo_oauth_accesstokenurl").attr('required','true');
-					jQuery("#mo_oauth_resourceownerdetailsurl").attr('required','true');
+					if(appname != "openidconnect") 
+						jQuery("#mo_oauth_resourceownerdetailsurl").attr('required','true');
 					jQuery("#mo_oauth_email_attr").attr('required','true');
 					jQuery("#mo_oauth_name_attr").attr('required','true');
 				} else {
@@ -705,7 +709,8 @@ function add_app(){
 				  <option value="facebook">Facebook</option>
 				  <option value="windows">Windows Account</option>
 				  <option value="eveonline">Eve Online</option>
-				  <option value="other">Other</option>
+				  <option value="openidconnect">Custom OpenID Connect 1.0 Provider</option>
+				  <option value="other">Custom OAuth 2.0 Provider</option>
 				</select>
 			</td>
 			</tr>
@@ -821,16 +826,21 @@ function update_app($appname){
 				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
 			</tr>
-			<tr id="mo_oauth_resourceownerdetailsurl_div">
-				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php echo $currentapp['resourceownerdetailsurl'];?>"></td>
-			</tr>
+			<?php if( isset($currentapp['apptype']) && $currentapp['apptype'] != 'openidconnect') { ?>
+				<tr id="mo_oauth_resourceownerdetailsurl_div">
+					<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php echo $currentapp['resourceownerdetailsurl'];?>"></td>
+				</tr>
+			<?php } ?>
+			<tr><td></td><td><input class="mo_table_textbox" type="checkbox" name="disable_authorization_header" id="disable_authorization_header" <?php (checked( get_option('mo_oauth_client_disable_authorization_header') == true ));?> > (Check if does not require Authorization Header)</td></tr>
 			<?php } ?>
 			<tr>
 				<td>&nbsp;</td>
 				<td>
 					<input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
-					<?php if($is_other_app){?><input type="button" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" /><?php } ?>
+					<!-- <?php if($is_other_app){?> -->
+						<input type="button" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" />
+					<!-- <?php } ?> -->
 				</td>
 			</tr>
 		</table>
