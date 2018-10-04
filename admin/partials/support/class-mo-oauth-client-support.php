@@ -1,0 +1,45 @@
+<?php
+
+class Mo_OAuth_Client_Admin_Support {
+	
+	public static function support() {
+		self::support_page();
+	}
+	
+	public static function support_page(){
+	?>
+		<div class="mo_support_layout">
+			<div>
+				<h3>Contact Us</h3>
+				<form method="post" action="">
+					<input type="hidden" name="option" value="mo_oauth_contact_us_query_option" />
+					<table class="mo_settings_table">
+						<tr>
+							<td><input type="email" class="mo_table_textbox" required name="mo_oauth_contact_us_email" placeholder="Enter email here"
+							value="<?php echo get_option("mo_oauth_admin_email"); ?>"></td>
+						</tr>
+						<tr>
+							<td><input type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}" placeholder="Enter phone here" class="mo_table_textbox" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_admin_phone');?>"></td>
+						</tr>
+						<tr>
+							<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" placeholder="Enter your query here" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
+						</tr>
+					</table>
+					<div style="text-align:center;">
+						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<script>
+			jQuery("#contact_us_phone").intlTelInput();
+			function mo_oauth_valid_query(f) {
+				!(/^[a-zA-Z?,.\(\)\/@ 0-9]*$/).test(f.value) ? f.value = f.value.replace(
+						/[^a-zA-Z?,.\(\)\/@ 0-9]/, '') : null;
+			}
+		</script>
+	<?php
+	}
+
+
+}

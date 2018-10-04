@@ -1,0 +1,50 @@
+{
+	"other": {
+		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": ""
+	},
+	"openidconnect": {
+		"label":"Custom OpenID Connect App", "type":"openid", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": ""
+	},
+	"gapps": {
+		"label":"Google", "type":"oauth", "image":"google.png", "scope": "email", "authorize": "https://accounts.google.com/o/oauth2/auth", "token": "https://www.googleapis.com/oauth2/v3/token", "userinfo": "https://www.googleapis.com/plus/v1/people/me"
+		},
+	"fbapps": {
+		"label":"Facebook", "type":"oauth", "image":"facebook.png", "scope": "public_profile email", "authorize": "https://www.facebook.com/dialog/oauth", "token": "https://graph.facebook.com/v2.8/oauth/access_token", "userinfo": "https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link&access_token="
+		},
+	"slack": {
+		"label":"Slack", "type":"oauth", "image":"slack.png", "scope": "users.profile:read", "authorize": "https://slack.com/oauth/authorize", "token": "https://slack.com/api/oauth.access", "userinfo": "https://slack.com/api/users.profile.get"
+	},
+	"azure": {
+		"label":"Azure AD", "type":"oauth", "image":"azure.png", "scope": "User.Read Directory.Read.All", "authorize": "https://login.microsoftonline.com/[tenant]/oauth2/authorize", "token": "https://login.microsoftonline.com/[tenant]/oauth2/token", "userinfo": "https://graph.microsoft.com/v1.0/me"
+		},
+	"cognito": {
+		"label":"AWS Cognito", "type":"oauth", "image":"cognito.png", "scope": "phone email profile openid", "authorize": "https://<cognito-app-domain>/oauth2/authorize", "token": "https://<cognito-app-domain>/oauth2/token", "userinfo": "https://<cognito-app-domain>/oauth2/userInfo"
+		},
+	"linkedin": {
+		"label":"LinkedIn", "type":"oauth", "image":"linkedin.png", "scope": "r_basicprofile", "authorize": "https://www.linkedin.com/oauth/v2/authorization", "token": "https://www.linkedin.com/oauth/v2/accessToken", "userinfo": "https://api.linkedin.com/v2/me"
+		},
+	"strava": {
+		"label":"Strava", "type":"oauth", "image":"strava.png", "scope": "public", "authorize": "https://www.strava.com/oauth/authorize", "token": "https://www.strava.com/oauth/token", "userinfo": "https://www.strava.com/api/v3/athlete"
+		},
+	"fitbit": {
+		"label":"FitBit", "type":"oauth", "image":"fitbit.png", "scope": "profile", "authorize": "https://www.fitbit.com/oauth2/authorize", "token": "https://api.fitbit.com/oauth2/token", "userinfo": "https://www.fitbit.com/1/user"
+		},
+	"box": {
+		"label":"Box", "type":"oauth", "image":"box.png", "scope": "root_readwrite, root_readonly", "authorize": "https://account.box.com/api/oauth2/authorize", "token": "https://api.box.com/oauth2/token", "userinfo": "https://api.box.com/2.0/users/me"
+		},
+	"discord": {
+		"label":"Discord", "type":"oauth", "image":"discord.png", "scope": "identify email", "authorize": "https://discordapp.com/api/oauth2/authorize", "token": "https://discordapp.com/api/oauth2/token", "userinfo": "https://discordapp.com/api/users/@me"
+		},
+	"github": {
+		"label":"GitHub", "type":"oauth", "image":"github.png", "scope": "user repo", "authorize": "https://github.com/login/oauth/authorize", "token": "https://github.com/login/oauth/access_token", "userinfo": "https://api.github.com/user"
+		},
+	"gitlab": {
+		"label":"GitLab", "type":"oauth", "image":"gitlab.png", "scope": "read_user", "authorize": "https://gitlab.com/oauth/authorize", "token": "http://gitlab.com/oauth/token", "userinfo": "https://gitlab.com/api/v4/user"
+		},
+	"clever": {
+		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v1.1/me"
+		},
+	"invisioncommunity": {
+		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://<your-domain>/oauth/authorize", "token": "https://<your-domain>/oauth/token", "userinfo": "https://<your-domain>/oauth/core/me"
+		}
+}

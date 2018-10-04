@@ -6,7 +6,7 @@ function mo_oauth_client_display_feedback_form() {
 		return;
 	}
 	$deactivate_reasons = array("Does not have the features I'm looking for", "Do not want to upgrade to Premium version", "Confusing Interface",
-		"Bugs in the plugin", "Bugs in the plugin", "Other Reasons:");
+		"Bugs in the plugin", "Unable to register", "Other Reasons:");
 	wp_enqueue_style( 'wp-pointer' );
 	wp_enqueue_script( 'wp-pointer' );
 	wp_enqueue_script( 'utils' );
@@ -58,6 +58,7 @@ function mo_oauth_client_display_feedback_form() {
 
                 if (reason === "Does not have the features I'm looking for") {
                     query_feedback.attr("placeholder", "Let us know what feature are you looking for");
+                    
                 } else if (reason === "Other Reasons:") {
                     query_feedback.attr("placeholder", "Can you let us know the reason for deactivation");
                     query_feedback.prop('required', true);
@@ -67,8 +68,13 @@ function mo_oauth_client_display_feedback_form() {
 
                 } else if (reason === "Confusing Interface") {
                     query_feedback.attr("placeholder", "Finding it confusing? let us know so that we can improve the interface");
+
                 } else if (reason === "Endpoints not available") {
                     query_feedback.attr("placeholder", "We will send you the Endpoints shortly, if you can tell us the name of your OAuth Server/App?");
+
+                } else if (reason === "Unable to register") {
+                    query_feedback.attr("placeholder", "Error while receiving OTP? Can you please let us know the exact error?");
+
                 }
 
 

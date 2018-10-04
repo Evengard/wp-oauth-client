@@ -206,7 +206,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			}
 		}
 
-		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false) {  //if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthcallback' ) !== false ) {
+		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_GET['code'])) {  
 
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
@@ -340,7 +340,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					} else {
 						
 						if(mo_oauth_hbca_xyake()) {
-							wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIGRvZXMgbm90IHN1cHBvcnQgQXV0byBDcmVhdGUgVXNlciBmZWF0dXJlLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBvciBhZGQgdXNlciBtYW51YWxseS48L3NtYWxsPg=='));
+							wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+'));
 						} else  {
 						
 							$random_password = wp_generate_password( 10, false );

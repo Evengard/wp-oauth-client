@@ -1,64 +1,100 @@
 === WordPress OAuth Login ( OAuth Client ) ===
-Contributors: miniOrange
-Tags: oauth, oauth client, oauth login, login with google, login with facebook, login with twitter, login with windows
+Contributors: cyberlord92,oauth
+Tags: OAuth, oauth client, oauth login, SSO OAuth, sso
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 6.5.0
+Stable tag: 6.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth Login plugin allows login with your google, facebook, twitter, Custom OAuth server, Openid Connect app.
+OAuth Login plugin allows login with your google, facebook, twitter, Custom OAuth server, Custom Openid Connect (OIDC) server.
 
 == Description ==
 
-OAuth Login plugin allows login with your google, facebook, twitter or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 standard.
-
+OAuth Login plugin allows login (Single Sign On) with your google, facebook, twitter or other custom OAuth server. OAuth Client plugin works with any OAuth provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
 
 = FREE VERSION FEATURES =
 
-*	Supports login with any 3rd party OAuth server or custom OAuth server.
-*	Attribute Mapping- Basic Attribute Mapping feature to map wordpress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
-*	Role Mapping- Assign roles to users registering through Oauth Login based on rules you define.
-*	Oauth Provider Support- It Supports only one Oauth Provider. (PREMIUM : Supports Multiple Oauth Provider)
-*	Redirect URL after Login- Automatically Redirect user after successful login. Note: Does not include custom redirect URL
-*	Custom CSS
-*	Customize Login Buttons / Icons / Text- Wide range of Oauth login Buttons/Icons and it allows you to customize Text shadow and 
+*	OAuth Login supports login (sso) with any 3rd party OAuth server or custom OAuth server.
+*	Attribute Mapping- OAuth Login supports basic Attribute Mapping feature to map WordPress user profile attributes like email and first name. Manage username & email with data provided
+*	OAuth Provider Support- OAuth Login supports only one OAuth Provider. (ENTERPRISE : Supports Multiple OAuth Provider)
+*	Redirect URL after Login- OAuth Login Automatically Redirects user after successful login. Note: Does not include custom redirect URL
+*	Display Options- OAuth Login Provides Display Option for both Login form and Registration form
+*	Logging- If you run into issues OAuth Login can be helpful to enable debug logging
+
+
+= STANDARD VERSION FEATURES =
+
+*	All the Free Version Features
+*	Optionally Auto Register Users- OAuth Login does automatic user registration after login if the user is not already registered with your site
+*	Attribute Mapping- OAuth Login provides custom Attribute Mapping feature to map WordPress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
 *	Login Widget- Use Widgets to easily integrate the login link with your WordPress site
-*	Support for Shortcode- Use shortcode to place login button anywhere in your Theme or Plugin
-*	Display Options- Oauth Login Provides Display Option for both Login form and Registration form
-*	Logging- If you run into issues it can be helpful to enable debug logging
+*	Support for Shortcode- Use shortcode to place OAuth login button anywhere in your Theme or Plugin
+*	Customize Login Buttons / Icons / Text- Wide range of OAuth login Buttons/Icons and it allows you to customize Text shadow
+*	Custom Redirect URL after Login- OAuth Login provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
+*	Redirect URL after logout- OAuth Login auto Redirect Users to custom URL after logout in WordPress
+*	Basic Role Mapping- Assign default role to user registering through OAuth Login based on rules you define.
+
 
 = PREMIUM VERSION FEATURES =
 
-*	All the Free Version Features
-*	Optionally Auto Register Users- Automatic user registration after login if the user is not already registered with your site
-*	Auto Redirect- Provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
-*	Extended OAuth API support- Extend OAuth API support to extend functionality to the existing OAuth client.
-*	Multi-site Support- Unique ability to support multiple sites under one account
-*	Redirect URL after logout- Auto Redirect Users to custom url after logout in WordPress
-*	Reverse Proxy Support- Support for sites behind a reverse-proxy or on-prem instances with no internet access.
-*	Account Linking- Supports the linking of user accounts from OAuth Providers to Wordpress account.
-*	Login Reports- Creates user login and registration reports based on application used. 
-*	App domain specific Registration Restrictions- Restricts registration on your site based on the person's email address domain
+*	All the Standard Version Features
+*	Advanced Role Mapping- Assign roles to users registering through OAuth Login based on rules you define.
+*	OpenID Connect Support- OAuth Login supports login with any 3rd party OpenID Connect server.
+*	Multiple Userinfo Endpoints Support- OAuth Login supports multiple Userinfo Endpoints.
+*	Account Linking- OAuth Login supports the linking of user accounts from OAuth Providers to Wordpress account.
+*	App domain specific Registration Restrictions- OAuth Login restricts registration on your site based on the person's email address domain
+*	Multi-site Support- OAuth Login have unique ability to support multiple sites under one account
+*	Reverse Proxy Support- OAuth Login support for sites behind a reverse-proxy or on-prem instances with no internet access.
 *	Email notifications- You can customize the E-mail templates used for the automatic email notifications related to user registration.
-*	Page Restriction according to roles- Limit Access to pages based on user status or roles. This WordPress plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.
-*	Openid Connect support *
+*	Extended OAuth API support- Extend OAuth API support to extend functionality to the existing OAuth client.[ENTERPRISE]
+*	BuddyPress Attribute Mapping- OAuth Login allows BuddyPress Attribute Mapping.[ENTERPRISE]
+*	Page Restriction according to roles- Limit Access to pages based on user status or roles. This WordPress OAuth Login plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.[ENTERPRISE]
+*	Login Reports- OAuth Login creates user login and registration reports based on application used. [ENTERPRISE]
 
 
 = No SSL restriction =
-*	Login to wordpress using google credentials or any other app without having an SSL or HTTPS enabled site.
+*	Login to WordPress using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
 = List of popular OAuth Providers we support =
-*	Google
-*	Facebook
-*	Windows Account
-*	Azure AD
+*	Eve Online
 *	Slack
-*	HR Answerlink / Support center
 *	Discord
+*	HR Answerlink / Support center
+*	WSO2
+*	Wechat
+*	Weibo
+*	AWS Cognito
+*   LinkedIn
+*	Azure AD
+*	Gitlab
+*	Shibboleth
+*	Blizzard (Formerly Battle.net)
+*	servicem8
+*	Meetup
+
+= List of popular OpenID Connect (OIDC) Providers we support =
+*	Amazon
+*	Salesforce
+*	PayPal
+*	Google
+*	AWS Cognito
+*	Okta
+*	OneLogin
+*	Yahoo
+*	ADFS
+*	Gigya
+
+= List of grant types we support =
+*   Authorization code grant
+*   Implicit grant
+*   Resource owner credentials grant
+*   Client credentials grant
+*   Refresh token grant
+
 
 = Other OAuth Providers we support =
-*	Other OAuth Providers OAuth client plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, WHMCS  etc.
+*	Other OAuth Providers OAuth Login (OAuth client) plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, WHMCS, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Comminuty, Blizzar, authlete, Keycloak etc.
 
 
 == Installation ==
@@ -118,6 +154,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+
+= 6.6.0 =
+* Updated UI
+* Added Auto Create User feature
 
 = 6.5.0 =
 * Added support for OpenID Connect (OIDC) Provider

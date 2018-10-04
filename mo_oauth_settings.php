@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.5.0
+* Version: 6.6.0
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -12,14 +12,14 @@
 require('handler/oauth_handler.php');
 include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
-require('mo_oauth_settings_page.php');
-require('manage-avatar.php');
+require plugin_dir_path( __FILE__ ) . 'includes/class-mo-oauth-client.php';
+require('includes/manage-avatar.php');
 require('views/feedback_form.php');
 
 class mo_oauth {
 
 	function __construct() {
-		add_action( 'admin_menu', array( $this, 'miniorange_menu' ) );
+		
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_style' ) );
@@ -81,31 +81,7 @@ class mo_oauth {
 		'mo_oauth_facebook_enabled' 		=> 0
 	);
 
-	function miniorange_menu() {
 
-		//Add miniOrange plugin to the menu
-		$page = add_menu_page( 'MO OAuth Settings ' . __( 'Configure OAuth', 'mo_oauth_settings' ), 'miniOrange OAuth', 'administrator', 'mo_oauth_settings', array( $this, 'mo_oauth_login_options' ) ,plugin_dir_url(__FILE__) . 'images/miniorange.png');
-
-		
-		$page = add_submenu_page( 'mo_oauth_settings', 'MO Login ' . __('Advanced EVE Online Settings'), __('Advanced EVE Online Settings'), 'administrator', 'mo_oauth_eve_online_setup', 'mo_eve_online_config' );
-
-		global $submenu;
-		if ( is_array( $submenu ) AND isset( $submenu['mo_oauth_settings'] ) )
-		{
-			$submenu['mo_oauth_settings'][0][0] = __( 'Configure OAuth', 'mo_oauth_login' );
-		}
-	}
-
-	function  mo_oauth_login_options () {
-		global $wpdb;
-		update_option( 'host_name', 'https://auth.miniorange.com' );
-		$customerRegistered = mo_oauth_is_customer_registered();
-		if( $customerRegistered ) {
-			mo_register();
-		} else {
-			mo_register();
-		}
-	}
 
 	function plugin_settings_style() {
 		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugins_url( 'css/style_settings.css', __FILE__ ) );
@@ -372,7 +348,7 @@ class mo_oauth {
 				$newapp['clientid'] = $clientid;
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
-				$newapp['redirecturi'] = site_url().'/oauthcallback';
+				$newapp['redirecturi'] = site_url();
 
 				if(!isset($newapp['apptype'])) {
 					if( ($appname=="openidconnect") )
@@ -833,3 +809,5 @@ class mo_oauth {
 	}
 
 new mo_oauth;
+function run_mo_oauth_client() { $plugin = new Mo_OAuth_Client();$plugin->run();}
+run_mo_oauth_client();
