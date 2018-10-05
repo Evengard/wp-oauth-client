@@ -8,8 +8,8 @@
 		
 		public static function reports_page(){
 			$disabled = true;
-			echo'<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
-				<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
+			echo'<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a enterprise feature. 
+				<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Enterprise Features.</div>
 				<div class="mo_table_layout mo_oauth_premium_option">
 				<div class="mo_oauth_client_small_layout">';
 			echo'<h2>Login Transactions Report</h2>

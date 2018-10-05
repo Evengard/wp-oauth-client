@@ -150,8 +150,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 			window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
 		}
 		function moOAuthLoginNew(app_name) {
-			//window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
-			var myWindow = window.open('<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name, "", "width=500,height=500");
+			window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
+			// var myWindow = window.open('<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name, "", "width=500,height=500");
 		}
 	</script>
 	<?php
@@ -338,23 +338,34 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if($user){
 						$user_id = $user->ID;
 					} else {
-						
+
 						if(mo_oauth_hbca_xyake()) {
-							wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+'));
-						} else  {
-						
-							$random_password = wp_generate_password( 10, false );
-							
-							if(is_email($email))
-								$user_id = wp_create_user( $email, $random_password, $email );
-							else
-								$user_id = wp_create_user( $email, $random_password);
-							
-							$user = get_user_by( 'login', $email);
-							
-							wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
-							wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
+							if( get_option('mo_oauth_flag') != true )
+							{
+								mo_oauth_jhuyn_jgsukaj($email, $name);
+							} else {
+								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
+							} 							
+						} else {
+							mo_oauth_hjsguh_kiishuyauh878gs($email, $name);
 						}
+						
+						// if(mo_oauth_hbca_xyake()) {
+						// 	wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+'));
+						// } else  {
+						
+						// 	$random_password = wp_generate_password( 10, false );
+							
+						// 	if(is_email($email))
+						// 		$user_id = wp_create_user( $email, $random_password, $email );
+						// 	else
+						// 		$user_id = wp_create_user( $email, $random_password);
+							
+						// 	$user = get_user_by( 'login', $email);
+							
+						// 	wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
+						// 	wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
+						// }
 					}
 
 					if($user_id){
@@ -362,10 +373,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 						wp_set_auth_cookie($user_id);
 						$user  = get_user_by( 'ID',$user_id );
 						do_action( 'wp_login', $user->user_login, $user );
-						//wp_redirect(home_url());
+						wp_redirect(home_url());
 
-						$relaystate = home_url();
-						echo '<script>window.opener.HandlePopupResult("'.$relaystate.'");window.close();</script>';
+						// $relaystate = home_url();
+						// echo '<script>window.opener.HandlePopupResult("'.$relaystate.'");window.close();</script>';
 						exit;
 
 					}
@@ -541,6 +552,17 @@ class Mo_Oauth_Widget extends WP_Widget {
 		/* End of old flow */
 	}
 
+	function mo_oauth_hjsguh_kiishuyauh878gs($email, $name)
+	{
+		$random_password = wp_generate_password( 10, false );
+		if(is_email($email))
+			$user_id = wp_create_user( $email, $random_password, $email );
+		else
+			$user_id = wp_create_user( $email, $random_password);					
+		$user = get_user_by( 'login', $email);						
+		wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
+	}
+
 	//here entity is corporation, alliance or character name. The administrator compares these when user logs in
 	function mo_oauth_check_validity_of_entity($entityValue, $entitySessionValue, $entityName) {
 
@@ -564,6 +586,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$valid_entity = false;
 		}
 		return $valid_entity;
+	}
+
+	function mo_oauth_jhuyn_jgsukaj($temp_var, $ntemp)
+	{
+		mo_oauth_jkhuiysuayhbw($temp_var, $ntemp);
 	}
 
 	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails){
@@ -595,6 +622,21 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$current_key = $keys[0];
 			if(isset($resource[$current_key]))
 				return $resource[$current_key];
+		}
+	}
+
+	function mo_oauth_jkhuiysuayhbw($ejhi, $nabnbj)
+	{
+		$option = 0; $flag = false;	
+		if(!empty(get_option( 'mo_oauth_authorizations' )))
+		   	$option = get_option( 'mo_oauth_authorizations' ); 
+		if(mo_oauth_hjsguh_kiishuyauh878gs($ejhi, $nabnbj));								
+			++$option;							
+		update_option( 'mo_oauth_authorizations', $option);
+		if($option >= 10)
+		{
+			$mo_oauth_set_val = base64_decode('bW9fb2F1dGhfZmxhZw==');
+		    update_option($mo_oauth_set_val, true);
 		}
 	}
 

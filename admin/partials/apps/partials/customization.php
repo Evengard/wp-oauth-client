@@ -18,7 +18,7 @@
 	
 	?>
 	
-	<?php if(mo_oauth_hbca_xyake()) { echo '<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+	<?php if(mo_oauth_hbca_xyake()) { echo '<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a standard feature. 
 	<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Standard Features.</div>'; $cclass = 'mo_oauth_premium_option'; $cscript = '<script>jQuery( document ).ready(function() { jQuery(".mo_oauth_premium_option :input").prop("disabled", true);}); </script>'; }  ?>
 	
 	<div class="mo_table_layout mo_oauth_app_customization <?php echo $cclass; ?>">

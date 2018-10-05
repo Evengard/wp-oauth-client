@@ -57,7 +57,6 @@ class Mo_OAuth_Client_Admin_Menu {
 			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
-			<a class="nav-tab <?php if($currenttab == 'mapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=mapping">Attribute / Role Mapping</a>
 			<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
 			<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
 		</h2>
@@ -125,8 +124,6 @@ class Mo_OAuth_Client_Admin_Menu {
 				Mo_OAuth_Client_Admin_Apps::sign_in_settings();
 			else if($currenttab == 'licensing')
 				Mo_OAuth_Client_Admin_Licesing::license_page();
-			else if($currenttab == 'mapping')
-				Mo_OAuth_Client_Admin_Apps::attribite_role_mapping();
 			else if($currenttab == 'reports')
 				Mo_OAuth_Client_Admin_Reports::report();
 			else

@@ -7,7 +7,6 @@ require('partials/eveonline.php');
 require('partials/addapp.php');
 require('partials/updateapp.php');
 require('partials/app-list.php');
-require('partials/attr-role-mapping.php');
 
 class Mo_OAuth_Client_Admin_Apps {
 	
@@ -25,10 +24,6 @@ class Mo_OAuth_Client_Admin_Apps {
 	
 	public static function eve_settings() {
 		show_eve_settings();
-	}
-	
-	public static function attribite_role_mapping() {
-		attribite_role_mapping_ui();
 	}
 	
 	public static function add_app() {
