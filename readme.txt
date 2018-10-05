@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: OAuth, oauth client, oauth login, SSO OAuth, sso
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 6.6.0
+Stable tag: 6.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,6 +154,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure Custom OAuth Application
 
 == Changelog ==
+
+= 6.6.1 =
+* Added Bug Fixes
 
 = 6.6.0 =
 * Updated UI
