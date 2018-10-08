@@ -7,6 +7,7 @@ require('licensing/class-mo-oauth-client-license.php');
 require('guides/class-mo-oauth-client-guides.php');
 require('support/class-mo-oauth-client-support.php');
 require('reports/class-mo-oauth-client-reports.php');
+require('faq/class-mo-oauth-client-faq.php');
 
 function mo_oauth_client_main_menu() {
 
@@ -58,6 +59,7 @@ class Mo_OAuth_Client_Admin_Menu {
 			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
 			<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
+			<a class="nav-tab <?php if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">FAQ</a>
 			<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
 		</h2>
 		</div> <?php
@@ -126,6 +128,8 @@ class Mo_OAuth_Client_Admin_Menu {
 				Mo_OAuth_Client_Admin_Licesing::license_page();
 			else if($currenttab == 'reports')
 				Mo_OAuth_Client_Admin_Reports::report();
+			else if($currenttab == 'faq') 
+    			Mo_OAuth_Client_Admin_Faq::faq(); 
 			else
 				Mo_OAuth_Client_Admin_Apps::applist();
 		//}

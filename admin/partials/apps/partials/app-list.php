@@ -1,5 +1,6 @@
 <?php
 
+
 function applist_page() {
 	?>
 	<style>
@@ -25,7 +26,7 @@ function applist_page() {
 				delete_app($_GET['app']);
 		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
 			if(isset($_GET['app']))
-				instructions($_GET['app']);
+				Mo_OAuth_Client_Admin_Guides::instructions($_GET['app']);
 		}
 
 		if(isset($_GET['action']) && $_GET['action']=='add'){

@@ -151,7 +151,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 		}
 		function moOAuthLoginNew(app_name) {
 			window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
-			// var myWindow = window.open('<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name, "", "width=500,height=500");
 		}
 	</script>
 	<?php
@@ -350,22 +349,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 							mo_oauth_hjsguh_kiishuyauh878gs($email, $name);
 						}
 						
-						// if(mo_oauth_hbca_xyake()) {
-						// 	wp_die(base64_decode('PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+'));
-						// } else  {
-						
-						// 	$random_password = wp_generate_password( 10, false );
-							
-						// 	if(is_email($email))
-						// 		$user_id = wp_create_user( $email, $random_password, $email );
-						// 	else
-						// 		$user_id = wp_create_user( $email, $random_password);
-							
-						// 	$user = get_user_by( 'login', $email);
-							
-						// 	wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
-						// 	wp_update_user( array( 'ID' => $user_id, 'last_name' => '' ) );
-						// }
 					}
 
 					if($user_id){
@@ -374,9 +357,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 						$user  = get_user_by( 'ID',$user_id );
 						do_action( 'wp_login', $user->user_login, $user );
 						wp_redirect(home_url());
-
-						// $relaystate = home_url();
-						// echo '<script>window.opener.HandlePopupResult("'.$relaystate.'");window.close();</script>';
 						exit;
 
 					}
