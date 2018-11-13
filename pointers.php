@@ -29,7 +29,7 @@ else if(isset($_GET['appId'])) {
         'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
     );
 } else {
-    if(sizeof(get_option('mo_oauth_apps_list'))>0) {
+    if(is_array(get_option('mo_oauth_apps_list')) && sizeof(get_option('mo_oauth_apps_list'))>0) {
         $pointers['miniorange-app-list-pointer'] = array(
             'title'     => sprintf( '<h3>%s</h3>', esc_html__( 'App List' ) ),
             'content'   => sprintf( '<p>%s</p>', esc_html__( 'Click here to Update or Delete the application.' ) ),
