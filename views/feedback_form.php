@@ -38,6 +38,8 @@ function mo_oauth_client_display_feedback_form() {
                     <div class="mo_modal-footer">
                         <input type="submit" name="miniorange_feedback_submit"
                                class="button button-primary button-large" value="Submit"/>
+                        <input id="mo_skip" type="submit" name="miniorange_feedback_skip"
+                               class="button button-primary button-large" style="float: right;" value="Skip"/>
                     </div>
                 </div>
             </form>
@@ -49,6 +51,7 @@ function mo_oauth_client_display_feedback_form() {
     <script>
         jQuery('a[aria-label="Deactivate Login with OAuth ( OAuth Client )"]').click(function () {
             var mo_modal = document.getElementById('oauth_client_feedback_modal');
+            var mo_skip = document.getElementById('mo_skip');
             var span = document.getElementsByClassName("mo_close")[0];
             mo_modal.style.display = "block";
             jQuery('input:radio[name="deactivate_reason_radio"]').click(function () {
@@ -82,6 +85,10 @@ function mo_oauth_client_display_feedback_form() {
 
 
             span.onclick = function () {
+                mo_modal.style.display = "none";
+                jQuery('#mo_feedback_form_close').submit();
+            }
+            mo_skip.onclick = function() {
                 mo_modal.style.display = "none";
                 jQuery('#mo_feedback_form_close').submit();
             }

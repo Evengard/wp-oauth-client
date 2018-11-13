@@ -313,10 +313,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 						//TEST Configuration
 						if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
-							echo '<style>table{border-collapse: collapse;}table, td, th {border: 1px solid black;padding:4px}</style>';
+							echo '<div style="font-family:Calibri;padding:0 3%;">';
+							echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
 							echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
 							testattrmappingconfig("",$resourceOwner);
 							echo "</table>";
+							echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();"></div>';
 							exit();
 						}
 
@@ -341,24 +343,22 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(mo_oauth_hbca_xyake()) {
 							if( get_option('mo_oauth_flag') != true )
 							{
-								mo_oauth_jhuyn_jgsukaj($email, $name);
+								$user = mo_oauth_jhuyn_jgsukaj($email, $name);
 							} else {
 								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
 							} 							
 						} else {
-							mo_oauth_hjsguh_kiishuyauh878gs($email, $name);
+							$user = mo_oauth_hjsguh_kiishuyauh878gs($email, $name);
 						}
 						
 					}
-
-					if($user_id){
-						wp_set_current_user($user_id);
-						wp_set_auth_cookie($user_id);
-						$user  = get_user_by( 'ID',$user_id );
+					if($user){
+						wp_set_current_user($user->ID);
+						wp_set_auth_cookie($user->ID);
+						$user  = get_user_by( 'ID',$user->ID );
 						do_action( 'wp_login', $user->user_login, $user );
 						wp_redirect(home_url());
 						exit;
-
 					}
 
 
@@ -541,6 +541,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$user_id = wp_create_user( $email, $random_password);					
 		$user = get_user_by( 'login', $email);						
 		wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
+		return $user;
 	}
 
 	//here entity is corporation, alliance or character name. The administrator compares these when user logs in
@@ -570,7 +571,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	function mo_oauth_jhuyn_jgsukaj($temp_var, $ntemp)
 	{
-		mo_oauth_jkhuiysuayhbw($temp_var, $ntemp);
+		return mo_oauth_jkhuiysuayhbw($temp_var, $ntemp);
 	}
 
 	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails){
@@ -609,8 +610,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 	{
 		$option = 0; $flag = false;	
 		if(!empty(get_option( 'mo_oauth_authorizations' )))
-		   	$option = get_option( 'mo_oauth_authorizations' ); 
-		if(mo_oauth_hjsguh_kiishuyauh878gs($ejhi, $nabnbj));								
+			$option = get_option( 'mo_oauth_authorizations' );
+		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi, $nabnbj);
+		if($user);								
 			++$option;							
 		update_option( 'mo_oauth_authorizations', $option);
 		if($option >= 10)
@@ -618,6 +620,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			$mo_oauth_set_val = base64_decode('bW9fb2F1dGhfZmxhZw==');
 		    update_option($mo_oauth_set_val, true);
 		}
+		return $user;
 	}
 
 	function register_mo_oauth_widget() {

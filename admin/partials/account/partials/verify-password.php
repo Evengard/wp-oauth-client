@@ -44,7 +44,7 @@
 			jQuery("a[href=\"#mo_oauth_forgot_password_link\"]").click(function(){
 				jQuery("#mo_oauth_forgotpassword_form").submit();
 			});
-		</script>';
+		</script>
 
 		<?php
 	}

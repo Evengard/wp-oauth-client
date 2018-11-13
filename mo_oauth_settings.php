@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.7.0
+* Version: 6.7.1
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -15,6 +15,7 @@ require('class-customer.php');
 require plugin_dir_path( __FILE__ ) . 'includes/class-mo-oauth-client.php';
 require('includes/manage-avatar.php');
 require('views/feedback_form.php');
+require_once 'views/PointersManager.php';
 
 class mo_oauth {
 
@@ -23,8 +24,10 @@ class mo_oauth {
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_style' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_style' ) );
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
 		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_script' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'tutorial' ) );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
@@ -33,7 +36,32 @@ class mo_oauth {
 		if(get_option('mo_oauth_eveonline_enable') == 1 )
 			add_action( 'admin_notices', array($this,'mooauth_admin_notice__success'));
 	}
-
+	
+	function tutorial($page) {
+		$file = plugin_dir_path( __FILE__ ) . 'pointers.php';
+		// Arguments: pointers php file, version (dots will be replaced), prefix
+		$manager = new PointersManager( $file, '4.8.52', 'custom_admin_pointers' );
+		$manager->parse();
+		$pointers = $manager->filter( $page );
+		// print_r($pointers);
+		if ( empty( $pointers ) ) { // nothing to do if no pointers pass the filter
+			return;
+		}
+		wp_enqueue_style( 'wp-pointer' );
+		$js_url = plugins_url( 'js/cards.js', __FILE__ );
+		wp_enqueue_script( 'custom_admin_pointers', $js_url, array('wp-pointer'), NULL, TRUE );
+		// data to pass to javascript
+		$data = array(
+			'next_label' => __( 'Next' ),
+			'close_label' => __('Close'),
+			'pointers' => $pointers
+		);
+		// echo "<pre>";
+		// print_r($data);
+		// echo "</pre>";
+		wp_localize_script( 'custom_admin_pointers', 'MyAdminPointers', $data );
+	}
+	
 	function mooauth_admin_notice__success(){
 			?>
 			<div class="notice notice-success is-dismissible">
@@ -120,6 +148,11 @@ class mo_oauth {
 
 		if ( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_mo_server_message" ) {
 			update_option( 'mo_oauth_client_show_mo_server_message', 1 );
+			return;
+		}
+
+		if ( isset( $_POST['option'] ) and $_POST['option'] == "clear_pointers" ) {
+			update_user_meta(get_current_user_id(),'dismissed_wp_pointers','');
 			return;
 		}
 
@@ -349,14 +382,6 @@ class mo_oauth {
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
 				$newapp['redirecturi'] = site_url();
-
-				if(!isset($newapp['apptype'])) {
-					if( ($appname=="openidconnect") )
-						$newapp['apptype'] = "openidconnect";
-					else
-						$newapp['apptype'] = "oauth";
-				}
-
 				if($appname=="facebook"){
 					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
 					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';
@@ -392,7 +417,7 @@ class mo_oauth {
 				} else {
 					$authorizeurl = stripslashes(sanitize_text_field($_POST['mo_oauth_authorizeurl']));
 					$accesstokenurl = stripslashes(sanitize_text_field($_POST['mo_oauth_accesstokenurl']));
-					$resourceownerdetailsurl = stripslashes(sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']));
+					
 					$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_custom_app_name'] ));
 					//$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
 					//$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
@@ -400,7 +425,22 @@ class mo_oauth {
 
 				$newapp['authorizeurl'] = $authorizeurl;
 				$newapp['accesstokenurl'] = $accesstokenurl;
-				$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
+				if(isset($_POST['mo_oauth_app_type'])) {
+					$newapp['apptype'] = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_type'] ));
+				} else {
+					$newapp['apptype'] = stripslashes(sanitize_text_field( 'oauth' ));
+				}
+				
+				if($newap['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
+					$resourceownerdetailsurl = stripslashes(sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']));
+					if($resourceownerdetailsurl != '') {
+						$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
+					}
+				}
+
+				if(isset($_POST['mo_oauth_app_name'])) {
+					$newapp['appId'] = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
+				}
 				//$newapp['email_attr'] = $email_attr;
 				//$newapp['name_attr'] = $name_attr;
 				$appslist[$appname] = $newapp;

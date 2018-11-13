@@ -607,7 +607,7 @@ function mo_oauth_apps_config() {
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
 			foreach($appslist as $key => $app){
-				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | <a href='admin.php?page=mo_oauth_settings&action=instructions&app=".$key."'>How to Configure?</a></td></tr>";
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | <a href='admin.php?page=mo_oauth_settings&action=instructions&appId=".$key."'>How to Configure?</a></td></tr>";
 			}
 			echo "</table>";
 			echo "<br><br>";

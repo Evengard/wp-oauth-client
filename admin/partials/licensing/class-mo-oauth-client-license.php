@@ -77,6 +77,13 @@ class Mo_OAuth_Client_Admin_Licesing {
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/img/tick.png"></i></td>
             </tr>
             <tr>
+                <td>Grant Types</td>
+                <td>Authorization Code</td>
+                <td>Authorization Code</td>
+                <td>All (Select One)</td>
+                <td>All (Select Multiple)</i></td>
+            </tr>
+            <tr>
                 <td>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</td>
                 <td></td>
                 <td><img style="width:10px;height:10px;" src="<?php echo plugin_dir_url( __FILE__ );?>/img/tick.png"></i></td>

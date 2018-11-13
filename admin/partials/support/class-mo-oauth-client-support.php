@@ -8,9 +8,10 @@ class Mo_OAuth_Client_Admin_Support {
 	
 	public static function support_page(){
 	?>
-		<div class="mo_support_layout">
+		<div id="mo_support_layout" class="mo_support_layout">
 			<div>
 				<h3>Contact Us</h3>
+				<p>Need any help? Couldn't find an answer in <a href="<?php echo add_query_arg( array('tab' => 'faq'), $_SERVER['REQUEST_URI'] ); ?>">FAQ</a>?<br>Just send us a query so we can help you.</p>
 				<form method="post" action="">
 					<input type="hidden" name="option" value="mo_oauth_contact_us_query_option" />
 					<table class="mo_settings_table">
@@ -28,6 +29,7 @@ class Mo_OAuth_Client_Admin_Support {
 					<div style="text-align:center;">
 						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" />
 					</div>
+					<p>If you want custom features in the plugin, just drop an email at <a href="mailto:info@miniorange.com">info@miniorange.com</a>.</p>
 				</form>
 			</div>
 		</div>

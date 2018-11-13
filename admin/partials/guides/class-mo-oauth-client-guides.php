@@ -8,17 +8,24 @@ class Mo_OAuth_Client_Admin_Guides {
 	}
 	
 	 public static function instructions_page($appname){
-		
-		if($appname=="google"){
-			echo '<br><strong>Instructions to configure Google :</strong><ol><li>Visit the Google website for developers <a href="https://console.developers.google.com/project"target="_blank">console.developers.google.com</a>.</li><li>Open the Google API Console Credentials page and go to API Manager -> Credentials</li><li>From the project drop-down, choose Create a new project, enter a name for the project, and optionally, edit the provided Project ID. Click Create.</li><li>On the Credentials page, select Create credentials, then select OAuth client ID.</li><li>You may be prompted to set a product name on the Consent screen. If so, click Configure consent screen, supply the requested information, and click Save to return to the Credentials screen.</li><li>Select Web Application for the Application Type. Follow the instructions to enter JavaScript origins, redirect URIs, or both. For Redirect URI provide the <b>Configure OAuth->Redirect/Callback URI</b>h.</li><li>Click Create.</li><li>On the page that appears, copy the client ID and client secret to your clipboard, as you will need them to configure above.</li><li>Enable the Google+ API.</li><li>Go to Appearance->Widgets. Among the available widgets youwill find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
-		} else if($appname=="facebook"){
-			echo '<br><strong>Instructions to configure Facebook : </strong><ol><li>Go to Facebook developers console <a href="https://developers.facebook.com/apps/" target="_blank">https://developers.facebook.com/apps/</a>.</li><li>Click on Create a New App/Add new App button. You will need to register as a Facebook developer to create an App.</li><li>Enter <b>Display Name</b>. And choose category.</li><li>Click on <b>Create App ID</b>.</li><li>From the left pane, select <b>Settings</b>.</li><li>From the tabs above, select <b>Advanced</b>.</li><li>Under <b>Client OAuth Settings</b>, enter <b>Configure OAuth->Redirect/Callback URI</b> in Valid OAuth redirect URIs and click <b>Save Changes</b>.</li><li>Paste your App ID/Secret provided by Facebook into the fields above.</li><li>Click on the Save settings button.Go to Appearance->Widgets. Among the available widgets youwill find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
-		} else{
-			echo '<br><strong>Instructions to configure custom OAuth Server:</strong><ol><li>Enter your Client ID and Client Secret above.</li><li>Click on the Save settings button.</li><li>Provide <b>Configure OAuth->Redirect/Callback URI</b> for your OAuth server Redirect URI.</li><li>Go to Appearance->Widgets. Among the available widgets you will find miniOrange OAuth, drag it to the widget area where you want it to appear.</li><li>Now logout and go to your site. You will see a login link where you placed that widget.</li></ol>';
+		$app = mo_oauth_client_get_app($appname);
+		if(strpos($app->label, 'Custom') !== false) {
+			echo '<br><strong>Instructions to configure '.$app->label.':</strong><ol>';
+		} else {
+			echo '<br><strong>Instructions to configure '.$app->label.' as OAuth Server:</strong><ol>';
 		}
+		echo '<li>In front of <b>App Name</b> field, enter the name you would like to display on login button.</li>';
+		if($app->guide !== "") {
+			echo '<li>Please follow the instruction given in Step by Step guide to get your Client ID, Client Secret and other necessary information. <a href="'.$app->guide.'" target="_blank">Click here</a> to get the step by step guide to configure <i>'.explode('App', $app->label)[0].'</i> as OAuth/OpenID Connect server.</li>';
+		} else {
+			echo '
+			<li>Configure your application as a OAuth Provider.</li>
+			<li>Provide <b>Configure OAuth->Redirect/Callback URI</b> for your OAuth server Redirect URI.<br/><b>Note : </b>Make sure, you have copied the exact callback url including http/https</li>
+			<li>Choose the scopes as per your application/OAuth Server specification(if provided) and enter the same on the <a href="admin.php?page=mo_oauth_settings&appId='.$app->appId.'" target="_blank"><b>miniOrange OAuth Client -> Configure OAuth</b></a> page.</li>
+			<li>Enter your <i>Client ID</i> and <i>Client Secret</i> provided by your OAuth Provider, on <a href="admin.php?page=mo_oauth_settings&appId='.$app->appId.'" target="_blank"><b>Configure OAuth</b></a> page.</li>';
+		}
+		echo '<li>Once done with configuration, click on <b>Save Settings</b>. Click on <b>Test Configuration</b> button.</li><li> On successful configuration, you will get a table with attributes names and values.<br>For example:<br><img src="'. plugins_url( './images/testconfig.png', __FILE__ ).'" /></li><li>To proceed with SSO, you need to map attributes under Attribute Mapping section. Map attribute with the attribute name provided under Test Configuration table. <a href="https://faq.miniorange.com/knowledgebase/map-roles-usergroup/" target="_blank">Click here</a> to know more about how to configure attributes.</li><li>Go to <b>Appearance->Widgets</b>. Among the available widgets you will find <b>miniOrange OAuth</b>, drag it to the widget area where you want it to appear.</li><li>To test the SSO, open the page where you have saved the widget in private window. On successful SSO, user will automatically get created in <a href="users.php" target="_blank">WordPress Users list</a>.</li></ol>';
 	}
-
-	
 }
 
 ?>
