@@ -10,6 +10,7 @@ foreach ( $users as $user ) {
 	delete_user_meta($user->ID, 'user_eveonline_character_name');
 	delete_user_meta($user->ID, 'user_eveonline_corporation_name');
 	delete_user_meta($user->ID, 'user_eveonline_alliance_name');
+	delete_user_meta($user->ID, 'dismissed_wp_pointers');
 }
 
 delete_option('host_name');

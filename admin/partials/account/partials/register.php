@@ -74,3 +74,40 @@ function register_ui() {
 		</script>
 		<?php
 }
+
+function show_customer_info() {
+	?>
+	<div class="mo_table_layout" >
+		<h2>Thank you for registering with miniOrange.</h2>
+
+		<table border="1"
+		   style="background-color:#FFFFFF; border:1px solid #CCCCCC; border-collapse: collapse; padding:0px 0px 0px 10px; margin:2px; width:85%">
+		<tr>
+			<td style="width:45%; padding: 10px;">miniOrange Account Email</td>
+			<td style="width:55%; padding: 10px;"><?php echo get_option( 'mo_oauth_admin_email' ); ?></td>
+		</tr>
+		<tr>
+			<td style="width:45%; padding: 10px;">Customer ID</td>
+			<td style="width:55%; padding: 10px;"><?php echo get_option( 'mo_oauth_admin_customer_key' ) ?></td>
+		</tr>
+		</table>
+		<br /><br />
+
+	<table>
+	<tr>
+	<td>
+	<form name="f1" method="post" action="" id="mo_oauth_goto_login_form">
+		<input type="hidden" value="change_miniorange" name="option"/>
+		<input type="submit" value="Change Email Address" class="button button-primary button-large"/>
+	</form>
+	</td><td>
+	<a href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>"><input type="button" class="button button-primary button-large" value="Check Licensing Plans"/></a>
+	</td>
+	</tr>
+	</table>
+
+				<br />
+	</div>
+
+	<?php
+}

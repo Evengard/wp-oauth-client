@@ -49,13 +49,13 @@ function applist_page() {
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
 			foreach($appslist as $key => $app){
-				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | ";
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
 				if(isset($_GET['action'])) {
 					if($_GET['action'] == 'instructions') {
-					echo "<a href='admin.php?page=mo_oauth_settings'>Hide Instructions</a></td></tr>";
+					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>Hide Instructions</a></td></tr>";
 					}
 				} else {
-					echo "<a href='admin.php?page=mo_oauth_settings&action=instructions&appId=".$app['appId']."'>How to Configure?</a></td></tr>";
+					echo "<a href='admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".((isset($app['appId']) ? $app['appId'] : ''))."'>How to Configure?</a></td></tr>";
 				}
 
 			}

@@ -55,11 +55,12 @@ class Mo_OAuth_Client_Admin_Menu {
 		</div>
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
-			<a class="nav-tab <?php if($currenttab == '') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings">Configure OAuth</a>
+			<a class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
+			<a class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
 			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
-			<a class="nav-tab <?php if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>
+			<a class="nav-tab <?php if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>			
 			<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
 		</h2>
 		</div> 
@@ -69,63 +70,7 @@ class Mo_OAuth_Client_Admin_Menu {
 	
 	
 	public static function show_idp_link($currenttab) { 
-	
-		if (!mo_oauth_is_customer_registered() && $currenttab!=="register") {
-					echo '<div class="error" style="display:block;margin:10px;color:red;background-color:rgba(251, 232, 0, 0.15);border:solid 1px rgba(255, 0, 9, 0.36);position: relative;">
-                    <h4 style="margin: 15px 25px; position: relative;"><a href="admin.php?page=mo_oauth_settings&tab=register" >Click Here</a> to Register/Login.</a></h4>
-                	</div>
-					<div id="toast">You need to Register first to proceed with the configuration!</div>
-				<script>
-					var mouse;
-					jQuery( document ).ready(function() {
-						jQuery(".mo_oauth_content :input").prop("disabled", true);
-						jQuery("#restart_tour_id").prop("disabled", false);
-						// $("#restart_tour_id").removeAttr("disabled") 
-						//jQuery(".mo_oauth_content :input[type=text]").val("");
-						//jQuery(".mo_oauth_content :input[type=url]").val("");
-						jQuery(".mo_oauth_content a").prop("href","javascript:show_reg_toast()");
-						jQuery("#mo_oauth_client_default_apps_input").removeProp("disabled");
-					});
-					function show_reg_toast() {
-						var x = document.getElementById("toast");
-						placeDiv(mouse.x, mouse.y, "toast");
-						x.className = "show";
-						setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-					}
-
-					function placeDiv(x_pos, y_pos, divid) {
-						var d = document.getElementById(divid);
-						d.style.position = "absolute";
-						d.style.left = x_pos+"px";
-						d.style.top = y_pos+"px";
-					  }
-
-					function handler(e) {
-						e = e || window.event;
-					
-						var pageX = e.pageX;
-						var pageY = e.pageY;
-					
-						// IE 8
-						if (pageX === undefined) {
-							pageX = e.clientX;
-							pageY = e.clientY;
-						}
-						mouse = {
-							"x": pageX, 
-							"y": pageY,
-						}
-						console.log(mouse);
-					}
-					
-					// attach handler to the click event of the document
-					if (document.attachEvent) document.attachEvent("onclick", handler);
-					else document.addEventListener("click", handler);
-				</script>
-		
-		';					
-				
-		} else if ( mo_oauth_is_customer_registered() && ( $currenttab == 'licensing' || ! get_option( 'mo_oauth_client_show_mo_server_message' )) ) {
+	if ((! get_option( 'mo_oauth_client_show_mo_server_message' )) ) {
             ?>
             <form name="f" method="post" action="" id="mo_oauth_client_mo_server_form">
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
@@ -146,29 +91,35 @@ class Mo_OAuth_Client_Admin_Menu {
 	
 	
 	public static function show_tab($currenttab) { 
-	
-			if($currenttab == 'register') {
+			if($currenttab == 'account') {
 				if (get_option ( 'verify_customer' ) == 'true') {
 					Mo_OAuth_Client_Admin_Account::verify_password();
 				} else if (trim ( get_option ( 'mo_oauth_admin_email' ) ) != '' && trim ( get_option ( 'mo_oauth_admin_api_key' ) ) == '' && get_option ( 'new_registration' ) != 'true') {
 					Mo_OAuth_Client_Admin_Account::verify_password();
 				} else if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status')=='MO_OTP_VALIDATION_FAILURE' ||get_option('mo_oauth_registration_status') ==  'MO_OTP_DELIVERED_SUCCESS_PHONE' ||get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_FAILURE_PHONE'){
 					Mo_OAuth_Client_Admin_Account::otp_verification();
-				} else if (! mo_oauth_is_customer_registered()) {
-					delete_option ( 'password_mismatch' );
+				} else {
 					Mo_OAuth_Client_Admin_Account::register();
-				} else 
-					Mo_OAuth_Client_Admin_Apps::applist();
+				}
 			} else if($currenttab == 'customization')
 				Mo_OAuth_Client_Admin_Apps::customization();
 			else if($currenttab == 'signinsettings')
 				Mo_OAuth_Client_Admin_Apps::sign_in_settings();
 			else if($currenttab == 'licensing')
-				Mo_OAuth_Client_Admin_Licesing::license_page();
+				Mo_OAuth_Client_Admin_Licensing::show_licensing_page();
 			else if($currenttab == 'faq') 
     			Mo_OAuth_Client_Admin_Faq::faq(); 
-			else
+			else if($currenttab == '' || $currenttab === 'account') {
+					?>
+						<a id="goregister" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'account' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">
+
+						<script>
+							location.href = jQuery('#goregister').attr('href');
+						</script>
+					<?php
+			} else {
 				Mo_OAuth_Client_Admin_Apps::applist();
+			}
 		//}
 	}
 	

@@ -80,6 +80,9 @@
 	"dailymotion": {
 		"label":"Dailymotion", "type":"oauth", "image":"dailymotion.png", "scope": "email", "authorize": "https://www.dailymotion.com/oauth/authorize", "token": "https://api.dailymotion.com/oauth/token", "userinfo": "https://api.dailymotion.com/user/me?fields=id,username,email,first_name,last_name", "guide":"https://plugins.miniorange.com/step-by-step-guide-to-configure-dailymotion-as-oauth-server/"
 	},
+	"salesforce": {
+		"label":"Salesforce", "type":"oauth", "image":"salesforce.png", "scope": "email", "authorize": "https://login.salesforce.com/services/oauth2/authorize", "token": "https://login.salesforce.com/services/oauth2/token", "userinfo": "https://login.salesforce.com/services/oauth2/userinfo", "guide":"https://plugins.miniorange.com/step-by-step-guide-to-configure-salesforce-as-oauth-server/"
+	},
 	"invisioncommunity": {
 		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://<your-domain>/oauth/authorize", "token": "https://<your-domain>/oauth/token", "userinfo": "https://<your-domain>/oauth/core/me", "guide":""
 		}

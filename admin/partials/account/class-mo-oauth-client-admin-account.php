@@ -8,7 +8,11 @@ require('partials/verify-otp.php');
 class Mo_OAuth_Client_Admin_Account {
 	
 	public static function register() {
-		register_ui();
+		if(!mo_oauth_is_customer_registered()){
+			register_ui();
+		} else {
+			show_customer_info();
+		}
 	}
 	
 	public static function verify_password() {

@@ -21,11 +21,7 @@ function mo_oauth_client_show_default_apps() { ?>
 		
 		jQuery("#mo_oauth_client_default_apps li").click(function(){
 			var appId = jQuery(this).data("appid");
-			<?php if (mo_oauth_is_customer_registered()) { ?>
 				window.location.href += "&appId="+appId;
-			<?php } else { ?>
-				window.location.href = "admin.php?page=mo_oauth_settings&tab=register";
-			<?php } ?>
 		});
 		
 	</script>

@@ -18,12 +18,12 @@ function mo_register() {
 
 <div id="mo_oauth_settings">
 	<?php
-        if ( $currenttab == 'licensing' || ! get_option( 'mo_oauth_client_show_mo_server_message' ) ) {
+        if (! get_option( 'mo_oauth_client_show_mo_server_message' ) ) {
             ?>
             <form name="f" method="post" action="" id="mo_oauth_client_mo_server_form">
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
-                    <h4>If you are looking for an OAuth Server, you can try out <a href="https://idp.miniorange.com" target="_blank">miniOrange On-Premise OAuth Server</a>.</h4>
+                    <h4>If you are looking for an OAuth Server, you can try out <a 'tab'href="https://idp.miniorange.com" target="_blank">miniOrange On-Premise OAuth Server</a>.</h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>
@@ -49,9 +49,6 @@ function mo_register() {
 		mo_oauth_show_verify_password_page();
 	} else if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status')=='MO_OTP_VALIDATION_FAILURE' ||get_option('mo_oauth_registration_status') ==  'MO_OTP_DELIVERED_SUCCESS_PHONE' ||get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_FAILURE_PHONE'){
 		mo_oauth_show_otp_verification();
-	} else if (! mo_oauth_is_customer_registered()) {
-		delete_option ( 'password_mismatch' );
-		mo_oauth_show_new_registration_page();
 	} else {
 
 		if($currenttab == 'customization')
@@ -269,6 +266,7 @@ function mo_oauth_client_menu($currenttab){
 		<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 		<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
 		<a class="nav-tab <?php if($currenttab == 'reports') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=reports">Reports</a>
+		<a class="nav-tab <?php if($currenttab == 'register') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=register">Account Setup</a>
 		<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
 		</h2>
 	</div>
@@ -1442,7 +1440,7 @@ function mo_oauth_show_otp_verification(){
 <?php
 }
 
-function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_admin_customer_key') > 138200)return true;else return false;}
+function mo_oauth_hbca_xyake(){if(!mo_oauth_is_customer_registered()) {;if(get_option('mo_oauth_admin_customer_key') > 138200){return true;}else{return false;}}return false;}
 
 function mo_oauth_client_reports(){
 	$disabled = true;

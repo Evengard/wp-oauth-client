@@ -47,15 +47,18 @@ else if(isset($_GET['appId'])) {
             'align'     => 'left',
             'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
         );
-        $pointers['miniorange-select-your-idp'] = array(
-            'title'     => sprintf( '<h3>%s</h3>', esc_html__( 'Select your OAuth Provider' ) ),
-            'content'   => sprintf( '<p>%s</p>', esc_html__( 'Choose your OAuth Provider from the list of OAuth Providers' ) ),
-            'anchor_id' => '#mo_oauth_client_default_apps',
-            'edge'      => 'left',
-            'align'     => 'left',
-            'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
-        ); 
-    }    
+    }
+}
+
+if(isset($_GET['tab']) && $_GET['tab'] === 'config') {
+    $pointers['miniorange-select-your-idp'] = array(
+        'title'     => sprintf( '<h3>%s</h3>', esc_html__( 'Select your OAuth Provider' ) ),
+        'content'   => sprintf( '<p>%s</p>', esc_html__( 'Choose your OAuth Provider from the list of OAuth Providers' ) ),
+        'anchor_id' => '#mo_oauth_client_default_apps',
+        'edge'      => 'left',
+        'align'     => 'left',
+        'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
+    );
 }
 
 return $pointers;

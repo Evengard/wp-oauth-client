@@ -3,7 +3,7 @@
 * Plugin Name: Login with OAuth ( OAuth Client )
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.8.1
+* Version: 6.9.0
 * Author: miniOrange
 * Author URI: http://miniorange.com
 * License: GPL2
@@ -155,7 +155,12 @@ class mo_oauth {
 			update_user_meta(get_current_user_id(),'dismissed_wp_pointers','');
 			return;
 		}
-
+		
+		if ( isset( $_POST['option'] ) and $_POST['option'] == "change_miniorange" ) {
+			$this->mo_oauth_deactivate();
+			return;
+		}
+		
 		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {	//register the admin to miniOrange
 			//validation and sanitization
 			$email = '';
@@ -175,12 +180,12 @@ class mo_oauth {
 				return;
 			} else{
 				$email = sanitize_email( $_POST['email'] );
-				$phone = sanitize_text_field( $_POST['phone'] );
-				$password = sanitize_text_field( $_POST['password'] );
-				$confirmPassword = sanitize_text_field( $_POST['confirmPassword'] );
-				$fname = sanitize_text_field( $_POST['fname'] );
-				$lname = sanitize_text_field( $_POST['lname'] );
-				$company = sanitize_text_field( $_POST['company'] );
+				$phone = stripslashes( $_POST['phone'] );
+				$password = stripslashes( $_POST['password'] );
+				$confirmPassword = stripslashes( $_POST['confirmPassword'] );
+				$fname = stripslashes( $_POST['fname'] );
+				$lname = stripslashes( $_POST['lname'] );
+				$company = stripslashes( $_POST['company'] );
 			}
 
 			update_option( 'mo_oauth_admin_email', $email );
@@ -231,7 +236,7 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$otp_token = sanitize_text_field( $_POST['mo_oauth_otp_token'] );
+				$otp_token = stripslashes( $_POST['mo_oauth_otp_token'] );
 			}
 
 			$customer = new Customer();
@@ -257,7 +262,7 @@ class mo_oauth {
 				return;
 			} else{
 				$email = sanitize_email( $_POST['email'] );
-				$password = sanitize_text_field( $_POST['password'] );
+				$password = stripslashes( $_POST['password'] );
 			}
 
 			update_option( 'mo_oauth_admin_email', $email );
@@ -292,8 +297,8 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$apiKey = sanitize_text_field( $_POST['mo_eve_api_key'] );
-				$verificationCode = sanitize_text_field( $_POST['mo_eve_verification_code'] );
+				$apiKey = stripslashes( $_POST['mo_eve_api_key'] );
+				$verificationCode = stripslashes( $_POST['mo_eve_verification_code'] );
 			}
 
 			update_option( 'mo_eve_api_key' ,$apiKey);
@@ -312,9 +317,9 @@ class mo_oauth {
 				return $this->mo_oauth_show_curl_error();
 			}
 			//sanitization of corporations and alliance fields
-			$corps = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_corps'] ));
-			$alliances = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_alliances'] ));
-			$charName = stripslashes(sanitize_text_field( $_POST['mo_eve_allowed_char_name'] ));
+			$corps = stripslashes( $_POST['mo_eve_allowed_corps'] );
+			$alliances = stripslashes( $_POST['mo_eve_allowed_alliances'] );
+			$charName = stripslashes( $_POST['mo_eve_allowed_char_name'] );
 
 			update_option( 'mo_eve_allowed_corps' ,$corps );
 			update_option( 'mo_eve_allowed_alliances', $alliances );
@@ -346,10 +351,10 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$scope = stripslashes(sanitize_text_field( $_POST['mo_oauth_scope'] ));
-				$clientid = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_id'] ));
-				$clientsecret = stripslashes(sanitize_text_field( $_POST['mo_oauth_client_secret'] ));
-				$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
+				$scope = stripslashes( $_POST['mo_oauth_scope'] );
+				$clientid = stripslashes( $_POST['mo_oauth_client_id'] );
+				$clientsecret = stripslashes( $_POST['mo_oauth_client_secret'] );
+				$appname = stripslashes( $_POST['mo_oauth_app_name'] );
 				update_option('mo_oauth_client_disable_authorization_header',isset( $_POST['disable_authorization_header']) ? $_POST['disable_authorization_header'] : 0);
 
 
@@ -415,31 +420,30 @@ class mo_oauth {
 					$accesstokenurl = "";
 					$resourceownerdetailsurl = "";
 				} else {
-					$authorizeurl = stripslashes(sanitize_text_field($_POST['mo_oauth_authorizeurl']));
-					$accesstokenurl = stripslashes(sanitize_text_field($_POST['mo_oauth_accesstokenurl']));
-					
-					$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_custom_app_name'] ));
-					//$email_attr = sanitize_text_field( $_POST['mo_oauth_email_attr'] );
-					//$name_attr = sanitize_text_field( $_POST['mo_oauth_name_attr'] );
+					$authorizeurl = stripslashes($_POST['mo_oauth_authorizeurl']);
+					$accesstokenurl = stripslashes($_POST['mo_oauth_accesstokenurl']);
+					$appname = stripslashes( $_POST['mo_oauth_custom_app_name'] );
+					//$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
+					//$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
 				}
 
 				$newapp['authorizeurl'] = $authorizeurl;
 				$newapp['accesstokenurl'] = $accesstokenurl;
 				if(isset($_POST['mo_oauth_app_type'])) {
-					$newapp['apptype'] = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_type'] ));
+					$newapp['apptype'] = stripslashes( $_POST['mo_oauth_app_type'] );
 				} else {
-					$newapp['apptype'] = stripslashes(sanitize_text_field( 'oauth' ));
+					$newapp['apptype'] = stripslashes( 'oauth' );
 				}
 				
 				if($newap['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
-					$resourceownerdetailsurl = stripslashes(sanitize_text_field($_POST['mo_oauth_resourceownerdetailsurl']));
+					$resourceownerdetailsurl = stripslashes($_POST['mo_oauth_resourceownerdetailsurl']);
 					if($resourceownerdetailsurl != '') {
 						$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
 					}
 				}
 
 				if(isset($_POST['mo_oauth_app_name'])) {
-					$newapp['appId'] = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
+					$newapp['appId'] = stripslashes( $_POST['mo_oauth_app_name'] );
 				}
 				//$newapp['email_attr'] = $email_attr;
 				//$newapp['name_attr'] = $name_attr;
@@ -447,21 +451,21 @@ class mo_oauth {
 				update_option('mo_oauth_apps_list', $appslist);
 				//update_option( 'message', 'Your settings are saved successfully.' );
 				//$this->mo_oauth_show_success_message();
-				wp_redirect('admin.php?page=mo_oauth_settings&action=update&app='.urlencode($appname));
+				wp_redirect('admin.php?page=mo_oauth_settings&tab=config&action=update&app='.urlencode($appname));
 			}
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_app_customization" ) {
-			update_option( 'mo_oauth_icon_width', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_width'])));
-			update_option( 'mo_oauth_icon_height', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_height'])));
-			update_option( 'mo_oauth_icon_margin', stripslashes(sanitize_text_field($_POST['mo_oauth_icon_margin'])));
-			update_option('mo_oauth_icon_configure_css', stripcslashes(sanitize_text_field($_POST['mo_oauth_icon_configure_css'])));
+			update_option( 'mo_oauth_icon_width', stripslashes($_POST['mo_oauth_icon_width']));
+			update_option( 'mo_oauth_icon_height', stripslashes($_POST['mo_oauth_icon_height']));
+			update_option( 'mo_oauth_icon_margin', stripslashes($_POST['mo_oauth_icon_margin']));
+			update_option('mo_oauth_icon_configure_css', stripcslashes(stripslashes($_POST['mo_oauth_icon_configure_css'])));
 			update_option( 'message', 'Your settings were saved' );
 			$this->mo_oauth_show_success_message();
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_attribute_mapping" ) {
-			$appname = stripslashes(sanitize_text_field( $_POST['mo_oauth_app_name'] ));
-			$email_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_email_attr'] ));
-			$name_attr = stripslashes(sanitize_text_field( $_POST['mo_oauth_name_attr'] ));
+			$appname = stripslashes( $_POST['mo_oauth_app_name'] );
+			$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
+			$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
 
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
@@ -475,7 +479,7 @@ class mo_oauth {
 			update_option('mo_oauth_apps_list', $appslist);
 			update_option( 'message', 'Your settings are saved successfully.' );
 			$this->mo_oauth_show_success_message();
-			wp_redirect('admin.php?page=mo_oauth_settings&action=update&app='.urlencode($appname));
+			wp_redirect('admin.php?page=mo_oauth_settings&tab=config&action=update&app='.urlencode($appname));
 		}
 		//submit google form
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_google" ) {
@@ -491,9 +495,9 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$scope = sanitize_text_field( $_POST['mo_oauth_google_scope'] );
-				$clientid = sanitize_text_field( $_POST['mo_oauth_google_client_id'] );
-				$clientsecret = sanitize_text_field( $_POST['mo_oauth_google_client_secret'] );
+				$scope = stripslashes( $_POST['mo_oauth_google_scope'] );
+				$clientid = stripslashes( $_POST['mo_oauth_google_client_id'] );
+				$clientsecret = stripslashes( $_POST['mo_oauth_google_client_secret'] );
 			}
 
 			if(mo_oauth_is_customer_registered()) {
@@ -534,8 +538,8 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$clientid = sanitize_text_field($_POST['mo_oauth_eveonline_client_id']);
-				$clientsecret = sanitize_text_field($_POST['mo_oauth_eveonline_client_secret']);
+				$clientid = stripslashes($_POST['mo_oauth_eveonline_client_id']);
+				$clientsecret = stripslashes($_POST['mo_oauth_eveonline_client_secret']);
 			}
 
 			if(mo_oauth_is_customer_registered()) {
@@ -576,9 +580,9 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 				return;
 			} else{
-				$scope = sanitize_text_field( $_POST['mo_oauth_facebook_scope'] );
-				$clientid = sanitize_text_field( $_POST['mo_oauth_facebook_client_id'] );
-				$clientsecret = sanitize_text_field( $_POST['mo_oauth_facebook_client_secret'] );
+				$scope = stripslashes( $_POST['mo_oauth_facebook_scope'] );
+				$clientid = stripslashes( $_POST['mo_oauth_facebook_client_id'] );
+				$clientsecret = stripslashes( $_POST['mo_oauth_facebook_client_secret'] );
 			}
 
 			if(mo_oauth_is_customer_registered()) {
@@ -690,7 +694,7 @@ class mo_oauth {
 			if(!mo_oauth_is_curl_installed()) {
 				return $this->mo_oauth_show_curl_error();
 			}
-			$phone = sanitize_text_field($_POST['phone']);
+			$phone = stripslashes($_POST['phone']);
 			$phone = str_replace(' ', '', $phone);
 			$phone = str_replace('-', '', $phone);
 			update_option('mo_oauth_admin_phone', $phone);
