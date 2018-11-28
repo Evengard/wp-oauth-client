@@ -1,9 +1,9 @@
-=== WordPress OAuth Login (OAuth Client) ===
+=== WordPress OAuth Login ( OAuth Client ) ===
 Contributors: cyberlord92,oauth
 Tags: OAuth, oauth client, oauth login, SSO OAuth, sso
 Requires at least: 3.0.1
-Tested up to: 5.0
-Stable tag: 6.9.0
+Tested up to: 5.1
+Stable tag: 6.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,7 @@ OAuth Login plugin allows login (Single Sign On) with your google, facebook, twi
 *	Account Linking- OAuth Login supports the linking of user accounts from OAuth Providers to Wordpress account.
 *	App domain specific Registration Restrictions- OAuth Login restricts registration on your site based on the person's email address domain
 *	Multi-site Support- OAuth Login have unique ability to support multiple sites under one account
+*	Reverse Proxy Support- OAuth Login support for sites behind a reverse-proxy or on-prem instances with no internet access.
 *	Email notifications- You can customize the E-mail templates used for the automatic email notifications related to user registration.
 *	Extended OAuth API support- Extend OAuth API support to extend functionality to the existing OAuth client.[ENTERPRISE]
 *	BuddyPress Attribute Mapping- OAuth Login allows BuddyPress Attribute Mapping.[ENTERPRISE]
@@ -154,8 +155,11 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 
 == Changelog ==
 
+= 6.9.1 =
+* UI changes
+
 = 6.9.0 =
-* Delayed Registration
+* Delayed Registartion
 * Updated Password Validation
 
 = 6.8.1 =
