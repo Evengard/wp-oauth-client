@@ -1,13 +1,13 @@
 === WordPress OAuth Login (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: OAuth, oauth client, oauth login, SSO OAuth, sso
+Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
 Tested up to: 5.0
-Stable tag: 6.9.1
+Stable tag: 6.9.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-OAuth Login plugin allows login with google, facebook, twitter, Custom OAuth server, Custom Openid Connect (OIDC) server.
+OAuth Login plugin allows Single Sign-On with Azure, AWS Cognito, custom OAuth 2.0 and OpenID Connect (OIDC) servers.
 
 == Description ==
 
