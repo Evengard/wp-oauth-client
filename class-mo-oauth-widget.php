@@ -609,7 +609,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 	function mo_oauth_jkhuiysuayhbw($ejhi, $nabnbj)
 	{
 		$option = 0; $flag = false;	
-		if(!empty(get_option( 'mo_oauth_authorizations' )))
+		$mo_oauth_authorizations = get_option('mo_oauth_authorizations');
+		if(!empty($mo_oauth_authorizations))
 			$option = get_option( 'mo_oauth_authorizations' );
 		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi, $nabnbj);
 		if($user);								
