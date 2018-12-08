@@ -32,7 +32,7 @@ function mo_oauth_client_main_menu() {
 				Mo_OAuth_Client_Admin_Menu::show_support_sidebar($currenttab);
 				echo '</tr>
 				</table>
-				<div class="overlay" id="overlay" hidden></div>
+				<div class="mo_tutorial_overlay" id="mo_tutorial_overlay" hidden></div>
 		</div>';
 }
 

@@ -3,7 +3,7 @@
 		<form name="f" method="post" action="">
 			<input type="hidden" name="option" value="mo_oauth_verify_customer" />
 			<div class="mo_table_layout">
-				<div id="toggle1" class="panel_toggle">
+				<div id="toggle1" class="mo_panel_toggle">
 					<h3>Login with miniOrange</h3>
 				</div>
 				<p><b>It seems you already have an account with miniOrange. Please enter your miniOrange email and password.<br/> <a href="#mo_oauth_forgot_password_link">Click here if you forgot your password?</a></b></p>

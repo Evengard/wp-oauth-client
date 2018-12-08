@@ -18,7 +18,7 @@
 
 	?>
 
-		<div id="toggle2" class="panel_toggle">
+		<div id="toggle2" class="mo_panel_toggle">
 			<h3>Update Application</h3>
 		</div>
 		<div id="mo_oauth_update_app">
@@ -71,7 +71,7 @@
 				?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><?php if($oidc === false) { echo '<font color="#FF0000">*</font>'; } ?>Get User Info Endpoint:</strong></td>
-					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php echo $currentapp['resourceownerdetailsurl'];?>"></td>
+					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo $currentapp['resourceownerdetailsurl']; } ?>"></td>
 				</tr>
 			<tr><td></td><td><input class="mo_table_textbox" type="checkbox" name="disable_authorization_header" id="disable_authorization_header" <?php (checked( get_option('mo_oauth_client_disable_authorization_header') == true ));?> > (Check if does not require Authorization Header)</td></tr>
 			<?php } ?>

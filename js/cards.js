@@ -47,14 +47,14 @@
 
     // take pointer data and setup pointer plugin for anchor element
     MAP.setPlugin = function( data ) {
-        jQuery('#overlay').show();
+        jQuery('#mo_tutorial_overlay').show();
         if ( typeof MAP.last_pointer === 'object') {
             MAP.last_pointer.pointer('destroy');
             MAP.last_pointer = false;
         }
         jQuery(data.anchor_id).css('z-index', 3);
         jQuery(data.anchor_id).css('position', 'relative');
-        jQuery('#overlay').css('z-index', 1);
+        jQuery('#mo_tutorial_overlay').css('z-index', 1);
         MAP.current_pointer = false;
         var pointer_data = MAP.getPointerData( data );
         if ( ! pointer_data.target || ! pointer_data.data ) {
@@ -67,7 +67,7 @@
             position: { edge: data.edge, align: data.align },
             close: function() {
                 jQuery(data.anchor_id).css('z-index','0');
-                jQuery('#overlay').hide();
+                jQuery('#mo_tutorial_overlay').hide();
 
                 // open next pointer if it exists
                 if ( MAP.hasNext( data ) ) {

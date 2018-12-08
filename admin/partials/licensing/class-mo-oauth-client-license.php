@@ -2,6 +2,13 @@
 
 class Mo_OAuth_Client_Admin_Licensing {
     static function show_licensing_page(){
+        $sssborder = 'none;';
+        $sspborder = 'none;';
+        $sseborder = 'none;';
+        $mspborder = 'none;';
+        $mseborder = 'none;';
+        $msbborder = 'none;';
+
         echo '<style>.update-nag, .updated, .error, .is-dismissible, .notice, .notice-error { display: none; }</style>';
         ?>
         <style>
@@ -1142,7 +1149,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                             </span>
                         </div>
             <div style="text-align: center; font-size: 14px; background: forestgreen; color: white; padding-top: 4px; padding-bottom: 4px; border-radius: 16px;"></div>
-        <input type="hidden" id="mo_license_plan_selected" value="<?php echo $license_plan_selected; ?>" />
+        <input type="hidden" id="mo_license_plan_selected" value="" />
         <div class="tab-content">
         <div class="tab-pane active text-center" id="cloud">
 
@@ -1222,6 +1229,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Auto fill OAuth servers configuration</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
+                                        <li>Authorization Code Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
@@ -1275,6 +1283,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Auto fill OAuth servers configuration</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
+                                        <li>Authorization Code Grant, Password Grant, Client Credentials Grant, Implicit Grant, Refresh token Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
@@ -1325,6 +1334,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Auto fill OAuth servers configuration</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
+                                        <li>Authorization Code Grant, Password Grant, Client Credentials Grant, Implicit Grant, Refresh token Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>

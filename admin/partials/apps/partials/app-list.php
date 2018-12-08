@@ -49,7 +49,7 @@ function applist_page() {
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
 			foreach($appslist as $key => $app){
-				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
 				if(isset($_GET['action'])) {
 					if($_GET['action'] == 'instructions') {
 					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>Hide Instructions</a></td></tr>";

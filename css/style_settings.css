@@ -28,10 +28,10 @@
 .col1 {
 	width: 20%;
 }
-.panel_toggle {
+.mo_panel_toggle {
 	cursor: pointer;
 }
-.panel_toggle:hover {
+.mo_panel_toggle:hover {
 	text-decoration: underline;
 }
 .mo_eve_table_textbox {
@@ -143,7 +143,7 @@
     z-index: 1;
 }
 
-.premium_feature {
+.mo_premium_feature {
 	color:red;
 }
 
@@ -199,10 +199,10 @@ h1{
 .mo_oauth_table_layout td strong {
 	margin-left: 10px;
 }
-.panel_toggle {
+.mo_panel_toggle {
 	cursor: pointer;
 }
-.panel_toggle:hover {
+.mo_panel_toggle:hover {
 	text-decoration: underline;
 }
 .mo_oauth_table_textbox {
@@ -428,7 +428,7 @@ h1{
 	font-weight: bold;
 }
 
-#toast {
+#mo_toast {
     visibility: hidden;
     min-width: 250px;
     margin-left: -250px;
@@ -441,29 +441,29 @@ h1{
 	/* left: 50%; */
 	padding: 16px;
 }
-#toast.show {
+#mo_toast.show {
     visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    -webkit-animation: mo_fadein 0.5s, mo_fadeout 0.5s 2.5s;
+    animation: mo_fadein 0.5s, mo_fadeout 0.5s 2.5s;
 }
 
 
-@-webkit-keyframes fadein {
+@-webkit-keyframes mo_fadein {
     from {opacity: 0;}
     to {opacity: 1;}
 }
 
-@keyframes fadein {
+@keyframes mo_fadein {
     from {opacity: 0;}
     to {opacity: 1;}
 }
 
-@-webkit-keyframes fadeout {
+@-webkit-keyframes mo_fadeout {
     from {opacity: 1;}
     to {opacity: 0;}
 }
 
-@keyframes fadeout {
+@keyframes mo_fadeout {
     from {opacity: 1;}
     to {opacity: 0;}
 }
@@ -475,7 +475,7 @@ h1{
 	font-size: 28px;
 	font-weight: bold;
 }
-.overlay {
+.mo_tutorial_overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -534,38 +534,43 @@ h1{
 	-o-transform: translate(0, 0);
 	transform: translate(0, 0);
 }
-modal-footer {
+.mo_modal-footer {
 	padding: 15px;
 	text-align: right;
 	border-top: 1px solid #e5e5e5;
 }
-.modal-footer .btn + .btn {
+.mo_modal-footer .btn + .btn {
 	margin-left: 5px;
 	margin-bottom: 0;
 }
-.modal-footer .btn-group .btn + .btn {
+.mo_modal-footer .btn-group .btn + .btn {
 	margin-left: -1px;
 }
-.modal-footer .btn-block + .btn-block {
+.mo_modal-footer .btn-block + .btn-block {
 	margin-left: 0;
 }
-.close {
+.mo_modal-footer::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.mo_close {
 	float: right;
 	font-size: 21px;
 	font-weight: bold;
 	line-height: 1;
 	color: #000000;
-	text-shadow: 0 1px 0 #ffffff;
-	opacity: 0.2;
-	filter: alpha(opacity=20);
+	text-shadow: 0 1px 0 #212121;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
-.close:hover,
-.close:focus {
+.mo_close:hover,
+.mo_close:focus {
 	color: #000000;
 	text-decoration: none;
 	cursor: pointer;
-	opacity: 0.5;
-	filter: alpha(opacity=50);
+	opacity: 0.8;
+	filter: alpha(opacity=80);
 }
 button.close {
 	padding: 0;

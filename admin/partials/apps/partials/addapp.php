@@ -9,7 +9,7 @@
 			exit;
 		}		
 	?>	
-	<div id="toggle2" class="panel_toggle">
+	<div id="toggle2" class="mo_panel_toggle">
 		<table class="mo_settings_table">
 			<tr>
 				<td><h3>Add Application</h3></td>

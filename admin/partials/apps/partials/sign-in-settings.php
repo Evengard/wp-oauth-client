@@ -10,20 +10,20 @@
 			<li>Select <b>"miniOrange OAuth"</b>. Drag and drop to your favourite location and save.</li>
 		</ol>
 
-		<h4>Option 2: Use a Shortcode <small class="premium_feature">[STANDARD]</small></h4>
+		<h4>Option 2: Use a Shortcode <small class="mo_premium_feature">[STANDARD]</small></h4>
 		<ul>
 			<li>Place shortcode <b>[mo_oauth_login]</b> in wordpress pages or posts.</li>
 		</ul>
 	</div>
 	
-	<div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
-		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div>
-	<div class="mo_table_layout mo_oauth_premium_option">
-		<h3>Advanced Settings</h3>
-		<br><br>
+	<!--div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div-->
+	<div class="mo_table_layout ">
+		<h3>Advanced Settings <small class="mo_premium_feature"> [PREMIUM]</small></h3>
+		<!--br><br-->
 		<form id="role_mapping_form" name="f" method="post" action="">
 		<h4>Select Grant Type</h4>
-		<input disabled checked type="checkbox"> Authorization Code Grant&nbsp;&nbsp;
+		<input checked type="checkbox"> Authorization Code Grant&nbsp;&nbsp;
 		<input disabled type="checkbox"> Password Grant&nbsp;&nbsp;
 		<input disabled type="checkbox"> Client Credentials Grant&nbsp;&nbsp;
 		<input disabled type="checkbox"> Implicit Grant&nbsp;&nbsp;

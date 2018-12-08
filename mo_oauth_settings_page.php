@@ -82,7 +82,7 @@ function mo_oauth_show_new_registration_page() {
 		<form name="f" method="post" action="">
 			<input type="hidden" name="option" value="mo_oauth_register_customer" />
 			<div class="mo_table_layout">
-				<div id="toggle1" class="panel_toggle">
+				<div id="toggle1" class="mo_panel_toggle">
 					<h3>Register with miniOrange</h3>
 				</div>
 				<div id="panel1">
@@ -154,7 +154,7 @@ function mo_oauth_show_verify_password_page() {
 		<form name="f" method="post" action="">
 			<input type="hidden" name="option" value="mo_oauth_verify_customer" />
 			<div class="mo_table_layout">
-				<div id="toggle1" class="panel_toggle">
+				<div id="toggle1" class="mo_panel_toggle">
 					<h3>Login with miniOrange</h3>
 				</div>
 				<p><b>It seems you already have an account with miniOrange. Please enter your miniOrange email and password.<br/> <a href="#mo_oauth_forgot_password_link">Click here if you forgot your password?</a></b></p>
@@ -605,7 +605,7 @@ function mo_oauth_apps_config() {
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
 			foreach($appslist as $key => $app){
-				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | <a href='admin.php?page=mo_oauth_settings&action=instructions&appId=".$key."'>How to Configure?</a></td></tr>";
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&action=delete&app=".$key."'>Delete</a> | <a href='admin.php?page=mo_oauth_settings&action=instructions&appId=".$key."'>How to Configure?</a></td></tr>";
 			}
 			echo "</table>";
 			echo "<br><br>";
@@ -689,7 +689,7 @@ function add_app(){
 			}
 
 		</script>
-		<div id="toggle2" class="panel_toggle">
+		<div id="toggle2" class="mo_panel_toggle">
 			<h3>Add Application</h3>
 		</div>
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
@@ -783,7 +783,7 @@ function update_app($appname){
 
 	?>
 
-		<div id="toggle2" class="panel_toggle">
+		<div id="toggle2" class="mo_panel_toggle">
 			<h3>Update Application</h3>
 		</div>
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
@@ -975,7 +975,7 @@ function mo_oauth_apps_config_old() {
 			<input type="hidden" name="option" value="mo_oauth_google" />
 			<input type="hidden" name="mo_oauth_google_scope" value="email" />
 			<div class="mo_table_layout">
-				<div id="toggle2" class="panel_toggle">
+				<div id="toggle2" class="mo_panel_toggle">
 					<h3>Login with Google</h3>
 				</div>
 				<div id="panel2">
@@ -1051,7 +1051,7 @@ function mo_oauth_apps_config_old() {
 				type="hidden" name="mo_oauth_eveonline_scope" value="" />
 			<!--value of scope?-->
 			<div class="mo_table_layout">
-				<div id="toggle3" class="panel_toggle">
+				<div id="toggle3" class="mo_panel_toggle">
 					<h3>Login with EVE Online</h3>
 				</div>
 				<div id="panel3">
@@ -1119,7 +1119,7 @@ function mo_oauth_apps_config_old() {
 			<input type="hidden" name="option" value="mo_oauth_facebook" />
 			<input type="hidden" name="mo_oauth_facebook_scope" value="email" />
 			<div class="mo_table_layout">
-				<div id="toggle4" class="panel_toggle">
+				<div id="toggle4" class="mo_panel_toggle">
 					<h3>Login with Facebook</h3>
 				</div>
 				<div id="panel4">

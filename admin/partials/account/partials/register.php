@@ -8,7 +8,7 @@ function register_ui() {
 		<form name="f" method="post" action="">
 			<input type="hidden" name="option" value="mo_oauth_register_customer" />
 			<div class="mo_table_layout">
-				<div id="toggle1" class="panel_toggle">
+				<div id="toggle1" class="mo_panel_toggle">
 					<h3>Register with miniOrange</h3>
 				</div>
 				<div id="panel1">

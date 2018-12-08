@@ -37,7 +37,7 @@ function mo_oauth_client_display_feedback_form() {
                     <br><br>
                     <div class="mo_modal-footer">
                         <input type="submit" name="miniorange_feedback_submit"
-                               class="button button-primary button-large" value="Submit"/>
+                               class="button button-primary button-large" style="float: left;" value="Submit"/>
                         <input id="mo_skip" type="submit" name="miniorange_feedback_skip"
                                class="button button-primary button-large" style="float: right;" value="Skip"/>
                     </div>

@@ -152,7 +152,7 @@
 			<input type="hidden" name="option" value="mo_oauth_google" />
 			<input type="hidden" name="mo_oauth_google_scope" value="email" />
 			<div class="mo_table_layout">
-				<div id="toggle2" class="panel_toggle">
+				<div id="toggle2" class="mo_panel_toggle">
 					<h3>Login with Google</h3>
 				</div>
 				<div id="panel2">
@@ -228,7 +228,7 @@
 				type="hidden" name="mo_oauth_eveonline_scope" value="" />
 			<!--value of scope?-->
 			<div class="mo_table_layout">
-				<div id="toggle3" class="panel_toggle">
+				<div id="toggle3" class="mo_panel_toggle">
 					<h3>Login with EVE Online</h3>
 				</div>
 				<div id="panel3">
@@ -296,7 +296,7 @@
 			<input type="hidden" name="option" value="mo_oauth_facebook" />
 			<input type="hidden" name="mo_oauth_facebook_scope" value="email" />
 			<div class="mo_table_layout">
-				<div id="toggle4" class="panel_toggle">
+				<div id="toggle4" class="mo_panel_toggle">
 					<h3>Login with Facebook</h3>
 				</div>
 				<div id="panel4">
