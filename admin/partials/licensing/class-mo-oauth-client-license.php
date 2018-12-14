@@ -1215,6 +1215,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <span class="cd-value">149*</span></span>
 
                                     </div>
+                                    <div>(One Time)</div>
 
                                 </header> <!-- .cd-pricing-header -->
                                 </a>
@@ -1229,11 +1230,12 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Auto fill OAuth servers configuration</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
-                                        <li>Authorization Code Grant</li>
+                                        <li style="padding-bottom:16%!important;">Authorization Code Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
                                         <li>Basic Role Mapping<br>(Support for default role for new users)</li>
+                                        <li>&nbsp;</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
@@ -1268,7 +1270,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <span class="cd-value">349*</span></span>
 
                                     </div>
-
+                                    <div>(One Time)</div>
 
                                 </header> <!-- .cd-pricing-header -->
                                 </a>
@@ -1288,6 +1290,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
                                         <li>Advanced Role Mapping</li>
+                                        <li>JWT Support</li>
                                         <li>Force authentication / Protect complete site</li>
                                         <li>OpenId Connect Support<br>(Login using OpenId Connect Server)</li>
                                         <li>Multiple Userinfo endpoints support</li>
@@ -1321,6 +1324,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <span class="cd-value">449*</span></span>
 
                                     </div>
+                                    <div>(One Time)</div>
                                 </header> <!-- .cd-pricing-header -->
                                 </a>
                                 <footer class="cd-pricing-footer">
@@ -1339,6 +1343,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
                                         <li>Advanced Role Mapping</li>
+                                        <li>JWT Support</li>
                                         <li>Force authentication / Protect complete site</li>
                                         <li>OpenId Connect Support<br>(Login using OpenId Connect Server)</li>
                                         <li>Multiple Userinfo endpoints support</li>

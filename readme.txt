@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
-Tested up to: 5.0
-Stable tag: 6.9.14
+Tested up to: 5.0.1
+Stable tag: 6.9.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,7 +88,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 = List of grant types we support =
 *   Authorization code grant
 *   Implicit grant
-*   Resource owner credentials grant
+*   Resource owner credentials grant (Password Grant)
 *   Client credentials grant
 *   Refresh token grant
 
@@ -154,6 +154,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.1.15 =
+* Updated Licesning plan
 
 = 6.9.14 =
 * Added CSS fixes
