@@ -1248,7 +1248,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
-                                        <li><b>Support</b><br>Basic Email Support</li>
+                                        <li><b>Support</b><br>Basic Email Support Plans On Demand</li>
                                     </ul>
                                 </div> <!-- .cd-pricing-body -->
                             </li>
@@ -1303,7 +1303,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
-                                        <li><b>Support</b><br>GoToMeeting Support</li>
+                                        <li><b>Support</b><br>GoToMeeting Support Plans On Demand</li>
                                     </ul>
                                 </div> <!-- .cd-pricing-body -->
                             </li>
@@ -1356,7 +1356,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>WP hooks for different events</li>
                                         <li>Login Reports / Analytics</li>
                                         <li>&nbsp;</li>
-                                        <li><b>Support</b><br>GoToMeeting Support</li>
+                                        <li><b>Support</b><br>GoToMeeting Support Plans On Demand</li>
                                     </ul>
                                 </div> <!-- .cd-pricing-body -->
 
@@ -1374,8 +1374,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                 <p>3. To install the premium plugin, first deactivate and delete the free version of the plugin.
 
                 <p>4. From this point on, do not update the premium plugin from the Wordpress store.</p>
-
-                <h3>* Cost applicable for one instance only. Licenses are perpetual and the purchase price includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current purchase price.</h3>
+                
                 <br />
                 <h3>* MultiSite Network Support - </h3>
                 <p>There is additional cost for the number of subsites in Multisite Network .</p>

@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
 Tested up to: 5.0.1
-Stable tag: 6.9.16
+Stable tag: 6.9.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,6 +154,12 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.1.17 =
+* Updated Licesning Plan
+
+= 6.1.16 =
+* Added Uninstall fixes
 
 = 6.1.15 =
 * Updated Licesning plan
