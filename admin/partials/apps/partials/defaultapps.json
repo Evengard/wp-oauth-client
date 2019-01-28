@@ -6,7 +6,7 @@
 		"label":"Custom OpenID Connect App", "type":"openidconnect", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":""
 	},
 	"gapps": {
-		"label":"Google", "type":"oauth", "image":"google.png", "scope": "email", "authorize": "https://accounts.google.com/o/oauth2/auth", "token": "https://www.googleapis.com/oauth2/v3/token", "userinfo": "https://www.googleapis.com/plus/v1/people/me", "guide":"http://plugins.miniorange.com/step-by-step-guide-to-configure-google-as-oauth-server/"
+		"label":"Google", "type":"oauth", "image":"google.png", "scope": "email", "authorize": "https://accounts.google.com/o/oauth2/auth", "token": "https://www.googleapis.com/oauth2/v4/token", "userinfo": "https://www.googleapis.com/oauth2/v1/userinfo", "guide":"http://plugins.miniorange.com/step-by-step-guide-to-configure-google-as-oauth-server/"
 	},
 	"fbapps": {
 		"label":"Facebook", "type":"oauth", "image":"facebook.png", "scope": "public_profile email", "authorize": "https://www.facebook.com/dialog/oauth", "token": "https://graph.facebook.com/v2.8/oauth/access_token", "userinfo": "https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link", "guide":"http://plugins.miniorange.com/step-by-step-guide-to-configure-facebook-as-oauth-server/"

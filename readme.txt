@@ -2,10 +2,10 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
-Tested up to: 5.0.1
-Stable tag: 6.9.17
+Tested up to: 5.0.3
+Stable tag: 6.10.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
 OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Invision Community, slack, discord custom OAuth 2.0 and OpenID Connect (OIDC) servers.
 
@@ -45,8 +45,6 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 *	Account Linking : OAuth Login supports the linking of user accounts from OAuth Providers to Wordpress account.
 *	App domain specific Registration Restrictions : OAuth Login restricts registration on your site based on the person's email address domain
 *	Multi-site Support : OAuth Login have unique ability to support multiple sites under one account
-*	Reverse Proxy Support : OAuth Login support for sites behind a reverse-proxy or on-prem instances with no internet access.
-*	Email notifications : You can customize the E-mail templates used for the automatic email notifications related to user registration.
 *	Extended OAuth API support : Extend OAuth API support to extend functionality to the existing OAuth client.[ENTERPRISE]
 *	BuddyPress Attribute Mapping : OAuth Login allows BuddyPress Attribute Mapping.[ENTERPRISE]
 *	Page Restriction according to roles : Limit Access to pages based on user status or roles. This WordPress OAuth Login plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.[ENTERPRISE]
@@ -155,13 +153,17 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 
 == Changelog ==
 
-= 6.1.17 =
+= 6.10.0 =
+* Upadted Google APIs
+* Fixed cURL issues
+
+= 6.9.17 =
 * Updated Licesning Plan
 
-= 6.1.16 =
+= 6.9.16 =
 * Added Uninstall fixes
 
-= 6.1.15 =
+= 6.9.15 =
 * Updated Licesning plan
 
 = 6.9.14 =

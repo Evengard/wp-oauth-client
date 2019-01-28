@@ -32,7 +32,6 @@ class Customer {
 
 	function create_customer(){
 		$url = get_option('host_name') . '/moas/rest/customer/add';
-		$ch = curl_init( $url );
 		$this->email 		= get_option('mo_oauth_admin_email');
 		$this->phone 		= get_option('mo_oauth_admin_phone');
 		$password 			= get_option('password');
@@ -50,26 +49,26 @@ class Customer {
 			'password'	=> $password
 		);
 		$field_string = json_encode($fields);
+		$headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
+ 
+		);
 		
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json', 'charset: UTF - 8', 'Authorization: Basic' ) );
-		curl_setopt( $ch, CURLOPT_POST, true );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string );
-		$content = curl_exec( $ch );
-		
-		if( curl_errno( $ch ) ){
-			echo 'Request Error:' . curl_error( $ch );
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
 			exit();
 		}
 		
-		curl_close( $ch );
-		return $content;
+		return wp_remote_retrieve_body($response);
 	}
 	
 	function get_customer_key() {
@@ -85,30 +84,30 @@ class Customer {
 		);
 		$field_string = json_encode( $fields );
 		
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json', 'charset: UTF - 8', 'Authorization: Basic' ) );
-		curl_setopt( $ch, CURLOPT_POST, true);
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-		$content = curl_exec( $ch );
-		if( curl_errno( $ch ) ){
-			echo 'Request Error:' . curl_error( $ch );
+		$headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
+ 
+		);
+		
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
 			exit();
 		}
-		curl_close( $ch );
-
-		return $content;
+		
+		return wp_remote_retrieve_body($response);
 	}
 	
 	function add_oauth_application( $name, $app_name ) {
 		$url = get_option('host_name') . '/moas/rest/application/addoauth';
-		$ch = curl_init( $url );
-		
 		$customerKey = get_option('mo_oauth_admin_customer_key');
 		$scope = get_option('mo_oauth_' . $name . '_scope');
 		$client_id = get_option('mo_oauth_' . $name . '_client_id');
@@ -131,26 +130,26 @@ class Customer {
 		}
 		$field_string = json_encode( $fields );
 		
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json', 'charset: UTF - 8', 'Authorization: Basic' ) );
-		curl_setopt( $ch, CURLOPT_POST, true);
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-		$content = curl_exec( $ch );
+		$headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
+ 
+		);
 		
-		if( curl_errno( $ch ) ){
-			echo 'Request Error:' . curl_error( $ch );
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
 			exit();
 		}
 		
-		curl_close( $ch );
-
-		return $content;
+		return wp_remote_retrieve_body($response);
 	}
 	
 	function submit_contact_us( $email, $phone, $query ) {
@@ -168,33 +167,31 @@ class Customer {
 		$field_string = json_encode( $fields );
 		
 		$url = get_option('host_name') . '/moas/rest/customer/contact-us';
-		$ch = curl_init( $url );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json', 'charset: UTF-8', 'Authorization: Basic' ) );
-		curl_setopt( $ch, CURLOPT_POST, true);
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-		$content = curl_exec( $ch );
+		$headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
+ 
+		);
 		
-		if( curl_errno( $ch ) ){
-			echo 'Request Error:' . curl_error( $ch );
-			return false;
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
+			exit();
 		}
-		//echo " Content: " . $content;
 		
-		curl_close( $ch );
-
 		return true;
 	}
 	
 	function send_otp_token($email, $phone, $sendToEmail = TRUE, $sendToPhone = FALSE){
 			$url = get_option('host_name') . '/moas/api/auth/challenge';
-			$ch = curl_init($url);
+			
 			$customerKey =  $this->defaultCustomerKey;
 			$apiKey =  $this->defaultApiKey;
 
@@ -225,62 +222,58 @@ class Customer {
 			}
 			$field_string = json_encode($fields);
 			
-			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-			curl_setopt( $ch, CURLOPT_ENCODING, "" );
-			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-			curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
-												$timestampHeader, $authorizationHeader));
-			curl_setopt( $ch, CURLOPT_POST, true);
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-			$content = curl_exec($ch);
-		
-			if(curl_errno($ch)){
-				echo 'Request Error:' . curl_error($ch);
-			   exit();
+			$headers = array( 'Content-Type' => 'application/json');
+			$headers['Customer-Key'] = $customerKey;
+			$headers['Timestamp'] = $currentTimeInMillis;
+			$headers['Authorization'] = $hashValue;
+			$args = array(
+				'method' =>'POST',
+				'body' => $field_string,
+				'timeout' => '5',
+				'redirection' => '5',
+				'httpversion' => '1.0',
+				'blocking' => true,
+				'headers' => $headers,
+	
+			);
+			
+			$response = wp_remote_post( $url, $args );
+			if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+				echo "Something went wrong: $error_message";
+				exit();
 			}
-			curl_close($ch);
-			return $content;
+			
+			return wp_remote_retrieve_body($response);
 		}
 
 		public function get_timestamp() {
 		    $url = get_option ( 'host_name' ) . '/moas/rest/mobile/get-timestamp';
-		    $ch = curl_init ( $url );
-
-		    curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true );
-		    curl_setopt ( $ch, CURLOPT_ENCODING, "" );
-		    curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-		    curl_setopt ( $ch, CURLOPT_AUTOREFERER, true );
-		    curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false );
-		    curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false ); // required for https urls
-
-		    curl_setopt ( $ch, CURLOPT_MAXREDIRS, 10 );
-
-		    curl_setopt ( $ch, CURLOPT_POST, true );
-
-		    $proxy_host = get_option("mo_proxy_host");
-		    if(!empty($proxy_host)){
-		        curl_setopt($ch, CURLOPT_PROXY, get_option("mo_proxy_host"));
-		        curl_setopt($ch, CURLOPT_PROXYPORT, get_option("mo_proxy_port"));
-		        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		        curl_setopt($ch, CURLOPT_PROXYUSERPWD, get_option("mo_proxy_username").':'.get_option("mo_proxy_password"));
-		    }
-		    $content = curl_exec ( $ch );
-
-		    if (curl_errno ( $ch )) {
-		        echo 'Error in sending curl Request';
-		        exit ();
-		    }
-		    curl_close ( $ch );
-		    return $content;
+		    $headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+			$args = array(
+				'method' =>'POST',
+				'body' => array(),
+				'timeout' => '5',
+				'redirection' => '5',
+				'httpversion' => '1.0',
+				'blocking' => true,
+				'headers' => $headers,
+	
+			);
+			
+			$response = wp_remote_post( $url, $args );
+			if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+				echo "Something went wrong: $error_message";
+				exit();
+			}
+			
+			return wp_remote_retrieve_body($response);
 		}
 
 		function validate_otp_token($transactionId,$otpToken){
 			$url = get_option('host_name') . '/moas/api/auth/validate';
-			$ch = curl_init($url);
+			
 
 			$customerKey =  $this->defaultCustomerKey;
 			$apiKey =  $this->defaultApiKey;
@@ -308,25 +301,29 @@ class Customer {
 
 			$field_string = json_encode($fields);
 
-			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-			curl_setopt( $ch, CURLOPT_ENCODING, "" );
-			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-			curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
-												$timestampHeader, $authorizationHeader));
-			curl_setopt( $ch, CURLOPT_POST, true);
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-			$content = curl_exec($ch);
+			$headers = array( 'Content-Type' => 'application/json');
+			$headers['Customer-Key'] = $customerKey;
+			$headers['Timestamp'] = $currentTimeInMillis;
+			$headers['Authorization'] = $hashValue;
+			$args = array(
+				'method' =>'POST',
+				'body' => $field_string,
+				'timeout' => '5',
+				'redirection' => '5',
+				'httpversion' => '1.0',
+				'blocking' => true,
+				'headers' => $headers,
+	
+			);
 			
-			if(curl_errno($ch)){
-				echo 'Request Error:' . curl_error($ch);
-			   exit();
+			$response = wp_remote_post( $url, $args );
+			if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+				echo "Something went wrong: $error_message";
+				exit();
 			}
-			curl_close($ch);
-			return $content;
+			
+			return wp_remote_retrieve_body($response);
 	}
 	
 	function check_customer() {
@@ -338,32 +335,34 @@ class Customer {
 				'email' 	=> $email,
 			);
 			$field_string = json_encode( $fields );
-
-			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-			curl_setopt( $ch, CURLOPT_ENCODING, "" );
-			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-			curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-			curl_setopt( $ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json', 'charset: UTF - 8', 'Authorization: Basic' ) );
-			curl_setopt( $ch, CURLOPT_POST, true);
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-			$content = curl_exec( $ch );
-			if( curl_errno( $ch ) ){
-				echo 'Request Error:' . curl_error( $ch );
+			$headers = array( 'Content-Type' => 'application/json', 'charset' => 'UTF - 8', 'Authorization' => 'Basic' );
+			$args = array(
+				'method' =>'POST',
+				'body' => $field_string,
+				'timeout' => '5',
+				'redirection' => '5',
+				'httpversion' => '1.0',
+				'blocking' => true,
+				'headers' => $headers,
+	 
+			);
+			
+			$response = wp_remote_post( $url, $args );
+			if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+				echo "Something went wrong: $error_message";
 				exit();
 			}
-			curl_close( $ch );
-
-			return $content;
+			
+			return wp_remote_retrieve_body($response);
 	}
-	
 	
 	function mo_oauth_send_email_alert($email,$phone,$message){
 
+		if(!$this->check_internet_connection())
+			return;
 		$url = get_option( 'host_name' ) . '/moas/api/notify/send';
-		$ch = curl_init($url);
+		
 
 		$customerKey = $this->defaultCustomerKey;
 		$apiKey =  $this->defaultApiKey;
@@ -380,7 +379,7 @@ class Customer {
 
 		global $user;
 		$user         = wp_get_current_user();
-		$query        = '[WordPress WP OAuth Client] : ' . $message;
+		$query        = '[WP OAuth 2.0 Client] : ' . $message;
 
 		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Phone Number :'.$phone.'<br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Query :'.$query.'</div>';
 
@@ -399,31 +398,31 @@ class Customer {
 			),
 		);
 		$field_string = json_encode($fields);
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );    # required for https urls
+		$headers = array( 'Content-Type' => 'application/json');
+		$headers['Customer-Key'] = $customerKey;
+		$headers['Timestamp'] = $currentTimeInMillis;
+		$headers['Authorization'] = $hashValue;
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
 
-		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", $customerKeyHeader,
-			$timestampHeader, $authorizationHeader));
-		curl_setopt( $ch, CURLOPT_POST, true);
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $field_string);
-		$content = curl_exec($ch);
-
-		if(curl_errno($ch)){
-			//return json_encode(array("status"=>'ERROR','statusMessage'=>curl_error($ch)));
+		);
+		
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
+			exit();
 		}
-		curl_close($ch);
 	}
-
-
 	
 	function mo_oauth_forgot_password($email) {
 		$url = get_option ( 'host_name' ) . '/moas/rest/customer/password-reset';
-		$ch = curl_init ( $url );
-		
 		/* The customer Key provided to you */
 		$customerKey = get_option ( 'mo_oauth_admin_customer_key' );
 		
@@ -450,32 +449,33 @@ class Customer {
 		
 		$field_string = json_encode ( $fields );
 		
-		curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, true );
-		curl_setopt ( $ch, CURLOPT_ENCODING, "" );
-		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt ( $ch, CURLOPT_AUTOREFERER, true );
-		curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false ); // required for https urls
+		$headers = array( 'Content-Type' => 'application/json');
+		$headers['Customer-Key'] = $customerKey;
+		$headers['Timestamp'] = $currentTimeInMillis;
+		$headers['Authorization'] = $hashValue;
+		$args = array(
+			'method' =>'POST',
+			'body' => $field_string,
+			'timeout' => '5',
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $headers,
+
+		);
 		
-		curl_setopt ( $ch, CURLOPT_MAXREDIRS, 10 );
-		curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
-				"Content-Type: application/json",
-				$customerKeyHeader,
-				$timestampHeader,
-				$authorizationHeader 
-		) );
-		curl_setopt ( $ch, CURLOPT_POST, true );
-		curl_setopt ( $ch, CURLOPT_POSTFIELDS, $field_string );
-		curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 5 );
-		curl_setopt ( $ch, CURLOPT_TIMEOUT, 20 );
-		$content = curl_exec ( $ch );
-		
-		if (curl_errno ( $ch )) {
-			echo 'Request Error:' . curl_error ( $ch );
-			exit ();
+		$response = wp_remote_post( $url, $args );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+			echo "Something went wrong: $error_message";
+			exit();
 		}
 		
-		curl_close ( $ch );
-		return $content;
+		return wp_remote_retrieve_body($response);
+	}
+	
+	function check_internet_connection() {
+		return (bool) @fsockopen('auth.miniorange.com', 443, $iErrno, $sErrStr, 5);
 	}
 	
 

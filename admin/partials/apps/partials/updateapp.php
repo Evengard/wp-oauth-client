@@ -7,6 +7,15 @@
 		if($appname == $key){
 			$currentappname = $appname;
 			$currentapp = $app;
+			if(isset($currentapp['accesstokenurl']) && strpos($currentapp['accesstokenurl'], "google") !== false) {
+				$currentapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
+			}
+			if(isset($currentapp['authorizeurl']) && strpos($currentapp['authorizeurl'], "google") !== false) {
+				$currentapp['authorizeurl'] = "https://accounts.google.com/o/oauth2/auth";
+			}
+			if(isset($currentapp['resourceownerdetailsurl']) && strpos($currentapp['resourceownerdetailsurl'], "google") !== false) {
+				$currentapp['resourceownerdetailsurl'] = "https://www.googleapis.com/oauth2/v1/userinfo";
+			}
 			break;
 		}
 	}
@@ -15,7 +24,7 @@
 	$is_other_app = false;
 	if(!in_array($currentappname, array("facebook","google","eveonline","windows")))
 		$is_other_app = true;
-
+		
 	?>
 
 		<div id="toggle2" class="mo_panel_toggle">
@@ -29,7 +38,7 @@
 			<tr>
 			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
 			<td>
-				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
+				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo isset($currentapp['appId']) ? $currentapp['appId'] : "other";?>">
 				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
 				<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp['apptype'];?>">
 				<?php echo $currentappname;?><br><br>
@@ -175,7 +184,7 @@
 				</tr>
 				<tr><td>&nbsp;</td></tr>
 				<tr>
-					<td style="width:50%"><b><?php if($is_eveonline) echo 'Eve Online Corporation Name'; else echo 'Group Attribute Value';?></b></td>
+					<td style="width:50%"><b>Group Attribute Value</b></td>
 					<td style="width:50%"><b>WordPress Role</b></td>
 				</tr>
 				

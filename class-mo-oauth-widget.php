@@ -48,7 +48,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['wid_title'] = strip_tags( $new_instance['wid_title'] );
+		if(isset($new_instance['wid_title']))
+			$instance['wid_title'] = strip_tags( $new_instance['wid_title'] );
+			
 		return $instance;
 	}
 
@@ -189,6 +191,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					$state = base64_encode($appname);
 					$authorizationUrl = $app['authorizeurl'];
+					if(strpos($authorizationUrl, "google") !== false) {
+						$authorizationUrl = "https://accounts.google.com/o/oauth2/auth";
+					}
 					if(strpos($authorizationUrl, '?' ) !== false)
 					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
 				    else 
@@ -274,7 +279,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 								$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
 						} else {
-							$accessToken = $mo_oauth_handler->getAccessToken($currentapp['accesstokenurl'], 'authorization_code',
+							$accessTokenUrl = $currentapp['accesstokenurl'];
+							if(strpos($accessTokenUrl, "google") !== false) {
+								$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
+							}
+							$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
 							if(!$accessToken)
@@ -283,6 +292,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 							if (substr($resourceownerdetailsurl, -1) == "=") {
 								$resourceownerdetailsurl .= $accessToken;
+							}
+							if(strpos($resourceownerdetailsurl, "google") !== false) {
+								$resourceownerdetailsurl = "https://www.googleapis.com/oauth2/v1/userinfo";
 							}
 							$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 						}
@@ -339,7 +351,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if($user){
 						$user_id = $user->ID;
 					} else {
-
+						$user_id = 0;
 						if(mo_oauth_hbca_xyake()) {
 							if( get_option('mo_oauth_flag') != true )
 							{

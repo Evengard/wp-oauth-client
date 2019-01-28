@@ -1,6 +1,5 @@
 <?php
 
-
 class Mo_OAuth_Client_Admin_Guides {
 	
 	public static function instructions($appname) {
@@ -9,6 +8,23 @@ class Mo_OAuth_Client_Admin_Guides {
 	
 	 public static function instructions_page($appname){
 		$app = mo_oauth_client_get_app($appname);
+		if(!$app) {
+			$appslist = get_option('mo_oauth_apps_list');
+			if(sizeof($appslist)>0) {
+				foreach($appslist as $key => $app) {
+					if($key===$appname) {
+						$currentapp = $app;
+						break;
+					}
+				}
+			}
+			if($currentapp['apptype'] === "oauth") {
+				$app = mo_oauth_client_get_app('other');
+			} else {
+				$app = mo_oauth_client_get_app($currentapp['apptype']);
+			}
+		}
+		
 		if(strpos($app->label, 'Custom') !== false) {
 			echo '<br><strong>Instructions to configure '.$app->label.':</strong><ol>';
 		} else {

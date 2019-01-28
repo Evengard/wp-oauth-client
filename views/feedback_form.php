@@ -49,7 +49,7 @@ function mo_oauth_client_display_feedback_form() {
         </div>
     </div>
     <script>
-        jQuery('a[aria-label="Deactivate Login with OAuth ( OAuth Client )"]').click(function () {
+        jQuery('a[aria-label="Deactivate OAuth Single Sign On - SSO (OAuth client)"]').click(function () {
             var mo_modal = document.getElementById('oauth_client_feedback_modal');
             var mo_skip = document.getElementById('mo_skip');
             var span = document.getElementsByClassName("mo_close")[0];

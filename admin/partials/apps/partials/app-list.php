@@ -1,5 +1,5 @@
 <?php
-
+require_once('defaultapps.php');
 function applist_page() {
 	// tutorial();
 	?>
@@ -25,8 +25,9 @@ function applist_page() {
 			if(isset($_GET['app']))
 				delete_app($_GET['app']);
 		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
-			if(isset($_GET['appId']))
+			if(isset($_GET['appId'])){
 				Mo_OAuth_Client_Admin_Guides::instructions($_GET['appId']);
+			}
 		}
 
 		if(isset($_GET['action']) && $_GET['action']=='add'){

@@ -33,6 +33,7 @@
 		<p><input disabled="true" type="checkbox"><strong> Open login window in Popup</strong></p>
 		
 		<p><input disabled="true" type="checkbox"> <strong> Auto register Users </strong>(If unchecked, only existing users will be able to log-in)</p>
+		<p><input disabled type="checkbox"><b> Enable User Analytics </b><small style="color:red">[ENTERPRISE]</small></p>
 
 		<table class="mo_oauth_client_mapping_table" style="width:90%">
 			<tbody>
@@ -50,6 +51,11 @@
 				<td><font style="font-size:13px;font-weight:bold;">Custom redirect URL after logout </font>
 				</td>
 				<td><input disabled="true" type="text" style="width:100%;"></td>
+			</tr>
+			<tr>
+				<td><font style="font-size:13px;font-weight:bold;">Dynamic Callback URL </font><small class="mo_premium_feature"> [ENTERPRISE]</small>
+				</td>
+				<td><input disabled type="text"  placeholder="Callback / Redirect URI" style="width:100%;"></td>
 			</tr>
 			<tr><td>&nbsp;</td></tr>				
 			<tr>
