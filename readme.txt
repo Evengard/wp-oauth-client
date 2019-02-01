@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
 Tested up to: 5.0.3
-Stable tag: 6.10.0
+Stable tag: 6.10.1
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -57,6 +57,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 = List of popular OAuth Providers we support =
 *	Azure AD
 *	AWS Cognito
+*   WHMCS
 *	Slack
 *	Discord
 *	HR Answerlink / Support center
@@ -92,7 +93,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, WHMCS, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
 
 
 == Installation ==
@@ -152,6 +153,9 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.10.1 =
+* Added WHMCS in default applist
 
 = 6.10.0 =
 * Upadted Google APIs
