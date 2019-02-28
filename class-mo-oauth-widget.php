@@ -343,7 +343,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					if(empty($email))
 						exit('Email address not received. Check your <b>Attribute Mapping</b> configuration.');
-
+					
+					if ( strpos( $email, "@" ) === false ) {
+						wp_die( 'Mapped <b>Email Attribute</b> doesn\'t contain valid email address.' );
+					}
 					$user = get_user_by("login",$email);
 					if(!$user)
 						$user = get_user_by( 'email', $email);

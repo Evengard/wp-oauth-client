@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, oauth login, single sign on, sso
 Requires at least: 3.0.1
-Tested up to: 5.0.3
-Stable tag: 6.10.1
+Tested up to: 5.1
+Stable tag: 6.10.2
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -153,6 +153,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.10.2 =
+* Added email validation on login
+* Tested WP 5.1 compatibility
 
 = 6.10.1 =
 * Added WHMCS in default applist

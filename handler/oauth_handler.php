@@ -23,7 +23,10 @@ class Mo_OAuth_Hanlder {
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking'    => true,
-			'headers'     => array(),
+			'headers'     => array(
+				'Authorization' => 'Bearer ' . base64_encode( $clientid . ':' . $clientsecret ),
+				'Accept' => 'application/json',
+			),
 			'body'        => array(
 				'grant_type'    => $grant_type,
 				'code'          => $code,
