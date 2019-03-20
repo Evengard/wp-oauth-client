@@ -60,7 +60,7 @@
 		"label":"Okta", "type":"openidconnect", "image":"okta.png", "scope": "openid", "authorize": "https://{yourOktaDomain}.com/oauth2/default/v1/authorize", "token": "https://{yourOktaDomain}.com/oauth2/default/v1/token", "userinfo": "", "guide":"https://plugins.miniorange.com/step-by-step-guide-to-configure-okta-as-openid-connect-server/"
 	},
 	"adfs": {
-		"label":"ADFS", "type":"openidconnect", "image":"adfs.png", "scope": "openid", "authorize": "https://fs.fabidentity.com/adfs/oauth2/authorize/", "token": "https://fs.fabidentity.com/adfs/oauth2/token/", "userinfo": "", "guide":""
+		"label":"ADFS", "type":"openidconnect", "image":"adfs.png", "scope": "openid", "authorize": "https://{yourADFSDomain}/adfs/oauth2/authorize/", "token": "https://{yourADFSDomain}/adfs/oauth2/token/", "userinfo": "", "guide":""
 	},
 	"spotify": {
 		"label":"Spotify", "type":"oauth", "image":"spotify.png", "scope": "user-read-private user-read-email", "authorize": "https://accounts.spotify.com/authorize", "token": "https://accounts.spotify.com/api/token", "userinfo": "https://api.spotify.com/v1/me", "guide":"https://plugins.miniorange.com/step-step-guide-to-configure-spotify-as-oauth-server/"
@@ -88,5 +88,16 @@
 	},
 	"invisioncommunity": {
 		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://<your-domain>/oauth/authorize", "token": "https://<your-domain>/oauth/token", "userinfo": "https://<your-domain>/oauth/core/me", "guide":""
-		}
+	},
+	"meetup": {
+		"label":"Meetup", "type":"oauth", "image":"meetup.png", "scope": "basic", "authorize": "https://secure.meetup.com/oauth2/authorize", "token": "https://secure.meetup.com/oauth2/access", "userinfo": "https://api.meetup.com/members/self", "guide":"https://plugins.miniorange.com/guide-to-setup-meetup-oauth-provider"
+	},
+
+	"autodesk": {
+		"label":"Autodesk", "type":"oauth", "image":"autodesk.png", "scope": "user:read user-profile:read", "authorize": "https://developer.api.autodesk.com/authentication/v1/authorize", "token": "https://developer.api.autodesk.com/authentication/v1/gettoken", "userinfo": "https://developer.api.autodesk.com/userprofile/v1/users/@me", "guide":"https://plugins.miniorange.com/guide-to-set-autodesk-oauth-provider"
+	},
+	"zendesk": {
+		"label":"Zendesk", "type":"oauth", "image":"zendesk.png", "scope": "read write", "authorize": "https://{subdomain}.zendesk.com/oauth/authorizations/new", "token": "https://{subdomain}.zendesk.com/oauth/tokens", "userinfo": "https://{subdomain}.zendesk.com/api/v2/users", "guide":"https://plugins.miniorange.com/guide-to-setup-zendesk-oauth-server"
+	}
+
 }

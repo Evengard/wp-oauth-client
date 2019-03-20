@@ -6,7 +6,7 @@ function mo_oauth_client_display_feedback_form() {
 		return;
 	}
 	$deactivate_reasons = array("Does not have the features I'm looking for", "Do not want to upgrade to Premium version", "Confusing Interface",
-		"Bugs in the plugin", "Unable to register", "Other Reasons:");
+		"Bugs in the plugin", "Unable to register", "Endpoints not available", "Other Reasons");
 	wp_enqueue_style( 'wp-pointer' );
 	wp_enqueue_script( 'wp-pointer' );
 	wp_enqueue_script( 'utils' );

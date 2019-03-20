@@ -1,9 +1,9 @@
 === OAuth Single Sign On - SSO (OAuth client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth client, oauth login, single sign on, sso
+Tags: oauth, oauth client, wordpress sso, single sign on, sso
 Requires at least: 3.0.1
-Tested up to: 5.1
-Stable tag: 6.10.2
+Tested up to: 5.1.1
+Stable tag: 6.10.3
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -58,6 +58,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 *	Azure AD
 *	AWS Cognito
 *   WHMCS
+*   Ping Federate
 *	Slack
 *	Discord
 *	HR Answerlink / Support center
@@ -93,7 +94,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
 
 
 == Installation ==
