@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, wordpress sso, single sign on, sso
 Requires at least: 3.0.1
-Tested up to: 5.1.1
-Stable tag: 6.10.4
+Tested up to: 5.2
+Stable tag: 6.10.5
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -147,6 +147,8 @@ Please write to us at info@miniorange.com and we will get back to you very soon.
 = For any other query/problem/request =
 Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
+Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
+
 == Screenshots ==
 
 1. Add oauth applications
@@ -154,6 +156,10 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.10.5 =
+* Added compatibility for WordPress version 5.2
+* Updated guide links
 
 = 6.10.4 =
 * Added Authorization Headers 

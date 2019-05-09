@@ -136,7 +136,7 @@
 			<td><strong>Display Name:</strong></td>
 			<td>
 				<select disabled style="background-color: #eee;">
-					<option>FirstName</option>
+					<option>Email</option>
 				</select>
 			</td></tr>
 			<tr><td colspan="2">

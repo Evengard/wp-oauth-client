@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.10.4
+* Version: 6.10.5
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -809,9 +809,9 @@ class mo_oauth {
 
 	function mo_oauth_shortcode_login(){
 		if(mo_oauth_hbca_xyake() || !mo_oauth_is_customer_registered()) {
-			echo '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
+			 return '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
 				<p><a href="'.get_site_url(null, '/wp-admin/').'admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Features.</p></div>';
-			return;
+			
 		}
 		$mowidget = new Mo_Oauth_Widget;
 		$mowidget->mo_oauth_login_form();
