@@ -13,8 +13,14 @@ function register_ui() {
 				</div>
 				<div id="panel1">
 					<!--<p><b>Register with miniOrange</b></p>-->
-					<p>Please enter a valid Email ID that you have access to. You will be able to move forward after verifying an OTP that we will be sending to this email.
-					</p>
+					<!-- <p>Please enter a valid Email ID that you have access to. You will be able to move forward after verifying an OTP that we will be sending to this email.
+					</p> -->
+					<p style="font-size:14px;"><b>Why should I register? </b></p>
+	                    <div id="help_register_desc" style="background: aliceblue; padding: 10px 10px 10px 10px; border-radius: 10px;">
+	                        You should register so that in case you need help, we can help you with step by step instructions.
+	                        <b>You will also need a miniOrange account to upgrade to the premium version of the plugins.</b> We do not store any information except the email that you will use to register with us.
+	                    </div>
+                    </p>
 					<table class="mo_settings_table">
 						<tr>
 							<td><b><font color="#FF0000">*</font>Email:</b></td>
@@ -62,16 +68,28 @@ function register_ui() {
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
-							<td><br /><input type="submit" name="submit" value="Save" style="width:100px;"
-								class="button button-primary button-large" /></td>
+							<!-- <td><br /><input type="submit" name="submit" value="Save" style="width:100px;"
+								class="button button-primary button-large" /></td> -->
+							<td><br><input type="submit" name="submit" value="Register" class="button button-primary button-large"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" name="mo_oauth_client_goto_login" id="mo_oauth_client_goto_login" value="Already have an account?" class="button button-primary button-large"/>&nbsp;&nbsp;</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 		</form>
-		<script>
+		<form name="f1" method="post" action="" id="mo_oauth_client_goto_login_form">
+            <?php wp_nonce_field("mo_oauth_client_goto_login");?>
+            <input type="hidden" name="option" value="mo_oauth_client_goto_login"/>
+        </form>
+        <script>
+           	jQuery("#phone").intlTelInput();
+            jQuery('#mo_oauth_client_goto_login').click(function () {
+                jQuery('#mo_oauth_client_goto_login_form').submit();
+            } );
+        </script>
+		<!-- <script>
 			jQuery("#phone").intlTelInput();
-		</script>
+		</script> -->
 		<?php
 }
 

@@ -7,6 +7,7 @@ require('licensing/class-mo-oauth-client-license.php');
 require('guides/class-mo-oauth-client-guides.php');
 require('support/class-mo-oauth-client-support.php');
 require('reports/class-mo-oauth-client-reports.php');
+require('demo/class-mo-oauth-client-demo.php');
 require('faq/class-mo-oauth-client-faq.php');
 
 function mo_oauth_client_main_menu() {
@@ -53,15 +54,44 @@ class Mo_OAuth_Client_Admin_Menu {
 		?> <div class="wrap">
 			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
 		</div>
+		        <div class="wrap">
+            <h1>
+
+                <!--?php if($currenttab == 'licensing'){ ?>
+
+                    <div style="text-align:center;">
+                    miniOrange OAuth Single Sign On</div>
+                <!?php }else{ -->
+                    <?php 
+                    update_option('mo_license_plan_from_feedback', '');
+                    update_option('mo_saml_license_message', '');
+                    ?>
+
+                miniOrange OAuth Single Sign On&nbsp
+                <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
+                <a class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">FAQs</a>
+                <a class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
+                <!--?php } ?-->
+
+            </h1>
+
+        </div>
+        <style>
+            .add-new-hover:hover{
+                color: white !important;
+            }
+
+        </style>
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
 			<a class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
 			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
 			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
-			<a class="nav-tab <?php if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>			
+			<a class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo">Request For Demo</a>	
+			<!-- <a class="nav-tab <?php //if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>	 -->		
 			<a class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
-			<a class="nav-tab <?php if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a>
+			<!-- <a class="nav-tab <?php //if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> -->
 		</h2>
 		</div> 
 		<?php
@@ -107,6 +137,8 @@ class Mo_OAuth_Client_Admin_Menu {
 				Mo_OAuth_Client_Admin_Apps::sign_in_settings();
 			else if($currenttab == 'licensing')
 				Mo_OAuth_Client_Admin_Licensing::show_licensing_page();
+			else if($currenttab == 'requestfordemo') 
+    			Mo_OAuth_Client_Admin_RFD::requestfordemo(); 
 			else if($currenttab == 'faq') 
     			Mo_OAuth_Client_Admin_Faq::faq(); 
 			else if($currenttab == '') {

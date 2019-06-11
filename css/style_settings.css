@@ -4,6 +4,16 @@
        border:1px solid #CCCCCC; 
 	   padding-left:20px;
 }
+
+.mo_demo_layout{
+	background-color:#FFFFFF; 
+	border:1px solid #CCCCCC; 
+	padding:10px 10px 10px 10px;
+	margin-bottom: 10px;
+	padding-left:100px;
+	padding-right:100px;
+}
+
 .mo_table_layout {
 	background-color:#FFFFFF; 
 	border:1px solid #CCCCCC; 
@@ -414,6 +424,15 @@ h1{
 	height: 100%;
 
 }
+
+.mo_modal-demo {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: auto;
+}
+
 .mo_modal-content {
 	background-color: #fefefe;
 	margin: auto;

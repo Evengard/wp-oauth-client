@@ -1,34 +1,35 @@
 === OAuth Single Sign On - SSO (OAuth client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth client, wordpress sso, single sign on, sso
+Tags: oauth, oauth client, wordpress sso, single sign on, sso, WordPress Single Sign On
 Requires at least: 3.0.1
-Tested up to: 5.2
-Stable tag: 6.10.5
+Tested up to: 5.2.1
+Stable tag: 6.10.6
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
-OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Invision Community, slack, discord custom OAuth 2.0 and OpenID Connect (OIDC) servers.
+OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Slack, Discord, Keycloak, WHMCS, Gluu Server, custom OAuth 2.0 and OpenID Connect (OIDC) servers.
 
 == Description ==
 
-OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invision Community, slack, discord or other custom OAuth 2.0 providers. OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invision Community, slack, discord or other custom OAuth 2.0 providers. OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
 
 = FREE VERSION FEATURES =
 
-*	OAuth Login supports single sign-on / SSO with any 3rd party OAuth server or custom OAuth server.
+*	OAuth Login supports single sign-on / SSO with any 3rd party OAuth /OpenID Connect server or custom OAuth /OpenID Connect server.
+*   Auto Create Users : After SSO, new user automatically gets created in WordPress
+*	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated
 *	Attribute Mapping : OAuth Login supports basic Attribute Mapping feature to map WordPress user profile attributes like email and first name. Manage username & email with data provided
-*	OAuth Provider Support : OAuth Login supports only one OAuth Provider. (ENTERPRISE : Supports Multiple OAuth Provider)
-*	Redirect URL after Login : OAuth Login Automatically Redirects user after successful login. Note: Does not include custom redirect URL
-*	Display Options : OAuth Login Provides Display Option for both Login form and Registration form
+*	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
+*	OAuth / OpenID Connect Provider Support : OAuth Login supports only one OAuth / OpenID Connect Provider. 
+*	Redirect URL after Login : OAuth Login Automatically Redirects user after successful login. 
 *	Logging :  If you run into issues OAuth Login can be helpful to enable debug logging
 
 
 = STANDARD VERSION FEATURES =
 
-*	All the Free Version Features
+*	All the FREE Version Features included.
 *	Optionally Auto Register Users : OAuth Login does automatic user registration after login if the user is not already registered with your site
 *	Attribute Mapping : OAuth Login provides custom Attribute Mapping feature to map WordPress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
-*	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
 *	Support for Shortcode : Use shortcode to place OAuth login button anywhere in your Theme or Plugin
 *	Customize Login Buttons / Icons / Text : Wide range of OAuth login Buttons/Icons and it allows you to customize Text shadow
 *	Custom Redirect URL after Login : OAuth Login provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
@@ -38,17 +39,23 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 
 = PREMIUM VERSION FEATURES =
 
-*	All the Standard Version Features
+*	All the STANDARD Version Features
 *	Advanced Role Mapping : Assign roles to users registering through OAuth Login based on rules you define.
-*	OpenID Connect Support : OAuth Login supports login with any 3rd party OpenID Connect server.
+*	Force Authentication / Protect Complete Site : Allows user to restrict login / authorization for particular site
 *	Multiple Userinfo Endpoints Support : OAuth Login supports multiple Userinfo Endpoints.
-*	Account Linking : OAuth Login supports the linking of user accounts from OAuth Providers to Wordpress account.
 *	App domain specific Registration Restrictions : OAuth Login restricts registration on your site based on the person's email address domain
 *	Multi-site Support : OAuth Login have unique ability to support multiple sites under one account
-*	Extended OAuth API support : Extend OAuth API support to extend functionality to the existing OAuth client.[ENTERPRISE]
-*	BuddyPress Attribute Mapping : OAuth Login allows BuddyPress Attribute Mapping.[ENTERPRISE]
-*	Page Restriction according to roles : Limit Access to pages based on user status or roles. This WordPress OAuth Login plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.[ENTERPRISE]
-*	Login Reports : OAuth Login creates user login and registration reports based on application used. [ENTERPRISE]
+
+= ENTERPRISE VERSION FEATURES =
+
+*	All the PREMIUM Version Features
+*	Multiple OAuth / OpenID Connect Provider Support
+*	Single Login button for Multiple Apps : It provides single login button for multiple providers
+*	Extended OAuth API support : Extend OAuth API support to extend functionality to the existing OAuth client.
+*	BuddyPress Attribute Mapping : OAuth Login allows BuddyPress Attribute Mapping.
+*	Page Restriction according to roles : Limit Access to pages based on user status or roles. This WordPress OAuth Login plugin allows you to restrict access to the content of a page or post to which only certain group of users can access.
+*	WP Hooks for Different Events : Provides support for different hooks for user defined functions
+*	Login Reports : OAuth Login creates user login and registration reports based on application used. 
 
 
 = No SSL restriction =
@@ -72,6 +79,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 *	servicem8
 *	Meetup
 *	Eve Online
+*	Gluu Server
 
 = List of popular OpenID Connect (OIDC) Providers we support =
 *	Amazon
@@ -94,7 +102,7 @@ OAuth Login plugin allows login (Single Sign On) with your Azure AD, AWS Cognito
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, G Suite etc.
 
 
 == Installation ==
@@ -144,10 +152,17 @@ We will help you in integrating this plugin with your other installed plugins. P
 = I verified the OTP received over my email and entering the same password that I registered with, but I am still getting the error message - "Invalid password." =
 Please write to us at info@miniorange.com and we will get back to you very soon.
 
+=  I would like to change our license to support the Diffrent Domain. How do we do this? =
+Yes, You can now activate the license on your new domain. Write us at info@miniOrange.com we will help you set up.
+			
+= Is it possible to set a different redirect URL after login & logout =
+Yes, With standard license you can set different redirect URL to redirect to after login as well as after logout.
+
 = For any other query/problem/request =
 Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
-= Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin. =
+= REST API Authentication =
+Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
 
 == Screenshots ==
 
@@ -156,6 +171,17 @@ Please email us at info@miniorange.com or <a href="http://miniorange.com/contact
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.10.6 =
+* Added Compatibility for Wordpress version 5.2.1
+* Updated API of support query
+* Updated Registration form
+* Added Request for Demo form
+* Added Forum link
+* Advertised New Features 
+* Updated Licensing Plan
+* Added Bugfixes
+* Added Support for Keycloak & Gluu Server
 
 = 6.10.5 =
 * Added compatibility for WordPress version 5.2

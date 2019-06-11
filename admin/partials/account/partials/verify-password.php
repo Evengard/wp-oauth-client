@@ -23,8 +23,7 @@
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
-							<td><input type="submit" name="submit"
-								class="button button-primary button-large" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</form>
+							<td><input type="submit" name="submit" value="Login" class="button button-primary button-large" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</form>
 
 								<input type="button" name="back-button" id="mo_oauth_back_button" onclick="document.getElementById('mo_oauth_change_email_form').submit();" value="Back" class="button button-primary button-large" />
 

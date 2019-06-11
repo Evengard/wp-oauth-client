@@ -1225,17 +1225,17 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <b style="color: coral;">See the Standard Plugin features list below</b>
                                 <div class="cd-pricing-body">
                                     <ul class="cd-pricing-features">
-                                        <li>1 OAuth provider support</li>
+                                        <li>1 OAuth / OpenID Connect provider <br>Support</li>
                                         <li>Auto Create Users<br>(Unlimited Users)</li>
-                                        <li>Auto fill OAuth servers configuration</li>
+                                        <li>Account Linking</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
                                         <li style="padding-bottom:16%!important;">Authorization Code Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
-                                        <li>Basic Role Mapping<br>(Support for default role for new users)</li>
-                                        <li>&nbsp;</li>
+                                        <li>Basic Role Mapping<br>(Set Default WordPress role for new users)</li>
+                                        <li>Custom Logout Button Text</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
                                         <li>&nbsp;</li>
@@ -1280,19 +1280,19 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <b>See the Premium Plugin features list below</b>
                                 <div class="cd-pricing-body">
                                     <ul class="cd-pricing-features">
-                                        <li>1 OAuth provider support</li>
+                                        <li>1 OAuth / OpenID Connect provider <br>Support</li>
                                         <li>Auto Create Users<br>(Unlimited Users)</li>
-                                        <li>Auto fill OAuth servers configuration</li>
+                                        <li>Account Linking</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
                                         <li>Authorization Code Grant, Password Grant, Client Credentials Grant, Implicit Grant, Refresh token Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
-                                        <li>Advanced Role Mapping</li>
+                                        <li>Advanced Role + Group <br>Mapping</li>
+                                        <li>Custom Logout Button Text</li>
                                         <li>JWT Support</li>
                                         <li>Force authentication / Protect complete site</li>
-                                        <li>OpenId Connect Support<br>(Login using OpenId Connect Server)</li>
                                         <li>Multiple Userinfo endpoints support</li>
                                         <li>Domain specific registration</li>
                                         <li>Multi-site Support</li>
@@ -1333,23 +1333,23 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <b style="color: coral;">See the Enterprise Plugin features list below</b>
                                 <div class="cd-pricing-body">
                                     <ul class="cd-pricing-features ">
-                                    <li>Unlimited OAuth provider support</li>
+                                    <li>Unlimited OAuth / OpenID Connect provider <br>Support</li>
                                         <li>Auto Create Users<br>(Unlimited Users)</li>
-                                        <li>Auto fill OAuth servers configuration</li>
+                                        <li>Account Linking</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
                                         <li>Authorization Code Grant, Password Grant, Client Credentials Grant, Implicit Grant, Refresh token Grant</li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
-                                        <li>Advanced Role Mapping</li>
+                                        <li>Advanced Role + Group <br>Mapping</li>
+                                        <li>Custom Logout Button Text</li>
                                         <li>JWT Support</li>
                                         <li>Force authentication / Protect complete site</li>
-                                        <li>OpenId Connect Support<br>(Login using OpenId Connect Server)</li>
                                         <li>Multiple Userinfo endpoints support</li>
                                         <li>Domain specific registration</li>
                                         <li>Multi-site Support</li>
-                                        <li>Account Linking</li>
+                                        <li>Single Login button for Multiple Apps</li>
                                         <li>BuddyPress Attribute Mapping</li>
                                         <li>Dynamic Callback URL</li>
                                         <li>Page Restriction</li>

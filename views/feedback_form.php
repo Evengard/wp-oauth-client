@@ -76,7 +76,7 @@ function mo_oauth_client_display_feedback_form() {
                     query_feedback.attr("placeholder", "We will send you the Endpoints shortly, if you can tell us the name of your OAuth Server/App?");
 
                 } else if (reason === "Unable to register") {
-                    query_feedback.attr("placeholder", "Error while receiving OTP? Can you please let us know the exact error?");
+                    query_feedback.attr("placeholder", "Error while creating a new account? Can you please let us know the exact error?");
 
                 }
 

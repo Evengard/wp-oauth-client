@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.10.5
+* Version: 6.10.6
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -204,18 +204,15 @@ class mo_oauth {
 				$email=get_option('mo_oauth_admin_email');
 				$content = json_decode($customer->check_customer(), true);
 				if( strcasecmp( $content['status'], 'CUSTOMER_NOT_FOUND') == 0 ){
-					$content = json_decode($customer->send_otp_token($email,''), true);
-					if(strcasecmp($content['status'], 'SUCCESS') == 0) {
-						update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . '. Please enter the OTP here to verify your email.');
-						$_SESSION['mo_oauth_transactionId'] = $content['txId'];
-						update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS');
+					$response = json_decode($customer->create_customer(), true);
 
-						$this->mo_oauth_show_success_message();
-					}else{
-						update_option('message','There was an error in sending email. Please click on Resend OTP to try again.');
-						update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
-						$this->mo_oauth_show_error_message();
+					if(strcasecmp($response['status'], 'SUCCESS') == 0) {
+						wp_redirect( admin_url( '/admin.php?page=mo_oauth_settings&tab=account' ), 301 );
+						exit;
+					} else {
+						update_option( 'message', 'Failed to create customer. Try again.');
 					}
+					$this->mo_oauth_show_success_message();
 				} else {
 					$this->mo_oauth_get_current_customer();
 				}
@@ -224,7 +221,14 @@ class mo_oauth {
 				delete_option('verify_customer');
 				$this->mo_oauth_show_error_message();
 			}
-		} if(isset($_POST['option']) and $_POST['option'] == "mo_oauth_validate_otp"){
+		} 
+
+		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_goto_login" ) {
+			delete_option( 'new_registration' );
+			update_option( 'verify_customer', 'true' );
+		}
+
+		 if(isset($_POST['option']) and $_POST['option'] == "mo_oauth_validate_otp"){
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
 			}
@@ -631,6 +635,9 @@ class mo_oauth {
 				update_option('message', 'Please fill up Email and Query fields to submit your query.');
 				$this->mo_oauth_show_error_message();
 			} else {
+				// $submited = json_decode( $customer->mo_oauth_send_email_alert( $email, $phone, $query, "Query for WP OAuth Single Sign On - ".$email ), true );
+				// update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
+				// $this->mo_oauth_show_success_message();
 				$submited = $customer->submit_contact_us( $email, $phone, $query );
 				if ( $submited == false ) {
 					update_option('message', 'Your query could not be submitted. Please try again.');
@@ -641,6 +648,26 @@ class mo_oauth {
 				}
 			}
 		}
+		//---------------------------------------------------------------------------------------------
+		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" ) {
+			if( mo_oauth_is_curl_installed() == 0 ) {
+				return $this->mo_oauth_show_curl_error();
+			}
+			// Demo Request
+			$email = $_POST['mo_oauth_client_demo_email'];
+			$demo_plan = $_POST['mo_oauth_client_demo_plan'];
+			$query = $_POST['mo_oauth_client_demo_description'];
+			$customer = new Customer();
+			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) ) {
+				update_option('message', 'Please fill up Email field to submit your query.');
+				$this->mo_oauth_show_error_message();
+			} else {
+				$submited = json_decode( $customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Single Sign On Demo Request - ".$email ), true );
+				update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
+				$this->mo_oauth_show_success_message();
+			}
+		}
+		//---------------------------------------------------------------------------------------------
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_resend_otp_email" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
@@ -659,7 +686,7 @@ class mo_oauth {
 					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
 					$this->mo_oauth_show_error_message();
 			}
-		}else if (isset($_POST ['option']) and $_POST ['option'] == "mo_oauth_resend_otp_phone") {
+		} else if (isset($_POST ['option']) and $_POST ['option'] == "mo_oauth_resend_otp_phone") {
 
 				if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
@@ -742,7 +769,7 @@ class mo_oauth {
 				$phone = get_option( 'mo_oauth_admin_phone' );
 				//only reason
 				$feedback_reasons = new Customer();
-				$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $phone, $message ), true );
+				$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $phone, $message, "Feedback: WordPress OAuth Single Sign On" ), true );
 				deactivate_plugins( __FILE__ );
 				update_option( 'message', 'Thank you for the feedback.' );
 				$this->mo_oauth_show_success_message();
@@ -809,9 +836,9 @@ class mo_oauth {
 
 	function mo_oauth_shortcode_login(){
 		if(mo_oauth_hbca_xyake() || !mo_oauth_is_customer_registered()) {
-			 return '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
+			echo '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
 				<p><a href="'.get_site_url(null, '/wp-admin/').'admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Features.</p></div>';
-			
+			return;
 		}
 		$mowidget = new Mo_Oauth_Widget;
 		$mowidget->mo_oauth_login_form();

@@ -42,7 +42,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if ( ! empty( $wid_title ) ) {
 			echo $args['before_title'] . $wid_title . $args['after_title'];
 		}
-		$this->mo_oauth_login_form();
+		echo $this->mo_oauth_login_form();
 		echo $args['after_widget'];
 	}
 
@@ -268,36 +268,35 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 							// OpenId connect
-							$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
+						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
-							$idToken = $tokenResponse["id_token"];
+						$idToken = $tokenResponse["id_token"];
 								
-							if(!$idToken)
-								exit('Invalid token received.');
-							else
-								$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
+						if(!$idToken)
+							exit('Invalid token received.');
+						else
+							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
-						} else {
-							$accessTokenUrl = $currentapp['accesstokenurl'];
-							if(strpos($accessTokenUrl, "google") !== false) {
-								$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
-							}
-							$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code',
-								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
-
-							if(!$accessToken)
-								exit('Invalid token received.');
-
-							$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
-							if (substr($resourceownerdetailsurl, -1) == "=") {
-								$resourceownerdetailsurl .= $accessToken;
-							}
-							if(strpos($resourceownerdetailsurl, "google") !== false) {
-								$resourceownerdetailsurl = "https://www.googleapis.com/oauth2/v1/userinfo";
-							}
-							$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
+					} else {
+						$accessTokenUrl = $currentapp['accesstokenurl'];
+						if(strpos($accessTokenUrl, "google") !== false) {
+							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
 						}
+						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
+
+						if(!$accessToken)
+							exit('Invalid token received.');
+
+						$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
+						if (substr($resourceownerdetailsurl, -1) == "=") {
+							$resourceownerdetailsurl .= $accessToken;
+						}
+						if(strpos($resourceownerdetailsurl, "google") !== false) {
+							$resourceownerdetailsurl = "https://www.googleapis.com/oauth2/v1/userinfo";
+						}
+						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
+					}
 					$email = "";
 					$name = "";
 					if($currentappname == "google"){

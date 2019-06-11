@@ -101,7 +101,8 @@
 		<?php if($is_other_app){ ?>
 		<div class="mo_table_layout" id="attribute-mapping">
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
-		<h3>Attribute Mapping</h3>
+		<h3>Attribute Mapping <small>[required for ACCOUNT LINKING </small>]</h3> 
+		<i><small><b style="color:#dc2424">NOTE : </b></small>Please note that, with free plugin auto-creation for only 10 user accounts is allowed during SSO, but you can manually add users to WordPress.</i>
 		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> above to get configuration for attribute mapping.<br></p>
 		<input type="hidden" name="option" value="mo_oauth_attribute_mapping" />
 		<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_name" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
@@ -119,30 +120,60 @@
 			
 		<?php
 		echo '<tr>
+			<td colspan="3" align="center">
+				Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing"><b>premium</b></a> version.
+			</td>
+		</tr>
+		<tr>
 			<td><strong>Last Name:</strong></td>
 			<td>
-				<p>Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing"><b>premium</b></a> version.</p>
 				<input type="text" placeholder="Enter attribute name for Last Name" style="width: 350px;" disabled /></td>
-		  </tr>
-		  <tr>
+		</tr>
+		<tr>
 			<td><strong>Username:</strong></td>
 			<td><input type="text" placeholder="Enter attribute name for Username" style="width: 350px;" value="" disabled /></td>
-		  </tr>
-		  <tr>
+		</tr>
+		<tr>
 			<td><strong>Group/Role:</strong></td>
 			<td><input type="text" placeholder="Enter attribute name for Group/Role" style="width: 350px;" value="" disabled /></td>
-		  </tr>
-		  <tr>
+		</tr>
+		<tr>
 			<td><strong>Display Name:</strong></td>
 			<td>
 				<select disabled style="background-color: #eee;">
 					<option>Email</option>
 				</select>
 			</td></tr>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td colspan="3"><hr></td></tr>
+			<tr>
+				<td colspan="2">
+					<strong>
+						<input disabled type="checkbox">Keep Existing User Attributes
+					</strong><small> [PREMIUM]</small>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><small>If unchecked, each time existing WordPress User profile will get updated with above mapping. <br/> <b>Note :</b> User profile will get updated based on existing Usernames.</small>
+				</td>
+			</tr>
+			<tr>
+			  	<td colspan="2">
+				    <table>
+						<tr>
+						  	<td>
+						  		<strong><input disabled type="checkbox">Keep Existing Email Attribute</strong><small> [PREMIUM]</small>
+						  	</td>
+						</tr>
+						<tr><td colspan="2"><small>Uncheck only if you want existing user email to get updated each time after SSO. </small></td></tr>
+				    </table>
+				</td>
+			</tr>
+			<tr><td colspan="3"><hr></td></tr>
 			<tr><td colspan="2">
 			<h3>Map Custom Attributes</h3>Map extra OAuth Provider attributes which you wish to be included in the user profile below
 			</td><td><input disabled type="button" value="+" class="button button-primary"  /></td>
-			<td><input disabled type="button" class="button button-primary"   /></td></tr>
+			<td><input disabled type="button" value="-" class="button button-primary"   /></td></tr>
 			<tr class="rows"><td><input disabled type="text" placeholder="Enter field meta name" /></td>
 			<td><input disabled type="text" placeholder="Enter attribute name from OAuth Provider" style="width:74%;" /></td>
 			</tr>';

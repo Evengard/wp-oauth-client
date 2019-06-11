@@ -18,6 +18,7 @@ class Mo_OAuth_Client_Admin_Guides {
 					}
 				}
 			}
+			echo $currentapp['apptype'];
 			if($currentapp['apptype'] === "oauth") {
 				$app = mo_oauth_client_get_app('other');
 			} else {
