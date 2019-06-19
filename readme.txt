@@ -1,13 +1,13 @@
 === OAuth Single Sign On - SSO (OAuth client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth client, wordpress sso, single sign on, sso, WordPress Single Sign On
+Tags: oauth, oauth client, single sign on, sso, wordpress single sign on
 Requires at least: 3.0.1
 Tested up to: 5.2.1
-Stable tag: 6.10.6
+Stable tag: 6.11.0
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
-OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Slack, Discord, Keycloak, WHMCS, Gluu Server, custom OAuth 2.0 and OpenID Connect (OIDC) servers.
+OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Invision Community, slack, discord custom OAuth 2.0 and OpenID Connect (OIDC) servers.
 
 == Description ==
 
@@ -102,7 +102,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, G Suite etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
 
 
 == Installation ==
@@ -131,7 +131,7 @@ add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 
 == Frequently Asked Questions ==
 = I need to customize the plugin or I need support and help? =
-Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = I don't see any applications to configure. I only see Register to miniOrange? =
 Our very simple and easy registration lets you register to miniOrange. OAuth login works if you are connected to miniOrange. Once you have registered with a valid email-address and phone number, you will be able to configure applications for OAuth.
@@ -147,10 +147,10 @@ add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 
 
 = I need integration of this plugin with my other installed plugins like BuddyPress, etc.? =
-We will help you in integrating this plugin with your other installed plugins. Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+We will help you in integrating this plugin with your other installed plugins. Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = I verified the OTP received over my email and entering the same password that I registered with, but I am still getting the error message - "Invalid password." =
-Please write to us at info@miniorange.com and we will get back to you very soon.
+Please write to us at info@xecurify.com and we will get back to you very soon.
 
 =  I would like to change our license to support the Diffrent Domain. How do we do this? =
 Yes, You can now activate the license on your new domain. Write us at info@miniOrange.com we will help you set up.
@@ -159,7 +159,7 @@ Yes, You can now activate the license on your new domain. Write us at info@miniO
 Yes, With standard license you can set different redirect URL to redirect to after login as well as after logout.
 
 = For any other query/problem/request =
-Please email us at info@miniorange.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = REST API Authentication =
 Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
@@ -172,20 +172,20 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 
 == Changelog ==
 
+= 6.11.0 =
+* Updated domain
+
 = 6.10.6 =
 * Added Compatibility for Wordpress version 5.2.1
 * Updated API of support query
-* Updated Registration form
+* Updated Regisatrtion form
 * Added Request for Demo form
 * Added Forum link
-* Advertised New Features 
+* Advertised New Features - 
 * Updated Licensing Plan
-* Added Bugfixes
-* Added Support for Keycloak & Gluu Server
 
 = 6.10.5 =
 * Added compatibility for WordPress version 5.2
-* Updated guide links
 
 = 6.10.4 =
 * Added Authorization Headers 

@@ -7,7 +7,7 @@ use Pheal\Core\Config;
 class Mo_Oauth_Widget extends WP_Widget {
 
 	public function __construct() {
-		update_option( 'host_name', 'https://auth.miniorange.com' );
+		update_option( 'host_name', 'https://login.xecurify.com' );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		add_action( 'init', array( $this, 'mo_oauth_start_session' ) );
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
@@ -42,7 +42,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if ( ! empty( $wid_title ) ) {
 			echo $args['before_title'] . $wid_title . $args['after_title'];
 		}
-		echo $this->mo_oauth_login_form();
+		$this->mo_oauth_login_form();
 		echo $args['after_widget'];
 	}
 
@@ -268,6 +268,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 							// OpenId connect
+						echo "OpenID Connect";
 						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
@@ -279,6 +280,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
 					} else {
+						echo "OAuth";
 						$accessTokenUrl = $currentapp['accesstokenurl'];
 						if(strpos($accessTokenUrl, "google") !== false) {
 							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";

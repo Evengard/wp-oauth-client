@@ -1382,7 +1382,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                 <h3>10 Days Return Policy -</h3>
                 At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is
                 not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get
-                resolved. We will refund the whole amount within 10 days of the purchase. Please email us at info@miniorange.com
+                resolved. We will refund the whole amount within 10 days of the purchase. Please email us at info@xecurify.com
                 for any queries regarding the return policy.
 
             </div>
@@ -1439,7 +1439,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                     </div>
                     <div class="modal-footer" style="/*display:block !important;*/">
                         <input type="submit" class="btn btn-primary" style="float:left;" value="Submit" /></form>
-                        <span style="float:right;"><b>Still Confused? Write us at <a href="mailto:info@miniorange.com">info@miniorange.com</a>.</b>
+                        <span style="float:right;"><b>Still Confused? Write us at <a href="mailto:info@xecurify.com">info@xecurify.com</a>.</b>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></span>
                     </div>
                 </div>

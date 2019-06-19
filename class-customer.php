@@ -181,7 +181,7 @@ class Customer {
 			'lastName'	 		=> $current_user->user_lastname,
 			'company' 			=> $_SERVER['SERVER_NAME'],
 			'email' 			=> $email,
-			'ccEmail' 		    => 'oauthsupport@miniorange.com',
+			'ccEmail' 		    => 'oauthsupport@xecurify.com',
 			'phone'				=> $phone,
 			'query'				=> $query
 		);
@@ -411,10 +411,10 @@ class Customer {
 			'email' 		=> array(
 				'customerKey' 	=> $customerKey,
 				'fromEmail' 	=> $fromEmail,
-				'bccEmail' 		=> 'oauthsupport@miniorange.com',
+				'bccEmail' 		=> 'oauthsupport@xecurify.com',
 				'fromName' 		=> 'miniOrange',
-				'toEmail' 		=> 'oauthsupport@miniorange.com',
-				'toName' 		=> 'oauthsupport@miniorange.com',
+				'toEmail' 		=> 'oauthsupport@xecurify.com',
+				'toName' 		=> 'oauthsupport@xecurify.com',
 				'subject' 		=> $subject,
 				'content' 		=> $content
 			),
@@ -472,10 +472,10 @@ class Customer {
 			'email' 		=> array(
 				'customerKey' 	=> $customerKey,
 				'fromEmail' 	=> $fromEmail,
-				'bccEmail' 		=> 'oauthsupport@miniorange.com',
+				'bccEmail' 		=> 'oauthsupport@xecurify.com',
 				'fromName' 		=> 'miniOrange',
-				'toEmail' 		=> 'oauthsupport@miniorange.com',
-				'toName' 		=> 'oauthsupport@miniorange.com',
+				'toEmail' 		=> 'oauthsupport@xecurify.com',
+				'toName' 		=> 'oauthsupport@xecurify.com',
 				'subject' 		=> $subject,
 				'content' 		=> $content
 			),
@@ -558,7 +558,7 @@ class Customer {
 	}
 	
 	function check_internet_connection() {
-		return (bool) @fsockopen('auth.miniorange.com', 443, $iErrno, $sErrStr, 5);
+		return (bool) @fsockopen('login.xecurify.com', 443, $iErrno, $sErrStr, 5);
 	}
 	
 

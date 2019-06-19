@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.10.6
+* Version: 6.11.0
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -207,12 +207,24 @@ class mo_oauth {
 					$response = json_decode($customer->create_customer(), true);
 
 					if(strcasecmp($response['status'], 'SUCCESS') == 0) {
-						wp_redirect( admin_url( '/admin.php?page=mo_oauth_settings&tab=account' ), 301 );
+						wp_redirect( admin_url( '/admin.php?page=mo_oauth_settings&tab=licensing' ), 301 );
 						exit;
 					} else {
 						update_option( 'message', 'Failed to create customer. Try again.');
 					}
 					$this->mo_oauth_show_success_message();
+					// $content = json_decode($customer->send_otp_token($email,''), true);
+					// if(strcasecmp($content['status'], 'SUCCESS') == 0) {
+					// 	update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . '. Please enter the OTP here to verify your email.');
+					// 	$_SESSION['mo_oauth_transactionId'] = $content['txId'];
+					// 	update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS');
+
+					// 	$this->mo_oauth_show_success_message();
+					// }else{
+					// 	update_option('message','There was an error in sending email. Please click on Resend OTP to try again.');
+					// 	update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
+					// 	$this->mo_oauth_show_error_message();
+					// }
 				} else {
 					$this->mo_oauth_get_current_customer();
 				}

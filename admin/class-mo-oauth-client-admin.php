@@ -40,7 +40,7 @@ class Mo_OAuth_Client_Admin {
 
 		$page = add_menu_page( 'MO OAuth Settings ' . __( 'Configure OAuth', 'mo_oauth_settings' ), 'miniOrange OAuth', 'administrator', 'mo_oauth_settings', array( $this, 'menu_options' ) ,plugin_dir_url(__FILE__) . 'images/miniorange.png');
 		
-		// $page = add_submenu_page( 'mo_oauth_settings', 'MO Login ' . __('Advanced EVE Online Settings'), __('Advanced EVE Online Settings'), 'administrator', 'mo_oauth_eve_online_setup', 'mo_eve_online_config' );
+		$page = add_submenu_page( 'mo_oauth_settings', 'MO Login ' . __('Advanced EVE Online Settings'), __('Advanced EVE Online Settings'), 'administrator', 'mo_oauth_eve_online_setup', 'mo_eve_online_config' );
 
 		global $submenu;
 		if(is_array($submenu) && isset($submenu['mo_oauth_settings'])){
@@ -50,7 +50,7 @@ class Mo_OAuth_Client_Admin {
 		
 	function menu_options () {
 		global $wpdb;
-		update_option( 'host_name', 'https://auth.miniorange.com' );
+		update_option( 'host_name', 'https://login.xecurify.com' );
 		$customerRegistered = mo_oauth_is_customer_registered();
 		mo_oauth_client_main_menu();
 	}

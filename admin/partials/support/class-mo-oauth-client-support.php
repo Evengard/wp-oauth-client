@@ -29,7 +29,7 @@ class Mo_OAuth_Client_Admin_Support {
 					<div style="text-align:center;">
 						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" />
 					</div>
-					<p>If you want custom features in the plugin, just drop an email at <a href="mailto:info@miniorange.com">info@miniorange.com</a>.</p>
+					<p>If you want custom features in the plugin, just drop an email at <a href="mailto:info@xecurify.com">info@xecurify.com</a>.</p>
 				</form>
 			</div>
 		</div>

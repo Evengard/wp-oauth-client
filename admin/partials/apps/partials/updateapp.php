@@ -49,7 +49,7 @@
 				<td><input disabled class="mo_table_textbox" type="text"></td>
 			</tr>
 			<tr><td><strong>Redirect / Callback URL</strong></td>
-			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php if($currentappname != 'eveonline'){ echo $currentapp['redirecturi']; } else { echo "https://auth.miniorange.com/moas/oauth/client/callback";} ?>'></td>
+			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php if($currentappname != 'eveonline'){ echo $currentapp['redirecturi']; } else { echo "https://login.xecurify.com/moas/oauth/client/callback";} ?>'></td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
@@ -141,7 +141,7 @@
 			<td><strong>Display Name:</strong></td>
 			<td>
 				<select disabled style="background-color: #eee;">
-					<option>Email</option>
+					<option>FirstName</option>
 				</select>
 			</td></tr>
 			<tr><td>&nbsp;</td></tr>
