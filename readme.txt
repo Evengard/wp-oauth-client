@@ -173,7 +173,7 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 == Changelog ==
 
 = 6.11.0 =
-* Updated domain
+* Bug fixes and Minor UI changes
 
 = 6.10.6 =
 * Added Compatibility for Wordpress version 5.2.1
