@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.11.0
+* Version: 6.11.1
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2

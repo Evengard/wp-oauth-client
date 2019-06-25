@@ -268,7 +268,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 							// OpenId connect
-						echo "OpenID Connect";
 						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
@@ -280,7 +279,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
 					} else {
-						echo "OAuth";
 						$accessTokenUrl = $currentapp['accesstokenurl'];
 						if(strpos($accessTokenUrl, "google") !== false) {
 							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";

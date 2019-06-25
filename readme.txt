@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, single sign on, sso, wordpress single sign on
 Requires at least: 3.0.1
 Tested up to: 5.2.1
-Stable tag: 6.11.0
+Stable tag: 6.11.1
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -153,7 +153,7 @@ We will help you in integrating this plugin with your other installed plugins. P
 Please write to us at info@xecurify.com and we will get back to you very soon.
 
 =  I would like to change our license to support the Diffrent Domain. How do we do this? =
-Yes, You can now activate the license on your new domain. Write us at info@miniOrange.com we will help you set up.
+Yes, You can now activate the license on your new domain. Write us at info@xecurify.com we will help you set up.
 			
 = Is it possible to set a different redirect URL after login & logout =
 Yes, With standard license you can set different redirect URL to redirect to after login as well as after logout.
@@ -171,6 +171,9 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.11.1 =
+* Minor bugfixes
 
 = 6.11.0 =
 * Bug fixes and Minor UI changes

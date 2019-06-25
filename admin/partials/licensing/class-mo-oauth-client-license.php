@@ -1230,7 +1230,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                         <li>Account Linking</li>
                                         <li>Advanced Attribute Mapping (Username, FirstName, LastName, Email, Group Name)</li>
                                         <li>Login Widget</li>
-                                        <li style="padding-bottom:16%!important;">Authorization Code Grant</li>
+                                        <li>Authorization Code Grant<br><br><br></li>
                                         <li>Login using link / shortcode</li>
                                         <li>Custom login buttons and CSS</li>
                                         <li>Custom Redirect URL after login and logout</li>
@@ -1263,7 +1263,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <header class="cd-pricing-header">
 
                                     <h2 style="margin-bottom: 10px">Premium</h2>
-                                    <h3 style="color:black;">(OpenID Connect Support)<br /><br /></h3>
+                                    <h3 style="color:black;">(Domain Restriction)<br /><br /></h3>
 
                                     <div class="cd-price" >
                                         <span class="cd-currency">$</span>

@@ -175,7 +175,7 @@ class Customer {
     function submit_contact_us( $email, $phone, $query ) {
 		global $current_user;
 		wp_get_current_user();
-		$query = '[WP OAuth Client] ' . $query;
+		$query = '[WP OAuth Single Sign On] ' . $query;
 		$fields = array(
 			'firstName'			=> $current_user->user_firstname,
 			'lastName'	 		=> $current_user->user_lastname,
