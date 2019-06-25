@@ -451,7 +451,7 @@ class mo_oauth {
 					$newapp['apptype'] = stripslashes( 'oauth' );
 				}
 				
-				if($newap['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
+				if($newapp['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
 					$resourceownerdetailsurl = stripslashes($_POST['mo_oauth_resourceownerdetailsurl']);
 					if($resourceownerdetailsurl != '') {
 						$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
