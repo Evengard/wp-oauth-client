@@ -268,6 +268,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 							// OpenId connect
+						// echo "OpenID Connect";
 						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
@@ -279,6 +280,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
 					} else {
+						// echo "OAuth";
 						$accessTokenUrl = $currentapp['accesstokenurl'];
 						if(strpos($accessTokenUrl, "google") !== false) {
 							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
@@ -299,52 +301,30 @@ class Mo_Oauth_Widget extends WP_Widget {
 					}
 					$email = "";
 					$name = "";
-					if($currentappname == "google"){
-						if(isset($resourceOwner['emails'])){
-							foreach($resourceOwner['emails'] as $email){
-								if(isset($email['value'])){
-									$email = $email['value'];
-									break;
-								}
-							}
-						}
-						if(isset($resourceOwner['displayName']))
-							$name = $resourceOwner['displayName'];
-					} else if($currentappname == "facebook"){
-						if(isset($resourceOwner['email']))
-							$email = $resourceOwner['email'];
-						if(isset($resourceOwner['name']))
-							$name = $resourceOwner['name'];
-					}  else if($currentappname == "windows"){
-						if(isset($resourceOwner['emails']['preferred']))
-							$email = $resourceOwner['emails']['preferred'];
-						if(isset($resourceOwner['name']))
-							$name = $resourceOwner['name'];
-					} else {
-
-						//TEST Configuration
-						if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
-							echo '<div style="font-family:Calibri;padding:0 3%;">';
-							echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
-							echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
-							testattrmappingconfig("",$resourceOwner);
-							echo "</table>";
-							echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();"></div>';
-							exit();
-						}
-
-						if(!empty($email_attr))
-							$email = getnestedattribute($resourceOwner, $email_attr); //$resourceOwner[$email_attr];
-						if(!empty($name_attr))
-							$name = getnestedattribute($resourceOwner, $name_attr); //$resourceOwner[$name_attr];
-
+					//TEST Configuration
+					if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
+						echo '<div style="font-family:Calibri;padding:0 3%;">';
+						echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
+						echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
+						testattrmappingconfig("",$resourceOwner);
+						echo "</table>";
+						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();"></div>';
+						exit();
 					}
 
-					if(empty($email))
-						exit('Email address not received. Check your <b>Attribute Mapping</b> configuration.');
+					if(!empty($email_attr))
+						$email = getnestedattribute($resourceOwner, $email_attr); //$resourceOwner[$email_attr];
+					if(!empty($name_attr))
+						$name = getnestedattribute($resourceOwner, $name_attr); //$resourceOwner[$name_attr];
+
+					if(empty($email) || "" === $email)
+						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
 					
-					if ( strpos( $email, "@" ) === false ) {
-						wp_die( 'Mapped <b>Email Attribute</b> doesn\'t contain valid email address.' );
+					if ( ! is_string( $email ) ) {
+						wp_die( 'Username is not a string. It is ' . get_proper_prefix( gettype( $email ) ) );
+					}
+					if ( ! is_string( $name ) ) {
+						wp_die( 'First Name is not a string. It is ' . get_proper_prefix( gettype( $name ) ) );
 					}
 					$user = get_user_by("login",$email);
 					if(!$user)
@@ -357,12 +337,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(mo_oauth_hbca_xyake()) {
 							if( get_option('mo_oauth_flag') != true )
 							{
-								$user = mo_oauth_jhuyn_jgsukaj($email, $name);
+								$user = mo_oauth_jhuyn_jgsukaj($email);
 							} else {
 								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
 							} 							
 						} else {
-							$user = mo_oauth_hjsguh_kiishuyauh878gs($email, $name);
+							$user = mo_oauth_hjsguh_kiishuyauh878gs($email);
 						}
 						
 					}
@@ -546,7 +526,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		/* End of old flow */
 	}
 
-	function mo_oauth_hjsguh_kiishuyauh878gs($email, $name)
+	function mo_oauth_hjsguh_kiishuyauh878gs($email)
 	{
 		$random_password = wp_generate_password( 10, false );
 		if(is_email($email))
@@ -554,7 +534,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		else
 			$user_id = wp_create_user( $email, $random_password);					
 		$user = get_user_by( 'login', $email);						
-		wp_update_user( array( 'ID' => $user_id, 'first_name' => $name ) );
+		wp_update_user( array( 'ID' => $user_id ) );
 		return $user;
 	}
 
@@ -583,9 +563,9 @@ class Mo_Oauth_Widget extends WP_Widget {
 		return $valid_entity;
 	}
 
-	function mo_oauth_jhuyn_jgsukaj($temp_var, $ntemp)
+	function mo_oauth_jhuyn_jgsukaj($temp_var)
 	{
-		return mo_oauth_jkhuiysuayhbw($temp_var, $ntemp);
+		return mo_oauth_jkhuiysuayhbw($temp_var);
 	}
 
 	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails){
@@ -605,7 +585,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	function getnestedattribute($resource, $key){
 		//echo $key." : ";print_r($resource); echo "<br>";
-		if(empty($key))
+		if($key==="")
 			return "";
 
 		$keys = explode(".",$key);
@@ -615,18 +595,19 @@ class Mo_Oauth_Widget extends WP_Widget {
 				return getnestedattribute($resource[$current_key], str_replace($current_key.".","",$key));
 		} else {
 			$current_key = $keys[0];
-			if(isset($resource[$current_key]))
+			if(isset($resource[$current_key])) {
 				return $resource[$current_key];
+			}
 		}
 	}
 
-	function mo_oauth_jkhuiysuayhbw($ejhi, $nabnbj)
+	function mo_oauth_jkhuiysuayhbw($ejhi)
 	{
 		$option = 0; $flag = false;	
 		$mo_oauth_authorizations = get_option('mo_oauth_authorizations');
 		if(!empty($mo_oauth_authorizations))
 			$option = get_option( 'mo_oauth_authorizations' );
-		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi, $nabnbj);
+		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi);
 		if($user);								
 			++$option;							
 		update_option( 'mo_oauth_authorizations', $option);
@@ -636,6 +617,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 		    update_option($mo_oauth_set_val, true);
 		}
 		return $user;
+	}
+
+	function get_proper_prefix( $type ) {
+		$letter = substr( $type, 0, 1 );
+		$vowels = [ 'a', 'e', 'i', 'o', 'u' ];
+		return ( in_array( $letter, $vowels ) ) ? ' an ' . $type : ' a ' . $type;
 	}
 
 	function register_mo_oauth_widget() {

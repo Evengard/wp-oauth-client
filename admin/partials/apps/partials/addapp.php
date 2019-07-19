@@ -64,11 +64,15 @@
 			</tr>
 			<tr id="mo_oauth_custom_app_name_div">
 				<td><strong><font color="#FF0000">*</font>App Name:</strong></td>
-				<td><input class="mo_table_textbox" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="" pattern="[a-zA-Z0-9\s]+" required title="Please do not add any special characters."></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="" pattern="[a-zA-Z0-9\s]+" required title="Please do not add any special characters." placeholder="Do not add any special characters"></td>
 			</tr>
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small>[STANDARD]</small></font></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_display_app_name" name="mo_oauth_display_app_name" value="" pattern="[a-zA-Z0-9\s]+" disabled title="Please do not add any special characters."></td>
+			</tr>
+			<tr>
+				<td><strong>SSO Protocol:</strong><br>&emsp;<font color="#FF0000"></font></td>
+				<td><input disabled class="mo_table_textbox" type="text" id="mo_oauth_sso_protocol" name="mo_oauth_sso_protocol" value="<?php echo $currentapp->type;?>"></td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>

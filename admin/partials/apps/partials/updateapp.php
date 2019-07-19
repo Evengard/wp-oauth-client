@@ -21,12 +21,9 @@
 	}
 	if(!$currentapp)
 		return;
-	$is_other_app = false;
-	if(!in_array($currentappname, array("facebook","google","eveonline","windows")))
-		$is_other_app = true;
+	$is_other_app = true;
 		
 	?>
-
 		<div id="toggle2" class="mo_panel_toggle">
 			<h3>Update Application</h3>
 		</div>
@@ -47,6 +44,10 @@
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small>[STANDARD]</small></font></td>
 				<td><input disabled class="mo_table_textbox" type="text"></td>
+			</tr>
+			<tr>
+				<td><strong>SSO Protocol:</strong><br>&emsp;<font color="#FF0000"></font></td>
+				<td><input disabled class="mo_table_textbox" type="text" id="mo_oauth_sso_protocol" name="mo_oauth_sso_protocol" value="<?php if(isset($currentapp['ssoprotocol'])) echo $currentapp['ssoprotocol']; else echo $currentapp['apptype'];?>"></td>
 			</tr>
 			<tr><td><strong>Redirect / Callback URL</strong></td>
 			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php if($currentappname != 'eveonline'){ echo $currentapp['redirecturi']; } else { echo "https://login.xecurify.com/moas/oauth/client/callback";} ?>'></td>
@@ -109,13 +110,10 @@
 		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
 		<table class="mo_settings_table">
 			<tr id="mo_oauth_email_attr_div">
-				<td><strong><font color="#FF0000">*</font>Email:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Email" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
+				<td><strong><font color="#FF0000">*</font>Username:</strong></td>
+				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
 			</tr>
-			<tr id="mo_oauth_name_attr_div">
-				<td><strong><font color="#FF0000">*</font>First Name:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for First Name" type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value="<?php if(isset( $currentapp['name_attr'])) echo $currentapp['name_attr'];?>"></td>
-			</tr>
+			
 			
 			
 		<?php
@@ -124,14 +122,18 @@
 				Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing"><b>premium</b></a> version.
 			</td>
 		</tr>
+        <tr id="mo_oauth_name_attr_div">
+				<td><strong>First Name:</strong></td>
+				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for First Name" style="width: 350px;" disabled  type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value=""></td>
+			</tr>
 		<tr>
 			<td><strong>Last Name:</strong></td>
 			<td>
 				<input type="text" placeholder="Enter attribute name for Last Name" style="width: 350px;" disabled /></td>
 		</tr>
 		<tr>
-			<td><strong>Username:</strong></td>
-			<td><input type="text" placeholder="Enter attribute name for Username" style="width: 350px;" value="" disabled /></td>
+			<td><strong>Email:</strong></td>
+			<td><input type="text" placeholder="Enter attribute name for Email" style="width: 350px;" value="" disabled /></td>
 		</tr>
 		<tr>
 			<td><strong>Group/Role:</strong></td>
@@ -141,7 +143,7 @@
 			<td><strong>Display Name:</strong></td>
 			<td>
 				<select disabled style="background-color: #eee;">
-					<option>FirstName</option>
+					<option>Username</option>
 				</select>
 			</td></tr>
 			<tr><td>&nbsp;</td></tr>

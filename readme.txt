@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth client, single sign on, sso, wordpress single sign on
 Requires at least: 3.0.1
-Tested up to: 5.2.1
-Stable tag: 6.11.1
+Tested up to: 5.2.2
+Stable tag: 6.11.2
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -171,6 +171,10 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.11.2 =
+* Attribute Mapping fixes
+* minor UI Changes
 
 = 6.11.1 =
 * Minor bugfixes

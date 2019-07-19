@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.11.1
+* Version: 6.11.2
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -56,9 +56,6 @@ class mo_oauth {
 			'close_label' => __('Close'),
 			'pointers' => $pointers
 		);
-		// echo "<pre>";
-		// print_r($data);
-		// echo "</pre>";
 		wp_localize_script( 'custom_admin_pointers', 'MyAdminPointers', $data );
 	}
 	
@@ -371,6 +368,7 @@ class mo_oauth {
 				$clientid = stripslashes( trim( $_POST['mo_oauth_client_id'] ) );
 				$clientsecret = stripslashes( trim( $_POST['mo_oauth_client_secret'] ) );
 				$appname = stripslashes( $_POST['mo_oauth_custom_app_name'] );
+				$ssoprotocol = stripslashes( $_POST['mo_oauth_app_type'] );
 				update_option('mo_oauth_client_disable_authorization_header',isset( $_POST['disable_authorization_header']) ? $_POST['disable_authorization_header'] : 0);
 
 
@@ -403,6 +401,7 @@ class mo_oauth {
 				$newapp['clientsecret'] = $clientsecret;
 				$newapp['scope'] = $scope;
 				$newapp['redirecturi'] = site_url();
+				$newapp['ssoprotocol'] = $ssoprotocol;
 				if($appname=="facebook"){
 					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
 					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';
@@ -485,13 +484,13 @@ class mo_oauth {
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_attribute_mapping" ) {
 			$appname = stripslashes( $_POST['mo_oauth_app_name'] );
 			$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
-			$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
+//			$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
 
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
 				if($appname == $key){
 					$currentapp['email_attr'] = $email_attr;
-					$currentapp['name_attr'] = $name_attr;
+//					$currentapp['name_attr'] = $name_attr;
 					if(strtolower($currentapp['appId'])==='gapps') {
 						$currentapp['email_attr'] = 'email';
 					}
