@@ -9,6 +9,7 @@ require('support/class-mo-oauth-client-support.php');
 require('reports/class-mo-oauth-client-reports.php');
 require('demo/class-mo-oauth-client-demo.php');
 require('faq/class-mo-oauth-client-faq.php');
+require('addons/class-mo-oauth-client-addons.php');
 
 function mo_oauth_client_main_menu() {
 
@@ -85,20 +86,22 @@ class Mo_OAuth_Client_Admin_Menu {
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
 			<a class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
-			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Customizations</a>
 			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
-			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Sign In Settings</a>
+			<a class="nav-tab <?php if($currenttab == 'attributemapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=attributemapping">Attribute/Role Mapping</a>
+			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Login Settings</a>
+			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Login Button Customization</a>
 			<a class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo">Request For Demo</a>	
-			<!-- <a class="nav-tab <?php //if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>	 -->		
+			<!-- <a class="nav-tab <?php //if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>	 -->
 			<a class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
+            <a class="nav-tab <?php if($currenttab == 'addons') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=addons">Add-ons</a>
 			<!-- <a class="nav-tab <?php //if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> -->
 		</h2>
 		</div> 
 		<?php
 	
 	}
-	
-	
+
+
 	public static function show_idp_link($currenttab) { 
 	if ((! get_option( 'mo_oauth_client_show_mo_server_message' )) ) {
             ?>
@@ -118,8 +121,7 @@ class Mo_OAuth_Client_Admin_Menu {
             <?php
         }
 	}
-	
-	
+
 	public static function show_tab($currenttab) { 
 			if($currenttab == 'account') {
 				if (get_option ( 'verify_customer' ) == 'true') {
@@ -141,6 +143,10 @@ class Mo_OAuth_Client_Admin_Menu {
     			Mo_OAuth_Client_Admin_RFD::requestfordemo(); 
 			else if($currenttab == 'faq') 
     			Mo_OAuth_Client_Admin_Faq::faq(); 
+            else if($currenttab == 'addons') 
+				Mo_OAuth_Client_Admin_Addons::addons();
+			else if($currenttab == 'attributemapping') 
+				Mo_OAuth_Client_Admin_Apps::attribute_role_mapping(); 
 			else if($currenttab == '') {
 					?>
 						<a id="goregister" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'config' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">

@@ -33,3 +33,59 @@
 }
 
 input.disabled, input:disabled, select.disabled, select:disabled, textarea.disabled, textarea:disabled {background:#eee !important}
+
+.mo_premium_features_notice {
+  background: #f2f2f2;
+  padding: 1%;
+  border-radius: 2%;
+  line-height: 1;
+}
+
+.mop_table {
+  width: 78%;
+}
+
+
+.mo-oauth-tooltip {
+  position: relative;
+  border-radius: 100%;
+  display: inline-block;
+  color: #f2f2f2;
+  padding: 0 5px;
+  background-color: #212121bf;
+}
+
+.mo-oauth-tooltip .mo-oauth-tooltip-text {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: max-content;
+}
+
+.mo-oauth-tooltip .mo-oauth-tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
+
+.mo-oauth-tooltip:hover .mo-oauth-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.mo-tt-right {
+  top: -5px;
+  left: 125%;
+}

@@ -6,7 +6,7 @@
 	<div id="mo_oauth_customiztion" class="mo_table_layout">
 	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
 		</form>
-		<h2>Customize Icons <small>[STANDARD]</small></h2>
+		<h2>Customize Icons <small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></h2>
 		<table class="mo_settings_table">
 			<tr>
 				<td><strong>Icon Width:</strong></td>

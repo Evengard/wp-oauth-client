@@ -1,24 +1,24 @@
 === OAuth Single Sign On - SSO (OAuth client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth client, single sign on, sso, wordpress single sign on
+Tags: oauth, oauth 2.0, openid, sso, wordpress oauth
 Requires at least: 3.0.1
 Tested up to: 5.2.2
-Stable tag: 6.11.2
+Stable tag: 6.11.3
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
-OAuth Login plugin allows Single Sign-On with Azure AD, AWS Cognito, Invision Community, slack, discord custom OAuth 2.0 and OpenID Connect (OIDC) servers.
+WordPress OAuth SSO plugin allows Single Sign-On to WordPress with Azure, AWS Cognito, Keycloak, WHMCS, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 or OpenID Connect 1.0 provider using this plugin.
 
 == Description ==
 
-This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invision Community, slack, discord or other custom OAuth 2.0 providers. OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 providers. OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
 
 = FREE VERSION FEATURES =
 
-*	OAuth Login supports single sign-on / SSO with any 3rd party OAuth /OpenID Connect server or custom OAuth /OpenID Connect server.
+*	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth /OpenID Connect server or custom OAuth /OpenID Connect server.
 *   Auto Create Users : After SSO, new user automatically gets created in WordPress
-*	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated
-*	Attribute Mapping : OAuth Login supports basic Attribute Mapping feature to map WordPress user profile attributes like email and first name. Manage username & email with data provided
+*	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
+*	Attribute Mapping : OAuth Login supports email Attribute Mapping feature to map WordPress user profile email attribute.
 *	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
 *	OAuth / OpenID Connect Provider Support : OAuth Login supports only one OAuth / OpenID Connect Provider. 
 *	Redirect URL after Login : OAuth Login Automatically Redirects user after successful login. 
@@ -29,12 +29,12 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 
 *	All the FREE Version Features included.
 *	Optionally Auto Register Users : OAuth Login does automatic user registration after login if the user is not already registered with your site
-*	Attribute Mapping : OAuth Login provides custom Attribute Mapping feature to map WordPress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided
+*	Basic Role Mapping :  OAuth Login provides basic Attribute Mapping feature to map WordPress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided. 
+                          Also, Assign default role to user registering through OAuth Login based on rules you define.
 *	Support for Shortcode : Use shortcode to place OAuth login button anywhere in your Theme or Plugin
-*	Customize Login Buttons / Icons / Text : Wide range of OAuth login Buttons/Icons and it allows you to customize Text shadow
-*	Custom Redirect URL after Login : OAuth Login provides Auto Redirection and this is useful if you wanted to globally  protect your whole site
-*	Redirect URL after logout : OAuth Login auto Redirect Users to custom URL after logout in WordPress
-*	Basic Role Mapping :  Assign default role to user registering through OAuth Login based on rules you define.
+*	Customize Login Buttons / Icons / Text : Wide range of OAuth Login Buttons/Icons and it allows you to customize Text shadow
+*	Custom Redirect URL after Login : WordPress OAuth SSO provides auto redirection and this is useful if you wanted to globally protect your whole site
+*	Custom Redirect URL after logout : WordPress OAuth SSO allows you to auto redirect Users to custom URL after he logs out from your WordPress site
 
 
 = PREMIUM VERSION FEATURES =
@@ -172,6 +172,11 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 
 == Changelog ==
 
+= 6.11.3 =
+* Added Add-on tab
+* Added UI Changes
+* Added compability for WordPress version 5.2.2
+
 = 6.11.2 =
 * Attribute Mapping fixes
 * minor UI Changes
@@ -266,28 +271,28 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 * Bug fixes for 'Vulnerable Link' issue
 
 = 6.1.2 =
-Bug fix for Invalid OTP error
+* Bug fix for Invalid OTP error
 
 = 6.1.1 =
-CSS customizations
+* CSS customizations
 
 = 6.0.2 =
-Added premium features page.
+* Added premium features page.
 
 = 6.0.1 =
-Updated list of OAuth Providers.
+* Updated list of OAuth Providers.
 
 = 5.22 =
-Handled self signed SSL sites and slashes.
+* Handled self signed SSL sites and slashes.
 
 = 5.21 =
-Bug fixes fetching user resource
+* Bug fixes fetching user resource
 
 = 5.20 =
-Added shortcode option
+* Added shortcode option
 
 = 5.12 =
-Added Windows Live app and bug fixes
+* Added Windows Live app and bug fixes
 
 = 5.10 =
 * Changed callback url

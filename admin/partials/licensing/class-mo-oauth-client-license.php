@@ -1212,7 +1212,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <h3 style="color:black;">(Unlimited Users)<br /><br /></h3>
                                     <div class="cd-price" >
                                         <span class="cd-currency">$</span>
-                                        <span class="cd-value">149*</span></span>
+                                        <span class="cd-value">249*</span></span>
 
                                     </div>
                                     <div>(One Time)</div>

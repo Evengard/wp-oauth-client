@@ -2,10 +2,11 @@
 
 function grant_type_settings() {
 	?>
+	</div>
 	<div class="mo_table_layout" id="mo_grant_settings" style="position: relative;">
 		<table class="mo_settings_table">
 			<tr>
-				<td><h3>Grant Settings&emsp;<code><small>[PREMIUM]</small></code></h3></td>
+				<td><h3>Grant Settings&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3></td>
 				<td align="right"><a href="#" target="_blank" id='mo_oauth_grant_guide' style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px;">What is this?</a></td>
 			</tr>
 		</table>
@@ -38,5 +39,6 @@ function grant_type_settings() {
 			Grant Type Settings are configurable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">premium and enterprise</a> versions of the plugin.
 		</div>
 	</div>
+	<div>
 	<?php
 }

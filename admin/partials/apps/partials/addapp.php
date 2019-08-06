@@ -1,6 +1,7 @@
 <?php 
 
 	require('defaultapps.php');
+	require('grant-settings.php');
 	
 	function add_app_page(){
 		$appslist = get_option('mo_oauth_apps_list');
@@ -67,7 +68,7 @@
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="" pattern="[a-zA-Z0-9\s]+" required title="Please do not add any special characters." placeholder="Do not add any special characters"></td>
 			</tr>
 			<tr id="mo_oauth_display_app_name_div">
-				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small>[STANDARD]</small></font></td>
+				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_display_app_name" name="mo_oauth_display_app_name" value="" pattern="[a-zA-Z0-9\s]+" disabled title="Please do not add any special characters."></td>
 			</tr>
 			<tr>
@@ -113,5 +114,8 @@
 		</div>
 		</div>
 		<?php
+		grant_type_settings();
 	}
+
+
 }

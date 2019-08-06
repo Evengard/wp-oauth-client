@@ -1,24 +1,42 @@
 {
-	"other": {
-		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":""
+	"azure": {
+		"label":"Azure AD", "type":"oauth", "image":"azure.png", "scope": "openid", "authorize": "https://login.microsoftonline.com/[tenant-id]/oauth2/authorize", "token": "https://login.microsoftonline.com/[tenant]/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-azure-ad-as-oauth-openid-connect-server"
 	},
-	"openidconnect": {
-		"label":"Custom OpenID Connect App", "type":"openidconnect", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":""
+	"cognito": {
+		"label":"AWS Cognito", "type":"oauth", "image":"cognito.png", "scope": "openid", "authorize": "https://<cognito-app-domain>/oauth2/authorize", "token": "https://<cognito-app-domain>/oauth2/token", "userinfo": "https://<cognito-app-domain>/oauth2/userInfo", "guide":"https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/"
+	},
+	"adfs": {
+		"label":"ADFS", "type":"openidconnect", "image":"adfs.png", "scope": "openid", "authorize": "https://{yourADFSDomain}/adfs/oauth2/authorize/", "token": "https://{yourADFSDomain}/adfs/oauth2/token/", "userinfo": "", "guide":""
+	},
+	"whmcs": {
+		"label":"WHMCS", "type":"oauth", "image":"whmcs.png", "scope": "openid profile email", "authorize": "https://{yourWHMCSdomain}/oauth/authorize.php", "token": "https://{yourWHMCSdomain}/oauth/token.php", "userinfo": "https://{yourWHMCSdomain}/oauth/userinfo.php?access_token=", "guide":"https://plugins.miniorange.com/guide-to-configure-whmcs-oauth-openid-connect-server/"
+	},
+	"keycloak": {
+		"label":"keycloak", "type":"openidconnect", "image":"keycloak.png", "scope": "openid", "authorize": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/auth", "token": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/token", "userinfo": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-keycloak-as-oauth-server/"
+	},
+	"slack": {
+		"label":"Slack", "type":"oauth", "image":"slack.png", "scope": "users.profile:read", "authorize": "https://slack.com/oauth/authorize", "token": "https://slack.com/api/oauth.access", "userinfo": "https://slack.com/api/users.profile.get", "guide":"https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/"
+	},
+	"discord": {
+		"label":"Discord", "type":"oauth", "image":"discord.png", "scope": "identify email", "authorize": "https://discordapp.com/api/oauth2/authorize", "token": "https://discordapp.com/api/oauth2/token", "userinfo": "https://discordapp.com/api/users/@me", "guide":"http://plugins.miniorange.com/guide-to-configure-discord-as-oauth-server"
+	},
+	"invisioncommunity": {
+		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://{invision-community-domain}/oauth/authorize/", "token": "https://{invision-community-domain}/oauth/token/", "userinfo": "https://{invision-community-domain}/oauth/me", "guide":"https://plugins.miniorange.com/guide-to-invision-community-client-with-wordpress/"
+	},
+    "bitrix24": {
+		"label":"Bitrix24", "type":"oauth", "image":"bitrix24.png", "scope": "user", "authorize": "https://{your-id}.bitrix24.com/oauth/authorize", "token": "https://{your-id}.bitrix24.com/oauth/token", "userinfo": "https://{your-id}.bitrix24.com/rest/user.current.json?auth=", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-client"
+	},
+	"okta": {
+		"label":"Okta", "type":"openidconnect", "image":"okta.png", "scope": "openid", "authorize": "https://{yourOktaDomain}.com/oauth2/default/v1/authorize", "token": "https://{yourOktaDomain}.com/oauth2/default/v1/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/"
+	},
+	"onelogin": {
+		"label":"OneLogin", "type":"openidconnect", "image":"onelogin.png", "scope": "openid", "authorize": "https://<site-url>.onelogin.com/oidc/auth", "token": "https://<site-url>.onelogin.com/oidc/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-onelogin-as-openid-connect-server/"
 	},
 	"gapps": {
 		"label":"Google", "type":"oauth", "image":"google.png", "scope": "email", "authorize": "https://accounts.google.com/o/oauth2/auth", "token": "https://www.googleapis.com/oauth2/v4/token", "userinfo": "https://www.googleapis.com/oauth2/v1/userinfo", "guide":"http://plugins.miniorange.com/guide-to-configure-google-as-oauth-server/"
 	},
 	"fbapps": {
 		"label":"Facebook", "type":"oauth", "image":"facebook.png", "scope": "public_profile email", "authorize": "https://www.facebook.com/dialog/oauth", "token": "https://graph.facebook.com/v2.8/oauth/access_token", "userinfo": "https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link", "guide":"http://plugins.miniorange.com/guide-to-configure-facebook-as-oauth-server/"
-	},
-	"slack": {
-		"label":"Slack", "type":"oauth", "image":"slack.png", "scope": "users.profile:read", "authorize": "https://slack.com/oauth/authorize", "token": "https://slack.com/api/oauth.access", "userinfo": "https://slack.com/api/users.profile.get", "guide":"https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/"
-	},
-	"azure": {
-		"label":"Azure AD", "type":"oauth", "image":"azure.png", "scope": "openid", "authorize": "https://login.microsoftonline.com/[tenant-id]/oauth2/authorize", "token": "https://login.microsoftonline.com/[tenant]/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-azure-ad-as-oauth-openid-connect-server"
-	},
-	"cognito": {
-		"label":"AWS Cognito", "type":"oauth", "image":"cognito.png", "scope": "openid", "authorize": "https://<cognito-app-domain>/oauth2/authorize", "token": "https://<cognito-app-domain>/oauth2/token", "userinfo": "https://<cognito-app-domain>/oauth2/userInfo", "guide":"https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/"
 	},
 	"gluu": {
 		"label":"Gluu Server", "type":"oauth", "image":"gluu.png", "scope": "openid", "authorize": "http://<gluu-server-domain>/oxauth/restv1/authorize", "token": "http://<gluu-server-domain>/oxauth/restv1/token", "userinfo": "http:///<gluu-server-domain>/oxauth/restv1/userinfo", "guide":"https://plugins.miniorange.com/guide-configure-gluu-oauth-server/"
@@ -35,12 +53,6 @@
 	"box": {
 		"label":"Box", "type":"oauth", "image":"box.png", "scope": "root_readwrite", "authorize": "https://account.box.com/api/oauth2/authorize", "token": "https://api.box.com/oauth2/token", "userinfo": "https://api.box.com/2.0/users/me", "guide":"https://plugins.miniorange.com/guide-to-configure-box-as-oauth-server/"
 	},
-	"discord": {
-		"label":"Discord", "type":"oauth", "image":"discord.png", "scope": "identify email", "authorize": "https://discordapp.com/api/oauth2/authorize", "token": "https://discordapp.com/api/oauth2/token", "userinfo": "https://discordapp.com/api/users/@me", "guide":"http://plugins.miniorange.com/guide-to-configure-discord-as-oauth-server"
-	},
-	"whmcs": {
-		"label":"WHMCS", "type":"oauth", "image":"whmcs.png", "scope": "openid profile email", "authorize": "https://{yourWHMCSdomain}/oauth/authorize.php", "token": "https://{yourWHMCSdomain}/oauth/token.php", "userinfo": "https://{yourWHMCSdomain}/oauth/userinfo.php?access_token=", "guide":"https://plugins.miniorange.com/guide-to-configure-whmcs-oauth-openid-connect-server/"
-	},
 	"github": {
 		"label":"GitHub", "type":"oauth", "image":"github.png", "scope": "user repo", "authorize": "https://github.com/login/oauth/authorize", "token": "https://github.com/login/oauth/access_token", "userinfo": "https://api.github.com/user", "guide":"http://plugins.miniorange.com/guide-to-configure-github-as-oauth-server"
 	},
@@ -50,23 +62,17 @@
 	"clever": {
 		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v1.1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/"
 	},
-	"keycloak": {
-		"label":"keycloak", "type":"openidconnect", "image":"keycloak.png", "scope": "openid", "authorize": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/auth", "token": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/token", "userinfo": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-keycloak-as-oauth-server/"
+	"salesforce": {
+		"label":"Salesforce", "type":"oauth", "image":"salesforce.png", "scope": "email", "authorize": "https://login.salesforce.com/services/oauth2/authorize", "token": "https://login.salesforce.com/services/oauth2/token", "userinfo": "https://login.salesforce.com/services/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/"
+	},
+	"reddit": {
+		"label":"Reddit", "type":"oauth", "image":"reddit.png", "scope": "identity", "authorize": "https://www.reddit.com/api/v1/authorize", "token": "https://www.reddit.com/api/v1/access_token", "userinfo": "https://www.reddit.com/api/v1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-reddit-as-oauth-server/"
 	},
 	"paypal": {
 		"label":"PayPal", "type":"openidconnect", "image":"paypal.png", "scope": "openid", "authorize": "https://www.paypal.com/signin/authorize", "token": "https://api.paypal.com/v1/oauth2/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-paypal-as-oauth-server/"
 	},
 	"yahoo": {
 		"label":"Yahoo", "type":"openidconnect", "image":"yahoo.png", "scope": "openid", "authorize": "https://api.login.yahoo.com/oauth2/request_auth", "token": "https://api.login.yahoo.com/oauth2/get_token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-yahoo-as-oauth-server/"
-	},
-	"onelogin": {
-		"label":"OneLogin", "type":"openidconnect", "image":"onelogin.png", "scope": "openid", "authorize": "https://<site-url>.onelogin.com/oidc/auth", "token": "https://<site-url>.onelogin.com/oidc/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-onelogin-as-openid-connect-server/"
-	},
-	"okta": {
-		"label":"Okta", "type":"openidconnect", "image":"okta.png", "scope": "openid", "authorize": "https://{yourOktaDomain}.com/oauth2/default/v1/authorize", "token": "https://{yourOktaDomain}.com/oauth2/default/v1/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/"
-	},
-	"adfs": {
-		"label":"ADFS", "type":"openidconnect", "image":"adfs.png", "scope": "openid", "authorize": "https://{yourADFSDomain}/adfs/oauth2/authorize/", "token": "https://{yourADFSDomain}/adfs/oauth2/token/", "userinfo": "", "guide":""
 	},
 	"spotify": {
 		"label":"Spotify", "type":"oauth", "image":"spotify.png", "scope": "user-read-private user-read-email", "authorize": "https://accounts.spotify.com/authorize", "token": "https://accounts.spotify.com/api/token", "userinfo": "https://api.spotify.com/v1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-spotify-as-oauth-server/"
@@ -77,9 +83,6 @@
 	"pinterest": {
 		"label":"Pinterest", "type":"oauth", "image":"pinterest.png", "scope": "read_public", "authorize": "https://api.pinterest.com/oauth/", "token": "https://api.pinterest.com/v1/oauth/token", "userinfo": "https://api.pinterest.com/v1/me/", "guide":"https://plugins.miniorange.com/guide-to-configure-pinterest-as-oauth-server/"
 	},
-	"reddit": {
-		"label":"Reddit", "type":"oauth", "image":"reddit.png", "scope": "identity", "authorize": "https://www.reddit.com/api/v1/authorize", "token": "https://www.reddit.com/api/v1/access_token", "userinfo": "https://www.reddit.com/api/v1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-reddit-as-oauth-server/"
-	},
 	"vimeo": {
 		"label":"Vimeo", "type":"oauth", "image":"vimeo.png", "scope": "public", "authorize": "https://api.vimeo.com/oauth/authorize", "token": "https://api.vimeo.com/oauth/access_token", "userinfo": "https://api.vimeo.com/me", "guide":"https://plugins.miniorange.com/guide-to-configure-vimeo-as-oauth-server/"
 	},
@@ -89,12 +92,7 @@
 	"dailymotion": {
 		"label":"Dailymotion", "type":"oauth", "image":"dailymotion.png", "scope": "email", "authorize": "https://www.dailymotion.com/oauth/authorize", "token": "https://api.dailymotion.com/oauth/token", "userinfo": "https://api.dailymotion.com/user/me?fields=id,username,email,first_name,last_name", "guide":"https://plugins.miniorange.com/guide-to-configure-dailymotion-as-oauth-server/"
 	},
-	"salesforce": {
-		"label":"Salesforce", "type":"oauth", "image":"salesforce.png", "scope": "email", "authorize": "https://login.salesforce.com/services/oauth2/authorize", "token": "https://login.salesforce.com/services/oauth2/token", "userinfo": "https://login.salesforce.com/services/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/"
-	},
-	"invisioncommunity": {
-		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://{invision-community-domain}/oauth/authorize/", "token": "https://{invision-community-domain}/oauth/token/", "userinfo": "https://{invision-community-domain}/oauth/me", "guide":"https://plugins.miniorange.com/guide-to-invision-community-client-with-wordpress/"
-	},
+	
 	"meetup": {
 		"label":"Meetup", "type":"oauth", "image":"meetup.png", "scope": "basic", "authorize": "https://secure.meetup.com/oauth2/authorize", "token": "https://secure.meetup.com/oauth2/access", "userinfo": "https://api.meetup.com/members/self", "guide":"https://plugins.miniorange.com/guide-to-configure-meetup-as-oauth-server/"
 	},
@@ -104,6 +102,11 @@
 	},
 	"zendesk": {
 		"label":"Zendesk", "type":"oauth", "image":"zendesk.png", "scope": "read write", "authorize": "https://{subdomain}.zendesk.com/oauth/authorizations/new", "token": "https://{subdomain}.zendesk.com/oauth/tokens", "userinfo": "https://{subdomain}.zendesk.com/api/v2/users", "guide":"https://plugins.miniorange.com/guide-to-configure-zendesk-as-oauth-server/"
+	},
+	"other": {
+		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":""
+	},
+	"openidconnect": {
+		"label":"Custom OpenID Connect App", "type":"openidconnect", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":""
 	}
-
 }

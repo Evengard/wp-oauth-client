@@ -10,14 +10,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'update') {
         'align'     => 'right',
         'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
     );
-    $pointers['miniorange-configure-atribute-mapping-pointer'] = array(
-        'title'     => sprintf( '<h3>%s</h3>', esc_html__( 'Mapping Attributes' ) ),
-        'content'   => sprintf( '<p>%s</p>', esc_html__( 'Enter the appropriate values(attribute names) from the Test Configuration table.' ) ),
-        'anchor_id' => '#attribute-mapping',
-        'edge'      => 'left',
-        'align'     => 'right',
-        'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
-    );
+    
 }
 else if(isset($_GET['appId'])) {
         $pointers['miniorange-configure-addapp-pointer'] = array(
@@ -61,6 +54,17 @@ if(isset($_GET['tab']) && $_GET['tab'] === 'config') {
             );
         }
     }
+}
+
+if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'attributemapping' ) {
+    $pointers['miniorange-configure-atribute-mapping-pointer'] = array(
+        'title'     => sprintf( '<h3>%s</h3>', esc_html__( 'Mapping Attributes' ) ),
+        'content'   => sprintf( '<p>%s</p>', esc_html__( 'Enter the appropriate values(attribute names) from the Test Configuration table.' ) ),
+        'anchor_id' => '#attribute-mapping',
+        'edge'      => 'left',
+        'align'     => 'right',
+        'where'     => array( 'toplevel_page_mo_oauth_settings' ) // <-- Please note this
+    );
 }
 
 return $pointers;

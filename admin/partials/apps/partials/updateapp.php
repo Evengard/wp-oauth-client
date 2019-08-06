@@ -3,9 +3,10 @@
 	function update_app_page($appname){
 
 	$appslist = get_option('mo_oauth_apps_list');
+	$currentappname = $appname;
+	$currentapp = null;
 	foreach($appslist as $key => $app){
 		if($appname == $key){
-			$currentappname = $appname;
 			$currentapp = $app;
 			if(isset($currentapp['accesstokenurl']) && strpos($currentapp['accesstokenurl'], "google") !== false) {
 				$currentapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
@@ -25,7 +26,7 @@
 		
 	?>
 		<div id="toggle2" class="mo_panel_toggle">
-			<h3>Update Application</h3>
+			<h3>Configure OAuth Provider</h3>
 		</div>
 		<div id="mo_oauth_update_app">
 			
@@ -36,13 +37,14 @@
 			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
 			<td>
 				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo isset($currentapp['appId']) ? $currentapp['appId'] : "other";?>">
+				<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_nameid" name="mo_oauth_app_nameid" value="<?php echo $currentappname;?>">
 				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
 				<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp['apptype'];?>">
 				<?php echo $currentappname;?><br><br>
 			</td>
 			</tr>
 			<tr id="mo_oauth_display_app_name_div">
-				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small>[STANDARD]</small></font></td>
+				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
 				<td><input disabled class="mo_table_textbox" type="text"></td>
 			</tr>
 			<tr>
@@ -82,8 +84,10 @@
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><?php if($oidc === false) { echo '<font color="#FF0000">*</font>'; } ?>Get User Info Endpoint:</strong></td>
 					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo $currentapp['resourceownerdetailsurl']; } ?>"></td>
-				</tr>
-			<tr><td></td><td><input class="mo_table_textbox" type="checkbox" name="disable_authorization_header" id="disable_authorization_header" <?php (checked( get_option('mo_oauth_client_disable_authorization_header') == true ));?> > (Check if does not require Authorization Header)</td></tr>
+				</tr>			
+            
+            <tr><td><strong>Client Authentication:</strong></td><td><div style="padding:5px;"></div><input class="mo_table_textbox" type="radio" name="disable_authorization_header" id="disable_authorization_header" <?php echo get_option('mo_oauth_client_disable_authorization_header') ? '' : 'checked'; ?> value="0">HTTP Basic (Recommended)<div style="padding:5px;"></div><input class="mo_table_textbox" type="radio" name="disable_authorization_header" id="disable_authorization_header" value="1" <?php echo get_option('mo_oauth_client_disable_authorization_header') ? 'checked' : ''; ?>>Request Body<div style="padding:5px;"></div></td></tr>
+            
 			<?php } ?>
 			<tr>
 				<td>&nbsp;</td>
@@ -98,154 +102,10 @@
 		</form>
 		</div>
 		</div>
-
 		<?php if($is_other_app){ ?>
-		<div class="mo_table_layout" id="attribute-mapping">
-		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
-		<h3>Attribute Mapping <small>[required for ACCOUNT LINKING </small>]</h3> 
-		<i><small><b style="color:#dc2424">NOTE : </b></small>Please note that, with free plugin auto-creation for only 10 user accounts is allowed during SSO, but you can manually add users to WordPress.</i>
-		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> above to get configuration for attribute mapping.<br></p>
-		<input type="hidden" name="option" value="mo_oauth_attribute_mapping" />
-		<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_name" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
-		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
-		<table class="mo_settings_table">
-			<tr id="mo_oauth_email_attr_div">
-				<td><strong><font color="#FF0000">*</font>Username:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
-			</tr>
-			
-			
-			
-		<?php
-		echo '<tr>
-			<td colspan="3" align="center">
-				Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing"><b>premium</b></a> version.
-			</td>
-		</tr>
-        <tr id="mo_oauth_name_attr_div">
-				<td><strong>First Name:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for First Name" style="width: 350px;" disabled  type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value=""></td>
-			</tr>
-		<tr>
-			<td><strong>Last Name:</strong></td>
-			<td>
-				<input type="text" placeholder="Enter attribute name for Last Name" style="width: 350px;" disabled /></td>
-		</tr>
-		<tr>
-			<td><strong>Email:</strong></td>
-			<td><input type="text" placeholder="Enter attribute name for Email" style="width: 350px;" value="" disabled /></td>
-		</tr>
-		<tr>
-			<td><strong>Group/Role:</strong></td>
-			<td><input type="text" placeholder="Enter attribute name for Group/Role" style="width: 350px;" value="" disabled /></td>
-		</tr>
-		<tr>
-			<td><strong>Display Name:</strong></td>
-			<td>
-				<select disabled style="background-color: #eee;">
-					<option>Username</option>
-				</select>
-			</td></tr>
-			<tr><td>&nbsp;</td></tr>
-			<tr><td colspan="3"><hr></td></tr>
-			<tr>
-				<td colspan="2">
-					<strong>
-						<input disabled type="checkbox">Keep Existing User Attributes
-					</strong><small> [PREMIUM]</small>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"><small>If unchecked, each time existing WordPress User profile will get updated with above mapping. <br/> <b>Note :</b> User profile will get updated based on existing Usernames.</small>
-				</td>
-			</tr>
-			<tr>
-			  	<td colspan="2">
-				    <table>
-						<tr>
-						  	<td>
-						  		<strong><input disabled type="checkbox">Keep Existing Email Attribute</strong><small> [PREMIUM]</small>
-						  	</td>
-						</tr>
-						<tr><td colspan="2"><small>Uncheck only if you want existing user email to get updated each time after SSO. </small></td></tr>
-				    </table>
-				</td>
-			</tr>
-			<tr><td colspan="3"><hr></td></tr>
-			<tr><td colspan="2">
-			<h3>Map Custom Attributes</h3>Map extra OAuth Provider attributes which you wish to be included in the user profile below
-			</td><td><input disabled type="button" value="+" class="button button-primary"  /></td>
-			<td><input disabled type="button" value="-" class="button button-primary"   /></td></tr>
-			<tr class="rows"><td><input disabled type="text" placeholder="Enter field meta name" /></td>
-			<td><input disabled type="text" placeholder="Enter attribute name from OAuth Provider" style="width:74%;" /></td>
-			</tr>';
-			?>
-			</table>
-			<br>
-			<input type="submit" name="submit" value="Save settings"
-					class="button button-primary button-large" />
-			
-		</form>
-		</div>
-
-		<div class="mo_table_layout" id="role-mapping">
-		<h3>Role Mapping (Optional)</h3>
-		<p>Role mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing"><b>premium</b></a> version.</p>
-		<b>NOTE: </b>Role will be assigned only to non-admin users (user that do NOT have Administrator privileges). You will have to manually change the role of Administrator users.<br>
-		<form id="role_mapping_form" name="f" method="post" action="">
-		<input disabled class="mo_table_textbox" required="" type="hidden"  name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
-		<input disabled  type="hidden" name="option" value="mo_oauth_client_save_role_mapping" />
-		
-		<p><input disabled type="checkbox"/><strong> Keep existing user roles</strong><br><small>Role mapping won't apply to existing wordpress users.</small></p>
-		<p><input disabled type="checkbox" > <strong> Do Not allow login if roles are not mapped here </strong></p><small>We won't allow users to login if we don't find users role/group mapped below.</small></p>
-
-		<div id="panel1">
-			<table class="mo_oauth_client_mapping_table" id="mo_oauth_client_role_mapping_table" style="width:90%">
-					<tr><td>&nbsp;</td></tr>
-					<tr>
-					<td><font style="font-size:13px;font-weight:bold;">Default Role </font>
-					</td>
-					<td>
-						<select disabled style="width:100%">
-						   <option>Subscriber</option>
-						</select>
-						
-					</td>
-				</tr>
-				<tr>
-					<td colspan=2><i> Default role will be assigned to all users for which mapping is not specified.</i></td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr>
-					<td style="width:50%"><b>Group Attribute Value</b></td>
-					<td style="width:50%"><b>WordPress Role</b></td>
-				</tr>
-				
-				<tr>
-					<td><input disabled class="mo_oauth_client_table_textbox" type="text" placeholder="group name" />
-					</td>
-					<td>
-						<select disabled style="width:100%"  >
-							<option>Subscriber</option>
-						</select>
-					</td>
-				</tr>
-				</table>
-				<table class="mo_oauth_client_mapping_table" style="width:90%;">
-					<tr><td><a style="cursor:pointer">Add More Mapping</a><br><br></td><td>&nbsp;</td></tr>
-					<tr>
-						<td><input disabled type="submit" class="button button-primary button-large" value="Save Mapping" /></td>
-						<td>&nbsp;</td>
-					</tr>
-				</table>
-				</div>
-			</form>
-		</div>
-				
-				
 		<script>
 		function testConfiguration(){
-			var mo_oauth_app_name = jQuery("#mo_oauth_app_name").val();
+			var mo_oauth_app_name = jQuery("#mo_oauth_app_nameid").val();
 			var myWindow = window.open('<?php echo site_url(); ?>' + '/?option=testattrmappingconfig&app='+mo_oauth_app_name, "Test Attribute Configuration", "width=600, height=600");
 			while(1) {
 				if(myWindow.closed()) {
@@ -256,4 +116,5 @@
 		}
 		</script>
 		<?php }
+		grant_type_settings();
 }

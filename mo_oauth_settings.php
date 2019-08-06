@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.11.2
+* Version: 6.11.3
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -485,7 +485,11 @@ class mo_oauth {
 			$appname = stripslashes( $_POST['mo_oauth_app_name'] );
 			$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
 //			$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
-
+			if ( empty( $appname ) ) {
+				update_option( 'message', 'You MUST configure an application before you map attributes.' );
+				$this->mo_oauth_show_error_message();
+				return;
+			}
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
 				if($appname == $key){
@@ -502,7 +506,7 @@ class mo_oauth {
 			update_option('mo_oauth_apps_list', $appslist);
 			update_option( 'message', 'Your settings are saved successfully.' );
 			$this->mo_oauth_show_success_message();
-			wp_redirect('admin.php?page=mo_oauth_settings&tab=config&action=update&app='.urlencode($appname));
+			wp_redirect('admin.php?page=mo_oauth_settings&tab=attributemapping');
 		}
 		//submit google form
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_google" ) {
@@ -659,18 +663,17 @@ class mo_oauth {
 				}
 			}
 		}
-		//---------------------------------------------------------------------------------------------
+		
 		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" ) {
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			// Demo Request
+			// if( mo_oauth_is_curl_installed() == 0 ) {
+			// 	return $this->mo_oauth_show_curl_error();
+			// }
 			$email = $_POST['mo_oauth_client_demo_email'];
 			$demo_plan = $_POST['mo_oauth_client_demo_plan'];
-			$query = $_POST['mo_oauth_client_demo_description'];
+			$query = $_POST['mo_oauth_client_demo_usecase'];
 			$customer = new Customer();
-			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) ) {
-				update_option('message', 'Please fill up Email field to submit your query.');
+			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) || $this->mo_oauth_check_empty_or_null( $query ) ) {
+				update_option('message', 'Please fill up Usecase, Email field and Requested demo plan to submit your query.');
 				$this->mo_oauth_show_error_message();
 			} else {
 				$submited = json_decode( $customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Single Sign On Demo Request - ".$email ), true );
@@ -678,7 +681,7 @@ class mo_oauth {
 				$this->mo_oauth_show_success_message();
 			}
 		}
-		//---------------------------------------------------------------------------------------------
+
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_resend_otp_email" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();

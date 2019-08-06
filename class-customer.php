@@ -175,7 +175,7 @@ class Customer {
     function submit_contact_us( $email, $phone, $query ) {
 		global $current_user;
 		wp_get_current_user();
-		$query = '[WP OAuth Single Sign On] ' . $query;
+		$query = '[WP OAuth Single Sign On Free Plugin] ' . $query;
 		$fields = array(
 			'firstName'			=> $current_user->user_firstname,
 			'lastName'	 		=> $current_user->user_lastname,
@@ -464,7 +464,7 @@ class Customer {
 		global $user;
 		$user         = wp_get_current_user();
 
-		$content='<div >Hello, </a><br><br>Email :<a href="mailto:'. $fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Requested Demo for     : ' . $demo_plan . '<br><br>Requirements           : ' . $message.'</div>';
+		$content='<div >Hello, </a><br><br>Email :<a href="mailto:'. $fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Requested Demo for     : ' . $demo_plan . '<br><br>Requirements (User usecase)           : ' . $message.'</div>';
 
 		$fields = array(
 			'customerKey'	=> $customerKey,

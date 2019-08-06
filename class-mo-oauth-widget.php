@@ -285,8 +285,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(strpos($accessTokenUrl, "google") !== false) {
 							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
 						}
+                        
 						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
-
+                                                
+                        
 						if(!$accessToken)
 							exit('Invalid token received.');
 
