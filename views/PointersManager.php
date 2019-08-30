@@ -26,16 +26,11 @@ class PointersManager {
     public function filter( $page ) {
         
         if ( empty( $this->pointers ) ) return array();
-        error_log(print_r($this->pointers,true));
         $uid = get_current_user_id();
         $no = explode( ',', (string) get_user_meta( $uid, 'dismissed_wp_pointers', TRUE ) );
         $active_ids = array_diff( array_keys( $this->pointers ), $no );
-        // echo "<pre>";print_r(array_keys( $this->pointers ));echo "</pre>";
-        // echo "<pre>";print_r($active_ids);echo "</pre><hr>";
-        // echo "<pre>";print_r($no);echo "</pre><hr>";
         $good = array();
         foreach( $this->pointers as $i => $pointer ) {
-            // echo "<pre>";print_r($i);echo "</pre><hr>";
             if (in_array( $i, $active_ids, TRUE ) // is active
                 && isset( $pointer->where ) // has where
                 && ( $pointer->where[0] === $page )) // current page is in where
@@ -43,8 +38,6 @@ class PointersManager {
                     $good[] = $pointer;
                 }
             }
-            // echo "<pre>";print_r($good);echo "</pre>";
-            // exit();
             $count = count( $good );
             if ( $good === 0 ) return array();
             foreach( array_values( $good ) as $i => $pointer ) {

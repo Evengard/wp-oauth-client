@@ -1,13 +1,13 @@
 === OAuth Single Sign On - SSO (OAuth client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth 2.0, openid, sso, wordpress oauth
+Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
-Tested up to: 5.2.2
-Stable tag: 6.11.3
+Tested up to: 5.3
+Stable tag: 6.11.4
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
-WordPress OAuth SSO plugin allows Single Sign-On to WordPress with Azure, AWS Cognito, Keycloak, WHMCS, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 or OpenID Connect 1.0 provider using this plugin.
+WordPress OAuth SSO (OAuth Client) plugin allows Single Sign-On to WordPress with Azure, AWS Cognito, Keycloak, WHMCS, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 or OpenID Connect 1.0 provider using this plugin.
 
 == Description ==
 
@@ -18,7 +18,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 *	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth /OpenID Connect server or custom OAuth /OpenID Connect server.
 *   Auto Create Users : After SSO, new user automatically gets created in WordPress
 *	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
-*	Attribute Mapping : OAuth Login supports email Attribute Mapping feature to map WordPress user profile email attribute.
+*	Attribute Mapping : OAuth Login supports username Attribute Mapping feature to map WordPress user profile username attribute.
 *	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
 *	OAuth / OpenID Connect Provider Support : OAuth Login supports only one OAuth / OpenID Connect Provider. 
 *	Redirect URL after Login : OAuth Login Automatically Redirects user after successful login. 
@@ -59,7 +59,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 
 
 = No SSL restriction =
-*	Login to WordPress using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
+*	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
 = List of popular OAuth Providers we support =
 *	Azure AD
@@ -80,6 +80,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 *	Meetup
 *	Eve Online
 *	Gluu Server
+*   WSO2
 
 = List of popular OpenID Connect (OIDC) Providers we support =
 *	Amazon
@@ -92,6 +93,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 *	Yahoo
 *	ADFS
 *	Gigya
+*   Swiss-RX-Login (Swiss RX Login)
 
 = List of grant types we support =
 *   Authorization code grant
@@ -102,7 +104,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore etc.
 
 
 == Installation ==
@@ -113,7 +115,7 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 3. Activate the plugin
 
 = From WordPress.org =
-1. Download WordPress OAuth Login (OAuth Client).
+1. Download WordPress OAuth Single Sign On (OAuth Client).
 2. Unzip and upload the `miniorange-oauth-login` directory to your `/wp-content/plugins/` directory.
 3. Activate miniOrange OAuth from your Plugins page.
 
@@ -131,13 +133,10 @@ add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 
 == Frequently Asked Questions ==
 = I need to customize the plugin or I need support and help? =
-Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
-
-= I don't see any applications to configure. I only see Register to miniOrange? =
-Our very simple and easy registration lets you register to miniOrange. OAuth login works if you are connected to miniOrange. Once you have registered with a valid email-address and phone number, you will be able to configure applications for OAuth.
+Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = How to configure the applications? =
-When you want to configure a particular application, you will see a Save Settings button, and beside that a Help button. Click on the Help button to see configuration instructions.
+On configure OAuth page, check if your app is already there in default app list, if not then select the custom OAuth 2.0 app or Custom OpenID Connect Provider app based on the protocol supported by your OAuth Server. Then click on How to Configure link to see configuration instructions.
 
 
 <code>
@@ -147,19 +146,19 @@ add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 
 
 = I need integration of this plugin with my other installed plugins like BuddyPress, etc.? =
-We will help you in integrating this plugin with your other installed plugins. Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+We will help you in integrating this plugin with your other installed plugins. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = I verified the OTP received over my email and entering the same password that I registered with, but I am still getting the error message - "Invalid password." =
-Please write to us at info@xecurify.com and we will get back to you very soon.
+Please write to us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> and we will get back to you very soon.
 
 =  I would like to change our license to support the Diffrent Domain. How do we do this? =
-Yes, You can now activate the license on your new domain. Write us at info@xecurify.com we will help you set up.
+Yes, You can now activate the license on your new domain. Write us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> we will help you set up.
 			
 = Is it possible to set a different redirect URL after login & logout =
 Yes, With standard license you can set different redirect URL to redirect to after login as well as after logout.
 
 = For any other query/problem/request =
-Please email us at info@xecurify.com or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
 = REST API Authentication =
 Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
@@ -171,6 +170,10 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.11.4 =
+* Added support for WSO2 & Swiss-Rx-Login (Swiss RX Login)
+* UI updates
 
 = 6.11.3 =
 * Added Add-on tab

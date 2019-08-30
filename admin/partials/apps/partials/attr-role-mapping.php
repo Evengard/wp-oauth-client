@@ -16,9 +16,9 @@ function attribite_role_mapping_ui(){
 	?>
 	<div class="mo_table_layout" id="attribute-mapping">
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=attributemapping">
-		<h3>Attribute Mapping <small>[required for ACCOUNT LINKING </small>]</h3> 
+		<h3>Attribute Mapping <small>[required for SSO & ACCOUNT LINKING </small>]</h3> 
 		<i><small><b style="color:#dc2424">NOTE : </b></small>Please note that, with free plugin auto-creation for only 10 user accounts is allowed during SSO, but you can manually add users to WordPress.</i>
-		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> above to get configuration for attribute mapping.<br></p>
+		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> to get configuration for attribute mapping.<br></p>
 		<input type="hidden" name="option" value="mo_oauth_attribute_mapping" />
 		<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_name" name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
 		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">

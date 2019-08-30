@@ -16,6 +16,23 @@ class Mo_OAuth_Hanlder {
 	}
 
 	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url){
+
+		if( get_option( 'mo_oauth_client_custom_token_endpoint_no_csecret' ) ) {
+			$body = array(
+				'grant_type'    => $grant_type,
+				'code'          => $code,
+				'client_id'     => $clientid,
+				'redirect_uri'  => $redirect_url,
+			);
+		} else {
+			$body = array(
+				'grant_type'    => $grant_type,
+				'code'          => $code,
+				'client_id'     => $clientid,
+				'client_secret' => $clientsecret,
+				'redirect_uri'  => $redirect_url,
+			);
+		}
 		
 		$response   = wp_remote_post( $tokenendpoint, array(
 			'method'      => 'POST',
@@ -29,17 +46,13 @@ class Mo_OAuth_Hanlder {
 				'Authorization' => 'Basic ' . base64_encode( $clientid . ':' . $clientsecret ),
 				'Content-Type' => 'application/x-www-form-urlencoded',
 			),
-			'body'        => array(
-				'grant_type'    => $grant_type,
-				'code'          => $code,
-				'client_id'     => $clientid,
-				'client_secret' => $clientsecret,
-				'redirect_uri'  => $redirect_url
-			),
+			'body'        => $body,
 			'cookies'     => array(),
 			'sslverify'   => false
 		) );
-
+		if ( is_wp_error( $response ) ) {
+			wp_die( $response );
+		}
 		$response =  $response['body'] ;
 
 		if(!is_array(json_decode($response, true))){
@@ -60,7 +73,7 @@ class Mo_OAuth_Hanlder {
 	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url){
 		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url);
 		$content = json_decode($response,true);
-		if(isset($content["id_token"])) {
+		if(isset($content["id_token"]) || isset($content["access_token"])) {
 			return $content;
 			exit;
 		} else {

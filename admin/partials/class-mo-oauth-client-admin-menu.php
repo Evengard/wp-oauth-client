@@ -70,12 +70,16 @@ class Mo_OAuth_Client_Admin_Menu {
 
                 miniOrange OAuth Single Sign On&nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
-                <a class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">FAQs</a>
+                <a class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
                 <a class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
                 <!--?php } ?-->
 
-            </h1>
-
+			</h1>
+			<?php if ( 'licensing' === $currenttab ) { ?>
+				<div id="moc-lp-imp-btns" style="float:right;">
+					<a class="btn btn-outline-danger" target="_blank" href="https://plugins.miniorange.com/wordpress-oauth-client">Full Feature List</a>&emsp;<a class="btn btn-outline-primary" onclick="getlicensekeys()" href="#">Get License Keys</a>
+				</div>
+			<?php } ?>
         </div>
         <style>
             .add-new-hover:hover{

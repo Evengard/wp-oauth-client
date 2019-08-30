@@ -48,11 +48,12 @@ input.disabled, input:disabled, select.disabled, select:disabled, textarea.disab
 
 .mo-oauth-tooltip {
   position: relative;
-  border-radius: 100%;
+  /* border-radius: 100%; */
   display: inline-block;
-  color: #f2f2f2;
+  color: #212121;
   padding: 0 5px;
-  background-color: #212121bf;
+  font-size: 15px;
+  /* background-color: #212121bf; */
 }
 
 .mo-oauth-tooltip .mo-oauth-tooltip-text {

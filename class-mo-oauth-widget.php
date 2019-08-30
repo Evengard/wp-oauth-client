@@ -272,7 +272,8 @@ class Mo_Oauth_Widget extends WP_Widget {
 						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
 
-						$idToken = $tokenResponse["id_token"];
+						$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
+
 								
 						if(!$idToken)
 							exit('Invalid token received.');

@@ -77,8 +77,11 @@ function applist_page() {
 	function delete_app($appname){
 		$appslist = get_option('mo_oauth_apps_list');
 		foreach($appslist as $key => $app){
-			if($appname == $key){
+			if($appname == $key){		
+				if( $appslist[$appname]['appId'] == 'wso2' )
+					delete_option( 'mo_oauth_client_custom_token_endpoint_no_csecret' );
 				unset($appslist[$key]);
+
 				if($appname=="eveonline")
 					update_option( 'mo_oauth_eveonline_enable', 0);
 			}

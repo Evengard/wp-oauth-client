@@ -24,7 +24,10 @@
 		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "authorize": "https://{invision-community-domain}/oauth/authorize/", "token": "https://{invision-community-domain}/oauth/token/", "userinfo": "https://{invision-community-domain}/oauth/me", "guide":"https://plugins.miniorange.com/guide-to-invision-community-client-with-wordpress/"
 	},
     "bitrix24": {
-		"label":"Bitrix24", "type":"oauth", "image":"bitrix24.png", "scope": "user", "authorize": "https://{your-id}.bitrix24.com/oauth/authorize", "token": "https://{your-id}.bitrix24.com/oauth/token", "userinfo": "https://{your-id}.bitrix24.com/rest/user.current.json?auth=", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-client"
+		"label":"Bitrix24", "type":"oauth", "image":"bitrix24.png", "scope": "user", "authorize": "https://{your-id}.bitrix24.com/oauth/authorize", "token": "https://{your-id}.bitrix24.com/oauth/token", "userinfo": "https://{your-id}.bitrix24.com/rest/user.current.json?auth=", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-client/"
+	},
+	"wso2": {
+		"label":"WSO2", "type":"oauth", "image":"wso2.png", "scope": "", "authorize": "https://<wso2-app-domain>/wso2/oauth2/authorize", "token": "https://<wso2-app-domain>/wso2/oauth2/token", "userinfo": "https://<wso2-app-domain>/wso2/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-wso2-sso-oauth-server/"
 	},
 	"okta": {
 		"label":"Okta", "type":"openidconnect", "image":"okta.png", "scope": "openid", "authorize": "https://{yourOktaDomain}.com/oauth2/default/v1/authorize", "token": "https://{yourOktaDomain}.com/oauth2/default/v1/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/"
@@ -70,6 +73,9 @@
 	},
 	"paypal": {
 		"label":"PayPal", "type":"openidconnect", "image":"paypal.png", "scope": "openid", "authorize": "https://www.paypal.com/signin/authorize", "token": "https://api.paypal.com/v1/oauth2/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-paypal-as-oauth-server/"
+	},
+	"swiss-rx-login": {
+		"label":"Swiss RX Login", "type":"openidconnect", "image":"swiss-rx-login.png", "scope": "anonymous", "authorize": "https://www.swiss-rx-login.ch/oauth/authorize", "token": "https://swiss-rx-login.ch/oauth/token", "userinfo": "", "guide":""
 	},
 	"yahoo": {
 		"label":"Yahoo", "type":"openidconnect", "image":"yahoo.png", "scope": "openid", "authorize": "https://api.login.yahoo.com/oauth2/request_auth", "token": "https://api.login.yahoo.com/oauth2/get_token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-yahoo-as-oauth-server/"

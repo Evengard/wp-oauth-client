@@ -7,7 +7,7 @@ function grant_type_settings() {
 		<table class="mo_settings_table">
 			<tr>
 				<td><h3>Grant Settings&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3></td>
-				<td align="right"><a href="#" target="_blank" id='mo_oauth_grant_guide' style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px;">What is this?</a></td>
+				<!-- <td align="right"><a href="#" target="_blank" id='mo_oauth_grant_guide' style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px;">What is this?</a></td> -->
 			</tr>
 		</table>
 		<div class="grant_types">
