@@ -148,8 +148,8 @@ body {
 			<input class="tab-input" id="tab3" type="radio" style="display:none" name="tabs">
 			<label class="tab-label" for="tab3"><i class="fa fa-bar-chart-o"></i><span>Login Form Add-on</span></label>
 
-			<input class="tab-input" id="tab4" type="radio" style="display:none" name="tabs">
-			<label class="tab-label" for="tab4"><i class="fa fa-folder-open-o"></i><span>SCIM User Provisioning</span></label>
+      <input class="tab-input" id="tab5" type="radio" style="display:none" name="tabs">
+      <label class="tab-label" for="tab5"><i class="fa fa-folder-open-o"></i><span>Membership Level based Login Redirection</span></label> 
 
 			<section id="content1" class="tab-section tab-content">
 				<h3>Page Restriction</h3>
@@ -180,13 +180,17 @@ body {
                 
 			</section>
 
-			<section id="content4" class="tab-section tab-content">
-				<h3>SCIM User Provisioning</h3>
-		      <p>This add-on synchronises Users stored in your provider(ex. Onelogin) with WordPress Users using SCIM standard.</p>
-                
-          <p>This User Provisioning add-on provides following operations using SCIM protocol. <br><b>Create</b>: It will create user using First Name, Last Name, Email and Username.<br><b>Update</b>: It will update user's field like First Name, Last Name.<br><b>Delete</b>: Once delete a user from OAuth Provider, it would delete a user from WordPress User list as well. </p>
+      <section id="content5" class="tab-section tab-content">
+        <h3>Membership Level based Login Redirection</h3>
+                       
+        <ul style="list-style-type:square">
+          <li><p  style="color:black">This add-on allows you to redirects your users on custom pages based on the User's Membership Levels. This plugin allows you to assign a custom redirect URL to each Membership Level and after login, it redirects each user on that particular URL.</p></li></ul>
         
-			</section>
+        <p>It also allows you to change/update your Redirect URLs if required.</p>
+        <p>This add-on checks the User's Membership Level each time when user logs in, so even if User's membership level changes, it will redirect you correctly on assigned URL. </p>
+                
+                 
+      </section>
 
 		</div>
 

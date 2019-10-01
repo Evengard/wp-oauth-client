@@ -50,7 +50,7 @@ function applist_page() {
 			echo "<table class='tableborder'>";
 			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
 			foreach($appslist as $key => $app){
-				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."#role-mapping'>Role Mapping</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
+				echo "<tr><td>".$key."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#role-mapping'>Role Mapping</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
 				if(isset($_GET['action'])) {
 					if($_GET['action'] == 'instructions') {
 					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>Hide Instructions</a></td></tr>";
@@ -81,9 +81,10 @@ function applist_page() {
 				if( $appslist[$appname]['appId'] == 'wso2' )
 					delete_option( 'mo_oauth_client_custom_token_endpoint_no_csecret' );
 				unset($appslist[$key]);
-
+				delete_option( 'mo_oauth_client_disable_authorization_header' );
 				if($appname=="eveonline")
 					update_option( 'mo_oauth_eveonline_enable', 0);
+				delete_option('mo_oauth_apps_list');
 			}
 		}
 		update_option('mo_oauth_apps_list', $appslist);

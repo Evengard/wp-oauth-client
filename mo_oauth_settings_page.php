@@ -736,6 +736,10 @@ function add_app(){
 				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value=""></td>
 			</tr>
+			<tr>
+				<td></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_authorization_header" value ="1" checked />Set client credentials in Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" name="mo_oauth_body" value ="0" />Set client credentials in Body<div style="padding:5px;"></div></td>
+			</tr>
 			<tr style="display:none" id="mo_oauth_resourceownerdetailsurl_div">
 				<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value=""></td>
@@ -820,6 +824,39 @@ function update_app($appname){
 			<tr id="mo_oauth_accesstokenurl_div">
 				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div style="padding:5px;">
+						
+					</div>
+					<input type="checkbox" name="mo_oauth_authorization_header" 
+					<?php if(checked(isset($currentapp['send_headers']))){
+							if($currentapp['send_headers'] == 1) {
+								echo "checked";
+							}
+						}else {
+							echo "checked";
+						}
+						 ?> 
+						/>Set client credentials in Header
+					<span style="padding:0px 0px 0px 8px;">
+						
+					</span>
+					<input type="checkbox" name="mo_oauth_body" 
+					<?php if(checked(isset($currentapp['send_body']))){
+						if($currentapp['send_body'] == 1){
+						 	echo "checked";
+						} 
+					} else {
+						echo "checked";
+					}
+						?> />Set client credentials in Body
+					<div style="padding:5px;">
+						
+					</div>
+				</td>
 			</tr>
 			<?php if( isset($currentapp['apptype']) && $currentapp['apptype'] != 'openidconnect') { ?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">

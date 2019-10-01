@@ -25,7 +25,7 @@ function attribite_role_mapping_ui(){
 		<table class="mo_settings_table">
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Username:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_email_attr" name="mo_oauth_email_attr" value="<?php if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
+				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr" name="mo_oauth_username_attr" value="<?php if(isset( $currentapp['username_attr']))echo $currentapp['username_attr']; else if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
 			</tr>
 			
 			
@@ -40,7 +40,7 @@ function attribite_role_mapping_ui(){
 		</tr>
         <tr id="mo_oauth_name_attr_div">
 				<td><strong>First Name:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for First Name" disabled  type="text" id="mo_oauth_name_attr" name="mo_oauth_name_attr" value=""></td>
+				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for First Name" disabled  type="text" value=""></td>
 			</tr>
 		<tr>
 			<td><strong>Last Name:</strong></td>

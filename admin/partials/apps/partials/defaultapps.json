@@ -83,6 +83,9 @@
 	"spotify": {
 		"label":"Spotify", "type":"oauth", "image":"spotify.png", "scope": "user-read-private user-read-email", "authorize": "https://accounts.spotify.com/authorize", "token": "https://accounts.spotify.com/api/token", "userinfo": "https://api.spotify.com/v1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-spotify-as-oauth-server/"
 	},
+	"eveonlinenew": {
+		"label":"Eve Online", "type":"oauth", "image":"eveonline.png", "scope": "publicData", "authorize": "https://login.eveonline.com/oauth/authorize", "token": "https://login.eveonline.com/oauth/token", "userinfo": "https://esi.evetech.net/verify", "guide":""
+	},
 	"vkontakte": {
 		"label":"VKontakte", "type":"oauth", "image":"vk.png", "scope": "", "authorize": "https://oauth.vk.com/authorize", "token": "https://oauth.vk.com/access_token", "userinfo": "https://api.vk.com/method/users.get?fields=id,name,email,age_range,first_name,gender,last_name,link&access_token=", "guide":"https://plugins.miniorange.com/guide-to-configure-vkontakte-as-oauth-server/"
 	},

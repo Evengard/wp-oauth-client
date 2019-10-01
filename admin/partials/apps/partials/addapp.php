@@ -95,12 +95,24 @@
 				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php if(isset($currentapp->token)) echo $currentapp->token;?>"></td>
 			</tr>
+			<tr>
+				<td></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_authorization_header" value ="1" checked />Set client credentials in Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" name="mo_oauth_body" value ="0"/>Set client credentials in Body<div style="padding:5px;"></div></td>
+			</tr>
 			<?php if(!isset($currentapp->type) || $currentapp->type=='oauth') {?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><font color="#FF0000">*</font>Get User Info Endpoint:</strong></td>
 					<td><input class="mo_table_textbox" <?php if(!isset($currentapp->type) || $currentapp->type=='oauth') echo 'required';?> type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php if(isset($currentapp->userinfo)) echo $currentapp->userinfo;?>"></td>
 				</tr>
 			<?php } ?>
+			<tr>
+				<td><strong>login button:</strong></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" checked/>Show on login page</td>
+			</tr>
+			<tr>
+				<td><br></td>
+				<td><br></td>
+			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td><input type="submit" name="submit" value="Save settings"

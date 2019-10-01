@@ -63,10 +63,6 @@ class Mo_OAuth_Client_Admin_Menu {
                     <div style="text-align:center;">
                     miniOrange OAuth Single Sign On</div>
                 <!?php }else{ -->
-                    <?php 
-                    update_option('mo_license_plan_from_feedback', '');
-                    update_option('mo_saml_license_message', '');
-                    ?>
 
                 miniOrange OAuth Single Sign On&nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>

@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.3
-Stable tag: 6.11.4
+Stable tag: 6.12.0
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -11,11 +11,11 @@ WordPress OAuth SSO (OAuth Client) plugin allows Single Sign-On to WordPress wit
 
 == Description ==
 
-This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 providers. OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
 
 = FREE VERSION FEATURES =
 
-*	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth /OpenID Connect server or custom OAuth /OpenID Connect server.
+*	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth / OpenIDConnect server or custom OAuth / OpenIDConnect server.
 *   Auto Create Users : After SSO, new user automatically gets created in WordPress
 *	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
 *	Attribute Mapping : OAuth Login supports username Attribute Mapping feature to map WordPress user profile username attribute.
@@ -104,8 +104,15 @@ This plugin allows login (Single Sign On) with your Azure AD, AWS Cognito, Invis
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online etc.
 
+
+== Supported Add-ons ==
+
+1. Page Restriction
+2. BuddyPress integrator
+3. Login Form Add-on
+4. Membership Level based Login Redirection
 
 == Installation ==
 
@@ -170,6 +177,14 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 2. Configure custom oauth application
 
 == Changelog ==
+
+= 6.12.0 =
+* Added Login Button on WordPress Dashboard
+* Updated Login Button UI
+* Added checkboxes to send Client Credentials in Header/Body
+* Fixed Attribute Mapping, backslash issue 
+* Fixed CSS conflicts
+* Automated Request for Demo 
 
 = 6.11.4 =
 * Added support for WSO2 & Swiss-Rx-Login (Swiss RX Login)

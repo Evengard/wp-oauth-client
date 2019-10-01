@@ -2,8 +2,8 @@
 /**
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
-* Description: This plugin enables login to your Wordpress site using OAuth apps like Google, Facebook, EVE Online and other.
-* Version: 6.11.4
+* Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+* Version: 6.12.0
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -370,6 +370,9 @@ class mo_oauth {
 				$appname = stripslashes( $_POST['mo_oauth_custom_app_name'] );
 				$ssoprotocol = stripslashes( $_POST['mo_oauth_app_type'] );
 				$selectedapp = stripslashes( $_POST['mo_oauth_app_name'] );
+				$send_headers = isset($_POST['mo_oauth_authorization_header']) ? sanitize_post($_POST['mo_oauth_authorization_header']) : "0";
+				$send_body = isset($_POST['mo_oauth_body']) ? sanitize_post($_POST['mo_oauth_body']) : "0";
+				$show_on_login_page = isset($_POST['mo_oauth_show_on_login_page']) ? (int)filter_var( $_POST['mo_oauth_show_on_login_page'], FILTER_SANITIZE_NUMBER_INT) : 0;
 				update_option('mo_oauth_client_disable_authorization_header',isset( $_POST['disable_authorization_header']) ? $_POST['disable_authorization_header'] : 0);
 
 				if( $selectedapp == 'wso2' ) {
@@ -406,6 +409,10 @@ class mo_oauth {
 				$newapp['scope'] = $scope;
 				$newapp['redirecturi'] = site_url();
 				$newapp['ssoprotocol'] = $ssoprotocol;
+				$newapp['send_headers'] = $send_headers;
+				$newapp['send_body'] = $send_body;
+				$newapp['show_on_login_page'] = $show_on_login_page;
+								
 				if($appname=="facebook"){
 					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
 					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';
@@ -487,8 +494,7 @@ class mo_oauth {
 		}
 		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_attribute_mapping" ) {
 			$appname = stripslashes( $_POST['mo_oauth_app_name'] );
-			$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
-//			$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
+			$username_attr = stripslashes( $_POST['mo_oauth_username_attr'] );
 			if ( empty( $appname ) ) {
 				update_option( 'message', 'You MUST configure an application before you map attributes.' );
 				$this->mo_oauth_show_error_message();
@@ -497,8 +503,7 @@ class mo_oauth {
 			$appslist = get_option('mo_oauth_apps_list');
 			foreach($appslist as $key => $currentapp){
 				if($appname == $key){
-					$currentapp['email_attr'] = $email_attr;
-//					$currentapp['name_attr'] = $name_attr;
+					$currentapp['username_attr'] = $username_attr;
 					if(strtolower($currentapp['appId'])==='gapps') {
 						$currentapp['email_attr'] = 'email';
 					}
@@ -668,21 +673,61 @@ class mo_oauth {
 			}
 		}
 		
-		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" ) {
-			// if( mo_oauth_is_curl_installed() == 0 ) {
-			// 	return $this->mo_oauth_show_curl_error();
-			// }
-			$email = $_POST['mo_oauth_client_demo_email'];
-			$demo_plan = $_POST['mo_oauth_client_demo_plan'];
-			$query = $_POST['mo_oauth_client_demo_usecase'];
-			$customer = new Customer();
-			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) || $this->mo_oauth_check_empty_or_null( $query ) ) {
+		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" && isset($_REQUEST['mo_oauth_client_demo_request_field']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['mo_oauth_client_demo_request_field'])), 'mo_oauth_client_demo_request_form') ) {
+			if( mo_oauth_is_curl_installed() == 0 ) {
+				return $this->mo_oauth_show_curl_error();
+			}
+			// Demo Request
+			$email = $_POST['mo_auto_create_demosite_email'];
+			$demo_plan = $_POST['mo_auto_create_demosite_demo_plan'];
+			$query = $_POST['mo_auto_create_demosite_usecase'];
+	
+			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) || $this->mo_oauth_check_empty_or_null($query) ) {
 				update_option('message', 'Please fill up Usecase, Email field and Requested demo plan to submit your query.');
 				$this->mo_oauth_show_error_message();
 			} else {
-				$submited = json_decode( $customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Single Sign On Demo Request - ".$email ), true );
-				update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
-				$this->mo_oauth_show_success_message();
+				$url = 'http://demo.miniorange.com/wordpress-oauth/';
+
+				$headers = array( 'Content-Type' => 'application/x-www-form-urlencoded', 'charset' => 'UTF - 8');
+				$args = array(
+					'method' =>'POST',
+					'body' => array(
+						'option' => 'mo_auto_create_demosite',
+						'mo_auto_create_demosite_email' => $email,
+						'mo_auto_create_demosite_usecase' => $query,
+						'mo_auto_create_demosite_demo_plan' => $demo_plan
+					),
+					'timeout' => '20',
+					'redirection' => '5',
+					'httpversion' => '1.0',
+					'blocking' => true,
+					'headers' => $headers,
+
+				);
+				
+				$response = wp_remote_post( $url, $args );
+				
+				if ( is_wp_error( $response ) ) {
+					$error_message = $response->get_error_message();
+					echo "Something went wrong: $error_message";
+					exit();
+				}
+				$output = wp_remote_retrieve_body($response);
+				$output = json_decode($output);
+
+				if(is_null($output)){
+					update_option('message', 'Something went wrong! contact to your administrator');
+					$this->mo_oauth_show_success_message();
+				}
+
+				if($output->status == 'SUCCESS'){
+					update_option('message', $output->message);
+					$this->mo_oauth_show_success_message();
+				}else{
+					update_option('message', $output->message);
+					$this->mo_oauth_show_error_message();
+				}
+
 			}
 		}
 
@@ -854,12 +899,11 @@ class mo_oauth {
 
 	function mo_oauth_shortcode_login(){
 		if(mo_oauth_hbca_xyake() || !mo_oauth_is_customer_registered()) {
-			echo '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
+			return '<div class="mo_oauth_premium_option_text" style="text-align: center;border: 1px solid;margin: 5px;padding-top: 25px;"><p>This feature is supported only in standard and higher versions.</p>
 				<p><a href="'.get_site_url(null, '/wp-admin/').'admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Features.</p></div>';
-			return;
 		}
 		$mowidget = new Mo_Oauth_Widget;
-		$mowidget->mo_oauth_login_form();
+		return $mowidget->mo_oauth_login_form();
 	}
 
 }

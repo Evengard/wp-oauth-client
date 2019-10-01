@@ -11,9 +11,74 @@ class Mo_Oauth_Widget extends WP_Widget {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
 		add_action( 'init', array( $this, 'mo_oauth_start_session' ) );
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
+		add_action( 'login_form', array( $this, 'mo_oauth_wplogin_form_button' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'mo_oauth_wplogin_form_style' ) );
 		parent::__construct( 'mo_oauth_widget', 'miniOrange OAuth', array( 'description' => __( 'Login to Apps with OAuth', 'flw' ), ) );
 
 	 }
+
+	 function mo_oauth_wplogin_form_style(){
+
+		wp_enqueue_style( 'mo_oauth_fontawesome', plugins_url( 'css/font-awesome.css', __FILE__ ) );
+		wp_enqueue_style( 'mo_oauth_wploginform', plugins_url( 'css/login-page.css', __FILE__ ) );
+	}
+
+	function mo_oauth_wplogin_form_button() {
+		$appslist = get_option('mo_oauth_apps_list');
+		if(is_array($appslist) && sizeof($appslist) > 0){
+			$this->mo_oauth_load_login_script();
+			foreach($appslist as $key => $item){
+
+				if(isset($item['show_on_login_page']) && $item['show_on_login_page'] === 1){
+
+					$this->mo_oauth_wplogin_form_style();
+
+					echo '<br>';
+					echo '<h4>Connect with :</h4><br>';
+					echo '<div class="row">';
+					$logo_class = 'fa fa-lock';
+					if( $item['appId']=='fbapps') {
+						$logo_class='fa fa-facebook';
+					}
+					elseif( $item['appId']=='gapps') {
+						$logo_class='fa fa-google-plus';
+					}
+					elseif( $item['appId']=='slack') {
+						$logo_class='fa fa-slack';
+					}
+					elseif( $item['appId']=='paypal') {
+						$logo_class='fa fa-paypal ';
+					}
+					elseif( $item['appId']=='azure') {
+						$logo_class='fa fa-windows ';
+					}
+					elseif( $item['appId']=='amazon') {
+						$logo_class='fa fa-amazon ';
+					}
+					elseif( $item['appId']=='github') {
+						$logo_class='fa fa-github ';
+					}
+					elseif( $item['appId']=='yahoo') {
+						$logo_class='fa fa-yahoo ';
+					}
+					elseif( $item['appId']=='openidconnect') {
+						$logo_class='fa fa-openid ';
+					}
+					elseif( $item['appId']=='bitrix24') {
+						$logo_class='fa fa-clock-o';
+					}
+					elseif( $item['appId']=='cognito') {
+						$logo_class='fa fa-amazon';
+					}
+					elseif( $item['appId']=='adfs') {
+						$logo_class='fa fa-windows';
+					}
+					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button"><i class="'.$logo_class.' mo_oauth_login_button_icon"></i><h3 class="mo_oauth_login_button_text">Login with '.ucwords($key).'</h3></div></a>';	
+					echo '</div><br><br>';
+				}
+			}
+		}
+	}
 
 	function mo_oauth_start_session() {
 		if( ! session_id() ) {
@@ -42,7 +107,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		if ( ! empty( $wid_title ) ) {
 			echo $args['before_title'] . $wid_title . $args['after_title'];
 		}
-		$this->mo_oauth_login_form();
+		echo $this->mo_oauth_login_form();
 		echo $args['after_widget'];
 	}
 
@@ -57,6 +122,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 	public function mo_oauth_login_form() {
 		global $post;
 		$this->error_message();
+		$temp = '';
 		$appsConfigured = get_option('mo_oauth_google_enable') | get_option('mo_oauth_eveonline_enable') | get_option('mo_oauth_facebook_enable');
 
 		$appslist = get_option('mo_oauth_apps_list');
@@ -74,22 +140,18 @@ class Mo_Oauth_Widget extends WP_Widget {
 				$style .= get_option('mo_oauth_icon_margin') ? "margin:".get_option('mo_oauth_icon_margin').";" : "";
 				$custom_css = get_option('mo_oauth_icon_configure_css');
 				if(empty($custom_css))
-					echo '<style>.oauthloginbutton{background: #7272dc;height:40px;padding:8px;text-align:center;color:#fff;}</style>';
+					$temp .= '<style>.oauthloginbutton{background: #7272dc;height:40px;padding:8px;text-align:center;color:#fff;}</style>';
 				else
-					echo '<style>'.$custom_css.'</style>';
+					$temp .= '<style>'.$custom_css.'</style>';
 
 				if( get_option('mo_oauth_google_enable') ) {
-				?>
-
-				<a href="javascript:void(0)" onClick="moOAuthLogin('google');"><img src="<?php echo plugins_url( 'images/icons/google.jpg', __FILE__ )?>"></a>
-
-				<?php
+				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('google');\"><img src=\"". plugins_url( 'images/icons/google.jpg', __FILE__ )."\"></a>";
 				}
-				if( get_option('mo_oauth_eveonline_enable') ) { ?>
-					<a href="javascript:void(0)" onClick="moOAuthLogin('eveonline');"><img style="<?php echo $style;?>" src="<?php echo plugins_url( 'images/icons/eveonline.png', __FILE__ )?>"></a>
-				<?php }
-				if( get_option('mo_oauth_facebook_enable') ) { ?>
-					<a href="javascript:void(0)" onClick="moOAuthLogin('facebook');"><img src="<?php echo plugins_url( 'images/icons/facebook.png', __FILE__ )?>"></a> <?php
+				if( get_option('mo_oauth_eveonline_enable') ) { 
+				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('eveonline');\"><img src=\"". plugins_url( 'images/icons/eveonline.png', __FILE__ )."\"></a>";
+				}
+				if( get_option('mo_oauth_facebook_enable') ) { 
+				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('facebook');\"><img src=\"". plugins_url( 'images/icons/facebook.png', __FILE__ )."\"></a>";
 				}
 				
 				if (is_array($appslist)) {
@@ -105,16 +167,54 @@ class Mo_Oauth_Widget extends WP_Widget {
 							$imageurl = plugins_url( 'images/windowslogin.png', __FILE__ );
 
 						if(!empty($imageurl) && empty($custom_css)){
-						?><br/><div><a href="javascript:void(0)" onClick="moOAuthLoginNew('<?php echo $key;?>');"><img style="<?php echo $style;?>" src="<?php echo $imageurl; ?>"></a></div><?php
+						$temp .= "<br/><div><a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('".$key."');\"><img style=\"".$style."\" src=\"".$imageurl."\"></a></div>";
 						} else { 
-							$appclass = "oauth_app_".str_replace(" ","-",$key);
-							echo '<br/><a href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div  style="'.$style.'" class="oauthloginbutton '.$appclass.'">';
-							if (array_key_exists('displayappname', $app) && !empty($app['displayappname']) ) {
-								echo $app['displayappname'];
-							} else {
-								echo 'Login with '.ucwords($key);
+							// $appclass = "oauth_app_".str_replace(" ","-",$key);
+							// echo '<br/><a href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div  style="'.$style.'" class="oauthloginbutton '.$appclass.'">';
+							// if (array_key_exists('displayappname', $app) && !empty($app['displayappname']) ) {
+							// 	echo $app['displayappname'];
+							// } else {
+							// 	echo 'Login with '.ucwords($key);
+							// }
+							// echo '</div></a>';
+							$logo_class = 'fa fa-lock';
+							if( $app['appId']=='fbapps') {
+								$logo_class='fa fa-facebook';
 							}
-							echo '</div></a>';
+							elseif( $app['appId']=='gapps') {
+								$logo_class='fa fa-google-plus';
+							}
+							elseif( $app['appId']=='slack') {
+								$logo_class='fa fa-slack';
+							}
+							elseif( $app['appId']=='paypal') {
+								$logo_class='fa fa-paypal ';
+							}
+							elseif( $app['appId']=='azure') {
+								$logo_class='fa fa-windows ';
+							}
+							elseif( $app['appId']=='amazon') {
+								$logo_class='fa fa-amazon ';
+							}
+							elseif( $app['appId']=='github') {
+								$logo_class='fa fa-github ';
+							}
+							elseif( $app['appId']=='yahoo') {
+								$logo_class='fa fa-yahoo ';
+							}
+							elseif( $app['appId']=='openidconnect') {
+								$logo_class='fa fa-openid ';
+							}
+							elseif( $app['appId']=='bitrix24') {
+								$logo_class='fa fa-clock-o';
+							}
+							elseif( $app['appId']=='cognito') {
+								$logo_class='fa fa-amazon';
+							}
+							elseif( $app['appId']=='adfs') {
+								$logo_class='fa fa-windows';
+							}
+							$temp .= '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button_widget"><i class="'.$logo_class.' mo_oauth_login_button_icon_widget"></i><h3 class="mo_oauth_login_button_text_widget">Login with '.ucwords($key).'</h3></div></a>';			
 						}
 
 					}
@@ -122,22 +222,17 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 
 			} else {
-				?>
-				<div>No apps configured.</div>
-				<?php
+				$temp .= '<div>No apps configured.</div>';
 			}
-			?>
-
-			<?php
 		} else {
 			$current_user = wp_get_current_user();
 			$link_with_username = __('Howdy, ', 'flw') . $current_user->display_name;
-			?>
-			<div id="logged_in_user" class="login_wid">
-				<li><?php echo $link_with_username;?> | <a href="<?php echo wp_logout_url( site_url() ); ?>" title="<?php _e('Logout','flw');?>"><?php _e('Logout','flw');?></a></li>
-			</div>
-			<?php
+			$temp .= "<div id=\"logged_in_user\" class=\"login_wid\">
+			<li>".$link_with_username." | <a href=\"".wp_logout_url( site_url() )."\" >Logout</a></li>
+		</div>";
+			
 		}
+		return $temp;
 	}
 
 	private function mo_oauth_load_login_script() {
@@ -174,17 +269,31 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 
 }
+
+function mo_oauth_update_email_to_username_attr($currentappname){
+	$appslist = get_option('mo_oauth_apps_list');
+	$appslist[$currentappname]['username_attr'] = $appslist[$currentappname]['email_attr'];
+	update_option('mo_oauth_apps_list',$appslist);
+}
+
 	function mo_oauth_login_validate(){
 
 		/* Handle Eve Online old flow */
 		if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'oauthredirect' ) !== false ) {
 			$appname = $_REQUEST['app_name'];
 			$appslist = get_option('mo_oauth_apps_list');
+			if(isset($_REQUEST['redirect_url'])){
+				update_option('mo_oauth_redirect_url',$_REQUEST['redirect_url']);
+			}
 
 			if(isset($_REQUEST['test']))
 				setcookie("mo_oauth_test", true);
 			else
 				setcookie("mo_oauth_test", false);
+
+			if($appslist == false){
+				exit("Looks like you have not configured OAuth provider, please try to configure OAuth provider first");
+			}
 
 			foreach($appslist as $key => $app){
 				if($appname==$key){
@@ -247,17 +356,16 @@ class Mo_Oauth_Widget extends WP_Widget {
 					}
 
 					$appslist = get_option('mo_oauth_apps_list');
-					$name_attr = "";
-					$email_attr = "";
+					$username_attr = "";
 					$currentapp = false;
 					foreach($appslist as $key => $app){
 						if($key == $currentappname){
 							$currentapp = $app;
-							if(isset($app['email_attr'])){
-								$email_attr = $app['email_attr'];
-							}
-							if(isset($app['name_attr'])){
-								$name_attr = $app['name_attr'];
+							if(isset($app['username_attr'])){
+								$username_attr = $app['username_attr'];
+							}else if(isset($app['email_attr'])){
+									mo_oauth_update_email_to_username_attr($currentappname);
+									$username_attr = $app['email_attr'];	
 							}
 						}
 					}
@@ -269,8 +377,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 							// OpenId connect
 						// echo "OpenID Connect";
+						if(!isset($currentapp['send_headers']))
+							$currentapp['send_headers'] = false;
+						if(!isset($currentapp['send_body']))
+							$currentapp['send_body'] = false;
 						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
-								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
+								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
 
 						$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
 
@@ -286,8 +398,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(strpos($accessTokenUrl, "google") !== false) {
 							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
 						}
-                        
-						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi']);
+						if(!isset($currentapp['send_headers']))
+							$currentapp['send_headers'] = false;
+						if(!isset($currentapp['send_body']))
+							$currentapp['send_body'] = false;
+						
+						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
                                                 
                         
 						if(!$accessToken)
@@ -302,8 +418,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 						}
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 					}
-					$email = "";
-					$name = "";
+					$username = "";
 					//TEST Configuration
 					if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
 						echo '<div style="font-family:Calibri;padding:0 3%;">';
@@ -315,23 +430,19 @@ class Mo_Oauth_Widget extends WP_Widget {
 						exit();
 					}
 
-					if(!empty($email_attr))
-						$email = getnestedattribute($resourceOwner, $email_attr); //$resourceOwner[$email_attr];
-					if(!empty($name_attr))
-						$name = getnestedattribute($resourceOwner, $name_attr); //$resourceOwner[$name_attr];
+					if(!empty($username_attr))
+						$username = getnestedattribute($resourceOwner, $username_attr); //$resourceOwner[$email_attr];
 
-					if(empty($email) || "" === $email)
+					if(empty($username) || "" === $username)
 						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
 					
-					if ( ! is_string( $email ) ) {
-						wp_die( 'Username is not a string. It is ' . get_proper_prefix( gettype( $email ) ) );
+					if ( ! is_string( $username ) ) {
+						wp_die( 'Username is not a string. It is ' . get_proper_prefix( gettype( $username ) ) );
 					}
-					if ( ! is_string( $name ) ) {
-						wp_die( 'First Name is not a string. It is ' . get_proper_prefix( gettype( $name ) ) );
-					}
-					$user = get_user_by("login",$email);
-					if(!$user)
-						$user = get_user_by( 'email', $email);
+
+					$user = get_user_by("login",$username);
+					// if(!$user)
+					// 	$user = get_user_by( 'email', $username);
 
 					if($user){
 						$user_id = $user->ID;
@@ -340,12 +451,12 @@ class Mo_Oauth_Widget extends WP_Widget {
 						if(mo_oauth_hbca_xyake()) {
 							if( get_option('mo_oauth_flag') != true )
 							{
-								$user = mo_oauth_jhuyn_jgsukaj($email);
+								$user = mo_oauth_jhuyn_jgsukaj($username);
 							} else {
 								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
 							} 							
 						} else {
-							$user = mo_oauth_hjsguh_kiishuyauh878gs($email);
+							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
 						}
 						
 					}
@@ -354,7 +465,13 @@ class Mo_Oauth_Widget extends WP_Widget {
 						wp_set_auth_cookie($user->ID);
 						$user  = get_user_by( 'ID',$user->ID );
 						do_action( 'wp_login', $user->user_login, $user );
-						wp_redirect(home_url());
+						$redirect_to = get_option('mo_oauth_redirect_url');
+
+						if($redirect_to == false){
+							$redirect_to = home_url();
+						}
+
+						wp_redirect($redirect_to);						
 						exit;
 					}
 
@@ -529,14 +646,15 @@ class Mo_Oauth_Widget extends WP_Widget {
 		/* End of old flow */
 	}
 
-	function mo_oauth_hjsguh_kiishuyauh878gs($email)
+	function mo_oauth_hjsguh_kiishuyauh878gs($username)
 	{
 		$random_password = wp_generate_password( 10, false );
-		if(is_email($email))
-			$user_id = wp_create_user( $email, $random_password, $email );
-		else
-			$user_id = wp_create_user( $email, $random_password);					
-		$user = get_user_by( 'login', $email);						
+		// if(is_email($email))
+		// 	$user_id = wp_create_user( $email, $random_password, $email );
+		// else
+		// 	$user_id = wp_create_user( $email, $random_password);	
+		$user_id = 	wp_create_user( $username, $random_password);
+		$user = get_user_by( 'login', $username);			
 		wp_update_user( array( 'ID' => $user_id ) );
 		return $user;
 	}

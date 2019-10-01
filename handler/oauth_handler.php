@@ -2,8 +2,8 @@
 
 class Mo_OAuth_Hanlder {
 
-	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url){
-		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url);
+	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
 		$content = json_decode($response,true);
 
 		if(isset($content["access_token"])) {
@@ -15,23 +15,26 @@ class Mo_OAuth_Hanlder {
 		}
 	}
 
-	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url){
-
-		if( get_option( 'mo_oauth_client_custom_token_endpoint_no_csecret' ) ) {
-			$body = array(
-				'grant_type'    => $grant_type,
-				'code'          => $code,
-				'client_id'     => $clientid,
-				'redirect_uri'  => $redirect_url,
-			);
-		} else {
-			$body = array(
+	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+		
+		$body = array(
 				'grant_type'    => $grant_type,
 				'code'          => $code,
 				'client_id'     => $clientid,
 				'client_secret' => $clientsecret,
 				'redirect_uri'  => $redirect_url,
 			);
+		$headers = array(
+				'Accept'  => 'application/json', 
+				'charset'       => 'UTF - 8', 
+				'Authorization' => 'Basic ' . base64_encode( $clientid . ':' . $clientsecret ),
+				'Content-Type' => 'application/x-www-form-urlencoded',
+		);
+		if($send_headers && !$send_body){
+				unset( $body['client_id'] );
+				unset( $body['client_secret'] );
+		}else if(!$send_headers && $send_body){
+				unset( $headers['Authorization'] );
 		}
 		
 		$response   = wp_remote_post( $tokenendpoint, array(
@@ -40,12 +43,7 @@ class Mo_OAuth_Hanlder {
 			'redirection' => 5,
 			'httpversion' => '1.0',
 			'blocking'    => true,
-			'headers'     => array(
-				'Accept'  => 'application/json', 
-				'charset'       => 'UTF - 8', 
-				'Authorization' => 'Basic ' . base64_encode( $clientid . ':' . $clientsecret ),
-				'Content-Type' => 'application/x-www-form-urlencoded',
-			),
+			'headers'     => $headers,
 			'body'        => $body,
 			'cookies'     => array(),
 			'sslverify'   => false
@@ -70,8 +68,8 @@ class Mo_OAuth_Hanlder {
 		return $response;
 	}
 	
-	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url){
-		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url);
+	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
 		$content = json_decode($response,true);
 		if(isset($content["id_token"]) || isset($content["access_token"])) {
 			return $content;
@@ -111,6 +109,10 @@ class Mo_OAuth_Hanlder {
 		) );
 
 		$response =  $response['body'] ;
+		$find = array("\u0040", "\u005F", "\u002E", "\u002D", "\u005C", "\u0020");
+		$replace = array("@", "_", ".", "-", "\\", " ");
+		$response = str_replace($find, $replace, $response);
+		$response = addcslashes($response, '\\');
 
 		if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";

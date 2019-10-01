@@ -14,11 +14,12 @@
 			    <!-- <div class="mo_table_layout mo_modal-demo"> -->
 			    	<form method="post" action="">
 					<input type="hidden" name="option" value="mo_oauth_client_demo_request_form" />
+					<?php wp_nonce_field('mo_oauth_client_demo_request_form', 'mo_oauth_client_demo_request_field'); ?>
 			    	<table cellpadding="4" cellspacing="4">
                         <tr>
 						  	<td><strong>Usecase : </strong></td>
 							<td>
-							<textarea type="text" minlength="15" name="mo_oauth_client_demo_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="Write us about your usecase" required value=""></textarea>
+							<textarea type="text" minlength="15" name="mo_auto_create_demosite_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="Write us about your usecase" required value=""></textarea>
 							</td>
 						  </tr> 	
                         <tr>
@@ -27,16 +28,16 @@
 						</tr>
 			    		<tr>
 							<td><strong>Email id : </strong></td>
-							<td><input required type="email" style="<?php echo $democss; ?>" name="mo_oauth_client_demo_email" placeholder="Email id" value="<?php echo get_option("mo_oauth_admin_email"); ?>" /></td>
+							<td><input required type="email" style="<?php echo $democss; ?>" name="mo_auto_create_demosite_email" placeholder="Email id" value="<?php echo get_option("mo_oauth_admin_email"); ?>" /></td>
 						</tr>
 						<tr>
 							<td><strong>Request a demo for : </strong></td>
 							<td>
-								<select required style="<?php echo $democss; ?>" name="mo_oauth_client_demo_plan" id="mo_oauth_client_demo_plan_id">
+								<select required style="<?php echo $democss; ?>" name="mo_auto_create_demosite_demo_plan" id="mo_oauth_client_demo_plan_id">
 									<option disabled selected>------------------ Select ------------------</option>
-									<option value="WP OAuth Client Standard Plugin">WP OAuth Client Standard Plugin</option>
-									<option value="WP OAuth Client Premium Plugin">WP OAuth Client Premium Plugin</option>
-									<option value="WP OAuth Client Enterprise Plugin">WP OAuth Client Enterprise Plugin</option>
+									<option value="miniorange-oauth-client-standard-common@11.6.1">WP OAuth Client Standard Plugin</option>
+									<option value="mo-oauth-client-premium@21.5.3">WP OAuth Client Premium Plugin</option>
+									<option value="miniorange-oauth-client-enterprise@31.5.7">WP OAuth Client Enterprise Plugin</option>
 									<option value="Not Sure">Not Sure</option>
 								</select>
 							</td>
