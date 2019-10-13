@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
-* Version: 6.12.1
+* Version: 6.12.11
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
