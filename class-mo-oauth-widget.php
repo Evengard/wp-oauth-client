@@ -1,8 +1,5 @@
 <?php
 
-include_once dirname( __FILE__ ) . '/eveonline/vendor/autoload.php';
-use Pheal\Pheal;
-use Pheal\Core\Config;
 
 class Mo_Oauth_Widget extends WP_Widget {
 
@@ -524,122 +521,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					  $user_id 			= wp_create_user( $user_email, $random_password, $user_email );
 					  wp_set_auth_cookie( $user_id, true );
 				}
-			} else if( $_POST['CharacterID'] ) {		//the user is trying to login through eve online
-				$_SESSION['character_id'] = $_POST['CharacterID'];
-				$_SESSION['character_name'] = $_POST['CharacterName'];
-				Config::getInstance()->access = new \Pheal\Access\StaticCheck();
-
-				$keyID = get_option('mo_eve_api_key');
-				$vCode = get_option('mo_eve_verification_code');
-				if( $keyID && $vCode ) {
-
-					$pheal = new Pheal( $keyID, $vCode, "eve" );
-
-					try{
-						$response = $pheal->CharacterInfo(array("characterID" => $_SESSION['character_id']));
-						$_SESSION['corporation_name']	= $response->corporation;
-						$_SESSION['alliance_name'] 		= $response->alliance;
-					} catch (\Pheal\Exceptions\PhealException $e) {
-						/*echo sprintf(
-							"an exception was caught! Type: %s Message: %s",
-							get_class($e),
-							$e->getMessage()
-						);*/
-					}
-
-					$corporations 	= get_option('mo_eve_allowed_corps') ? get_option('mo_eve_allowed_corps') : false;
-					$alliances 		= get_option('mo_eve_allowed_alliances') ? get_option('mo_eve_allowed_alliances') : false;
-					$characterNames = get_option('mo_eve_allowed_char_name') ? get_option('mo_eve_allowed_char_name') : false;
-					$valid_char 	= false;
-
-					if( ! $corporations && ! $alliances && ! $characterNames ) {
-						$valid_char = true;
-					} else {
-						if(isset($_SESSION['corporation_name']))
-							$valid_corp 			= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_corps'), $_SESSION['corporation_name'], 'corporation_name');
-						else
-							$valid_corp = "";
-						if(isset($_SESSION['alliance_name']))
-							$valid_alliance = mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_alliances'), $_SESSION['alliance_name'], 'alliance_name');
-						else
-							$valid_alliance = "";
-						if(isset($_SESSION['character_name']))
-							$valid_character_name 	= mo_oauth_check_validity_of_entity(get_option('mo_eve_allowed_char_name'), $_SESSION['character_name'], 'character_name');
-						else
-							$character_name = "";
-
-						$valid_char = $valid_corp || $valid_alliance || $valid_character_name;
-					}
-					if( $valid_char ) {			//if corporation or alliance or character name is valid
-						$characterID = $_SESSION['character_id'];
-						$eveonline_email = $characterID . '.eveonline@wordpress.com';
-						if( username_exists( $characterID ) ) {
-							$user = get_user_by( 'login', $characterID );
-							$user_id = $user->ID;
-
-							update_user_meta( $user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name'] );
-							update_user_meta( $user_id, 'user_eveonline_alliance_name', $_SESSION['alliance_name'] );
-							update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
-							set_avatar( $user_id, $characterID );
-							wp_set_auth_cookie( $user_id, true );
-						} else {
-							$random_password = wp_generate_password( 10, false );
-							$userdata = array(
-								'user_login'	=>	$characterID,
-								'user_email'	=>	$eveonline_email,
-								'user_pass'		=>	$random_password,
-								'display_name'	=>	$_SESSION['character_name'],
-								'last_name'		=>	$_SESSION['character_name']
-							);
-
-							$user_id = wp_insert_user( $userdata ) ;
-							update_user_meta($user_id, 'user_eveonline_corporation_name', $_SESSION['corporation_name']);
-							update_user_meta($user_id, 'user_eveonline_alliance_name', $_SESSION['alliance_name']);
-							update_user_meta($user_id, 'user_eveonline_character_name', $_SESSION['character_name']);
-							set_avatar( $user_id, $characterID );
-							wp_set_auth_cookie( $user_id, true );
-						}
-					} else{
-						error_reporting(0);
-						?>
-						<table>
-
-								<div class="rectangle" style="width:700px; height:180px;  margin:5% auto;">
-								<h1 style="text-align:center">Access Denied!</h1>
-								<div style="font-size:22px; color:#222;padding:20px;text-align:center;background:#F1F1F1;border:1.5px solid grey;  box-shadow: 10px 10px 5px grey;">It seems that either of your Corporation, Alliance or Character Name is not allowed to access this site.<br><br>
-								Please contact site Administrator to get access.<br></div>
-								</div>
-
-						</table>
-						<?php
-						exit();
-					}
-				} else {
-					// If API and vCode is not setup - login the user using Character ID
-					$characterID = $_SESSION['character_id'];
-					$eveonline_email = $characterID . '.eveonline@wordpress.com';
-					if( username_exists( $characterID ) ) {
-						$user = get_user_by( 'login', $characterID );
-						$user_id = $user->ID;
-						update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
-						set_avatar( $user_id, $characterID );
-						wp_set_auth_cookie( $user_id, true );
-					} else {
-						$random_password = wp_generate_password( 10, false );
-						$userdata = array(
-							'user_login'	=>	$characterID,
-							'user_email'	=>	$eveonline_email,
-							'user_pass'		=>	$random_password,
-							'display_name'	=>	$_SESSION['character_name'],
-							'last_name'		=>	$_SESSION['character_name']
-						);
-						$user_id = wp_insert_user( $userdata ) ;
-						update_user_meta( $user_id, 'user_eveonline_character_name', $_SESSION['character_name'] );
-						set_avatar( $user_id, $characterID );
-						wp_set_auth_cookie( $user_id, true );
-					}
-				}
-			}
+			} 
 			wp_redirect( home_url() );
 			exit;
 		}

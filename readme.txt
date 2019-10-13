@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.3
-Stable tag: 6.12.0
+Stable tag: 6.12.1
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
