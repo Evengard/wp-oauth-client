@@ -67,34 +67,31 @@
 				<td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php echo $currentapp['scope'];?>"></td>
 			</tr>
 			<?php if($is_other_app){ ?>
-			<tr  id="mo_oauth_authorizeurl_div">
-				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
-			</tr>
-			<tr id="mo_oauth_accesstokenurl_div">
-				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><div style="padding:5px;"></div><input type="checkbox" class="mo_table_textbox" name="mo_oauth_authorization_header" <?php if(isset($currentapp['send_headers'])){if($currentapp['send_headers'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1">Set client credentials in Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" class="mo_table_textbox" name="mo_oauth_body"<?php if(isset($currentapp['send_body'])){if($currentapp['send_body'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1">Set client credentials in Body<div style="padding:5px;"></div></td>
-			</tr>
-			<?php if( isset($currentapp['apptype']) && $currentapp['apptype'] != 'openidconnect') { 
-					$oidc = false;
-				} else {
-					$oidc = true;
-				}
-				?>
+				<tr  id="mo_oauth_authorizeurl_div">
+					<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
+				</tr>
+				<tr id="mo_oauth_accesstokenurl_div">
+					<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><div style="padding:5px;"></div><input type="checkbox" class="mo_table_textbox" name="mo_oauth_authorization_header" <?php if(isset($currentapp['send_headers'])){if($currentapp['send_headers'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1">Set client credentials in Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" class="mo_table_textbox" name="mo_oauth_body"<?php if(isset($currentapp['send_body'])){if($currentapp['send_body'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1">Set client credentials in Body<div style="padding:5px;"></div></td>
+				</tr>
+				<?php if( isset($currentapp['apptype']) && $currentapp['apptype'] != 'openidconnect') { 
+						$oidc = false;
+					} else {
+						$oidc = true;
+					}
+					?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><?php if($oidc === false) { echo '<font color="#FF0000">*</font>'; } ?>Get User Info Endpoint:</strong></td>
 					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo $currentapp['resourceownerdetailsurl']; } ?>"></td>
 				</tr>			
-			
-
-			<tr><td><strong>Client Authentication:</strong></td><td><div style="padding:5px;"></div><input class="mo_table_textbox" type="radio" name="disable_authorization_header" id="disable_authorization_header" <?php echo get_option('mo_oauth_client_disable_authorization_header') ? '' : 'checked'; ?> value="0">HTTP Basic (Recommended)<div style="padding:5px;"></div><input class="mo_table_textbox" type="radio" name="disable_authorization_header" id="disable_authorization_header" value="1" <?php echo get_option('mo_oauth_client_disable_authorization_header') ? 'checked' : ''; ?>>Request Body<div style="padding:5px;"></div></td></tr>
 					
 			<tr>
-				<td><strong>login button:</strong></td>
+				<td><strong>Login Button:</strong></td>
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" <?php if(isset($currentapp['show_on_login_page'])) { if($currentapp['show_on_login_page'] === 1 ) echo 'checked'; } ; ?>/>Show on login page</td>
 			</tr>
 			<tr>
@@ -110,6 +107,12 @@
 					<!-- <?php if($is_other_app){?> -->
 						<input id="mo_oauth_test_configuration" type="button" name="button" value="Test Configuration" class="button button-primary button-large" onclick="testConfiguration()" />
 					<!-- <?php } ?> -->
+				</td>
+			</tr>
+			<tr>
+				<td><strong>Note:</strong></td>
+				<td colspan="2">
+					<b>Please configure <a href='admin.php?page=mo_oauth_settings&tab=attributemapping'>Attribute Mapping</a> before trying Single Sign-On.</b>
 				</td>
 			</tr>
 		</table>

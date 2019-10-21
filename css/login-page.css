@@ -50,10 +50,13 @@
 }
 
 .mo_oauth_login_button_text_widget{
-    margin: 0px;
-    color:white;
-    display:inline-block;
-    font-size: 30px;
+    margin: 0px !important;
+    color:white !important;
+    display:inline-block !important;
+    font-size: 100% !important;
+    line-height: 0px !important;
+    padding:0px !important;
+    font-weight: 700 !important;
 }
 
 @media only screen and (max-width: 768px) {

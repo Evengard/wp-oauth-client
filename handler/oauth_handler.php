@@ -94,9 +94,8 @@ class Mo_OAuth_Hanlder {
 	
 	function getResourceOwner($resourceownerdetailsurl, $access_token){
 		$headers = array();
-		if(get_option('mo_oauth_client_disable_authorization_header') == false) {
-			$headers['Authorization'] = 'Bearer '.$access_token;
-		}
+		$headers['Authorization'] = 'Bearer '.$access_token;
+
 		$response   = wp_remote_post( $resourceownerdetailsurl, array(
 			'method'      => 'GET',
 			'timeout'     => 45,

@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
-Tested up to: 5.3
-Stable tag: 6.12.11
+Tested up to: 5.2
+Stable tag: 6.12.12
 License: GPLv2 or later
 License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
 
@@ -104,7 +104,7 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 
 
 = Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online etc.
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud etc.
 
 
 == Supported Add-ons ==
@@ -113,6 +113,9 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 2. BuddyPress integrator
 3. Login Form Add-on
 4. Membership Level based Login Redirection
+
+= REST API Authentication =
+Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
 
 == Installation ==
 
@@ -167,16 +170,27 @@ Yes, With standard license you can set different redirect URL to redirect to aft
 = For any other query/problem/request =
 Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
-= REST API Authentication =
-Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">WordPress REST API Authentication</a> plugin.
 
 == Screenshots ==
 
-1. Add oauth applications
-2. List of Apps
-2. Configure custom oauth application
+1. List of Apps
+2. Login button customization
+3. Advanced Feature
+4. Troubleshooting
+5. Attribute & Role Mapping
+6. Login Button / Widget
+7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.12.12 =
+* Added fixes for Widget / Login Button Logo
+* Added fixes for common CSS conflicts
+* Updated UI
+* Added WordPress Theme Compatibility
+
+= 6.12.11 =
+* Removed unused libraries
 
 = 6.12.0 =
 * Added Login Button on WordPress Dashboard
@@ -251,7 +265,7 @@ Secures the unauthorized access to your WordPress sites/pages using our <a href=
 * UI changes
 
 = 6.9.0 =
-* Delayed Registartion
+* Delayed Registration
 * Updated Password Validation
 
 = 6.8.1 =

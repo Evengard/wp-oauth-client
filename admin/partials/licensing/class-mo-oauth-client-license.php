@@ -141,7 +141,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <!-- Plan Header -->
                                     <div class="moc-licensing-plan-header">
                                         <div class="moc-licensing-plan-name">standard</div>
-                                        <div class="moc-licensing-plan-price"><sup>$</sup>249</div>
+                                        <div class="moc-licensing-plan-price"><sup>$</sup>249<sup>*</sup></div>
                                         <div class="moc-licensing-plan-usp">(Attribute Mapping + Login <br>Customization)<br></div>
                                     </div>
                                     <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')">Buy Now</button>

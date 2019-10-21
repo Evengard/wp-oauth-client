@@ -10,6 +10,7 @@ function mo_oauth_client_display_feedback_form() {
 	wp_enqueue_style( 'wp-pointer' );
 	wp_enqueue_script( 'wp-pointer' );
 	wp_enqueue_script( 'utils' );
+    wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'admin/css/style_settings.css');
 	
 ?>
     </head>

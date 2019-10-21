@@ -24,57 +24,29 @@ class Mo_Oauth_Widget extends WP_Widget {
 		$appslist = get_option('mo_oauth_apps_list');
 		if(is_array($appslist) && sizeof($appslist) > 0){
 			$this->mo_oauth_load_login_script();
-			foreach($appslist as $key => $item){
+			foreach($appslist as $key => $app){
 
-				if(isset($item['show_on_login_page']) && $item['show_on_login_page'] === 1){
+				if(isset($app['show_on_login_page']) && $app['show_on_login_page'] === 1){
 
 					$this->mo_oauth_wplogin_form_style();
 
 					echo '<br>';
 					echo '<h4>Connect with :</h4><br>';
 					echo '<div class="row">';
-					$logo_class = 'fa fa-lock';
-					if( $item['appId']=='fbapps') {
-						$logo_class='fa fa-facebook';
-					}
-					elseif( $item['appId']=='gapps') {
-						$logo_class='fa fa-google-plus';
-					}
-					elseif( $item['appId']=='slack') {
-						$logo_class='fa fa-slack';
-					}
-					elseif( $item['appId']=='paypal') {
-						$logo_class='fa fa-paypal ';
-					}
-					elseif( $item['appId']=='azure') {
-						$logo_class='fa fa-windows ';
-					}
-					elseif( $item['appId']=='amazon') {
-						$logo_class='fa fa-amazon ';
-					}
-					elseif( $item['appId']=='github') {
-						$logo_class='fa fa-github ';
-					}
-					elseif( $item['appId']=='yahoo') {
-						$logo_class='fa fa-yahoo ';
-					}
-					elseif( $item['appId']=='openidconnect') {
-						$logo_class='fa fa-openid ';
-					}
-					elseif( $item['appId']=='bitrix24') {
-						$logo_class='fa fa-clock-o';
-					}
-					elseif( $item['appId']=='cognito') {
-						$logo_class='fa fa-amazon';
-					}
-					elseif( $item['appId']=='adfs') {
-						$logo_class='fa fa-windows';
-					}
+
+					$logo_class = $this->mo_oauth_client_login_button_logo($app['appId']);
+					
 					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button"><i class="'.$logo_class.' mo_oauth_login_button_icon"></i><h3 class="mo_oauth_login_button_text">Login with '.ucwords($key).'</h3></div></a>';	
 					echo '</div><br><br>';
 				}
 			}
 		}
+	}
+
+	function mo_oauth_client_login_button_logo($currentAppId) {
+		$currentapp = mo_oauth_client_get_app($currentAppId);
+		$logo_class = $currentapp->logo_class;
+		return $logo_class;
 	}
 
 	function mo_oauth_start_session() {
@@ -153,71 +125,11 @@ class Mo_Oauth_Widget extends WP_Widget {
 				
 				if (is_array($appslist)) {
 					foreach($appslist as $key=>$app){
-						if($key=="eveonline")
-							continue;
-							$imageurl = "";
-						if($key=='facebook')
-							$imageurl = plugins_url( 'images/fblogin.png', __FILE__ );
-						else if($key=='google')
-							$imageurl = plugins_url( 'images/googlelogin.png', __FILE__ );
-						else if($key=='windows')
-							$imageurl = plugins_url( 'images/windowslogin.png', __FILE__ );
+						$logo_class = $this->mo_oauth_client_login_button_logo($app['appId']);
 
-						if(!empty($imageurl) && empty($custom_css)){
-						$temp .= "<br/><div><a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('".$key."');\"><img style=\"".$style."\" src=\"".$imageurl."\"></a></div>";
-						} else { 
-							// $appclass = "oauth_app_".str_replace(" ","-",$key);
-							// echo '<br/><a href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div  style="'.$style.'" class="oauthloginbutton '.$appclass.'">';
-							// if (array_key_exists('displayappname', $app) && !empty($app['displayappname']) ) {
-							// 	echo $app['displayappname'];
-							// } else {
-							// 	echo 'Login with '.ucwords($key);
-							// }
-							// echo '</div></a>';
-							$logo_class = 'fa fa-lock';
-							if( $app['appId']=='fbapps') {
-								$logo_class='fa fa-facebook';
-							}
-							elseif( $app['appId']=='gapps') {
-								$logo_class='fa fa-google-plus';
-							}
-							elseif( $app['appId']=='slack') {
-								$logo_class='fa fa-slack';
-							}
-							elseif( $app['appId']=='paypal') {
-								$logo_class='fa fa-paypal ';
-							}
-							elseif( $app['appId']=='azure') {
-								$logo_class='fa fa-windows ';
-							}
-							elseif( $app['appId']=='amazon') {
-								$logo_class='fa fa-amazon ';
-							}
-							elseif( $app['appId']=='github') {
-								$logo_class='fa fa-github ';
-							}
-							elseif( $app['appId']=='yahoo') {
-								$logo_class='fa fa-yahoo ';
-							}
-							elseif( $app['appId']=='openidconnect') {
-								$logo_class='fa fa-openid ';
-							}
-							elseif( $app['appId']=='bitrix24') {
-								$logo_class='fa fa-clock-o';
-							}
-							elseif( $app['appId']=='cognito') {
-								$logo_class='fa fa-amazon';
-							}
-							elseif( $app['appId']=='adfs') {
-								$logo_class='fa fa-windows';
-							}
-							$temp .= '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button_widget"><i class="'.$logo_class.' mo_oauth_login_button_icon_widget"></i><h3 class="mo_oauth_login_button_text_widget">Login with '.ucwords($key).'</h3></div></a>';			
-						}
-
-					}
+						$temp .= '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button_widget"><i class="'.$logo_class.' mo_oauth_login_button_icon_widget"></i><h3 class="mo_oauth_login_button_text_widget">Login with '.ucwords($key).'</h3></div></a>';			
+					}	
 				}
-
-
 			} else {
 				$temp .= '<div>No apps configured.</div>';
 			}

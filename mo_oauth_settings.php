@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: http://miniorange.com
 * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
-* Version: 6.12.11
+* Version: 6.12.12
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: GPL2
@@ -23,10 +23,7 @@ class mo_oauth {
 		
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_style' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_style' ) );
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
-		add_action( 'admin_enqueue_scripts', array( $this, 'plugin_settings_script' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'tutorial' ) );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
@@ -39,18 +36,15 @@ class mo_oauth {
 	
 	function tutorial($page) {
 		$file = plugin_dir_path( __FILE__ ) . 'pointers.php';
-		// Arguments: pointers php file, version (dots will be replaced), prefix
 		$manager = new PointersManager( $file, '4.8.52', 'custom_admin_pointers' );
 		$manager->parse();
 		$pointers = $manager->filter( $page );
-		// print_r($pointers);
-		if ( empty( $pointers ) ) { // nothing to do if no pointers pass the filter
+		if ( empty( $pointers ) ) { 
 			return;
 		}
 		wp_enqueue_style( 'wp-pointer' );
 		$js_url = plugins_url( 'js/cards.js', __FILE__ );
 		wp_enqueue_script( 'custom_admin_pointers', $js_url, array('wp-pointer'), NULL, TRUE );
-		// data to pass to javascript
 		$data = array(
 			'next_label' => __( 'Next' ),
 			'close_label' => __('Close'),
@@ -86,7 +80,6 @@ class mo_oauth {
 	}
 
 	public function mo_oauth_deactivate() {
-		//delete all stored key-value pairs
 		delete_option('host_name');
 		delete_option('new_registration');
 		delete_option('mo_oauth_admin_phone');
@@ -105,20 +98,6 @@ class mo_oauth {
 		'mo_oauth_facebook_client_id' 		=> '',
 		'mo_oauth_facebook_enabled' 		=> 0
 	);
-
-
-
-	function plugin_settings_style() {
-		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugins_url( 'css/style_settings.css', __FILE__ ) );
-		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugins_url( 'css/phone.css', __FILE__ ) );
-		wp_enqueue_style( 'mo_oauth_admin_settings_datatable', plugins_url( 'css/jquery.dataTables.min.css', __FILE__ ) );
-	}
-
-	function plugin_settings_script() {
-		wp_enqueue_script( 'mo_oauth_admin_settings_script', plugins_url( 'js/settings.js', __FILE__ ) );
-		wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugins_url('js/phone.js', __FILE__ ) );
-		wp_enqueue_script( 'mo_oauth_admin_settings_datatable', plugins_url( 'js/jquery.dataTables.min.js', __FILE__ ) );
-	}
 
 	function mo_login_widget_text_domain(){
 		load_plugin_textdomain( 'flw', FALSE, basename( dirname( __FILE__ ) ) . '/languages' );
@@ -158,8 +137,7 @@ class mo_oauth {
 			return;
 		}
 		
-		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {	//register the admin to miniOrange
-			//validation and sanitization
+		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {	
 			$email = '';
 			$phone = '';
 			$password = '';
@@ -210,18 +188,6 @@ class mo_oauth {
 						update_option( 'message', 'Failed to create customer. Try again.');
 					}
 					$this->mo_oauth_show_success_message();
-					// $content = json_decode($customer->send_otp_token($email,''), true);
-					// if(strcasecmp($content['status'], 'SUCCESS') == 0) {
-					// 	update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . '. Please enter the OTP here to verify your email.');
-					// 	$_SESSION['mo_oauth_transactionId'] = $content['txId'];
-					// 	update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS');
-
-					// 	$this->mo_oauth_show_success_message();
-					// }else{
-					// 	update_option('message','There was an error in sending email. Please click on Resend OTP to try again.');
-					// 	update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
-					// 	$this->mo_oauth_show_error_message();
-					// }
 				} else {
 					$this->mo_oauth_get_current_customer();
 				}
@@ -373,7 +339,6 @@ class mo_oauth {
 				$send_headers = isset($_POST['mo_oauth_authorization_header']) ? sanitize_post($_POST['mo_oauth_authorization_header']) : "0";
 				$send_body = isset($_POST['mo_oauth_body']) ? sanitize_post($_POST['mo_oauth_body']) : "0";
 				$show_on_login_page = isset($_POST['mo_oauth_show_on_login_page']) ? (int)filter_var( $_POST['mo_oauth_show_on_login_page'], FILTER_SANITIZE_NUMBER_INT) : 0;
-				update_option('mo_oauth_client_disable_authorization_header',isset( $_POST['disable_authorization_header']) ? $_POST['disable_authorization_header'] : 0);
 
 				if( $selectedapp == 'wso2' ) {
 					update_option( 'mo_oauth_client_custom_token_endpoint_no_csecret', true );

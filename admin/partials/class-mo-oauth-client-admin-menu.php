@@ -11,8 +11,26 @@ require('demo/class-mo-oauth-client-demo.php');
 require('faq/class-mo-oauth-client-faq.php');
 require('addons/class-mo-oauth-client-addons.php');
 
-function mo_oauth_client_main_menu() {
+function plugin_settings_style($hook) {
+		if($hook != 'toplevel_page_mo_oauth_settings') {
+                return;
+        }
+		wp_enqueue_style( 'mo_oauth_admin_style', plugin_dir_url( dirname(__FILE__) ) . 'css/admin.css' );
+		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' );
+		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
+		wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
+}
+function plugin_settings_script($hook) {
+		if($hook != 'toplevel_page_mo_oauth_settings') {
+                return;
+        }
+		wp_enqueue_script( 'mo_oauth_admin_script', plugin_dir_url( dirname(__FILE__) ) . 'js/admin.js' );
+		wp_enqueue_script( 'mo_oauth_admin_settings_script', plugin_dir_url( dirname(__FILE__) ) . 'js/settings.js' );
+		wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugin_dir_url( dirname(__FILE__) ) . 'js/phone.js' );
+		wp_enqueue_script( 'mo_oauth_admin_settings_datatable_script', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery.dataTables.min.js' );
+}
 
+function mo_oauth_client_main_menu() {
 	$currenttab = "";
 	if(isset($_GET['tab']))
 		$currenttab = $_GET['tab'];
@@ -58,17 +76,10 @@ class Mo_OAuth_Client_Admin_Menu {
 		        <div class="wrap">
             <h1>
 
-                <!--?php if($currenttab == 'licensing'){ ?>
-
-                    <div style="text-align:center;">
-                    miniOrange OAuth Single Sign On</div>
-                <!?php }else{ -->
-
                 miniOrange OAuth Single Sign On&nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
                 <a class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
                 <a class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
-                <!--?php } ?-->
 
 			</h1>
 			<?php if ( 'licensing' === $currenttab ) { ?>

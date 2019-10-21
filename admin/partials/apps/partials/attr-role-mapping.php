@@ -26,6 +26,7 @@ function attribite_role_mapping_ui(){
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Username:</strong></td>
 				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr" name="mo_oauth_username_attr" value="<?php if(isset( $currentapp['username_attr']))echo $currentapp['username_attr']; else if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
+				<td><a href="https://faq.miniorange.com/knowledgebase/getting-error-username-not-received-check-attribute-mapping-configuration-getting-error-email-not-received-check-attribute-mapping-configuration/" target="_blank">[How to map Attributes?]</a></td>
 			</tr>
 			
 			
