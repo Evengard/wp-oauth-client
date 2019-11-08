@@ -3,15 +3,17 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.2
-Stable tag: 6.12.12
-License: GPLv2 or later
-License URI: http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
+Stable tag: 6.13.0
+License: MIT/Expat
+License URI: https://docs.miniorange.com/mit-license
 
 WordPress OAuth SSO (OAuth Client) plugin allows Single Sign-On to WordPress with Azure, AWS Cognito, Keycloak, WHMCS, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 or OpenID Connect 1.0 provider using this plugin.
 
 == Description ==
 
 This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+
+[youtube https://youtu.be/rIe2yvree0g]
 
 = FREE VERSION FEATURES =
 
@@ -81,6 +83,8 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 *	Eve Online
 *	Gluu Server
 *   WSO2
+*	NetIQ
+* 	Centrify
 
 = List of popular OpenID Connect (OIDC) Providers we support =
 *	Amazon
@@ -103,8 +107,8 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 *   Refresh token grant
 
 
-= Other OAuth Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud etc.
+= Other OAuth / OpenID Connect Providers we support =
+*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer etc.
 
 
 == Supported Add-ons ==
@@ -182,6 +186,13 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.13.0 =
+* Fixed the SSO for Default Azure app
+* Advertised SSO Setup Video
+* Updated plugin licensing
+* Added support for new providers (Centrify, NetIQ, OpenAM, IdentityServer )
+* Minor compatibility fixes
 
 = 6.12.12 =
 * Added fixes for Widget / Login Button Logo

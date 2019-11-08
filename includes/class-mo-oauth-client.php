@@ -31,8 +31,8 @@ class Mo_OAuth_Client {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu' );
-		$this->loader->add_action( 'admin_enqueue_scripts', '', 'plugin_settings_style' );
-		$this->loader->add_action( 'admin_enqueue_scripts', '', 'plugin_settings_script' );
+		$this->loader->add_action( 'admin_enqueue_scripts', '', 'mo_oauth_client_plugin_settings_style' );
+		$this->loader->add_action( 'admin_enqueue_scripts', '', 'mo_oauth_client_plugin_settings_script' );
 	}
 
 

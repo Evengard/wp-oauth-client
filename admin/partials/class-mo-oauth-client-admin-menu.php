@@ -11,7 +11,7 @@ require('demo/class-mo-oauth-client-demo.php');
 require('faq/class-mo-oauth-client-faq.php');
 require('addons/class-mo-oauth-client-addons.php');
 
-function plugin_settings_style($hook) {
+function mo_oauth_client_plugin_settings_style($hook) {
 		if($hook != 'toplevel_page_mo_oauth_settings') {
                 return;
         }
@@ -20,7 +20,7 @@ function plugin_settings_style($hook) {
 		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
 		wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
 }
-function plugin_settings_script($hook) {
+function mo_oauth_client_plugin_settings_script($hook) {
 		if($hook != 'toplevel_page_mo_oauth_settings') {
                 return;
         }
