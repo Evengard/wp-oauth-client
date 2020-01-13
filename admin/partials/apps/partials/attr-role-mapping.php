@@ -3,6 +3,10 @@
 
 function attribite_role_mapping_ui(){
 	$appslist = get_option('mo_oauth_apps_list');
+	$attr_name_list = get_option('mo_oauth_attr_name_list');
+	if ( false !== $attr_name_list ) {
+		$attr_name_list = array_keys( $attr_name_list );
+	}
 	$currentapp = null;
 	$currentappname = null;
 	if ( is_array( $appslist ) ) {
@@ -25,8 +29,29 @@ function attribite_role_mapping_ui(){
 		<table class="mo_settings_table">
 			<tr id="mo_oauth_email_attr_div">
 				<td><strong><font color="#FF0000">*</font>Username:</strong></td>
-				<td><input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr" name="mo_oauth_username_attr" value="<?php if(isset( $currentapp['username_attr']))echo $currentapp['username_attr']; else if(isset( $currentapp['email_attr']))echo $currentapp['email_attr'];?>"></td>
-				<td><a href="https://faq.miniorange.com/knowledgebase/getting-error-username-not-received-check-attribute-mapping-configuration-getting-error-email-not-received-check-attribute-mapping-configuration/" target="_blank">[How to map Attributes?]</a></td>
+				<td>
+					<?php
+					if( is_array( $attr_name_list ) ) {  ?>
+						<select class="mo_table_textbox" id="mo_oauth_username_attr" name="mo_oauth_username_attr">
+						<option value="">----------- Select an Attribute -----------</option>
+							<?php 
+							foreach ( $attr_name_list as $key => $value ) {
+								echo "<option value='".$value."'";
+								if( ( isset( $currentapp['username_attr'] ) && $currentapp['username_attr'] === $value ) ||  ( isset( $currentapp['email_attr'] ) && $currentapp['email_attr'] === $value ) ) {
+									echo " selected";
+								}
+								else echo "";
+								echo " >".$value."</option>";
+							}
+							?>
+						</select>
+						<?php
+					} else { ?>
+						<input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr" name="mo_oauth_username_attr" value="<?php if( isset( $currentapp['username_attr'] ) )echo $currentapp['username_attr']; else if( isset( $currentapp['email_attr'] ) )echo $currentapp['email_attr'];?>"><?php
+					}
+					?>
+				</td>
+				<td><a href="https://developers.miniorange.com/docs/oauth/wordpress/client/attribute-role-mapping" target="_blank">[How to map Attributes?]</a></td>
 			</tr>
 			
 			

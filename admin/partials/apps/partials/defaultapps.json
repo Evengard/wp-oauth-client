@@ -111,7 +111,25 @@
 		"label":"Zendesk", "type":"oauth", "image":"zendesk.png", "scope": "read write", "authorize": "https://{subdomain}.zendesk.com/oauth/authorizations/new", "token": "https://{subdomain}.zendesk.com/oauth/tokens", "userinfo": "https://{subdomain}.zendesk.com/api/v2/users", "guide":"https://plugins.miniorange.com/guide-to-configure-zendesk-as-oauth-server/", "logo_class":"fa fa-lock"
 	},
 	"laravel": {
-		"label":"Laravel", "type":"oauth", "image":"laravel.png", "scope": "", "authorize": "http://your-laravel-site-url/oauth/authorize", "token": "http://your-laravel-site-url/oauth/token", "userinfo": "http://your-laravel-site-url/api/user/get", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Laravel", "type":"oauth", "image":"laravel.png", "scope": "", "authorize": "http://your-laravel-site-url/oauth/authorize", "token": "http://your-laravel-site-url/oauth/token", "userinfo": "http://your-laravel-site-url/api/user/get", "guide":"https://plugins.miniorange.com/laravel-passport-as-an-oauth-server", "logo_class":"fa fa-lock"
+	},
+	"identityserver": {
+		"label":"Identity Server", "type":"oauth", "image":"identityserver.png", "scope": "openid", "authorize": "https://<your-identityserver-domain>/connect/authorize", "token": "https://<your-identityserver-domain>/connect/token", "userinfo": "https://your-domain/connect/introspect", "guide":"https://plugins.miniorange.com/guide-to-configure-identityserver4-as-an-oauth-server", "logo_class":"fa fa-lock"
+	},
+	"nextcloud": {
+		"label":"Nextcloud", "type":"oauth", "image":"nextcloud.png", "scope": "", "authorize": "https://<your-nextcloud-domain>/apps/oauth2/authorize", "token": "https://<your-nextcloud-domain>/apps/oauth2/api/v1/token", "userinfo": "https://<your-nextcloud-domain>/ocs/v2.php/cloud/user?format=json", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"twitch": {
+		"label":"Twitch", "type":"oauth", "image":"twitch.png", "scope": "Analytics:read:extensions", "authorize": "https://id.twitch.tv/oauth2/authorize", "token": "https://id.twitch.tv/oauth2/token", "userinfo": "https://id.twitch.tv/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-twitch-as-an-oauth-server", "logo_class":"fa fa-lock"
+	},
+	"wildApricot": {
+		"label":"Wild Apricot", "type":"oauth", "image":"wildApricot.png", "scope": "auto", "authorize": "https://<your_account_url>/sys/login/OAuthLogin", "token": "https://oauth.wildapricot.org/auth/token", "userinfo": "https://api.wildapricot.org/v2.1/accounts/<account_id>/contacts/me", "guide":"https://plugins.miniorange.com/guide-configure-wild-apricot-oauth-server", "logo_class":"fa fa-lock"
+	},
+	"connect2id": {
+		"label":"Connect2id", "type":"oauth", "image":"connect2id.png", "scope": "openid", "authorize": "https://c2id.com/login", "token": "https://<your-base-server-url>/token", "userinfo": "https://<your-base-server-url>/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-connect2id-as-an-oauth-server", "logo_class":"fa fa-lock"
+	},
+	"miniorange": {
+		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "authorize": "https://<your-site-url>/wp-json/moserver/authorize", "token": "https://<your-site-url>/wp-json/moserver/token", "userinfo": "https://<your-site-url>/wp-json/moserver/resource", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-server", "logo_class":"fa fa-lock"
 	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"

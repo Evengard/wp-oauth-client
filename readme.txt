@@ -2,18 +2,40 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
-Tested up to: 5.2
-Stable tag: 6.13.0
+Tested up to: 5.3
+Stable tag: 6.14.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-WordPress OAuth SSO (OAuth Client) plugin allows Single Sign-On to WordPress with Azure, AWS Cognito, Keycloak, WHMCS, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 or OpenID Connect 1.0 provider using this plugin.
+WordPress OAuth Single Sign-On (OAuth Client) plugin allows Single Sign-On to WordPress with Azure AD, Azure B2C, AWS Cognito, Keycloak, WHMCS, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 Server or OpenID Connect 1.0 provider using this plugin.
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Azure AD, Azure B2C, AWS Cognito, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
+
 
 [youtube https://youtu.be/rIe2yvree0g]
+
+
+= Single Sign-On(SSO) =
+
+In simple term, Single Sign-On(SSO) means login into 1 site / application using the credentials of another app/site.
+Example. If you have all your Users/Customers/Members/Employees stored on 1 site(ex. gmail, wordpress, etc.), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register/login all your users of site A into Site B using the login credentials/account of Site A. This is call Single Sign-On or SSO.
+
+= Third Party Application / OAuth-OIDC Provider =
+* The other terms are: OAuth Provider, OAuth Server, OpenID Connect Server, OpenID Connect Provider, OIDC Provider, OIDC Server, OAuth Application, OpenID Connect Application, OIDC Application, OpenIDConnect Server, OpenIDCConnect Provider, OpenIDConnect Application
+* This Third Party Application can be anything where User Accounts are stored or site/application where you want to store/migrate all the users. It can be your social app/site, wordpress, custom app or any database.
+
+= USE-CASES =
+
+* Single Sign-On between WordPress - Wordpress(Login with WordPress) :
+	1. Single Sign-On to 1 WordPress site using User Credentials stored on Another WordPress site
+	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
+* Single Sign-On between WordPress and Any OAuth / OpenID Connect (OIDC) application(Login with Social Login Apps / Custom Providers) : 
+    1. Single Sign-On to 1 WordPress site using User Credentials stored on your third party application
+	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
+* Single Sign-On into WordPress Using existing User stores(Active Directory/Database)
 
 = FREE VERSION FEATURES =
 
@@ -22,7 +44,7 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 *	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
 *	Attribute Mapping : OAuth Login supports username Attribute Mapping feature to map WordPress user profile username attribute.
 *	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
-*	OAuth / OpenID Connect Provider Support : OAuth Login supports only one OAuth / OpenID Connect Provider. 
+*	OpenID Connect / OAuth Provider Support : OAuth Login supports only one OpenID Connect / OAuth Provider. 
 *	Redirect URL after Login : OAuth Login Automatically Redirects user after successful login. 
 *	Logging :  If you run into issues OAuth Login can be helpful to enable debug logging
 
@@ -85,6 +107,8 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 *   WSO2
 *	NetIQ
 * 	Centrify
+*   Azure AD
+*   Azure B2C
 
 = List of popular OpenID Connect (OIDC) Providers we support =
 *	Amazon
@@ -98,6 +122,8 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 *	ADFS
 *	Gigya
 *   Swiss-RX-Login (Swiss RX Login)
+*   Azure AD
+*   Azure B2C
 
 = List of grant types we support =
 *   Authorization code grant
@@ -108,7 +134,7 @@ This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS
 
 
 = Other OAuth / OpenID Connect Providers we support =
-*	Other oauth 2.0 providers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer etc.
 
 
 == Supported Add-ons ==
@@ -186,6 +212,13 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.14.0 =
+* Updated widget logos
+* Automated Attribute Mapping 
+* Updated Visual Tour 
+* Added New Providers (miniOrange, Identity Server, Nextcloud, Twitch, Wild Apricot, Connect2id )
+* Updated Support Query / Contact Us form
 
 = 6.13.0 =
 * Fixed the SSO for Default Azure app

@@ -6,7 +6,7 @@ function grant_type_settings() {
 	<div class="mo_table_layout" id="mo_grant_settings" style="position: relative;">
 		<table class="mo_settings_table">
 			<tr>
-				<td><h3>Grant Settings&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3></td>
+				<td style="padding: 15px 0px 5px;"><h3 style="display: inline;">Grant Settings&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3><span style="float: right;">[ <a href="https://developers.miniorange.com/docs/oauth/wordpress/client/multiple-grant-support" target="_blank">Click here</a> to know how this is useful. ]</span></td>
 				<!-- <td align="right"><a href="#" target="_blank" id='mo_oauth_grant_guide' style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px;">What is this?</a></td> -->
 			</tr>
 		</table>
@@ -34,9 +34,29 @@ function grant_type_settings() {
 				This can help in keeping user session persistent.
 			</blockquote>
 		</div>
+		<hr>
+		<div style="padding:15px 0px 15px;"><h3 style="display: inline;">JWT Validation&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3><span style="float: right;">[
+		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/json-web-token-support" target="_blank">Click here</a> to know how this is useful. ]</span></div>
+				<div>
+					<table class="mo_settings_table">
+						<tr>
+							<td><strong>Enable JWT Verification:</strong></td>
+							<td><input type="checkbox" value="" disabled/></td>
+						</tr>
+						<tr>
+							<td><strong>JWT Signing Algorithm:</strong></td>
+							<td><select disabled>
+									<option>HSA</option>
+									<option>RSA</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			<br><br>
 		<div class="notes">
 			<hr />
-			Grant Type Settings are configurable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">premium and enterprise</a> versions of the plugin.
+			Grant Type Settings and JWT Validation are configurable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">premium and enterprise</a> versions of the plugin.
 		</div>
 	</div>
 	<div>

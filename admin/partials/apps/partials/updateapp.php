@@ -8,15 +8,6 @@
 	foreach($appslist as $key => $app){
 		if($appname == $key){
 			$currentapp = $app;
-			if(isset($currentapp['accesstokenurl']) && strpos($currentapp['accesstokenurl'], "google") !== false) {
-				$currentapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
-			}
-			if(isset($currentapp['authorizeurl']) && strpos($currentapp['authorizeurl'], "google") !== false) {
-				$currentapp['authorizeurl'] = "https://accounts.google.com/o/oauth2/auth";
-			}
-			if(isset($currentapp['resourceownerdetailsurl']) && strpos($currentapp['resourceownerdetailsurl'], "google") !== false) {
-				$currentapp['resourceownerdetailsurl'] = "https://www.googleapis.com/oauth2/v1/userinfo";
-			}
 			break;
 		}
 	}
@@ -52,7 +43,7 @@
 				<td><input disabled class="mo_table_textbox" type="text" id="mo_oauth_sso_protocol" name="mo_oauth_sso_protocol" value="<?php if(isset($currentapp['ssoprotocol'])) echo $currentapp['ssoprotocol']; else echo $currentapp['apptype'];?>"></td>
 			</tr>
 			<tr><td><strong>Redirect / Callback URL</strong></td>
-			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php if($currentappname != 'eveonline'){ echo $currentapp['redirecturi']; } else { echo "https://login.xecurify.com/moas/oauth/client/callback";} ?>'></td>
+			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php echo $currentapp['redirecturi'];?>'></td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
@@ -89,7 +80,14 @@
 					<td><strong><?php if($oidc === false) { echo '<font color="#FF0000">*</font>'; } ?>Get User Info Endpoint:</strong></td>
 					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo $currentapp['resourceownerdetailsurl']; } ?>"></td>
 				</tr>			
-					
+			<tr>
+				<td><strong>Group User Info Endpoint:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
+				<td><input class="mo_table_textbox" type="text" value="" disabled></td>
+			</tr>
+			<tr>
+				<td><strong>JWKS URL:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
+				<td><input class="mo_table_textbox" type="text" value="" disabled></td>
+			</tr>
 			<tr>
 				<td><strong>Login Button:</strong></td>
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" <?php if(isset($currentapp['show_on_login_page'])) { if($currentapp['show_on_login_page'] === 1 ) echo 'checked'; } ; ?>/>Show on login page</td>

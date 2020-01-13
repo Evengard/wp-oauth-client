@@ -92,7 +92,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 		global $post;
 		$this->error_message();
 		$temp = '';
-		$appsConfigured = get_option('mo_oauth_google_enable') | get_option('mo_oauth_eveonline_enable') | get_option('mo_oauth_facebook_enable');
 
 		$appslist = get_option('mo_oauth_apps_list');
 		if($appslist && sizeof($appslist)>0)
@@ -112,16 +111,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 					$temp .= '<style>.oauthloginbutton{background: #7272dc;height:40px;padding:8px;text-align:center;color:#fff;}</style>';
 				else
 					$temp .= '<style>'.$custom_css.'</style>';
-
-				if( get_option('mo_oauth_google_enable') ) {
-				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('google');\"><img src=\"". plugins_url( 'images/icons/google.jpg', __FILE__ )."\"></a>";
-				}
-				if( get_option('mo_oauth_eveonline_enable') ) { 
-				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('eveonline');\"><img src=\"". plugins_url( 'images/icons/eveonline.png', __FILE__ )."\"></a>";
-				}
-				if( get_option('mo_oauth_facebook_enable') ) { 
-				$temp .= "<a href=\"javascript:void(0)\" onClick=\"moOAuthLogin('facebook');\"><img src=\"". plugins_url( 'images/icons/facebook.png', __FILE__ )."\"></a>";
-				}
 				
 				if (is_array($appslist)) {
 					foreach($appslist as $key=>$app){
@@ -209,9 +198,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 					$state = base64_encode($appname);
 					$authorizationUrl = $app['authorizeurl'];
-					if(strpos($authorizationUrl, "google") !== false) {
-						$authorizationUrl = "https://accounts.google.com/o/oauth2/auth";
-					}
+				
 					if(strpos($authorizationUrl, '?' ) !== false)
 					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
 				    else 
@@ -284,8 +271,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
-							// OpenId connect
-						// echo "OpenID Connect";
+						// OpenId connect
 						if(!isset($currentapp['send_headers']))
 							$currentapp['send_headers'] = false;
 						if(!isset($currentapp['send_body']))
@@ -294,8 +280,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
 
 						$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
-
-								
+		
 						if(!$idToken)
 							exit('Invalid token received.');
 						else
@@ -304,17 +289,14 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					} else {
 						// echo "OAuth";
 						$accessTokenUrl = $currentapp['accesstokenurl'];
-						if(strpos($accessTokenUrl, "google") !== false) {
-							$accessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
-						}
+						
 						if(!isset($currentapp['send_headers']))
 							$currentapp['send_headers'] = false;
 						if(!isset($currentapp['send_body']))
 							$currentapp['send_body'] = false;
 						
 						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
-                                                
-                        
+                                                 
 						if(!$accessToken)
 							exit('Invalid token received.');
 
@@ -322,12 +304,11 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						if (substr($resourceownerdetailsurl, -1) == "=") {
 							$resourceownerdetailsurl .= $accessToken;
 						}
-						if(strpos($resourceownerdetailsurl, "google") !== false) {
-							$resourceownerdetailsurl = "https://www.googleapis.com/oauth2/v1/userinfo";
-						}
+						
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 					}
 					$username = "";
+					update_option('mo_oauth_attr_name_list', $resourceOwner);
 					//TEST Configuration
 					if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
 						echo '<div style="font-family:Calibri;padding:0 3%;">';
@@ -483,17 +464,19 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 		return mo_oauth_jkhuiysuayhbw($temp_var);
 	}
 
-	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails){
+	function testattrmappingconfig($nestedprefix, $resourceOwnerDetails, $tr_class_prefix = ''){
+		$tr = '<tr class="' . $tr_class_prefix . 'tr">';
+		$td = '<td class="' . $tr_class_prefix . 'td">';
 		foreach($resourceOwnerDetails as $key => $resource){
 			if(is_array($resource) || is_object($resource)){
 				if(!empty($nestedprefix))
 					$nestedprefix .= ".";
-				testattrmappingconfig($nestedprefix.$key,$resource);
+				testattrmappingconfig($nestedprefix.$key,$resource, $tr_class_prefix);
 			} else {
-				echo "<tr><td>";
+				echo $tr . $td;
 				if(!empty($nestedprefix))
 					echo $nestedprefix.".";
-				echo $key."</td><td>".$resource."</td></tr>";
+				echo $key."</td>".$td.$resource."</td></tr>";
 			}
 		}
 	}

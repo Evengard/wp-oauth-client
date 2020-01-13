@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth client)
 * Plugin URI: miniorange-login-with-eve-online-google-facebook
 * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
-* Version: 6.13.0
+* Version: 6.14.0
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: MIT/Expat
@@ -14,56 +14,47 @@ require('handler/oauth_handler.php');
 include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
 require plugin_dir_path( __FILE__ ) . 'includes/class-mo-oauth-client.php';
-require('includes/manage-avatar.php');
 require('views/feedback_form.php');
-require_once 'views/PointersManager.php';
+// require_once 'views/PointersManager.php';
+require_once 'views/VisualTour/class-mocvisualtour.php';
 
 class mo_oauth {
 
 	function __construct() {
-		
+
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
 		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
-		add_action( 'admin_enqueue_scripts', array( $this, 'tutorial' ) );
+		add_action( 'admin_init', array( $this, 'tutorial' ) );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
 		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
 		add_action( 'admin_footer', array( $this, 'mo_oauth_client_feedback_request' ) );
-		
-		if(get_option('mo_oauth_eveonline_enable') == 1 )
-			add_action( 'admin_notices', array($this,'mooauth_admin_notice__success'));
+
 	}
-	
+
 	function tutorial($page) {
-		$file = plugin_dir_path( __FILE__ ) . 'pointers.php';
-		$manager = new PointersManager( $file, '4.8.52', 'custom_admin_pointers' );
-		$manager->parse();
-		$pointers = $manager->filter( $page );
-		if ( empty( $pointers ) ) { 
-			return;
+		// $file = plugin_dir_path( __FILE__ ) . 'pointers.php';
+		// $manager = new PointersManager( $file, '4.8.52', 'custom_admin_pointers' );
+		// $manager->parse();
+		// $pointers = $manager->filter( $page );
+		// if ( empty( $pointers ) ) {
+		// 	return;
+		// }
+		// wp_enqueue_style( 'wp-pointer' );
+		// $js_url = plugins_url( 'js/cards.js', __FILE__ );
+		// wp_enqueue_script( 'custom_admin_pointers', $js_url, array('wp-pointer'), NULL, TRUE );
+		// $data = array(
+		// 	'next_label' => __( 'Next' ),
+		// 	'close_label' => __('Close'),
+		// 	'pointers' => $pointers
+		// );
+		// wp_localize_script( 'custom_admin_pointers', 'MyAdminPointers', $data );
+		if ( class_exists( 'MOCVisualTour' ) ) {
+			$tour = new MOCVisualTour();
 		}
-		wp_enqueue_style( 'wp-pointer' );
-		$js_url = plugins_url( 'js/cards.js', __FILE__ );
-		wp_enqueue_script( 'custom_admin_pointers', $js_url, array('wp-pointer'), NULL, TRUE );
-		$data = array(
-			'next_label' => __( 'Next' ),
-			'close_label' => __('Close'),
-			'pointers' => $pointers
-		);
-		wp_localize_script( 'custom_admin_pointers', 'MyAdminPointers', $data );
 	}
-	
-	function mooauth_admin_notice__success(){
-			?>
-			<div class="notice notice-success is-dismissible">
-				<h2>Are you having issues with Eve Online app?</h2>
-				<p>Eve online has updated API's and removed support for old apis.</p>
-				<p>Download updated plugin with <a href="https://wordpress.org/plugins/oauth-client/">this link</a> to continue using Eve Online SSO</p>
-			</div>
-		<?php
-	}
-	
+
 	function mo_oauth_success_message() {
 		$class = "error";
 		$message = get_option('message');
@@ -73,7 +64,7 @@ class mo_oauth {
 	function mo_oauth_client_feedback_request() {
 		mo_oauth_client_display_feedback_form();
 	}
-	
+
 	function mo_oauth_error_message() {
 		$class = "updated";
 		$message = get_option('message');
@@ -93,12 +84,6 @@ class mo_oauth {
 		delete_option('mo_oauth_registration_status');
 		delete_option('mo_oauth_client_show_mo_server_message');
 	}
-
-	private $settings = array(
-		'mo_oauth_facebook_client_secret'	=> '',
-		'mo_oauth_facebook_client_id' 		=> '',
-		'mo_oauth_facebook_enabled' 		=> 0
-	);
 
 	function mo_login_widget_text_domain(){
 		load_plugin_textdomain( 'flw', FALSE, basename( dirname( __FILE__ ) ) . '/languages' );
@@ -132,13 +117,13 @@ class mo_oauth {
 			update_user_meta(get_current_user_id(),'dismissed_wp_pointers','');
 			return;
 		}
-		
+
 		if ( isset( $_POST['option'] ) and $_POST['option'] == "change_miniorange" ) {
 			$this->mo_oauth_deactivate();
 			return;
 		}
-		
-		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {	
+
+		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_register_customer" ) {
 			$email = '';
 			$phone = '';
 			$password = '';
@@ -146,7 +131,7 @@ class mo_oauth {
 			$fname = '';
 			$lname = '';
 			$company = '';
-			if( $this->mo_oauth_check_empty_or_null( $_POST['email'] ) || $this->mo_oauth_check_empty_or_null( $_POST['phone'] ) || $this->mo_oauth_check_empty_or_null( $_POST['password'] ) || $this->mo_oauth_check_empty_or_null( $_POST['confirmPassword'] ) ) {
+			if( $this->mo_oauth_check_empty_or_null( $_POST['email'] ) || $this->mo_oauth_check_empty_or_null( $_POST['password'] ) || $this->mo_oauth_check_empty_or_null( $_POST['confirmPassword'] ) ) {
 				update_option( 'message', 'All the fields are required. Please enter valid entries.');
 				$this->mo_oauth_show_error_message();
 				return;
@@ -197,7 +182,7 @@ class mo_oauth {
 				delete_option('verify_customer');
 				$this->mo_oauth_show_error_message();
 			}
-		} 
+		}
 
 		if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_goto_login" ) {
 			delete_option( 'new_registration' );
@@ -254,75 +239,18 @@ class mo_oauth {
 				update_option( 'mo_oauth_admin_customer_key', $customerKey['id'] );
 				update_option( 'mo_oauth_admin_api_key', $customerKey['apiKey'] );
 				update_option( 'customer_token', $customerKey['token'] );
-				update_option( 'mo_oauth_admin_phone', $customerKey['phone'] );
+				if( isset( $customerKey['phone'] ) )
+					update_option( 'mo_oauth_admin_phone', $customerKey['phone'] );
 				delete_option('password');
 				update_option( 'message', 'Customer retrieved successfully');
 				delete_option('verify_customer');
+				delete_option('new_registration');
 				$this->mo_oauth_show_success_message();
 			} else {
 				update_option( 'message', 'Invalid username or password. Please try again.');
 				$this->mo_oauth_show_error_message();
 			}
-		}
-		//save API KEY for eveonline from eveonline setup
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_eve_save_api_key" ){
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			//validation and sanitization
-			$apiKey = '';
-			$verificationCode = '';
-			if( $this->mo_oauth_check_empty_or_null( $_POST['mo_eve_api_key'] ) || $this->mo_oauth_check_empty_or_null( $_POST['mo_eve_verification_code'] ) ) {
-				update_option( 'message', 'All the fields are required. Please enter Key ID and Verfication code to save API Key details.');
-				$this->mo_oauth_show_error_message();
-				return;
-			} else{
-				$apiKey = stripslashes( $_POST['mo_eve_api_key'] );
-				$verificationCode = stripslashes( $_POST['mo_eve_verification_code'] );
-			}
-
-			update_option( 'mo_eve_api_key' ,$apiKey);
-			update_option('mo_eve_verification_code', $verificationCode);
-			if( get_option('mo_eve_api_key') && get_option('mo_eve_verification_code') ) {
-				update_option( 'message', 'Your API Key details have been saved');
-				$this->mo_oauth_show_success_message();
-			} else {
-				update_option( 'message', 'Please enter Key ID and Verfication code to save API Key details');
-				$this->mo_oauth_show_error_message();
-			}
-		}
-		//save allowed corporations, alliances and character names
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_eve_save_allowed" ){
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			//sanitization of corporations and alliance fields
-			$corps = stripslashes( $_POST['mo_eve_allowed_corps'] );
-			$alliances = stripslashes( $_POST['mo_eve_allowed_alliances'] );
-			$charName = stripslashes( $_POST['mo_eve_allowed_char_name'] );
-
-			update_option( 'mo_eve_allowed_corps' ,$corps );
-			update_option( 'mo_eve_allowed_alliances', $alliances );
-			update_option( 'mo_eve_allowed_char_name', $charName );
-			if( get_option('mo_eve_allowed_corps') || get_option('mo_eve_allowed_alliances') || get_option('mo_eve_allowed_char_name') ) {
-				if( get_option('mo_eve_api_key') && get_option('mo_eve_verification_code') ) {
-					update_option( 'message', 'Your allowed Corporations, Alliances and Characters have been saved');
-					$this->mo_oauth_show_success_message();
-				} else {
-					update_option( 'message', 'Please enter Key ID and Verification code to filter Characters. Your allowed Corporations, Alliances and Characters have been saved.');
-					$this->mo_oauth_show_error_message();
-				}
-			} else {
-				if( get_option('mo_eve_api_key') && get_option('mo_eve_verification_code') ) {
-					update_option( 'message', 'Characters of all Corporations and Alliances will be allowed.');
-					$this->mo_oauth_show_success_message();
-				} else {
-					update_option( 'message', 'Please enter Key ID and Verification code to filter Characters. Characters of all Corporations and Alliances will be allowed.');
-					$this->mo_oauth_show_error_message();
-				}
-			}
-		}
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_add_app" ) {
+		} else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_add_app" ) {
 			$scope = '';
 			$clientid = '';
 			$clientsecret = '';
@@ -378,46 +306,12 @@ class mo_oauth {
 				$newapp['send_headers'] = $send_headers;
 				$newapp['send_body'] = $send_body;
 				$newapp['show_on_login_page'] = $show_on_login_page;
-								
-				if($appname=="facebook"){
-					$authorizeurl = 'https://www.facebook.com/dialog/oauth';
-					$accesstokenurl = 'https://graph.facebook.com/v2.8/oauth/access_token';
-					$resourceownerdetailsurl = 'https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link&access_token=';
-				} else if($appname=="google"){
-					$authorizeurl = "https://accounts.google.com/o/oauth2/auth";
-					$accesstokenurl = "https://www.googleapis.com/oauth2/v3/token";
-					//private static final String VERIFY_TOKEN_ENDPOINT = "https://www.googleapis.com/oauth2/v1/tokeninfo?id_token=";
-					//private static final String GET_USER_INFO_ENDPOINT = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=";
-					$resourceownerdetailsurl = "https://www.googleapis.com/plus/v1/people/me";
-				}  else if($appname=="windows"){
-					$authorizeurl = "https://login.live.com/oauth20_authorize.srf";
-					$accesstokenurl = "https://login.live.com/oauth20_token.srf";
-					$resourceownerdetailsurl = "https://apis.live.net/v5.0/me";
-				} else if($appname=="eveonline"){
-					update_option( 'mo_oauth_eveonline_enable', 1);
-					update_option( 'mo_oauth_eveonline_client_id', $clientid);
-					update_option( 'mo_oauth_eveonline_client_secret', $clientsecret);
-					if(get_option('mo_oauth_eveonline_client_id') && get_option('mo_oauth_eveonline_client_secret')) {
-						$customer = new Customer();
-						$message = $customer->add_oauth_application('eveonline', 'EVE Online OAuth');
-						if($message == 'Application Created') {
-							update_option('message', 'Your settings were saved. Go to Advanced EVE Online Settings for configuring restrictions on user sign in.');
-							$this->mo_oauth_show_success_message();
-						} else {
-							update_option('message', $message);
-							$this->mo_oauth_show_error_message();
-						}
-					}
-					$authorizeurl = "";
-					$accesstokenurl = "";
-					$resourceownerdetailsurl = "";
-				} else {
-					$authorizeurl = stripslashes($_POST['mo_oauth_authorizeurl']);
-					$accesstokenurl = stripslashes($_POST['mo_oauth_accesstokenurl']);
-					$appname = stripslashes( $_POST['mo_oauth_custom_app_name'] );
-					//$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
-					//$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
-				}
+
+				$authorizeurl = stripslashes($_POST['mo_oauth_authorizeurl']);
+				$accesstokenurl = stripslashes($_POST['mo_oauth_accesstokenurl']);
+				$appname = stripslashes( $_POST['mo_oauth_custom_app_name'] );
+				//$email_attr = stripslashes( $_POST['mo_oauth_email_attr'] );
+				//$name_attr = stripslashes( $_POST['mo_oauth_name_attr'] );
 
 				$newapp['authorizeurl'] = $authorizeurl;
 				$newapp['accesstokenurl'] = $accesstokenurl;
@@ -426,7 +320,7 @@ class mo_oauth {
 				} else {
 					$newapp['apptype'] = stripslashes( 'oauth' );
 				}
-				
+
 				if($newapp['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
 					$resourceownerdetailsurl = stripslashes($_POST['mo_oauth_resourceownerdetailsurl']);
 					if($resourceownerdetailsurl != '') {
@@ -470,9 +364,6 @@ class mo_oauth {
 			foreach($appslist as $key => $currentapp){
 				if($appname == $key){
 					$currentapp['username_attr'] = $username_attr;
-					if(strtolower($currentapp['appId'])==='gapps') {
-						$currentapp['email_attr'] = 'email';
-					}
 					$appslist[$key] = $currentapp;
 					break;
 				}
@@ -483,135 +374,7 @@ class mo_oauth {
 			$this->mo_oauth_show_success_message();
 			wp_redirect('admin.php?page=mo_oauth_settings&tab=attributemapping');
 		}
-		//submit google form
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_google" ) {
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			//validation and sanitization
-			$scope = '';
-			$clientid = '';
-			$clientsecret = '';
-			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_google_scope']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_google_client_id']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_google_client_secret'])) {
-				update_option( 'message', 'Please enter Client ID and Client Secret to save settings.');
-				$this->mo_oauth_show_error_message();
-				return;
-			} else{
-				$scope = stripslashes( $_POST['mo_oauth_google_scope'] );
-				$clientid = stripslashes( $_POST['mo_oauth_google_client_id'] );
-				$clientsecret = stripslashes( $_POST['mo_oauth_google_client_secret'] );
-			}
-
-			if(mo_oauth_is_customer_registered()) {
-				update_option( 'mo_oauth_google_enable', isset( $_POST['mo_oauth_google_enable']) ? $_POST['mo_oauth_google_enable'] : 0);
-				update_option( 'mo_oauth_google_scope', $scope);
-				update_option( 'mo_oauth_google_client_id', $clientid);
-				update_option( 'mo_oauth_google_client_secret', $clientsecret);
-				if(get_option('mo_oauth_google_client_id') && get_option('mo_oauth_google_client_secret')) {
-					$customer = new Customer();
-					$message = $customer->add_oauth_application( 'google', 'Google OAuth' );
-					if($message == 'Application Created') {
-						update_option( 'message', 'Your settings were saved' );
-						$this->mo_oauth_show_success_message();
-					} else {
-						update_option( 'message', $message );
-						$this->mo_oauth_show_error_message();
-					}
-				} else {
-					update_option( 'message', 'Please enter Client ID and Client Secret to save settings');
-					update_option( 'mo_oauth_google_enable', false);
-					$this->mo_oauth_show_error_message();
-				}
-			} else {
-				update_option('message', 'Please register customer before trying to save other configurations');
-				$this->mo_oauth_show_error_message();
-			}
-		}
-		//submit eveonline form
-		else if(isset($_POST['option']) and $_POST['option'] == "mo_oauth_eveonline"){
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			//validation and sanitization
-			$clientid = '';
-			$clientsecret = '';
-			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_eveonline_client_secret']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_eveonline_client_secret'])) {
-				update_option( 'message', 'Please enter Client ID and Client Secret to save settings.');
-				$this->mo_oauth_show_error_message();
-				return;
-			} else{
-				$clientid = stripslashes($_POST['mo_oauth_eveonline_client_id']);
-				$clientsecret = stripslashes($_POST['mo_oauth_eveonline_client_secret']);
-			}
-
-			if(mo_oauth_is_customer_registered()) {
-				update_option( 'mo_oauth_eveonline_enable', isset($_POST['mo_oauth_eveonline_enable']) ? $_POST['mo_oauth_eveonline_enable'] : 0);
-				update_option( 'mo_oauth_eveonline_client_id', $clientid);
-				update_option( 'mo_oauth_eveonline_client_secret', $clientsecret);
-				if(get_option('mo_oauth_eveonline_client_id') && get_option('mo_oauth_eveonline_client_secret')) {
-					$customer = new Customer();
-					$message = $customer->add_oauth_application('eveonline', 'EVE Online OAuth');
-					if($message == 'Application Created') {
-						update_option('message', 'Your settings were saved. Go to Advanced EVE Online Settings for configuring restrictions on user sign in.');
-						$this->mo_oauth_show_success_message();
-					} else {
-						update_option('message', $message);
-						$this->mo_oauth_show_error_message();
-					}
-				} else {
-					update_option( 'message', 'Please enter Client ID and Client Secret to save settings');
-					update_option( 'mo_oauth_eveonline_enable', false);
-					$this->mo_oauth_show_error_message();
-				}
-			} else {
-				update_option('message', 'Please register customer before trying to save other configurations');
-				$this->mo_oauth_show_error_message();
-			}
-		}
-		// submit facebook app
-		else if( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_facebook" ) {
-			if( mo_oauth_is_curl_installed() == 0 ) {
-				return $this->mo_oauth_show_curl_error();
-			}
-			//validation and sanitization
-			$scope = '';
-			$clientid = '';
-			$clientsecret = '';
-			if($this->mo_oauth_check_empty_or_null($_POST['mo_oauth_facebook_scope']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_facebook_client_id']) || $this->mo_oauth_check_empty_or_null($_POST['mo_oauth_facebook_client_secret'])) {
-				update_option( 'message', 'Please enter Client ID and Client Secret to save settings.');
-				$this->mo_oauth_show_error_message();
-				return;
-			} else{
-				$scope = stripslashes( $_POST['mo_oauth_facebook_scope'] );
-				$clientid = stripslashes( $_POST['mo_oauth_facebook_client_id'] );
-				$clientsecret = stripslashes( $_POST['mo_oauth_facebook_client_secret'] );
-			}
-
-			if(mo_oauth_is_customer_registered()) {
-				update_option( 'mo_oauth_facebook_enable', isset( $_POST['mo_oauth_facebook_enable']) ? $_POST['mo_oauth_facebook_enable'] : 0);
-				update_option( 'mo_oauth_facebook_scope', $scope);
-				update_option( 'mo_oauth_facebook_client_id', $clientid);
-				update_option( 'mo_oauth_facebook_client_secret', $clientsecret);
-				if(get_option('mo_oauth_facebook_client_id') && get_option('mo_oauth_facebook_client_secret')) {
-					$customer = new Customer();
-					$message = $customer->add_oauth_application( 'facebook', 'Facebook OAuth' );
-					if($message == 'Application Created') {
-						update_option( 'message', 'Your settings were saved' );
-						$this->mo_oauth_show_success_message();
-					} else {
-						update_option( 'message', $message );
-						$this->mo_oauth_show_error_message();
-					}
-				} else {
-					update_option( 'message', 'Please enter Client ID and Client Secret to save settings');
-					update_option( 'mo_oauth_google_enable', false);
-					$this->mo_oauth_show_error_message();
-				}
-			} else {
-				update_option('message', 'Please register customer before trying to save other configurations');
-				$this->mo_oauth_show_error_message();
-			}
-		}
+		
 		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_contact_us_query_option" ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
@@ -620,6 +383,7 @@ class mo_oauth {
 			$email = $_POST['mo_oauth_contact_us_email'];
 			$phone = $_POST['mo_oauth_contact_us_phone'];
 			$query = $_POST['mo_oauth_contact_us_query'];
+			$send_config = isset( $_POST['mo_oauth_send_plugin_config'] );
 			$customer = new Customer();
 			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $query ) ) {
 				update_option('message', 'Please fill up Email and Query fields to submit your query.');
@@ -628,7 +392,7 @@ class mo_oauth {
 				// $submited = json_decode( $customer->mo_oauth_send_email_alert( $email, $phone, $query, "Query for WP OAuth Single Sign On - ".$email ), true );
 				// update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
 				// $this->mo_oauth_show_success_message();
-				$submited = $customer->submit_contact_us( $email, $phone, $query );
+				$submited = $customer->submit_contact_us( $email, $phone, $query, $send_config );
 				if ( $submited == false ) {
 					update_option('message', 'Your query could not be submitted. Please try again.');
 					$this->mo_oauth_show_error_message();
@@ -637,9 +401,7 @@ class mo_oauth {
 					$this->mo_oauth_show_success_message();
 				}
 			}
-		}
-		
-		elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" && isset($_REQUEST['mo_oauth_client_demo_request_field']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['mo_oauth_client_demo_request_field'])), 'mo_oauth_client_demo_request_form') ) {
+		} elseif( isset( $_POST['option'] ) and $_POST['option'] == "mo_oauth_client_demo_request_form" && isset($_REQUEST['mo_oauth_client_demo_request_field']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_REQUEST['mo_oauth_client_demo_request_field'])), 'mo_oauth_client_demo_request_form') ) {
 			if( mo_oauth_is_curl_installed() == 0 ) {
 				return $this->mo_oauth_show_curl_error();
 			}
@@ -647,7 +409,7 @@ class mo_oauth {
 			$email = $_POST['mo_auto_create_demosite_email'];
 			$demo_plan = $_POST['mo_auto_create_demosite_demo_plan'];
 			$query = $_POST['mo_auto_create_demosite_usecase'];
-	
+
 			if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $demo_plan ) || $this->mo_oauth_check_empty_or_null($query) ) {
 				update_option('message', 'Please fill up Usecase, Email field and Requested demo plan to submit your query.');
 				$this->mo_oauth_show_error_message();
@@ -670,9 +432,9 @@ class mo_oauth {
 					'headers' => $headers,
 
 				);
-				
+
 				$response = wp_remote_post( $url, $args );
-				
+
 				if ( is_wp_error( $response ) ) {
 					$error_message = $response->get_error_message();
 					echo "Something went wrong: $error_message";
@@ -744,7 +506,7 @@ class mo_oauth {
 
 				$customer = new Customer();
 				$content = json_decode($customer->mo_oauth_forgot_password($email), true);
-				
+
 				if (strcasecmp($content ['status'], 'SUCCESS') == 0) {
 					update_option('message', 'Your password has been reset successfully. Please enter the new password sent to ' . $email . '.');
 					$this->mo_oauth_show_success_message();
@@ -775,7 +537,7 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 			}
 		}
-		
+
 		else if ( isset( $_POST['option'] ) and $_POST['option'] == 'mo_oauth_client_skip_feedback' ) {
 			deactivate_plugins( __FILE__ );
 			update_option( 'message', 'Plugin deactivated successfully' );
@@ -807,7 +569,7 @@ class mo_oauth {
 				$this->mo_oauth_show_error_message();
 			}
 		}
-				
+
 
 	}
 
@@ -872,40 +634,28 @@ class mo_oauth {
 		return $mowidget->mo_oauth_login_form();
 	}
 
-}
-
-	function mo_oauth_my_show_extra_profile_fields($user) {
-		?>
-		<h3>Extra profile information</h3>
-		<table class="form-table">
-			<tr>
-				<th><label for="characterName">Character Name</label></th>
-				<td>
-					<input type="text" id="characterName" disabled="true" value="<?php echo get_user_meta( $user->ID, 'user_eveonline_character_name', true ); ?>" class="regular-text" /><br />
-				</td>
-				<td rowspan="3"><?php echo mo_oauth_avatar_manager_get_custom_avatar( $user->ID, '128' ); ?></td>
-			</tr>
-			<tr>
-				<th><label for="corporation">Corporation Name</label></th>
-				<td>
-					<input type="text" id="corporation" disabled="true" value="<?php echo get_user_meta( $user->ID, 'user_eveonline_corporation_name', true ); ?>" class="regular-text" /><br />
-				</td>
-			</tr>
-			<tr>
-				<th><label for="alliance">Alliance Name</label></th>
-				<td>
-					<input type="text" id="alliance" disabled="true" value="<?php echo get_user_meta( $user->ID, 'user_eveonline_alliance_name', true ); ?>" class="regular-text" /><br />
-				</td>
-			</tr>
-		</table>
-	<?php
+	function export_plugin_config( $share_with = false ) {
+		$appslist = get_option('mo_oauth_apps_list');
+		$currentapp_config = null;
+		if ( is_array( $appslist ) ) {
+			foreach( $appslist as $key => $value ) {
+				$currentapp_config = $value;
+				break;
+			}
+		}
+		if ( $share_with ) {
+			unset( $currentapp_config['clientid'] );
+			unset( $currentapp_config['clientsecret'] );
+		}
+		return $currentapp_config;
 	}
+
+}
 
 	function mo_oauth_is_customer_registered() {
 		$email 			= get_option('mo_oauth_admin_email');
-		$phone 			= get_option('mo_oauth_admin_phone');
 		$customerKey 	= get_option('mo_oauth_admin_customer_key');
-		if( ! $email || ! $phone || ! $customerKey || ! is_numeric( trim( $customerKey ) ) ) {
+		if( ! $email || ! $customerKey || ! is_numeric( trim( $customerKey ) ) ) {
 			return 0;
 		} else {
 			return 1;

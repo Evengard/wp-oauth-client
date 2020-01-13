@@ -6,49 +6,51 @@ require('apps/class-mo-oauth-client-apps.php');
 require('licensing/class-mo-oauth-client-license.php');
 require('guides/class-mo-oauth-client-guides.php');
 require('support/class-mo-oauth-client-support.php');
+require('guides/class-mo-oauth-client-attribute-mapping.php');
 require('reports/class-mo-oauth-client-reports.php');
 require('demo/class-mo-oauth-client-demo.php');
 require('faq/class-mo-oauth-client-faq.php');
 require('addons/class-mo-oauth-client-addons.php');
 
 function mo_oauth_client_plugin_settings_style($hook) {
-		if($hook != 'toplevel_page_mo_oauth_settings') {
-                return;
-        }
-		wp_enqueue_style( 'mo_oauth_admin_style', plugin_dir_url( dirname(__FILE__) ) . 'css/admin.css' );
-		wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' );
-		wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
-		wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
+	if($hook != 'toplevel_page_mo_oauth_settings') {
+		return;
+	}
+	wp_enqueue_style( 'mo_oauth_admin_style', plugin_dir_url( dirname(__FILE__) ) . 'css/admin.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
 }
+
 function mo_oauth_client_plugin_settings_script($hook) {
-		if($hook != 'toplevel_page_mo_oauth_settings') {
-                return;
-        }
-		wp_enqueue_script( 'mo_oauth_admin_script', plugin_dir_url( dirname(__FILE__) ) . 'js/admin.js' );
-		wp_enqueue_script( 'mo_oauth_admin_settings_script', plugin_dir_url( dirname(__FILE__) ) . 'js/settings.js' );
-		wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugin_dir_url( dirname(__FILE__) ) . 'js/phone.js' );
-		wp_enqueue_script( 'mo_oauth_admin_settings_datatable_script', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery.dataTables.min.js' );
+	if($hook != 'toplevel_page_mo_oauth_settings') {
+		return;
+	}
+	wp_enqueue_script( 'mo_oauth_admin_script', plugin_dir_url( dirname(__FILE__) ) . 'js/admin.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_script', plugin_dir_url( dirname(__FILE__) ) . 'js/settings.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugin_dir_url( dirname(__FILE__) ) . 'js/phone.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_datatable_script', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery.dataTables.min.js' );
 }
 
 function mo_oauth_client_main_menu() {
 	$currenttab = "";
 	if(isset($_GET['tab']))
 		$currenttab = $_GET['tab'];
-	
-	Mo_OAuth_Client_Admin_Utils::curl_extension_check();	
+
+	Mo_OAuth_Client_Admin_Utils::curl_extension_check();
 	Mo_OAuth_Client_Admin_Menu::show_menu($currenttab);
 	echo '<div id="mo_oauth_settings">';
 		Mo_OAuth_Client_Admin_Menu::show_idp_link($currenttab);
 		echo '
 		<div class="miniorange_container">';
-		
+
 		echo '<table style="width:100%;">
 			<tr>
 				<td style="vertical-align:top;width:65%;" class="mo_oauth_content">';
-			
-		
+
+
 				Mo_OAuth_Client_Admin_Menu::show_tab($currenttab);
-				
+
 				Mo_OAuth_Client_Admin_Menu::show_support_sidebar($currenttab);
 				echo '</tr>
 				</table>
@@ -57,18 +59,10 @@ function mo_oauth_client_main_menu() {
 }
 
 
-function mo_eve_online_config() {
-	$currenttab = "";
-	if(isset($_GET['tab']))
-		$currenttab = $_GET['tab'];
-	Mo_OAuth_Client_Admin_Menu::show_menu($currenttab);
-	Mo_OAuth_Client_Admin_Apps::eve_settings();
-}
-
 function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_admin_customer_key') > 138200)return true;else return false;}
 
 class Mo_OAuth_Client_Admin_Menu {
-	
+
 	public static function show_menu($currenttab) {
 		?> <div class="wrap">
 			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
@@ -78,14 +72,24 @@ class Mo_OAuth_Client_Admin_Menu {
 
                 miniOrange OAuth Single Sign On&nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
-                <a class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
-                <a class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
+                <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
+                <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
+                <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank">Feature Details</a>
 
 			</h1>
 			<?php if ( 'licensing' === $currenttab ) { ?>
 				<div id="moc-lp-imp-btns" style="float:right;">
 					<a class="btn btn-outline-danger" target="_blank" href="https://plugins.miniorange.com/wordpress-oauth-client">Full Feature List</a>&emsp;<a class="btn btn-outline-primary" onclick="getlicensekeys()" href="#">Get License Keys</a>
 				</div>
+			<?php } else { ?>
+				<div class="buts" style="float:right;">
+					<div id="restart_tour_button" class="mo-otp-help-button static" style="margin-right:10px;z-index:10">
+							<a class="button button-primary button-large">
+								<span class="dashicons dashicons-controls-repeat" style="margin:5% 0 0 0;"></span>
+									Restart Tour
+							</a>
+					</div>
+			</div>
 			<?php } ?>
         </div>
         <style>
@@ -96,24 +100,23 @@ class Mo_OAuth_Client_Admin_Menu {
         </style>
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
-			<a class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
-			<?php if(get_option('mo_oauth_eveonline_enable') == 1 ){?><a class="nav-tab <?php if($currenttab == 'mo_oauth_eve_online_setup') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_eve_online_setup">Advanced EVE Online Settings</a><?php } ?>
-			<a class="nav-tab <?php if($currenttab == 'attributemapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=attributemapping">Attribute/Role Mapping</a>
-			<a class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Login Settings</a>
-			<a class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Login Button Customization</a>
-			<a class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo">Request For Demo</a>	
+			<a id="tab-config" class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
+			<a id="tab-attrmapping" class="nav-tab <?php if($currenttab == 'attributemapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=attributemapping">Attribute/Role Mapping</a>
+			<a id="tab-signinsettings" class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Login Settings</a>
+			<a id="tab-customization" class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Login Button Customization</a>
+			<a id="tab-requestdemo" class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo">Request For Demo</a>
 			<!-- <a class="nav-tab <?php //if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>	 -->
-			<a class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
-            <a class="nav-tab <?php if($currenttab == 'addons') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=addons">Add-ons</a>
+			<a id="tab-acc-setup" class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
+            <a id="tab-addons" class="nav-tab <?php if($currenttab == 'addons') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=addons">Add-ons</a>
 			<!-- <a class="nav-tab <?php //if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> -->
 		</h2>
-		</div> 
+		</div>
 		<?php
-	
+
 	}
 
 
-	public static function show_idp_link($currenttab) { 
+	public static function show_idp_link($currenttab) {
 	if ((! get_option( 'mo_oauth_client_show_mo_server_message' )) ) {
             ?>
             <form name="f" method="post" action="" id="mo_oauth_client_mo_server_form">
@@ -133,7 +136,7 @@ class Mo_OAuth_Client_Admin_Menu {
         }
 	}
 
-	public static function show_tab($currenttab) { 
+	public static function show_tab($currenttab) {
 			if($currenttab == 'account') {
 				if (get_option ( 'verify_customer' ) == 'true') {
 					Mo_OAuth_Client_Admin_Account::verify_password();
@@ -150,14 +153,14 @@ class Mo_OAuth_Client_Admin_Menu {
 				Mo_OAuth_Client_Admin_Apps::sign_in_settings();
 			else if($currenttab == 'licensing')
 				Mo_OAuth_Client_Admin_Licensing::show_licensing_page();
-			else if($currenttab == 'requestfordemo') 
-    			Mo_OAuth_Client_Admin_RFD::requestfordemo(); 
-			else if($currenttab == 'faq') 
-    			Mo_OAuth_Client_Admin_Faq::faq(); 
-            else if($currenttab == 'addons') 
+			else if($currenttab == 'requestfordemo')
+    			Mo_OAuth_Client_Admin_RFD::requestfordemo();
+			else if($currenttab == 'faq')
+    			Mo_OAuth_Client_Admin_Faq::faq();
+            else if($currenttab == 'addons')
 				Mo_OAuth_Client_Admin_Addons::addons();
-			else if($currenttab == 'attributemapping') 
-				Mo_OAuth_Client_Admin_Apps::attribute_role_mapping(); 
+			else if($currenttab == 'attributemapping')
+				Mo_OAuth_Client_Admin_Apps::attribute_role_mapping();
 			else if($currenttab == '') {
 					?>
 						<a id="goregister" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'config' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">
@@ -171,15 +174,18 @@ class Mo_OAuth_Client_Admin_Menu {
 			}
 		//}
 	}
-	
-	public static function show_support_sidebar($currenttab) { 
-		if($currenttab != 'licensing') { 
+
+	public static function show_support_sidebar($currenttab) {
+		if($currenttab != 'licensing') {
 			echo '<td style="vertical-align:top;padding-left:1%;" class="mo_oauth_sidebar">';
+			if ( 'attributemapping' === $currenttab ) {
+				echo Mo_OAuth_Client_Admin_Attribute_Mapping::emit_attribute_table();
+			}
 			echo Mo_OAuth_Client_Admin_Support::support();
 			echo '</td>';
 		}
 	}
-		
+
 }
 
 ?>

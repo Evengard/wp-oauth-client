@@ -3,7 +3,6 @@
 
 require('partials/sign-in-settings.php');
 require('partials/customization.php');
-require('partials/eveonline.php');
 require('partials/addapp.php');
 require('partials/updateapp.php');
 require('partials/app-list.php');
@@ -21,10 +20,6 @@ class Mo_OAuth_Client_Admin_Apps {
 	
 	public static function applist() {
 		applist_page();
-	}
-	
-	public static function eve_settings() {
-		show_eve_settings();
 	}
 	
 	public static function add_app() {

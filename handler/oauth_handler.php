@@ -17,6 +17,7 @@ class Mo_OAuth_Hanlder {
 
 	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
 		
+		$clientsecret = html_entity_decode( $clientsecret );
 		$body = array(
 				'grant_type'    => $grant_type,
 				'code'          => $code,
@@ -108,14 +109,13 @@ class Mo_OAuth_Hanlder {
 		) );
 
 		$response =  $response['body'] ;
-		$find = array("\u0040", "\u005F", "\u002E", "\u002D", "\u005C", "\u0020");
-		$replace = array("@", "_", ".", "-", "\\", " ");
-		$response = str_replace($find, $replace, $response);
-		$response = addcslashes($response, '\\');
 
 		if(!is_array(json_decode($response, true))){
+			$response = addcslashes($response, '\\');
+			if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
 			exit("Invalid response received.");
+			}
 		}
 		
 		$content = json_decode($response,true);

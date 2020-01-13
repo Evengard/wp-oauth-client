@@ -22,8 +22,19 @@ function applist_page() {
 	<?php
 
 		if(isset($_GET['action']) && $_GET['action']=='delete'){
-			if(isset($_GET['app']))
+			if(isset($_GET['app'])) {
 				delete_app($_GET['app']);
+				if ($_GET['app'] === "CognitoApp") {
+					?>
+					<script>
+						let url = window.location.href;
+						url = url.split("&action=delete&app=CognitoApp")[0];
+						window.location.replace(url);
+					</script>
+					<?php
+					exit();
+				}
+			}
 		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
 			if(isset($_GET['appId'])){
 				Mo_OAuth_Client_Admin_Guides::instructions($_GET['appId']);
@@ -68,22 +79,22 @@ function applist_page() {
 		 } ?>
 		</div>
 	<?php
-	if(get_option('mo_oauth_eveonline_enable'))
-		show_config_old();
 }
 
 
 
 	function delete_app($appname){
 		$appslist = get_option('mo_oauth_apps_list');
+		if(! is_array($appslist) || empty($appslist)) {
+			return;
+		}
 		foreach($appslist as $key => $app){
-			if($appname == $key){		
+			if($appname == $key){
 				if( $appslist[$appname]['appId'] == 'wso2' )
 					delete_option( 'mo_oauth_client_custom_token_endpoint_no_csecret' );
 				unset($appslist[$key]);
 				delete_option( 'mo_oauth_client_disable_authorization_header' );
-				if($appname=="eveonline")
-					update_option( 'mo_oauth_eveonline_enable', 0);
+				delete_option( 'mo_oauth_attr_name_list' );
 				delete_option('mo_oauth_apps_list');
 			}
 		}

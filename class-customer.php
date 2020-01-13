@@ -1,22 +1,22 @@
 <?php
-	/** miniOrange enables user to log in through OAuth to apps such as Cognito, Azure, Google, EVE Online etc.
-	    Copyright (C) 2015  miniOrange
+/** miniOrange enables user to log in through OAuth to apps such as Cognito, Azure, Google, EVE Online etc.
+    Copyright (C) 2015  miniOrange
 
-		Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-		The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		
 	* @package 		miniOrange OAuth
 	* @license		https://docs.miniorange.com/mit-license MIT/Expat
-	*/
+*/
 
-	/**
+/**
 	This library is miniOrange Authentication Service. 
 	Contains Request Calls to Customer service.
 
-	**/
+**/
 class Customer {
 	
 	public $email;
@@ -167,10 +167,19 @@ class Customer {
         return $header;
     }	
 
-    function submit_contact_us( $email, $phone, $query ) {
+    function submit_contact_us( $email, $phone, $query, $send_config = true ) {
 		global $current_user;
 		wp_get_current_user();
-		$query = '[WP OAuth Single Sign On Free Plugin] ' . $query;
+		
+		$mo_oauth = new mo_oauth();
+		$plugin_config          = $mo_oauth->export_plugin_config( true );
+		$config_to_send         = json_encode( $plugin_config, JSON_UNESCAPED_SLASHES );
+		$plugin_version         = get_plugin_data( __DIR__ . DIRECTORY_SEPARATOR . 'mo_oauth_settings.php' )['Version'];
+
+		$query = '[WP OAuth Single Sign On ' . $plugin_version . '] ' . $query;
+		if( $send_config ) {
+			$query .= "<br><br>Config String:<br><pre style=\"border:1px solid #444;padding:10px;\"><code>" . $config_to_send . "</code></pre>";
+		}
 		$fields = array(
 			'firstName'			=> $current_user->user_firstname,
 			'lastName'	 		=> $current_user->user_lastname,
@@ -180,7 +189,7 @@ class Customer {
 			'phone'				=> $phone,
 			'query'				=> $query
 		);
-		$field_string = json_encode( $fields );
+		$field_string = json_encode( $fields, JSON_UNESCAPED_SLASHES );
 		
 		$url = get_option('host_name') . '/moas/rest/customer/contact-us';
 

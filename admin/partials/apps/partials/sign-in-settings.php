@@ -2,8 +2,8 @@
 
  function sign_in_settings_ui(){
 	?>
-	<div class="mo_table_layout">
-		<h2>Sign in options</h2> 
+	<div id="wid-shortcode" class="mo_table_layout">
+		<div style="padding:15px 0px 5px;"><h2 style="display: inline;">Sign in options</h2><span style="float: right;">[ <a href="https://developers.miniorange.com/docs/oauth/wordpress/client/login-options" target="_blank">Click here</a> to know how this is useful. ]</span></div>
 		<h4>Option 1: Use a Widget</h4>
 		<ol>
 			<li>Go to Appearances > Widgets.</li>
@@ -15,14 +15,14 @@
 			<li>Place shortcode <b>[mo_oauth_login]</b> in wordpress pages or posts.</li>
 		</ul>
 	</div>
-	
-	<!--div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature. 
+
+	<!--div class="mo_oauth_premium_option_text"><span style="color:red;">*</span>This is a premium feature.
 		<a href="admin.php?page=mo_oauth_settings&tab=licensing">Click Here</a> to see our full list of Premium Features.</div-->
-	<div class="mo_table_layout ">
-		<h3>Advanced Settings </h3>
+	<div id="advanced_settings_sso" class="mo_table_layout ">
+		<div style="padding:15px 0px 10px;"><h3 style="display: inline;">Advanced Settings </h3><span style="float: right;">[ <a href="https://developers.miniorange.com/docs/oauth/wordpress/client/forced-authentication" target="_blank">Click here</a> to know how this is useful. ]</span></div>
 		<!--br><br-->
 		<ul class="mo_premium_features_notice">
-			<li>Custom redirect URL is available in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Standard</a> version and above.</li>
+			<li>Custom redirect URL, Logging Out Confirmation, Allow Restricted Domains are available in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Standard</a> version and above.</li>
 			<li>Dynamic Callback URL, Single Login Flow and User Analytics are available in the <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Enterprise</a> version.</li>
 			<li>Other features are available in the <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Premium</a> version and above.</li>
 		</ul>
@@ -30,9 +30,13 @@
 		<br>
 		<input disabled="true" type="checkbox"><strong> Restrict site to logged in users</strong> ( Users will be auto redirected to OAuth login if not logged in )
 		<p><input disabled="true" type="checkbox"><strong> Open login window in Popup</strong></p>
-		
+
 		<p><input checked disabled="true" type="checkbox"> <strong> Auto register Users </strong>(If unchecked, only existing users will be able to log-in)</p>
+		<p><input disabled="true" type="checkbox"> <strong> Keep Existing Users </strong>If checked, existing users' attributes will <strong>NOT</strong> be overwritten when they log-in)</p>
+		<p><input disabled="true" type="checkbox"> <strong> Allow WordPress Users to Login with OAuth </strong>(If checked, users will be <strong>ALLOWED</strong> to log-in with their OAuth Provider's credentials)</p>
+		<p><input disabled="true" type="checkbox"> <strong> Confirm when logging out </strong>(If checked, users will be <strong>ASKED</strong> to confirm if they want to log-out, when they click the widget/shortcode logout button)</p>
 		<p><input disabled type="checkbox"><b> Enable User Analytics </b></p>
+		<p><input disabled="true" type="checkbox"> <strong> Allow Restricted Domains </strong>(By default, all domains in <strong>Restricted Domains</strong> field will be restricted. This option will invert this feature by allowing ONLY these domains)</p>
 
 		<table class="mo_oauth_client_mapping_table" style="width:90%">
 			<tbody>
@@ -59,7 +63,7 @@
 			<tr></tr><tr>
 				<td><input disabled type="checkbox"><font style="font-size:13px;font-weight:bold;"> Enable Single Login Flow </font></small></td>
 			</tr>
-			<tr><td>&nbsp;</td></tr>				
+			<tr><td>&nbsp;</td></tr>
 			<tr>
 				<td><input disabled="true" type="submit" class="button button-primary button-large" value="Save Settings"></td>
 				<td>&nbsp;</td>
@@ -67,6 +71,6 @@
 		</tbody></table>
 	</form>
 	</div>
-		
+
 	<?php
 }

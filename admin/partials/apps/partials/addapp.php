@@ -1,20 +1,20 @@
-<?php 
+<?php
 
 	require('defaultapps.php');
 	require('grant-settings.php');
-	
+
 	function add_app_page(){
 		$appslist = get_option('mo_oauth_apps_list');
 		if(is_array($appslist) && sizeof($appslist)>0) {
 			echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>You can only add 1 application with free version. Upgrade to <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>enterprise</b></a> to add more.</p>";
 			exit;
-		}		
-	?>	
+		}
+	?>
 	<div id="toggle2" class="mo_panel_toggle">
 		<table class="mo_settings_table">
 			<tr>
 				<td><h3>Add Application</h3></td>
-				<?php 
+				<?php
 					if(isset($_GET['appId'])) {
 						$currentAppId = $_GET['appId'];
 						if(isset($_GET['action']) && ($_GET['action'] == 'instructions')) {
@@ -23,11 +23,11 @@
 						} else {
 							echo "
 							<td align=\"right\"><a href=\"admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".$currentAppId."\"><div id='mo_oauth_config_guide' style=\"display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px\">How to Configure?</div></a></td>
-							";							
+							";
 						}
 					} else { ?>
 						<td align="right"><span style="position: relative; float: right;padding-left: 13px;padding-right:13px;background-color:white;border-radius:4px;">
-							<button type="button" id="restart_tour_id" class="button button-primary button-large" onclick="jQuery('#show_pointers').submit();"><i class="fa fa-refresh"></i>Restart Tour</button>
+							&nbsp;
 						</span></td> <?php
 					}
 
@@ -38,13 +38,13 @@
         	<input type="hidden" name="option" value="clear_pointers"/>
 		</form>
 	</div>
-		
+
 	<?php
 		// Select from default apps
 		if(!isset($_GET['appId'])) {
 			mo_oauth_client_show_default_apps();
 		} else {
-			
+
 			$currentAppId = $_GET['appId'];
 			$currentapp = mo_oauth_client_get_app($currentAppId);
 	?>
@@ -75,18 +75,24 @@
 				<td><strong>SSO Protocol:</strong><br>&emsp;<font color="#FF0000"></font></td>
 				<td><input disabled class="mo_table_textbox" type="text" id="mo_oauth_sso_protocol" name="mo_oauth_sso_protocol" value="<?php echo $currentapp->type;?>"></td>
 			</tr>
+		</table>
+		<table class="mo_settings_table" id="mo_oauth_client_creds">
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value=""></td>
+				<td><input id="mo_oauth_client_id" class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value=""></td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text"  name="mo_oauth_client_secret" value=""></td>
+				<td><input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="text"  name="mo_oauth_client_secret" value=""></td>
 			</tr>
+		</table>
+		<table class="mo_settings_table">
 			<tr>
 				<td><strong>Scope:</strong></td>
 				<td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php if(isset($currentapp->scope)) echo $currentapp->scope;?>"></td>
 			</tr>
+		</table>
+		<table class="mo_settings_table" id="mo_oauth_client_endpoints">
 			<tr id="mo_oauth_authorizeurl_div">
 				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" required type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php if(isset($currentapp->authorize)) echo $currentapp->authorize;?>"></td>
@@ -113,14 +119,16 @@
 				<td><br></td>
 				<td><br></td>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td><input type="submit" name="submit" value="Save settings"
-					class="button button-primary button-large" /></td>
-			</tr>
+			</table>
+			<table class="mo_settings_table">
+				<tr>
+					<td>&nbsp;</td>
+					<td><input id="mo_save_app" type="submit" name="submit" value="Save settings"
+						class="button button-primary button-large" /></td>
+				</tr>
 			</table>
 		</form>
-		
+
 		<div id="instructions">
 
 		</div>

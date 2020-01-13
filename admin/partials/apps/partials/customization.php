@@ -6,7 +6,9 @@
 	<div id="mo_oauth_customiztion" class="mo_table_layout">
 	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
 		</form>
-		<h2>Customize Icons <small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></h2>
+		<div style="padding:15px 0px 15px;"><h2 style="display: inline;">Customize Icons <small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></h2><span style="float: right;">[
+		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/login-button-customization" target="_blank">Click here</a> to know how this is useful. ]</span></div>
+	
 		<table class="mo_settings_table">
 			<tr>
 				<td><strong>Icon Width:</strong></td>
