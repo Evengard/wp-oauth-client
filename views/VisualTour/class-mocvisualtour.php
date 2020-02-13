@@ -62,23 +62,23 @@ class MOCVisualTour {
 	public function update_tour_taken() {
 		$this->validate_ajax_request();
 		if ( isset( $_POST['overallDone'] ) ) {
-			update_option( 'moc_tourTaken_overall', $_POST['overallDone'] );
+			update_option( 'moc_tourTaken_overall', sanitize_text_field( wp_unslash( $_POST['overallDone'] ) ) );
 			die();
 		}
 		if ( isset( $_POST['noShowRocket'] ) ) {
-			update_option( 'moc_tourTaken_noShowRocket', $_POST['noShowRocket'] );
+			update_option( 'moc_tourTaken_noShowRocket', sanitize_text_field( wp_unslash( $_POST['noShowRocket'] )));
 			die();
 		}
 		if ( isset( $_POST['skipTour'] ) ) {
 			$this->skipTourMovie();
 		}
-		update_option( 'tourTaken_' . $_POST['pageID'], $_POST['doneTour'] );
-		update_option( 'tourTaken_first_' . $_POST['pageID'], $_POST['doneTour'] );
+		update_option( 'tourTaken_' . sanitize_text_field( wp_unslash( $_POST['pageID'])), sanitize_text_field( wp_unslash( $_POST['doneTour'] )) );
+		update_option( 'tourTaken_first_' . sanitize_text_field( wp_unslash( $_POST['pageID'])), sanitize_text_field( wp_unslash( $_POST['doneTour'])) );
 		if ( isset( $_POST['tourNum'] ) && intval( $_POST['tourNum'] ) === 2 ) {
-			update_option( 'tourTaken_second_' . $_POST['pageID'], $_POST['doneTour'] );
+			update_option( 'tourTaken_second_' . sanitize_text_field( wp_unslash( $_POST['pageID'] ) ), sanitize_text_field( wp_unslash( $_POST['doneTour'] )) );
 		}
 		if ( isset( $_POST['tconfDone'] ) ) {
-			update_option( 'tourTaken_tconf_shown', $_POST['tconfDone'] );
+			update_option( 'tourTaken_tconf_shown', sanitize_text_field( wp_unslash( $_POST['tconfDone'] )) );
 		}
 		update_option( 'moc_tourTaken_first', true );
 		die();

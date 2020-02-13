@@ -22,6 +22,7 @@
 		<div id="mo_oauth_update_app">
 			
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<?php wp_nonce_field('mo_oauth_add_app_form','mo_oauth_add_app_form_field'); ?>
 		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
 			<tr>

@@ -70,7 +70,7 @@ class Mo_OAuth_Client_Admin_Menu {
 		        <div class="wrap">
             <h1>
 
-                miniOrange OAuth Single Sign On&nbsp
+                miniOrange <?php echo MO_OAUTH_PLUGIN_NAME; ?>&nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
                 <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
                 <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
@@ -120,6 +120,7 @@ class Mo_OAuth_Client_Admin_Menu {
 	if ((! get_option( 'mo_oauth_client_show_mo_server_message' )) ) {
             ?>
             <form name="f" method="post" action="" id="mo_oauth_client_mo_server_form">
+            	<?php wp_nonce_field('mo_oauth_mo_server_message_form','mo_oauth_mo_server_message_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
                     <h4>If you are looking for an OAuth Server, you can try out <a href="https://idp.miniorange.com" target="_blank">miniOrange On-Premise OAuth Server</a>.</h4>

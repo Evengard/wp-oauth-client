@@ -1,6 +1,5 @@
 <?php
 
-
 class Mo_OAuth_Client {
 
 	protected $loader;
@@ -10,7 +9,7 @@ class Mo_OAuth_Client {
 	protected $version;
 
 	public function __construct() {
-		$this->plugin_name = 'miniOrange OAuth Client';
+		$this->plugin_name = 'miniOrange '.MO_OAUTH_PLUGIN_NAME;
 		$this->version = '1.0.1';
 		$this->load_dependencies();
 		$this->define_admin_hooks();

@@ -7,7 +7,7 @@
 		<h4>Option 1: Use a Widget</h4>
 		<ol>
 			<li>Go to Appearances > Widgets.</li>
-			<li>Select <b>"miniOrange OAuth"</b>. Drag and drop to your favourite location and save.</li>
+			<li>Select <b>"<?php echo MO_OAUTH_ADMIN_MENU; ?>"</b>. Drag and drop to your favourite location and save.</li>
 		</ol>
 
 		<h4>Option 2: Use a Shortcode <small class=""><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></h4>

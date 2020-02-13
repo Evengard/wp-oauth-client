@@ -1,17 +1,16 @@
 <?php
 
-
 function mo_oauth_client_display_feedback_form() {
-	if ( 'plugins.php' != basename( $_SERVER['PHP_SELF'] ) ) {
-		return;
-	}
-	$deactivate_reasons = array("Does not have the features I'm looking for", "Do not want to upgrade to Premium version", "Confusing Interface",
-		"Bugs in the plugin", "Unable to register", "Endpoints not available", "Other Reasons");
-	wp_enqueue_style( 'wp-pointer' );
-	wp_enqueue_script( 'wp-pointer' );
-	wp_enqueue_script( 'utils' );
+    if ( 'plugins.php' != basename( $_SERVER['PHP_SELF'] ) ) {
+        return;
+    }
+    $deactivate_reasons = array("Does not have the features I'm looking for", "Do not want to upgrade to Premium version", "Confusing Interface",
+        "Bugs in the plugin", "Unable to register", "Endpoints not available", "Other Reasons");
+    wp_enqueue_style( 'wp-pointer' );
+    wp_enqueue_script( 'wp-pointer' );
+    wp_enqueue_script( 'utils' );
     wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'admin/css/style_settings.css');
-	
+    
 ?>
     </head>
     <body>
@@ -20,18 +19,19 @@ function mo_oauth_client_display_feedback_form() {
             <span class="mo_close">&times;</span>
             <h3>Tell us what happened? </h3>
             <form name="f" method="post" action="" id="mo_oauth_client_feedback">
+                <?php wp_nonce_field('mo_oauth_feedback_form','mo_oauth_feedback_form_field'); ?>
                 <input type="hidden" name="mo_oauth_client_feedback" value="true"/>
                 <div>
                     <p style="margin-left:2%">
-				<?php
-					foreach ( $deactivate_reasons as $deactivate_reason ) { ?>
+                <?php
+                    foreach ( $deactivate_reasons as $deactivate_reason ) { ?>
                     <div class="radio" style="padding:1px;margin-left:2%">
                         <label style="font-weight:normal;font-size:14.6px" for="<?php echo $deactivate_reason; ?>">
                             <input type="radio" name="deactivate_reason_radio" value="<?php echo $deactivate_reason; ?>"
                                    required>
-							<?php echo $deactivate_reason; ?></label>
+                            <?php echo $deactivate_reason; ?></label>
                     </div>
-					<?php } ?>
+                    <?php } ?>
                     <br>
                     <textarea id="query_feedback" name="query_feedback" rows="4" style="margin-left:2%;width: 330px"
                               placeholder="Write your query here"></textarea>
@@ -45,12 +45,14 @@ function mo_oauth_client_display_feedback_form() {
                 </div>
             </form>
             <form name="f" method="post" action="" id="mo_feedback_form_close">
+                <?php wp_nonce_field('mo_oauth_skip_feedback_form','mo_oauth_skip_feedback_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_skip_feedback"/>
             </form>
         </div>
     </div>
     <script>
-        jQuery('a[aria-label="Deactivate OAuth Single Sign On - SSO (OAuth client)"]').click(function () {
+
+        jQuery('a[aria-label="Deactivate <?php echo MO_OAUTH_README_PLUGIN_NAME; ?>"]').click(function () {
             var mo_modal = document.getElementById('oauth_client_feedback_modal');
             var mo_skip = document.getElementById('mo_skip');
             var span = document.getElementsByClassName("mo_close")[0];

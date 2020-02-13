@@ -13,6 +13,7 @@ class Mo_OAuth_Client_Admin_Support {
 				<h3>Contact Us</h3>
 				<p>Need any help? Couldn't find an answer in <a href="<?php echo add_query_arg( array('tab' => 'faq'), $_SERVER['REQUEST_URI'] ); ?>">FAQ</a>?<br>Just send us a query so we can help you.</p>
 				<form method="post" action="">
+					<?php wp_nonce_field('mo_oauth_support_form','mo_oauth_support_form_field'); ?>
 					<input type="hidden" name="option" value="mo_oauth_contact_us_query_option" />
 					<table class="mo_settings_table">
 						<tr>

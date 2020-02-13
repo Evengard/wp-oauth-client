@@ -35,6 +35,7 @@
 			</tr>
 		</table>
 		<form name="f" method="post" id="show_pointers">
+			<?php wp_nonce_field('mo_oauth_clear_pointers_form','mo_oauth_clear_pointers_form_field'); ?>
         	<input type="hidden" name="option" value="clear_pointers"/>
 		</form>
 	</div>
@@ -50,6 +51,7 @@
 	?>
 		<div id="mo_oauth_add_app">
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<?php wp_nonce_field('mo_oauth_add_app_form','mo_oauth_add_app_form_field'); ?>	
 		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
 			<tr>

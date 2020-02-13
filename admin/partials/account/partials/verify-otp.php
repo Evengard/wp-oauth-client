@@ -2,6 +2,7 @@
 	
 	function otp_verification_ui(){ ?>
 		<form name="f" method="post" id="otp_form" action="">
+			<?php wp_nonce_field('mo_oauth_verify_otp_form','mo_oauth_verify_otp_form_field'); ?>
 			<input type="hidden" name="option" value="mo_oauth_validate_otp" />
 				<div class="mo_table_layout">
 					<div id="panel5">
@@ -25,9 +26,8 @@
 				</div>
 		</form>
 		<form name="f" id="mo_oauth_resend_otp_form" method="post" action="">
+			<?php wp_nonce_field('mo_oauth_resend_otp_form','mo_oauth_resend_otp_form_field'); ?>
 			<?php
-
-
 			if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status') == 'MO_OTP_VALIDATION_FAILURE') {
 				echo '<input type="hidden" name="option" value="mo_oauth_resend_otp_email"/>';
 			} else {
@@ -36,6 +36,7 @@
 			?>
 		</form>
 		<form id="mo_oauth_change_email_form" method="post" action="">
+			<?php wp_nonce_field('mo_oauth_change_email_form','mo_oauth_change_email_form_field'); ?>
 			<input type="hidden" name="option" value="mo_oauth_change_email" />
 		</form>
 		<?php
@@ -45,6 +46,7 @@
 
 			<h3>I did not recieve any email with OTP . What should I do ?</h3>
 			<form id="mo_oauth_register_with_phone_form" method="post" action="">
+				<?php wp_nonce_field("mo_oauth_register_with_phone_form","mo_oauth_register_with_phone_form_field"); ?>
 				<input type="hidden" name="option" value="mo_oauth_register_with_phone_option" />
 				If you cannot see the email from miniOrange in your mails, please check your <b>SPAM</b> folder. If you don\'t see an email even in the SPAM folder, verify your identity with our alternate method.
 				<br><br>
@@ -54,8 +56,8 @@
 				title="Phone with country code eg. +1xxxxxxxxxx" required
 				placeholder="Phone with country code eg. +1xxxxxxxxxx"
 				value="'. get_option('mo_oauth_admin_phone').'" />
-				<br /><br /><input type="submit" value="Send OTP" class="button button-primary button-large" />
-
+				<br /><br />
+				<input type="submit" value="Send OTP" class="button button-primary button-large" />
 			</form>';
 		}?></div>
 <?php

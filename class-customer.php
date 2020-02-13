@@ -17,6 +17,7 @@
 	Contains Request Calls to Customer service.
 
 **/
+
 class Customer {
 	
 	public $email;
@@ -36,7 +37,7 @@ class Customer {
 		
 		$fields = array(
 			'companyName' => $company,
-			'areaOfInterest' => 'WP OAuth Client',
+			'areaOfInterest' => MO_OAUTH_AREA_OF_INTEREST,
 			'firstname'	=> $firstName,
 			'lastname'	=> $lastName,
 			'email'		=> $this->email,
@@ -176,7 +177,7 @@ class Customer {
 		$config_to_send         = json_encode( $plugin_config, JSON_UNESCAPED_SLASHES );
 		$plugin_version         = get_plugin_data( __DIR__ . DIRECTORY_SEPARATOR . 'mo_oauth_settings.php' )['Version'];
 
-		$query = '[WP OAuth Single Sign On ' . $plugin_version . '] ' . $query;
+		$query = '[WP ' . MO_OAUTH_PLUGIN_NAME . ' ' . $plugin_version . '] ' . $query;
 		if( $send_config ) {
 			$query .= "<br><br>Config String:<br><pre style=\"border:1px solid #444;padding:10px;\"><code>" . $config_to_send . "</code></pre>";
 		}
@@ -389,6 +390,7 @@ class Customer {
 			return;
 		$url = get_option( 'host_name' ) . '/moas/api/notify/send';
 		
+		$plugin_version     = get_plugin_data( __DIR__ . DIRECTORY_SEPARATOR . 'mo_oauth_settings.php' )['Version'];
 
 		$customerKey = $this->defaultCustomerKey;
 		$apiKey =  $this->defaultApiKey;
@@ -400,12 +402,12 @@ class Customer {
 		$timestampHeader 	= "Timestamp: " .  $currentTimeInMillis;
 		$authorizationHeader= "Authorization: " . $hashValue;
 		$fromEmail 			= $email;
-		//$subject            = "Feedback: WordPress OAuth Client Plugin";
+		$subject            = $subject.' '.$plugin_version;
 		$site_url=site_url();
 
 		global $user;
 		$user         = wp_get_current_user();
-		$query        = '[WP OAuth Single Sign On - SSO] : ' . $message;
+		$query        = '[WP ' . MO_OAUTH_PLUGIN_NAME . ' '.$plugin_version.'] : ' . $message;
 
 		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Phone Number :'.$phone.'<br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Query :'.$query.'</div>';
 

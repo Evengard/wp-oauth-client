@@ -6,6 +6,7 @@ function register_ui() {
 	?>
 			<!--Register with miniOrange-->
 		<form name="f" method="post" action="">
+			<?php wp_nonce_field('mo_oauth_register_form','mo_oauth_register_form_field'); ?>
 			<input type="hidden" name="option" value="mo_oauth_register_customer" />
 			<div class="mo_table_layout">
 				<div id="toggle1" class="">
@@ -78,7 +79,7 @@ function register_ui() {
 			</div>
 		</form>
 		<form name="f1" method="post" action="" id="mo_oauth_client_goto_login_form">
-            <?php wp_nonce_field("mo_oauth_client_goto_login");?>
+            <?php wp_nonce_field('mo_oauth_goto_login_form','mo_oauth_goto_login_form_field'); ?>
             <input type="hidden" name="option" value="mo_oauth_client_goto_login"/>
         </form>
         <script>
@@ -115,6 +116,7 @@ function show_customer_info() {
 	<tr>
 	<td>
 	<form name="f1" method="post" action="" id="mo_oauth_goto_login_form">
+		<?php wp_nonce_field('mo_oauth_goto_login_form','mo_oauth_goto_login_form_field'); ?>
 		<input type="hidden" value="change_miniorange" name="option"/>
 		<input type="submit" value="Change Email Address" class="button button-primary button-large"/>
 	</form>

@@ -1,17 +1,17 @@
-=== OAuth Single Sign On - SSO (OAuth client) ===
+=== OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.3
-Stable tag: 6.14.0
+Stable tag: 6.14.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-WordPress OAuth Single Sign-On (OAuth Client) plugin allows Single Sign-On to WordPress with Azure AD, Azure B2C, AWS Cognito, Keycloak, WHMCS, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 Server or OpenID Connect 1.0 provider using this plugin.
+WordPress OAuth Single Sign-On (OAuth Client) plugin allows Single Sign-On to WordPress with Office 365, Amazon, Azure AD, Azure B2C, AWS Cognito, Keycloak, WHMCS, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 Server or OpenID Connect 1.0 provider using this plugin.
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Azure AD, Azure B2C, AWS Cognito, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
 It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
 
 
@@ -134,7 +134,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 
 
 = Other OAuth / OpenID Connect Providers we support =
-*	Other oauth 2.0 servers oauth single sign-on plugin support includes Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzar, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk etc.
 
 
 == Supported Add-ons ==
@@ -212,6 +212,13 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.14.1 =
+* Added nonces and sanitized required parameters
+* Updated all the 3rd party libraries
+* Added constants
+* Added fixes for account setup and attribute Mapping
+* Added New Providers (ORCID, Diaspora, Timezynk)
 
 = 6.14.0 =
 * Updated widget logos

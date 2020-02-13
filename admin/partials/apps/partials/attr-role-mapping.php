@@ -3,10 +3,21 @@
 
 function attribite_role_mapping_ui(){
 	$appslist = get_option('mo_oauth_apps_list');
+	
 	$attr_name_list = get_option('mo_oauth_attr_name_list');
-	if ( false !== $attr_name_list ) {
-		$attr_name_list = array_keys( $attr_name_list );
+	$temp=array();
+	foreach ($attr_name_list as $key=>$value) {
+		if(!is_array($value))
+			array_push($temp,$key);
+		else
+		{
+			$len=count($value);
+			for($i=0;$i<$len;$i++) {
+				array_push($temp, $key.".".$i);
+			}
+		}
 	}
+	$attr_name_list=$temp;
 	$currentapp = null;
 	$currentappname = null;
 	if ( is_array( $appslist ) ) {
@@ -20,6 +31,7 @@ function attribite_role_mapping_ui(){
 	?>
 	<div class="mo_table_layout" id="attribute-mapping">
 		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=attributemapping">
+			<?php wp_nonce_field('mo_oauth_attr_role_mapping_form','mo_oauth_attr_role_mapping_form_field'); ?>
 		<h3>Attribute Mapping <small>[required for SSO & ACCOUNT LINKING </small>]</h3> 
 		<i><small><b style="color:#dc2424">NOTE : </b></small>Please note that, with free plugin auto-creation for only 10 user accounts is allowed during SSO, but you can manually add users to WordPress.</i>
 		<p style="font-size:13px;color:#dc2424">Do <b>Test Configuration</b> to get configuration for attribute mapping.<br></p>
@@ -127,7 +139,6 @@ function attribite_role_mapping_ui(){
 			<br>
 			<input type="submit" name="submit" value="Save settings"
 					class="button button-primary button-large" />
-			
 		</form>
 		</div>
 

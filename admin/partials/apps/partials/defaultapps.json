@@ -131,6 +131,15 @@
 	"miniorange": {
 		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "authorize": "https://<your-site-url>/wp-json/moserver/authorize", "token": "https://<your-site-url>/wp-json/moserver/token", "userinfo": "https://<your-site-url>/wp-json/moserver/resource", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-server", "logo_class":"fa fa-lock"
 	},
+	"orcid": {
+		"label":"ORCID", "type":"openidconnect", "image":"orcid.png", "scope": "openid", "authorize": "https://orcid.org/oauth/authorize", "token": "https://orcid.org/oauth/token", "userinfo": "", "guide":"https://plugins.miniorange.com/orcid-as-an-oauth-provider", "logo_class":"fa fa-lock"
+	},
+	"diaspora": {
+		"label":"Diaspora", "type":"openidconnect", "image":"diaspora.png", "scope": "openid", "authorize": "https://<your-diaspora-domain>/api/openid_connect/authorizations/new", "token": "https://<your-diaspora-domain>/api/openid_connect/access_tokens", "userinfo": "", "guide":"https://plugins.miniorange.com/setup-diaspora-as-an-openid-connect-server", "logo_class":"fa fa-lock"
+	},
+	"timezynk": {
+		"label":"Timezynk", "type":"oauth", "image":"timezynk.png", "scope": "read:user", "authorize": "https://api.timezynk.com/api/oauth2/v1/auth", "token": "https://api.timezynk.com/api/oauth2/v1/token", "userinfo": "https://api.timezynk.com/api/oauth2/v1/userinfo", "guide":"", "logo_class":"fa fa-lock"
+	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},

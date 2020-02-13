@@ -1,6 +1,5 @@
 <?php
 
-
 class Mo_Oauth_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -10,7 +9,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
 		add_action( 'login_form', array( $this, 'mo_oauth_wplogin_form_button' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'mo_oauth_wplogin_form_style' ) );
-		parent::__construct( 'mo_oauth_widget', 'miniOrange OAuth', array( 'description' => __( 'Login to Apps with OAuth', 'flw' ), ) );
+		parent::__construct( 'mo_oauth_widget', MO_OAUTH_ADMIN_MENU, array( 'description' => __( 'Login to Apps with OAuth', 'flw' ), ) );
 
 	 }
 
@@ -397,11 +396,11 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 		} else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'mooauth' ) !== false ){
 
 			//do stuff after returning from oAuth processing
-			$access_token 	= $_POST['access_token'];
-			$token_type	 	= $_POST['token_type'];
+			$access_token 	= stripslashes( $_POST['access_token'] );
+			$token_type	 	= stripslashes( $_POST['token_type'] );
 			$user_email = '';
 			if(array_key_exists('email', $_POST))
-				$user_email 	= $_POST['email'];
+				$user_email 	= sanitize_email( $_POST['email'] );
 
 
 			if( $user_email ) {

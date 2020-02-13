@@ -35,9 +35,9 @@
 							<td>
 								<select required style="<?php echo $democss; ?>" name="mo_auto_create_demosite_demo_plan" id="mo_oauth_client_demo_plan_id">
 									<option disabled selected>------------------ Select ------------------</option>
-									<option value="miniorange-oauth-client-standard-common@11.6.1">WP OAuth Client Standard Plugin</option>
-									<option value="mo-oauth-client-premium@21.5.3">WP OAuth Client Premium Plugin</option>
-									<option value="miniorange-oauth-client-enterprise@31.5.7">WP OAuth Client Enterprise Plugin</option>
+									<option value="miniorange-oauth-client-standard-common@11.6.1">WP <?php echo MO_OAUTH_PLUGIN_NAME; ?> Standard Plugin</option>
+									<option value="mo-oauth-client-premium@21.5.3">WP <?php echo MO_OAUTH_PLUGIN_NAME; ?> Premium Plugin</option>
+									<option value="miniorange-oauth-client-enterprise@31.5.7">WP <?php echo MO_OAUTH_PLUGIN_NAME; ?> Enterprise Plugin</option>
 									<option value="Not Sure">Not Sure</option>
 								</select>
 							</td>
