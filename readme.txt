@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.3
-Stable tag: 6.14.2
+Stable tag: 6.14.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -224,9 +224,11 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 
 == Changelog ==
 
+= 6.14.3 =
+* UI Updates
+
 = 6.14.2 =
 * Minor Fixes
-* UI Updates
 
 = 6.14.1 =
 * Added nonces and sanitized required parameters

@@ -123,7 +123,7 @@ class Mo_OAuth_Client_Admin_Menu {
             	<?php wp_nonce_field('mo_oauth_mo_server_message_form','mo_oauth_mo_server_message_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
-                    <h4>If you are looking for an OAuth Server, you can try out <a href="https://idp.miniorange.com" target="_blank">miniOrange On-Premise OAuth Server</a>.</h4>
+                    <h4>Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can <a href="https://idp.miniorange.com/b2c-pricing" target="_blank">click here</a> to find more about it.</h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>
