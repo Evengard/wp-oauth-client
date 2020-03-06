@@ -5,19 +5,20 @@ function attribite_role_mapping_ui(){
 	$appslist = get_option('mo_oauth_apps_list');
 	
 	$attr_name_list = get_option('mo_oauth_attr_name_list');
-	$temp=array();
-	foreach ($attr_name_list as $key=>$value) {
-		if(!is_array($value))
-			array_push($temp,$key);
-		else
-		{
-			$len=count($value);
-			for($i=0;$i<$len;$i++) {
-				array_push($temp, $key.".".$i);
+	if ( false !== $attr_name_list ) {
+		$temp = array();
+		foreach ( $attr_name_list as $key=>$value ) {
+			if ( ! is_array( $value ) )
+				array_push( $temp, $key );
+			else {
+				$len = count( $value );
+				for ( $i = 0; $i < $len; $i++ ) {
+					array_push( $temp, $key.".".$i );
+				}
 			}
 		}
+		$attr_name_list = $temp;
 	}
-	$attr_name_list=$temp;
 	$currentapp = null;
 	$currentappname = null;
 	if ( is_array( $appslist ) ) {
