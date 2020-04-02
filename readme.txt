@@ -2,8 +2,8 @@
 Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
-Tested up to: 5.3
-Stable tag: 6.14.3
+Tested up to: 5.4
+Stable tag: 6.14.4
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -135,6 +135,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *   OpenAM
 *   Centrify
 *   Egnyte
+*   DID.app
 
 = List of grant types we support =
 *   Authorization code grant
@@ -223,6 +224,11 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.14.4 =
+* Dropdown fix
+* Added new OpenId provider DID
+* Minor compatibility fixes
 
 = 6.14.3 =
 * UI Updates

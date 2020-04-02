@@ -13,7 +13,14 @@ function attribite_role_mapping_ui(){
 			else {
 				$len = count( $value );
 				for ( $i = 0; $i < $len; $i++ ) {
-					array_push( $temp, $key.".".$i );
+					if ( is_array( $value[$i] ) ) {
+						foreach ( $value[$i] as $key1 => $value1 ) {
+							array_push( $temp, $key.".".$i.".".$key1 );
+						}
+					}
+					else {
+						array_push( $temp, $key.".".$i );
+					}
 				}
 			}
 		}
