@@ -26,7 +26,7 @@
 		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
 			<tr>
-			<td><strong><font color="#FF0000">*</font>Application:</strong></td>
+			<td><strong><font color="#FF0000">*</font>Application (<?php echo $currentapp['apptype'];?>):</strong></td>
 			<td>
 				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo isset($currentapp['appId']) ? $currentapp['appId'] : "other";?>">
 				<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_nameid" name="mo_oauth_app_nameid" value="<?php echo $currentappname;?>">
@@ -38,10 +38,6 @@
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
 				<td><input disabled class="mo_table_textbox" type="text"></td>
-			</tr>
-			<tr>
-				<td><strong>SSO Protocol:</strong><br>&emsp;<font color="#FF0000"></font></td>
-				<td><input disabled class="mo_table_textbox" type="text" id="mo_oauth_sso_protocol" name="mo_oauth_sso_protocol" value="<?php if(isset($currentapp['ssoprotocol'])) echo $currentapp['ssoprotocol']; else echo $currentapp['apptype'];?>"></td>
 			</tr>
 			<tr><td><strong>Redirect / Callback URL</strong></td>
 			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php echo $currentapp['redirecturi'];?>'></td>

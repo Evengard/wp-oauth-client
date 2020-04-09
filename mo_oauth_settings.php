@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
 * Plugin URI: miniorange-login-with-eve-online-google-facebook
 * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
-* Version: 6.14.4
+* Version: 6.14.5
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: MIT/Expat
@@ -174,7 +174,9 @@ class mo_oauth {
 							$this->mo_oauth_get_current_customer();
 							wp_redirect( admin_url( '/admin.php?page=mo_oauth_settings&tab=licensing' ), 301 );
 							exit;
-						} else {
+						} if( strcasecmp($response['status'], 'FAILED') == 0 && strcasecmp($response['message'], 'Email is not enterprise email.') == 0 ) {
+                            update_option( 'message', 'Please use your Enterprise email for registration.');
+                        } else {
 							update_option( 'message', 'Failed to create customer. Try again.');
 						}
 						$this->mo_oauth_show_success_message();
@@ -341,11 +343,11 @@ class mo_oauth {
 					}
 					if(isset($_POST['mo_oauth_app_name'])) {
 						$newapp['appId'] = stripslashes( $_POST['mo_oauth_app_name'] );
-						if($_POST['mo_oauth_app_name'] === "gapps") {
-							$newapp['authorizeurl'] = "https://accounts.google.com/o/oauth2/auth";
-							$newapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
-							$newapp['resourceownerdetailsurl'] = "https://www.googleapis.com/oauth2/v1/userinfo";
-						}
+						// if($_POST['mo_oauth_app_name'] === "gapps") {
+						// 	$newapp['authorizeurl'] = "https://accounts.google.com/o/oauth2/auth";
+						// 	$newapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
+						// 	$newapp['resourceownerdetailsurl'] = "https://www.googleapis.com/oauth2/v1/userinfo";
+						// }
 					}
 					//$newapp['email_attr'] = $email_attr;
 					//$newapp['name_attr'] = $name_attr;
@@ -439,49 +441,58 @@ class mo_oauth {
 					update_option('message', 'Please fill up Usecase, Email field and Requested demo plan to submit your query.');
 					$this->mo_oauth_show_error_message();
 				} else {
-					$url = 'http://demo.miniorange.com/wordpress-oauth/';
 
-					$headers = array( 'Content-Type' => 'application/x-www-form-urlencoded', 'charset' => 'UTF - 8');
-					$args = array(
-						'method' =>'POST',
-						'body' => array(
-							'option' => 'mo_auto_create_demosite',
-							'mo_auto_create_demosite_email' => $email,
-							'mo_auto_create_demosite_usecase' => $query,
-							'mo_auto_create_demosite_demo_plan' => $demo_plan,
-							'mo_auto_create_demosite_plugin_name' => MO_OAUTH_PLUGIN_SLUG
-						),
-						'timeout' => '20',
-						'redirection' => '5',
-						'httpversion' => '1.0',
-						'blocking' => true,
-						'headers' => $headers,
+					$demosite_status = (bool) @fsockopen('demo.miniorange.com', 443, $iErrno, $sErrStr, 5);
 
-					);
-
-					$response = wp_remote_post( $url, $args );
-
-					if ( is_wp_error( $response ) ) {
-						$error_message = $response->get_error_message();
-						echo "Something went wrong: $error_message";
-						exit();
-					}
-					$output = wp_remote_retrieve_body($response);
-					$output = json_decode($output);
-
-					if(is_null($output)){
-						update_option('message', 'Something went wrong! contact to your administrator');
+					if ( $demosite_status ) {
+						$url = 'http://demo.miniorange.com/wordpress-oauth/';
+	
+						$headers = array( 'Content-Type' => 'application/x-www-form-urlencoded', 'charset' => 'UTF - 8');
+						$args = array(
+							'method' =>'POST',
+							'body' => array(
+								'option' => 'mo_auto_create_demosite',
+								'mo_auto_create_demosite_email' => $email,
+								'mo_auto_create_demosite_usecase' => $query,
+								'mo_auto_create_demosite_demo_plan' => $demo_plan,
+								'mo_auto_create_demosite_plugin_name' => MO_OAUTH_PLUGIN_SLUG
+							),
+							'timeout' => '20',
+							'redirection' => '5',
+							'httpversion' => '1.0',
+							'blocking' => true,
+							'headers' => $headers,
+	
+						);
+	
+						$response = wp_remote_post( $url, $args );
+	
+						if ( is_wp_error( $response ) ) {
+							$error_message = $response->get_error_message();
+							echo "Something went wrong: $error_message";
+							exit();
+						}
+						$output = wp_remote_retrieve_body($response);
+						$output = json_decode($output);
+	
+						if(is_null($output)){
+							update_option('message', 'Something went wrong! contact to your administrator');
+							$this->mo_oauth_show_success_message();
+						}
+	
+						if($output->status == 'SUCCESS'){
+							update_option('message', $output->message);
+							$this->mo_oauth_show_success_message();
+						}else{
+							update_option('message', $output->message);
+							$this->mo_oauth_show_error_message();
+						}
+					} else {
+						$customer = new Customer();
+						$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Client On Demo Request - ".$email );
+						update_option('message', "Thanks Thanks for getting in touch! We shall get back to you shortly.");
 						$this->mo_oauth_show_success_message();
 					}
-
-					if($output->status == 'SUCCESS'){
-						update_option('message', $output->message);
-						$this->mo_oauth_show_success_message();
-					}else{
-						update_option('message', $output->message);
-						$this->mo_oauth_show_error_message();
-					}
-
 				}
 			}
 		}

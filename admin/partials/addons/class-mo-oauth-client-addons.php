@@ -1,125 +1,83 @@
 <?php
 	
 class Mo_OAuth_Client_Admin_Addons {
-    
-    public static function addons() {
-        self::addons_page();
+
+  public static function addons() {
+      self::addons_page();
 	}
     
     public static function addons_page(){
 ?>
 
 <style>
-    *,
-*:after,
-*:before {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-.clearfix:before,
-.clearfix:after {
-	content: " ";
-	display: table;
-}
-
-.clearfix:after {
-	clear: both;
-}
-
-body {
-	font-family: sans-serif;
-	background: #f6f9fa;
-}
-
-/*Fun begins*/
-.tab_container {
-	width: 98%;
-	margin: 0 auto;
-	padding-top: 20px;
-	position: relative;
-}
-
-.tab-input, .tab-section {
-  clear: both;
-  padding-top: 10px;
-  display: none;
-}
-
-.tab-label {
-  font-weight: 700;
+.outermost-div {
+  color: #424242;
+  font-family: Open Sans!important;
   font-size: 14px;
-  display: block;
-  float: left;
-  width: 25%;
-  padding: 1.5em;
-  color: #757575;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  background: #f0f0f0;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
 }
 
-#tab1:checked ~ #content1,
-#tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4,
-#tab5:checked ~ #content5 {
-  display: block;
-  padding: 20px;
-  background: #fff;
-  color: #999;
-  border-bottom: 2px solid #f0f0f0;
+.column_container {
+  position: relative;
+  box-sizing: border-box;
+  margin-top: 30px;
+}  
+
+.column_container > .column_inner {
+  
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+} 
+
+.benefits-outer-block{
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-top: 2em;
+  width: 77%;
+  margin: 0;
+  padding-bottom: 1em;
+  background:#fff;
+  height:246px;
 }
 
-.tab_container .tab-content p,
-.tab_container .tab-content h3 {
-    font-size: 17px;
-  -webkit-animation: fadeInScale 0.7s ease-in-out;
-  -moz-animation: fadeInScale 0.7s ease-in-out;
-  animation: fadeInScale 0.7s ease-in-out;
-}
-.tab_container .tab-content h3  {
-  text-align: center;
-    font-size: 28px;
+.benefits-outer-block:hover{
+ margin-top: -10px;
+ border-top: 5px solid #0063ae;
+ transition: all .2s ease-in-out;
 }
 
-.tab_container [id^="tab"]:checked + label {
-  background: #fff;
-  box-shadow: inset 0 3px #0CE;
+.benefits-icon {
+  font-size: 25px;
+  padding-top: 6px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border-radius: 3px;
+  padding-bottom: 5px;
+  background: #1779ab;
+  color: #fff;
 }
 
-.tab_container [id^="tab"]:checked + label .fa {
-  color: #0CE;
+h5 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  color: #585858;
 }
 
-.tab-label .fa {
-  font-size: 1.3em;
-  margin: 0 0.4em 0 0;
-}
-
-/*Media query*/
-@media only screen and (max-width: 930px) {
-  .tab-label span {
-    font-size: 14px;
+@media (min-width: 768px) {
+  .grid_view {
+    width: 50%;
+    float: left;
   }
-  .tab-label .fa {
-    font-size: 14px;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .tab-label span {
-    display: none;
-  }
-
-  .tab-label .fa {
-    font-size: 16px;
-  }
-
-  .tab_container {
-    width: 98%;
+  .row-view {
+    width: 100%;
+    position: relative;
+    display: inline-block;
   }
 }
 
@@ -137,63 +95,48 @@ body {
 }
 </style>
 
-
-<div class="tab_container">
-			<input class="tab-input" id="tab1" type="radio" name="tabs" style="display:none" checked>
-			<label class="tab-label" for="tab1"><i class="fa fa-code"></i><span>Page Restriction</span></label>
-
-			<input class="tab-input" id="tab2" type="radio" style="display:none" name="tabs">
-			<label class="tab-label" for="tab2"><i class="fa fa-pencil-square-o"></i><span>Buddypress Integrator</span></label>
-
-			<input class="tab-input" id="tab3" type="radio" style="display:none" name="tabs">
-			<label class="tab-label" for="tab3"><i class="fa fa-bar-chart-o"></i><span>Login Form Add-on</span></label>
-
-      <input class="tab-input" id="tab5" type="radio" style="display:none" name="tabs">
-      <label class="tab-label" for="tab5"><i class="fa fa-folder-open-o"></i><span>Membership Level based Login Redirection</span></label> 
-
-			<section id="content1" class="tab-section tab-content">
-				<h3>Page Restriction</h3>
-                       
-        <ul style="list-style-type:square">
-          <li><p  style="color:black">Page restriction over users is based on their roles and whether they are logged in or not. It allows you to restrict access to your WordPress pages/posts based on user roles and prevent it from unauthorize access. </p></li>
-          <li><p  style="color:black">Also, allows admin to use login page other than wp-login.php.</p></li>
-        </ul>
-                
-        <p><b>Before Login:</b> Site Admin can mark the pages/posts to be private. If the user tries to access these private marked pages/posts without being logged in then user will be redirected to OAuth Provider login page. User can access these pages/post only after authenticated from OAuth Provider. The pages/post that are not marked private can be accesses by the user without logging into the site. </p>
-                
-        <p><b>After Login:</b> The site admin can decide the content to be visible/accessed by the user based on their roles in the site. Site Admin can mark the pages/posts to be accesses by certain roles of the site. So, once the user is logged into the site, the user can access a particular page or post if the site admin has given the access capability to that role.</p>
-                 
-			</section>
-
-			<section id="content2" class="tab-section tab-content">
-				<h3>Buddypress Integrator</h3>
-		    <p>This add-on allows you to integrate your User Information sent from OAuth / OpenID Provider with your BuddyPress profile.</p>
-                
-        <p>By default, attribute mapping is done with the attributes that are stored in the WordPress default <b>`user_meta`</b> table. This add-on allows you to map your BuddyPress User attributes with your OAuth Server User attributes. If you are using the <b>BuddyPress plugin</b> and looking for a solution where you can map the user attributes fetched from the OAuth Provider to the BuddyPress then you can opt-in for this add-on.</p>
-                
-			</section>
-
-			<section id="content3" class="tab-section tab-content">
-				<h3>Login Form Add-on</h3>
-        <p>This add-on adds an additional functionality of using the login form instead of the login button.</p>
-        <p>This login form is easily customizable using custom Cascaded Style Sheets as well as custom JavaScript. The add-on relies on the plugin to have *Password Grant* enabled and configured.</p>
-                
-			</section>
-
-      <section id="content5" class="tab-section tab-content">
-        <h3>Membership Level based Login Redirection</h3>
-                       
-        <ul style="list-style-type:square">
-          <li><p  style="color:black">This add-on allows you to redirects your users on custom pages based on the User's Membership Levels. This plugin allows you to assign a custom redirect URL to each Membership Level and after login, it redirects each user on that particular URL.</p></li></ul>
-        
-        <p>It also allows you to change/update your Redirect URLs if required.</p>
-        <p>This add-on checks the User's Membership Level each time when user logs in, so even if User's membership level changes, it will redirect you correctly on assigned URL. </p>
-                
-                 
-      </section>
-
-		</div>
-
+<div class="outermost-div">
+  <div class="row-view">
+    <div class="grid_view column_container">
+      <div class="column_inner">
+        <div class="row benefits-outer-block">
+          <img src="<?php echo plugins_url("images/page-restriction.png", __FILE__) ?>" width="40px" height="40px">
+          <h5 style="margin-top:1em;">Page Restriction</h5>
+          <p>Allows to restrict access to WordPress pages/posts based on user roles and their login status, thereby preventing them from unauthorized access.</p>
+        </div>
+      </div>
+    </div>      
+    <div class="grid_view column_container">
+      <div class="column_inner">
+        <div class="row benefits-outer-block">
+          <img src="<?php echo plugins_url("images/buddypress-logo.png", __FILE__) ?>" width="40px" height="40px">
+          <h5 style="margin-top:1em;">BuddyPress Integrator</h5>
+          <p>Allows to integrate user information received from OAuth/OpenID Provider with the BuddyPress profile.</p>
+        </div>
+      </div>
+    </div>  
+  </div>
+  <div class="row-view">
+    <div class="grid_view column_container">
+      <div class="column_inner">
+        <div class="row benefits-outer-block">
+          <img src="<?php echo plugins_url("images/login-form.png", __FILE__) ?>" width="40px" height="40px">
+          <h5 style="margin-top:1em;">Login Form Add-on</h5>
+          <p>Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.</p>
+        </div>
+      </div>
+    </div>
+    <div class="grid_view column_container">
+      <div class="column_inner">
+        <div class="row benefits-outer-block">
+          <img src="<?php echo plugins_url("images/member-login.png", __FILE__) ?>" width="40px" height="40px">
+          <h5 style="margin-top:1em;">Membership Level based Login Redirection</h5>
+          <p>Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.</p>
+        </div>
+      </div>    
+    </div>  
+  </div>
+</div>
 
 <?php
     }

@@ -3,28 +3,11 @@
 
 function attribite_role_mapping_ui(){
 	$appslist = get_option('mo_oauth_apps_list');
-	
 	$attr_name_list = get_option('mo_oauth_attr_name_list');
+	
 	if ( false !== $attr_name_list ) {
-		$temp = array();
-		foreach ( $attr_name_list as $key=>$value ) {
-			if ( ! is_array( $value ) )
-				array_push( $temp, $key );
-			else {
-				$len = count( $value );
-				for ( $i = 0; $i < $len; $i++ ) {
-					if ( is_array( $value[$i] ) ) {
-						foreach ( $value[$i] as $key1 => $value1 ) {
-							array_push( $temp, $key.".".$i.".".$key1 );
-						}
-					}
-					else {
-						array_push( $temp, $key.".".$i );
-					}
-				}
-			}
-		}
-		$attr_name_list = $temp;
+		$temp = [];
+		$attr_name_list = dropdownattrmapping('', $attr_name_list, $temp );
 	}
 	$currentapp = null;
 	$currentappname = null;
@@ -203,4 +186,24 @@ function attribite_role_mapping_ui(){
 			</form>
 		</div>
 <?php
+}
+
+function dropdownattrmapping( $nestedprefix, $resource_owner_details, $temp ) {
+	foreach ( $resource_owner_details as $key => $resource ) {
+		if ( is_array( $resource ) ) {
+			if ( ! empty( $nestedprefix ) ) {
+				$nestedprefix .= '.';
+			}
+			$temp = dropdownattrmapping( $nestedprefix . $key, $resource, $temp );
+			$nestedprefix = rtrim($nestedprefix,".");
+		} else {
+			if ( ! empty( $nestedprefix ) ) {
+				array_push($temp, $nestedprefix.".".$key);
+			}
+			else{
+				array_push($temp, $key);
+			}
+		}
+	}
+	return $temp;
 }

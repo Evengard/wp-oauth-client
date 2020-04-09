@@ -33,7 +33,7 @@ class Mo_OAuth_Client_Admin_Support {
 							<td><small style="color:#666">We will not be sending your Client IDs or Client Secrets.</small></td>
 						</tr>
 					</table>
-					<div style="text-align:center;">
+					<div style="text-align:left;">
 						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" />
 					</div>
 					<p>If you want custom features in the plugin, just drop an email at <a href="mailto:oauthsupport@xecurify.com">oauthsupport@xecurify.com</a>.</p>

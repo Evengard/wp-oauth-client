@@ -471,6 +471,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				if(!empty($nestedprefix))
 					$nestedprefix .= ".";
 				testattrmappingconfig($nestedprefix.$key,$resource, $tr_class_prefix);
+				$nestedprefix = rtrim($nestedprefix,".");
 			} else {
 				echo $tr . $td;
 				if(!empty($nestedprefix))

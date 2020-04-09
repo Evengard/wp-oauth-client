@@ -35,7 +35,7 @@
 		<p><input disabled="true" type="checkbox"> <strong> Keep Existing Users </strong>If checked, existing users' attributes will <strong>NOT</strong> be overwritten when they log-in)</p>
 		<p><input disabled="true" type="checkbox"> <strong> Allow WordPress Users to Login with OAuth </strong>(If checked, users will be <strong>ALLOWED</strong> to log-in with their OAuth Provider's credentials)</p>
 		<p><input disabled="true" type="checkbox"> <strong> Confirm when logging out </strong>(If checked, users will be <strong>ASKED</strong> to confirm if they want to log-out, when they click the widget/shortcode logout button)</p>
-		<p><input disabled type="checkbox"><b> Enable User Analytics </b></p>
+		<p><input disabled type="checkbox"><b> Enable User login reports </b></p>
 		<p><input disabled="true" type="checkbox"> <strong> Allow Restricted Domains </strong>(By default, all domains in <strong>Restricted Domains</strong> field will be restricted. This option will invert this feature by allowing ONLY these domains)</p>
 
 		<table class="mo_oauth_client_mapping_table" style="width:90%">
