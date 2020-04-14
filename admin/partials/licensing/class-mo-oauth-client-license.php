@@ -54,7 +54,11 @@ class Mo_OAuth_Client_Admin_Licensing {
                 font-weight: 400;
             }
             .moc-licensing-plan-name {
-                font-size: 32px;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .moc-all-inclusive-licensing-plan-name {
+                font-size: 40px;
                 font-weight: 500;
             }
             .moc-licensing-plan {
@@ -137,9 +141,9 @@ class Mo_OAuth_Client_Admin_Licensing {
                     <div class="col-3 moct-align-center">
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
-                                <div class="moc-licensing-plan-name">standard</div>
+                                <div class="moc-licensing-plan-name">Unlimited user creation<br>+<br>Advanced Attribute Mapping</div>
+                                <div><br></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>299<sup>*</sup></div>
-                                <div class="moc-licensing-plan-usp">(Attribute Mapping + Login <br>Customization)<br></div>
                             </div>
                             <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')">Buy Now</button>
                             <div class="moc-licensing-plan-feature-list">
@@ -157,10 +161,10 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#10060;&emsp;<span class="text-muted">Protect complete site</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Domain specific registration</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Multi-site Support</span></li>
-                                    <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support( BuddyPress Attribute Mapping, Page Restriction)</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
+                                    <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -168,9 +172,9 @@ class Mo_OAuth_Client_Admin_Licensing {
                     <div class="col-3 moct-align-center">
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
-                                <div class="moc-licensing-plan-name">premium</div>
+                                <div class="moc-licensing-plan-name">Protect site with SSO login<br>+<br>Email Domains restriction</div>
+                                <div><br></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>449<sup>*</sup></div>
-                                <div class="moc-licensing-plan-usp">(Role + Group <br>Mapping)</div>
                             </div>
                             <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_premium_plan')">Buy Now</button>
                             <div class="moc-licensing-plan-feature-list">
@@ -188,10 +192,10 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Multi-site Support*</li>
-                                    <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support( BuddyPress Attribute Mapping, Page Restriction)</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
+                                    <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -199,11 +203,10 @@ class Mo_OAuth_Client_Admin_Licensing {
                     <div class="col-3 moct-align-center">
                         <div class="moc-licensing-plan card-body moc-lp-highlight">
                             <div class="moc-licensing-plan-header">
-                                <div class="moc-licensing-plan-name">enterprise</div>
+                                <div class="moc-licensing-plan-name">Multiple providers support<br>+<br>Dynamic Callback URL<br>+<br>Developer Hooks</div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>499<sup>*</sup></div>
-                                <div class="moc-licensing-plan-usp">(Page Restriction and other <br>Add-ons)</div>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_enterprise_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_enterprise_plan')">Buy Now</button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;Unlimited OAuth / OpenID Connect <br>provider Support</li>
@@ -219,15 +222,33 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Multi-site Support*</li>
-                                    <li>&#9989;&emsp;Add-Ons Support( BuddyPress Attribute Mapping, Page Restriction)</li>
                                     <li>&#9989;&emsp;Dynamic Callback URL</li>
                                     <li>&#9989;&emsp;WP hooks to read token, login event and extend plugin functionality</li>
                                     <li>&#9989;&emsp;End User Login Reports / Analytics</li>
+                                    <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support</span></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-3 moct-align-center">
+                        <div class="moc-licensing-plan card-body moc-lp-highlight">
+                            <div class="moc-licensing-plan-header">
+                                <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
+                                <div class="moc-licensing-plan-price"><sup>$</sup>599<sup>*</sup></div>
+                            </div>
+                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_plan')">Buy Now</button>
+                            <div class="moc-licensing-plan-feature-list">
+                                <ul>
+                                    <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
+                                    <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
+                                        <ul style="list-style-position: inside";>
+                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection )</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br>
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
                                 <div class="moc-licensing-plan-name">OAuth Client + Cloud IDP Package</div>
@@ -243,30 +264,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;Free SSO Setup with miniOrange Cloud IDP/OAuth Server</li>
                                     <li>&#9989;Free Migration from existing IDP/User Directory</li>
                                 </ul>
-                                <!--                                        <p><b>Looking for a OAuth Server/User storage? <br><br>We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities.</b></br></p>-->
                                 <b>Please <a href="https://idp.miniorange.com/b2c-pricing" target="_blank"><u>click here</u></a> to know more about our Identity Provider Services.
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
                             </div>
                         </div>
                     </div>
