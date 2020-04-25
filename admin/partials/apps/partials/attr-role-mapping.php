@@ -35,7 +35,7 @@ function attribite_role_mapping_ui(){
 				<td>
 					<?php
 					if( is_array( $attr_name_list ) ) {  ?>
-						<select class="mo_table_textbox" id="mo_oauth_username_attr" name="mo_oauth_username_attr">
+						<select class="mo_table_textbox" <?php if (get_option('mo_attr_option') === "manual" ) echo 'style="display:none"'; ?> id="mo_oauth_username_attr_select" <?php if ( get_option('mo_attr_option') === false || get_option('mo_attr_option') === "automatic" ) echo 'name="mo_oauth_username_attr"'; ?> >
 						<option value="">----------- Select an Attribute -----------</option>
 							<?php 
 							foreach ( $attr_name_list as $key => $value ) {
@@ -48,13 +48,43 @@ function attribite_role_mapping_ui(){
 							}
 							?>
 						</select>
+						<script>
+						function changeFormField(){
+							var select_box = document.getElementById('mo_oauth_username_attr_select');
+							var input_tag = document.getElementById('mo_oauth_username_attr_input');
+							if (select_box.style.display != "none") {
+								select_box.name = "";
+								select_box.style.display = "none";
+								input_tag.name = "mo_oauth_username_attr";
+								input_tag.style.display = "block";
+								document.getElementById('mo_username_attr_change_p').innerHTML = "Change to automatic mode";
+								document.getElementById('mo_attr_option').value = "manual";
+							} else {
+								select_box.name = "mo_oauth_username_attr";
+								select_box.style.display = "block";
+								input_tag.name = "";
+								input_tag.style.display = "none";
+								document.getElementById('mo_username_attr_change_p').innerHTML = "Change to manual mode";
+								document.getElementById('mo_attr_option').value = "automatic";
+							}
+						}
+						</script>
+						<input type="hidden" id="mo_attr_option" name="mo_attr_option" value="<?php if(get_option('mo_attr_option')){ echo get_option('mo_attr_option'); } else { echo "automatic"; } ?>">
+						<input <?php if (get_option('mo_attr_option') === "manual" ) echo 'name="mo_oauth_username_attr"'; ?> class="mo_table_textbox" <?php if (get_option('mo_attr_option') === "automatic" || get_option('mo_attr_option') === false ) echo 'style="display:none"'; ?> placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr_input" value="<?php if( isset( $currentapp['username_attr'] ) )echo $currentapp['username_attr']; else if( isset( $currentapp['email_attr'] ) )echo $currentapp['email_attr'];?>">
+						</td>
+						<?php $text_attr = get_option('mo_attr_option') ? get_option('mo_attr_option') === "manual" ? "Change to automatic mode" : "Change to manual mode" : "Change to manual mode"; ?>
+						<td>
+							<a href="#" id="mo_username_attr_change_p" onclick="changeFormField()"><?php echo $text_attr; ?></a>
+						</td>
 						<?php
 					} else { ?>
-						<input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr" name="mo_oauth_username_attr" value="<?php if( isset( $currentapp['username_attr'] ) )echo $currentapp['username_attr']; else if( isset( $currentapp['email_attr'] ) )echo $currentapp['email_attr'];?>"><?php
+						<input class="mo_table_textbox" required="" placeholder="Enter attribute name for Username" type="text" id="mo_oauth_username_attr_input" name="mo_oauth_username_attr" value="<?php if( isset( $currentapp['username_attr'] ) )echo $currentapp['username_attr']; else if( isset( $currentapp['email_attr'] ) )echo $currentapp['email_attr'];?>">
+						</td>
+						<td>
+						</td>
+						<?php
 					}
 					?>
-				</td>
-				<td><a href="https://developers.miniorange.com/docs/oauth/wordpress/client/attribute-role-mapping" target="_blank">[How to map Attributes?]</a></td>
 			</tr>
 			
 			
@@ -63,7 +93,8 @@ function attribite_role_mapping_ui(){
 		echo '<tr>
 			<td></td><td>
             <b><p style="margin-left:2px" class=" mop_table">
-            Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing">premium</a> version.</b>
+			Advanced attribute mapping is available in <a href="admin.php?page=mo_oauth_settings&amp;tab=licensing">premium</a> version.</b><br>
+			<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/attribute-role-mapping" target="_blank">[How to map Attributes?]</a>
             </p>
 			</td>
 		</tr>

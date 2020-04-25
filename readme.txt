@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.4
-Stable tag: 6.15.0
+Stable tag: 6.15.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -232,6 +232,16 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.15.1 =
+* Added Copy Callback feature
+* Added option to map attributes(manual/automatic)
+* Added fixes for Demo Request feature
+* Fixed empty UserInfo Endpoint issue
+* Added new Apps for Login with Azure - Azure AD, Azure B2C and end to end sso setup guides
+* Updated Licensing Plan
+* Advertised new features
+* Other minor bugfixes and UI changes
 
 = 6.15.0 =
 * Updated Licensing plan

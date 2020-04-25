@@ -50,7 +50,7 @@
 			$currentapp = mo_oauth_client_get_app($currentAppId);
 	?>
 		<div id="mo_oauth_add_app">
-		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=config&action=update&app=">
 		<?php wp_nonce_field('mo_oauth_add_app_form','mo_oauth_add_app_form_field'); ?>	
 		<input type="hidden" name="option" value="mo_oauth_add_app" />
 		<table class="mo_settings_table">
@@ -62,8 +62,11 @@
 				<?php echo $currentapp->label;?> &nbsp;&nbsp;&nbsp;&nbsp; <a style="text-decoration:none" href ="admin.php?page=mo_oauth_settings"><div style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px">Change Application</div></a><br><br>
 			</td>
 			</tr>
-			<tr><td><strong>Redirect / Callback URL</strong></td>
-			<td><input class="mo_table_textbox" id="callbackurl"  type="text" readonly="true" value='<?php echo site_url()."";?>'></td>
+			<tr><td><strong>Redirect / Callback URL: </strong><br>&emsp;<font><small>Editable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
+			<td><input class="mo_table_textbox" id="callbackurl"  type="text" readonly="true" name="mo_oauth_callback_url" value='<?php echo site_url()."";?>'>
+			&nbsp;&nbsp;
+			<div class="tooltip" style="display: inline;"><span class="tooltiptext" id="moTooltip">Copy to clipboard</span><i class="fa fa-clipboard" style="font-size:20px; align-items: center;vertical-align: middle;" aria-hidden="true" onclick="copyUrl()" onmouseout="outFunc()"></i></div>
+			</td>
 			</tr>
 			<tr id="mo_oauth_custom_app_name_div">
 				<td><strong><font color="#FF0000">*</font>App Name (<?php echo $currentapp->type;?>):</strong></td>
@@ -71,7 +74,7 @@
 			</tr>
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
-				<td><input class="mo_table_textbox" type="text" id="mo_oauth_display_app_name" name="mo_oauth_display_app_name" value="" pattern="[a-zA-Z0-9\s]+" disabled title="Please do not add any special characters."></td>
+				<td><input class="mo_table_textbox" type="text" id="mo_oauth_display_app_name" name="mo_oauth_display_app_name" value="Login with <App Name>" pattern="[a-zA-Z0-9\s]+" disabled title="Please do not add any special characters."></td>
 			</tr>
 		</table>
 		<table class="mo_settings_table" id="mo_oauth_client_creds">
@@ -121,7 +124,7 @@
 			<table class="mo_settings_table">
 				<tr>
 					<td>&nbsp;</td>
-					<td><input id="mo_save_app" type="submit" name="submit" value="Save settings"
+					<td><input id="mo_save_app" type="submit" name="submit_save_app" value="Save settings"
 						class="button button-primary button-large" /></td>
 				</tr>
 			</table>
@@ -131,6 +134,31 @@
 
 		</div>
 		</div>
+		<script>
+			jQuery("#mo_save_app").on("click", function(event) {
+				event.preventDefault();
+				var appName = jQuery("#mo_oauth_custom_app_name").val();
+				var action = jQuery("#form-common").attr("action") + appName;
+				jQuery("#form-common").attr("action", action);
+				document.getElementById("form-common").submit();
+			});
+			function outFunc() {
+  					var tooltip = document.getElementById("moTooltip");
+  					tooltip.innerHTML = "Copy to clipboard";
+					
+			}
+			function copyUrl() {
+  				var copyText = document.getElementById("callbackurl");
+  				outFunc();
+  				copyText.select();
+  				copyText.setSelectionRange(0, 99999); 
+  				document.execCommand("copy");
+  				var tooltip = document.getElementById("moTooltip");
+  				tooltip.innerHTML = "Copied";
+  				
+				// document.getElementById("redirect_url_change_warning").style.display = "none";
+			} 
+		</script>
 		<?php
 		grant_type_settings();
 	}

@@ -21,26 +21,23 @@
 		</div>
 		<div id="mo_oauth_update_app">
 			
-		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings">
+		<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=config&action=update&app=<?php echo $currentappname; ?>">
 		<?php wp_nonce_field('mo_oauth_add_app_form','mo_oauth_add_app_form_field'); ?>
+		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo isset($currentapp['appId']) ? $currentapp['appId'] : "other";?>">
 		<input type="hidden" name="option" value="mo_oauth_add_app" />
+		<input type="hidden" id="mo_oauth_app_nameid" value="<?php echo $currentappname;?>">
+		<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp['apptype'];?>">
+		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
 		<table class="mo_settings_table">
-			<tr>
-			<td><strong><font color="#FF0000">*</font>Application (<?php echo $currentapp['apptype'];?>):</strong></td>
-			<td>
-				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_app_name" value="<?php echo isset($currentapp['appId']) ? $currentapp['appId'] : "other";?>">
-				<input class="mo_table_textbox" required="" type="hidden" id="mo_oauth_app_nameid" name="mo_oauth_app_nameid" value="<?php echo $currentappname;?>">
-				<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
-				<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp['apptype'];?>">
-				<?php echo $currentappname;?><br><br>
-			</td>
-			</tr>
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
-				<td><input disabled class="mo_table_textbox" type="text"></td>
+				<td><input disabled class="mo_table_textbox" type="text" value="Login with <?php echo $currentappname;?>" ></td>
 			</tr>
-			<tr><td><strong>Redirect / Callback URL</strong></td>
-			<td><input class="mo_table_textbox"  type="text" readonly="true" value='<?php echo $currentapp['redirecturi'];?>'></td>
+			<tr><td><strong>Redirect / Callback URL: </strong><br>&emsp;<font><small>Editable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
+			<td><input class="mo_table_textbox" id="callbackurl" readonly="true" type="text" name="mo_oauth_callback_url" value='<?php echo $currentapp['redirecturi'];?>'>
+			&nbsp;&nbsp;
+			<div class="tooltip" style="display: inline;"><span class="tooltiptext" id="moTooltip">Copy to clipboard</span><i class="fa fa-clipboard" style="font-size:20px; align-items: center;vertical-align: middle;" aria-hidden="true" onclick="copyUrl()" onmouseout="outFunc()"></i></div>
+			</td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
@@ -107,7 +104,7 @@
 			<tr>
 				<td><strong>Note:</strong></td>
 				<td colspan="2">
-					<b>Please configure <a href='admin.php?page=mo_oauth_settings&tab=attributemapping'>Attribute Mapping</a> before trying Single Sign-On.</b>
+					<b>Please configure <a id="mo_oauth_attr_map" href='<?php echo admin_url( "admin.php?page=mo_oauth_settings&tab=attributemapping" ); ?>'>Attribute Mapping</a> before trying Single Sign-On.</b>
 				</td>
 			</tr>
 		</table>
@@ -116,16 +113,41 @@
 		</div>
 		<?php if($is_other_app){ ?>
 		<script>
+		function proceedToAttributeMapping() {
+			var link = jQuery("#mo_oauth_attr_map").attr("href");
+			window.location.href = link;
+		}
+
 		function testConfiguration(){
 			var mo_oauth_app_name = jQuery("#mo_oauth_app_nameid").val();
 			var myWindow = window.open('<?php echo site_url(); ?>' + '/?option=testattrmappingconfig&app='+mo_oauth_app_name, "Test Attribute Configuration", "width=600, height=600");
-			while(1) {
-				if(myWindow.closed()) {
-					$(document).trigger("config_tested");
-					break;
-				} else {continue;}
+			try {
+				while(1) {
+					if(myWindow.closed()) {
+						$(document).trigger("config_tested");
+						break;
+					} else {continue;}
+				}
+			} catch(err) {
+				console.error(err);
 			}
 		}
+		function outFunc() {
+  					var tooltip = document.getElementById("moTooltip");
+  					tooltip.innerHTML = "Copy to clipboard";
+					
+			}
+			function copyUrl() {
+  				var copyText = document.getElementById("callbackurl");
+  				outFunc();
+  				copyText.select();
+  				copyText.setSelectionRange(0, 99999); 
+  				document.execCommand("copy");
+  				var tooltip = document.getElementById("moTooltip");
+  				tooltip.innerHTML = "Copied";
+  				
+				// document.getElementById("redirect_url_change_warning").style.display = "none";
+			} 
 		</script>
 		<?php }
 		grant_type_settings();

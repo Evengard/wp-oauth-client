@@ -1,6 +1,9 @@
 {
 	"azure": {
-		"label":"Azure AD", "type":"openidconnect", "image":"azure.png", "scope": "openid", "authorize": "https://login.microsoftonline.com/[tenant-id]/oauth2/authorize", "token": "https://login.microsoftonline.com/[tenant]/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-azure-ad-as-oauth-openid-connect-server", "logo_class":"fa fa-windowslive"
+		"label":"Azure AD", "type":"openidconnect", "image":"azure.png", "scope": "openid", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
+	},
+	"azureb2c": {
+		"label":"Azure B2C", "type":"openidconnect", "image":"azure.png", "scope": "openid", "authorize": "https://{tenant}.b2clogin.com/{tenant}.onmicrosoft.com/{policy}/oauth2/v2.0/authorize", "token": "https://{tenant}.b2clogin.com/{tenant}.onmicrosoft.com/{policy}/oauth2/v2.0/token", "userinfo": "", "guide":"https://plugins.miniorange.com/azure-b2c-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
 	},
 	"cognito": {
 		"label":"AWS Cognito", "type":"oauth", "image":"cognito.png", "scope": "openid", "authorize": "https://<cognito-app-domain>/oauth2/authorize", "token": "https://<cognito-app-domain>/oauth2/token", "userinfo": "https://<cognito-app-domain>/oauth2/userInfo", "guide":"https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/", "logo_class":"fa fa-amazon"

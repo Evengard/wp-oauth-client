@@ -3,7 +3,7 @@
 * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
 * Plugin URI: miniorange-login-with-eve-online-google-facebook
 * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
-* Version: 6.15.0
+* Version: 6.15.1
 * Author: miniOrange
 * Author URI: https://www.miniorange.com
 * License: MIT/Expat
@@ -15,7 +15,6 @@ include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
 require plugin_dir_path( __FILE__ ) . 'includes/class-mo-oauth-client.php';
 require('views/feedback_form.php');
-// require_once 'views/PointersManager.php';
 require_once 'views/VisualTour/class-mocvisualtour.php';
 require('constants.php');
 
@@ -27,30 +26,12 @@ class mo_oauth {
 		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
 		add_action( 'admin_init', array( $this, 'tutorial' ) );
-		remove_action( 'admin_notices', array( $this, 'mo_oauth_success_message') );
-		remove_action( 'admin_notices', array( $this, 'mo_oauth_error_message') );
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
 		add_action( 'admin_footer', array( $this, 'mo_oauth_client_feedback_request' ) );
 
 	}
 
 	function tutorial($page) {
-		// $file = plugin_dir_path( __FILE__ ) . 'pointers.php';
-		// $manager = new PointersManager( $file, '4.8.52', 'custom_admin_pointers' );
-		// $manager->parse();
-		// $pointers = $manager->filter( $page );
-		// if ( empty( $pointers ) ) {
-		// 	return;
-		// }
-		// wp_enqueue_style( 'wp-pointer' );
-		// $js_url = plugins_url( 'js/cards.js', __FILE__ );
-		// wp_enqueue_script( 'custom_admin_pointers', $js_url, array('wp-pointer'), NULL, TRUE );
-		// $data = array(
-		// 	'next_label' => __( 'Next' ),
-		// 	'close_label' => __('Close'),
-		// 	'pointers' => $pointers
-		// );
-		// wp_localize_script( 'custom_admin_pointers', 'MyAdminPointers', $data );
 		if ( class_exists( 'MOCVisualTour' ) ) {
 			$tour = new MOCVisualTour();
 		}
@@ -273,6 +254,7 @@ class mo_oauth {
 					$this->mo_oauth_show_error_message();
 					return;
 				} else{
+					$callback_url = stripslashes( $_POST['mo_oauth_callback_url'] );
 					$scope = stripslashes( $_POST['mo_oauth_scope'] );
 					$clientid = stripslashes( trim( $_POST['mo_oauth_client_id'] ) );
 					$clientsecret = stripslashes( trim( $_POST['mo_oauth_client_secret'] ) );
@@ -315,7 +297,7 @@ class mo_oauth {
 					$newapp['clientid'] = $clientid;
 					$newapp['clientsecret'] = $clientsecret;
 					$newapp['scope'] = $scope;
-					$newapp['redirecturi'] = site_url();
+					$newapp['redirecturi'] = $callback_url;
 					$newapp['ssoprotocol'] = $ssoprotocol;
 					$newapp['send_headers'] = $send_headers;
 					$newapp['send_body'] = $send_body;
@@ -337,25 +319,20 @@ class mo_oauth {
 
 					if($newapp['apptype'] == 'oauth' || isset($_POST['mo_oauth_resourceownerdetailsurl'])) {
 						$resourceownerdetailsurl = stripslashes($_POST['mo_oauth_resourceownerdetailsurl']);
-						if($resourceownerdetailsurl != '') {
-							$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
-						}
+						$newapp['resourceownerdetailsurl'] = $resourceownerdetailsurl;
 					}
 					if(isset($_POST['mo_oauth_app_name'])) {
 						$newapp['appId'] = stripslashes( $_POST['mo_oauth_app_name'] );
-						// if($_POST['mo_oauth_app_name'] === "gapps") {
-						// 	$newapp['authorizeurl'] = "https://accounts.google.com/o/oauth2/auth";
-						// 	$newapp['accesstokenurl'] = "https://www.googleapis.com/oauth2/v4/token";
-						// 	$newapp['resourceownerdetailsurl'] = "https://www.googleapis.com/oauth2/v1/userinfo";
-						// }
 					}
-					//$newapp['email_attr'] = $email_attr;
-					//$newapp['name_attr'] = $name_attr;
 					$appslist[$appname] = $newapp;
 					update_option('mo_oauth_apps_list', $appslist);
-					//update_option( 'message', 'Your settings are saved successfully.' );
-					//$this->mo_oauth_show_success_message();
-					wp_redirect('admin.php?page=mo_oauth_settings&tab=config&action=update&app='.urlencode($appname));
+					update_option( 'message', 'Your settings are saved successfully.' );
+					$this->mo_oauth_show_success_message();
+					if( ! isset( $newapp['username_attr'] ) || empty( $newapp['username_attr'] ) ) {
+						$notices = get_option( 'mo_oauth_client_notice_messages' );
+						$notices['attr_mapp_notice'] = 'Please map the attributes by going to the <a href="' . admin_url( 'admin.php?page=mo_oauth_settings&tab=attributemapping' ) .'">Attribute/Role Mapping</a> Tab.';
+						update_option( 'mo_oauth_client_notice_messages', $notices );
+					}
 				}
 			}
 		}
@@ -375,6 +352,7 @@ class mo_oauth {
 			if( current_user_can( 'administrator' ) ) {
 				$appname = stripslashes( $_POST['mo_oauth_app_name'] );
 				$username_attr = stripslashes( $_POST['mo_oauth_username_attr'] );
+				$attr_option = stripslashes( $_POST['mo_attr_option'] );
 				if ( empty( $appname ) ) {
 					update_option( 'message', 'You MUST configure an application before you map attributes.' );
 					$this->mo_oauth_show_error_message();
@@ -391,8 +369,13 @@ class mo_oauth {
 
 				update_option('mo_oauth_apps_list', $appslist);
 				update_option( 'message', 'Your settings are saved successfully.' );
+				update_option('mo_attr_option', $attr_option);
 				$this->mo_oauth_show_success_message();
-				wp_redirect('admin.php?page=mo_oauth_settings&tab=attributemapping');
+				$notices = get_option( 'mo_oauth_client_notice_messages' );
+				if( isset( $notices['attr_mapp_notice'] ) ) {
+					unset( $notices['attr_mapp_notice'] );
+					update_option( 'mo_oauth_client_notice_messages', $notices );
+				}
 			}
 		}
 		
@@ -444,7 +427,7 @@ class mo_oauth {
 
 					$demosite_status = (bool) @fsockopen('demo.miniorange.com', 443, $iErrno, $sErrStr, 5);
 
-					if ( $demosite_status ) {
+					if ( $demosite_status && "Not Sure" !==  $demo_plan ) {
 						$url = 'http://demo.miniorange.com/wordpress-oauth/';
 	
 						$headers = array( 'Content-Type' => 'application/x-www-form-urlencoded', 'charset' => 'UTF - 8');
@@ -476,16 +459,18 @@ class mo_oauth {
 						$output = json_decode($output);
 	
 						if(is_null($output)){
-							update_option('message', 'Something went wrong! contact to your administrator');
+							$customer = new Customer();
+							$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Client On Demo Request - ".$email );
+							update_option('message', "Thanks Thanks for getting in touch! We shall get back to you shortly.");
 							$this->mo_oauth_show_success_message();
-						}
-	
-						if($output->status == 'SUCCESS'){
-							update_option('message', $output->message);
-							$this->mo_oauth_show_success_message();
-						}else{
-							update_option('message', $output->message);
-							$this->mo_oauth_show_error_message();
+						} else {
+							if($output->status == 'SUCCESS'){
+								update_option('message', $output->message);
+								$this->mo_oauth_show_success_message();
+							}else{
+								update_option('message', $output->message);
+								$this->mo_oauth_show_error_message();
+							}
 						}
 					} else {
 						$customer = new Customer();
@@ -633,12 +618,9 @@ class mo_oauth {
 			delete_option('verify_customer');
 			delete_option('new_registration');
 			$this->mo_oauth_show_success_message();
-			//mo_register();
 		} else {
 			update_option( 'message', 'You already have an account with miniOrange. Please enter a valid password.');
 			update_option('verify_customer', 'true');
-			///delete_option('new_registration');
-			//mo_register();
 			$this->mo_oauth_show_error_message();
 
 		}

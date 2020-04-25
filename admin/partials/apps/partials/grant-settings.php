@@ -35,7 +35,7 @@ function grant_type_settings() {
 			</blockquote>
 		</div>
 		<hr>
-		<div style="padding:15px 0px 15px;"><h3 style="display: inline;">JWT Validation&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3><span style="float: right;">[
+		<div style="padding:15px 0px 15px;"><h3 style="display: inline;">JWT Validation & PKCE&emsp;</h3><span style="float: right;">[
 		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/json-web-token-support" target="_blank">Click here</a> to know how this is useful. ]</span></div>
 				<div>
 					<table class="mo_settings_table">
@@ -51,12 +51,21 @@ function grant_type_settings() {
 								</select>
 							</td>
 						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><strong>PKCE (Proof Key for Code Exchange):</strong></td>
+							<td><input id="pkce_flow" type="checkbox" name="pkce_flow" value="0" disabled/></td>
+						</tr>
 					</table>
+					<p style="font-size:12px"><strong>*Note: </strong>PKCE can be used with Authorization Code Grant and users aren't required to provide a client_secret.</p>
 				</div>
 			<br><br>
 		<div class="notes">
 			<hr />
-			Grant Type Settings and JWT Validation are configurable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">premium and enterprise</a> versions of the plugin.
+			Grant Type Settings and JWT Validation & PKCE are configurable in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">premium and enterprise</a> versions of the plugin.
 		</div>
 	</div>
 	<div>

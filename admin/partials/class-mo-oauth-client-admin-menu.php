@@ -18,6 +18,7 @@ function mo_oauth_client_plugin_settings_style($hook) {
 	}
 	wp_enqueue_style( 'mo_oauth_admin_style', plugin_dir_url( dirname(__FILE__) ) . 'css/admin.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_font_awesome', plugin_dir_url( dirname(__FILE__) ) . 'css/font-awesome.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
 }
@@ -133,8 +134,20 @@ class Mo_OAuth_Client_Admin_Menu {
                     jQuery("#mo_oauth_client_mo_server_form").submit();
                 });
             </script>
-            <?php
-        }
+			<?php
+		}
+		self::mo_oauth_client_check_action_messages();
+	}
+
+
+	public static function mo_oauth_client_check_action_messages() {
+		$notices = get_option( 'mo_oauth_client_notice_messages' );
+		if( empty( $notices ) ) {
+			return;
+		}
+		foreach( $notices as $key => $notice ) {
+			echo '<div class="notice notice-info" style="padding-right: 38px;position: relative;"><h4>' . $notice .'</h4></div>';
+		}
 	}
 
 	public static function show_tab($currenttab) {
