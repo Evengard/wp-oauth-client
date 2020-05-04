@@ -3,15 +3,15 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, openid, sso, wordpress sso
 Requires at least: 3.0.1
 Tested up to: 5.4
-Stable tag: 6.15.1
+Stable tag: 6.15.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Allows Login to WordPress with any Identity Provider(IDP / OAuth Server) which supports OAuth2.0 / OpenID Connect protocol like Office 365, Amazon, Azure AD, Azure B2C, AWS Cognito, Keycloak, WHMCS, WSO2, Okta, LinkedIn, Invision Community, Slack, Discord, Twitter, custom OAuth 2.0 and OpenID Connect (OIDC) servers. You can SSO to your WordPress site with any OAuth 2.0 Server or OpenID Connect 1.0 provider using this plugin.
+Allows SSO with Cognito, Azure, Okta, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
 It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
 
 
@@ -93,6 +93,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	Azure AD
 *	AWS Cognito
 *   WHMCS
+*   Zoho
 *   Ping Federate (Ping / Ping Identity)
 *	Slack
 *	Discord
@@ -126,7 +127,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	Amazon
 *	Salesforce
 *	PayPal
-*	Google
+*	Google Apps
 *	AWS Cognito
 *	Okta
 *	OneLogin
@@ -232,6 +233,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.15.2 =
+* Added default apps for WordPress, Zoho, miniOrange Providers
+* Updated WHMCS Endpoint
 
 = 6.15.1 =
 * Added Copy Callback feature
@@ -347,7 +352,7 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 * Added WHMCS in default applist
 
 = 6.10.0 =
-* Upadted Google APIs
+* Updated Google APIs
 * Fixed cURL issues
 
 = 6.9.17 =
