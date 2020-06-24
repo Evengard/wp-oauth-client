@@ -304,7 +304,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')">Buy Now</button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
@@ -410,7 +410,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><small><br></small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_multisite_all_inclusive_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_multisite_plan')">Buy Now</button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>

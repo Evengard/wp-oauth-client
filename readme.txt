@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login
 Requires at least: 3.0.1
 Tested up to: 5.4
-Stable tag: 6.16.0
+Stable tag: 6.16.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -11,7 +11,7 @@ Allows SSO with Cognito, Azure, Okta, Onelogin, Keycloak, WHMCS, Google Apps, Sa
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
 It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
 
 
@@ -238,6 +238,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.16.1 =
+* Minor fixes
 
 = 6.16.0 =
 * Automated the plugin OAuth & OIDC configuration
