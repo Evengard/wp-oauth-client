@@ -73,7 +73,7 @@
 			</tr>
 			<tr id="mo_oauth_custom_app_name_div">
 				<td><strong><font color="#FF0000">*</font>App Name (<?php echo $currentapp->type;?>):</strong></td>
-				<td><input class="mo_table_textbox" onkeyup="updateFormAction()" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="<?php echo $tempappname; ?>" pattern="^[a-zA-Z0-9]+( [a-zA-Z0-9\s]+)*$" required title="Please do not add any special characters." placeholder="Do not add any special characters"></td>
+				<td><input class="mo_table_textbox" onkeyup="updateFormAction()" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="<?php echo $tempappname; ?>" pattern="^[a-zA-Z0-9]+( [a-zA-Z0-9\s]+)*$" required title="Please do not add any special characters." placeholder="Do not add any special characters" maxlength="14"></td>
 			</tr>
 <!--			<tr id="mo_oauth_display_app_name_div">-->
 <!--				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>-->

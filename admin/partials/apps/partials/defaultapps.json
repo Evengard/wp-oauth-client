@@ -1,4 +1,7 @@
 {
+	"office365": {
+		"label":"Office 365", "type":"openidconnect", "image":"office365.png", "scope": "openid", "tenant": "tenent-id", "discovery": "https://login.microsoftonline.com/tenant/.well-known/openid-configuration", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
+	},
 	"azure": {
 		"label":"Azure AD", "type":"openidconnect", "image":"azure.png", "scope": "openid", "tenant": "tenent-id", "discovery": "https://login.microsoftonline.com/tenant/.well-known/openid-configuration", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
 	},
@@ -32,7 +35,7 @@
 	"discord": {
 		"label":"Discord", "type":"oauth", "image":"discord.png", "scope": "identify email", "domain": "", "discovery":"", "authorize": "https://discordapp.com/api/oauth2/authorize", "token": "https://discordapp.com/api/oauth2/token", "userinfo": "https://discordapp.com/api/users/@me", "guide":"http://plugins.miniorange.com/guide-to-configure-discord-as-oauth-server", "logo_class":"fa fa-lock"
 	},
-	"invisioncommunity": {
+	"invision": {
 		"label":"Invision Community", "type":"oauth", "image":"invis.png", "scope": "email", "domain": "", "discovery":"", "authorize": "https://{invision-community-domain}/oauth/authorize/", "token": "https://{invision-community-domain}/oauth/token/", "userinfo": "https://{invision-community-domain}/api/core/me", "guide":"https://plugins.miniorange.com/guide-to-invision-community-client-with-wordpress/", "logo_class":"fa fa-lock"
 	},
     "bitrix24": {
@@ -57,7 +60,7 @@
 		"label":"Gluu Server", "type":"oauth", "image":"gluu.png", "scope": "openid", "domain":"https://hostname", "discovery":"domain/.well-known/openid-configuration", "authorize": "http://<gluu-server-domain>/oxauth/restv1/authorize", "token": "http://<gluu-server-domain>/oxauth/restv1/token", "userinfo": "http:///<gluu-server-domain>/oxauth/restv1/userinfo", "guide":"https://plugins.miniorange.com/guide-configure-gluu-oauth-server/", "logo_class":"fa fa-lock"
 	},
 	"linkedin": {
-		"label":"LinkedIn", "type":"oauth", "image":"linkedin.png", "scope": "r_basicprofile", "domain": "", "discovery":"", "authorize": "https://www.linkedin.com/oauth/v2/authorization", "token": "https://www.linkedin.com/oauth/v2/accessToken", "userinfo": "https://api.linkedin.com/v2/me", "guide":"https://plugins.miniorange.com/guide-to-configure-linkedin-oauthopenid-connect-server/", "logo_class":"fa fa-linkedin-square"
+		"label":"LinkedIn", "type":"oauth", "image":"linkedin.png", "scope": "r_liteprofile r_emailaddress", "domain": "", "discovery":"", "authorize": "https://www.linkedin.com/oauth/v2/authorization", "token": "https://www.linkedin.com/oauth/v2/accessToken", "userinfo": "https://api.linkedin.com/v2/me", "guide":"https://plugins.miniorange.com/guide-to-configure-linkedin-oauthopenid-connect-server/", "logo_class":"fa fa-linkedin-square"
 	},
 	"strava": {
 		"label":"Strava", "type":"oauth", "image":"strava.png", "scope": "read", "domain": "", "discovery":"", "authorize": "https://www.strava.com/oauth/authorize", "token": "https://www.strava.com/oauth/token", "userinfo": "https://www.strava.com/api/v3/athlete", "guide":"https://plugins.miniorange.com/guide-to-configure-strava-as-oauth-server/", "logo_class":"fa fa-lock"
@@ -75,7 +78,7 @@
 		"label":"GitLab", "type":"oauth", "image":"gitlab.png", "scope": "read_user", "domain": "", "discovery":"https://gitlab.com/.well-known/openid-configuration", "authorize": "https://gitlab.com/oauth/authorize", "token": "http://gitlab.com/oauth/token", "userinfo": "https://gitlab.com/api/v4/user", "guide":"https://plugins.miniorange.com/guide-to-configure-gitlab-as-oauth-server/", "logo_class":"fa fa-gitlab"
 	},
 	"clever": {
-		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "domain": "", "discovery":"", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v1.1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/", "logo_class":"fa fa-lock"
+		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "domain": "", "discovery":"", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v2.0/me", "guide":"https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/", "logo_class":"fa fa-lock"
 	},
 	"salesforce": {
 		"label":"Salesforce", "type":"oauth", "image":"salesforce.png", "scope": "email", "domain": "", "discovery":"https://login.salesforce.com/.well-known/openid-configuration", "authorize": "https://login.salesforce.com/services/oauth2/authorize", "token": "https://login.salesforce.com/services/oauth2/token", "userinfo": "https://login.salesforce.com/services/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/", "logo_class":"fa fa-lock"
@@ -86,7 +89,7 @@
 	"paypal": {
 		"label":"PayPal", "type":"openidconnect", "image":"paypal.png", "scope": "openid", "domain": "", "discovery":"https://www.paypalobjects.com/.well-known/openid-configuration", "authorize": "https://www.paypal.com/signin/authorize", "token": "https://api.paypal.com/v1/oauth2/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-paypal-as-oauth-server/", "logo_class":"fa fa-paypal"
 	},
-	"swiss-rx-login": {
+	"swiss rx login": {
 		"label":"Swiss RX Login", "type":"openidconnect", "image":"swiss-rx-login.png", "domain": "", "discovery":"", "scope": "anonymous", "authorize": "https://www.swiss-rx-login.ch/oauth/authorize", "token": "https://swiss-rx-login.ch/oauth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"yahoo": {
@@ -151,6 +154,9 @@
 	},
 	"did": {
 		"label":"DID App", "type":"openidconnect", "image":"did.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://auth.did.app/oidc/authorize", "token": "https://auth.did.app/oidc/token", "userinfo": "https://auth.did.app/oidc/userinfo", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"auth0": {
+		"label":"Auth0", "type":"openidconnect", "image":"auth0.png", "scope": "openid profile", "domain": "https://<your-auth0-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<your-auth0-domain>/authorize", "token": "https://<your-auth0-domain>/oauth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "domain": "",  "discovery":"", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"

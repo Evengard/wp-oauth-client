@@ -3,15 +3,15 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login
 Requires at least: 3.0.1
 Tested up to: 5.4
-Stable tag: 6.16.1
+Stable tag: 6.16.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Allows SSO with Cognito, Azure, Okta, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
+Allows SSO with Cognito, Office 365, Clever, Azure, Okta, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
 It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
 
 
@@ -90,6 +90,8 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
 = List of popular OAuth Providers we support for Single Sign On (SSO) =
+*   	Office 365
+*   	Clever
 *	Azure AD
 *	AWS Cognito
 *   	WHMCS
@@ -155,7 +157,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 
 
 = Other OAuth / OpenID Connect Providers we support for Single Sign On (SSO) =
-*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever etc.
 
 
 == Supported Add-ons with Single Sign On (SSO) ==
@@ -238,6 +240,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.16.2 =
+* Minor fixes
+* Added support for new Apps (Clever, Auth0)
 
 = 6.16.1 =
 * Minor fixes
