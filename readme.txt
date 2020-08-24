@@ -1,9 +1,9 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login
+Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta
 Requires at least: 3.0.1
-Tested up to: 5.4
-Stable tag: 6.16.2
+Tested up to: 5.5
+Stable tag: 6.16.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -240,6 +240,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.16.3 =
+* Compatibility with WordPress 5.5
 
 = 6.16.2 =
 * Minor fixes
