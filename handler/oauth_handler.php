@@ -2,6 +2,50 @@
 
 class Mo_OAuth_Hanlder {
 
+	function getAccessTokenCurl($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+
+		$ch = curl_init($tokenendpoint);
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		curl_setopt( $ch, CURLOPT_ENCODING, "" );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
+		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
+		curl_setopt( $ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Authorization: Basic '.base64_encode($clientid.":".$clientsecret),
+			'Accept: application/json'
+		));
+
+		curl_setopt( $ch, CURLOPT_POSTFIELDS, 'redirect_uri='.urlencode($redirect_url).'&grant_type='.$grant_type.'&client_id='.$clientid.'&client_secret='.$clientsecret.'&code='.$code);
+		$content = curl_exec($ch);
+
+		if(curl_error($ch)){
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			exit( curl_error($ch) );
+		}
+
+		if(!is_array(json_decode($content, true))){
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			exit("Invalid response received.");
+		}
+
+		$content = json_decode($content,true);
+		if(isset($content["error_description"])){
+			exit($content["error_description"]);
+		} else if(isset($content["error"])){
+			exit($content["error"]);
+		} else if(isset($content["access_token"])) {
+			$access_token = $content["access_token"];
+		} else {
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			exit('Invalid response received from OAuth Provider. Contact your administrator for more details.');
+		}
+
+		return $access_token;
+	}
+
+
 	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
 		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
 		$content = json_decode($response,true);
@@ -16,7 +60,7 @@ class Mo_OAuth_Hanlder {
 	}
 
 	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
-		
+
 		$clientsecret = html_entity_decode( $clientsecret );
 		$body = array(
 				'grant_type'    => $grant_type,
@@ -26,8 +70,8 @@ class Mo_OAuth_Hanlder {
 				'redirect_uri'  => $redirect_url,
 			);
 		$headers = array(
-				'Accept'  => 'application/json', 
-				'charset'       => 'UTF - 8', 
+				'Accept'  => 'application/json',
+				'charset'       => 'UTF - 8',
 				'Authorization' => 'Basic ' . base64_encode( $clientid . ':' . $clientsecret ),
 				'Content-Type' => 'application/x-www-form-urlencoded',
 		);

@@ -80,6 +80,7 @@
 <!--				<td><input class="mo_table_textbox" type="text" id="mo_oauth_display_app_name" name="mo_oauth_display_app_name" value="Login with <App Name>" pattern="[a-zA-Z0-9\s]+" disabled title="Please do not add any special characters."></td>-->
 <!--			</tr>-->
 		</table>
+		
 		<table class="mo_settings_table" id="mo_oauth_client_creds">
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client ID:</strong></td>
@@ -87,7 +88,12 @@
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
-				<td><input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="text"  name="mo_oauth_client_secret" value=""></td>
+				<td>
+					<input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="password"  name="mo_oauth_client_secret" value="">
+					
+					<i class="fa fa-eye" onclick="showClientSecret()" id="show_button" style="margin-left:-30px; cursor:pointer;"></i>
+				</td>
+
 			</tr>
 		</table>
             <?php if(isset($currentapp->discovery) && $currentapp->discovery !="") {?>
@@ -166,6 +172,8 @@
 
 		</div>
 		</div>
+
+		
 		<?php
 		mo_oauth_client_grant_type_settings();
 	}

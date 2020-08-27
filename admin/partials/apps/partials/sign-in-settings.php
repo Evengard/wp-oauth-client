@@ -23,7 +23,7 @@
 		<!--br><br-->
 		<ul class="mo_premium_features_notice">
 			<li>Custom redirect URL, Logging Out Confirmation, Allow Restricted Domains are available in <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Standard</a> version and above.</li>
-			<li>Dynamic Callback URL, Single Login Flow and User Analytics are available in the <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Enterprise</a> version.</li>
+			<li>Dynamic Callback URL, Single Login Flow, Hide & Disable WP Login and User Analytics are available in the <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Enterprise</a> version.</li>
 			<li>Other features are available in the <a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">Premium</a> version and above.</li>
 		</ul>
 		<form id="role_mapping_form" name="f" method="post" action="">
@@ -35,6 +35,7 @@
 		<p><input disabled="true" type="checkbox"> <strong> Keep Existing Users </strong>(If checked, existing users' attributes will <strong>NOT</strong> be overwritten when they log-in) [<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/account-linking" target="_blank">Learn more</a>]</p>
 		<p><input disabled="true" type="checkbox"> <strong> Confirm when logging out </strong>(If checked, users will be <strong>ASKED</strong> to confirm if they want to log-out, when they click the widget/shortcode logout button)</p>
 		<p><input disabled type="checkbox"><b> Enable User login reports </b> [<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/user-analytics" target="_blank">Learn more</a>]</p>
+		<p><input disabled type="checkbox"><b> Hide & Disable WP Login </b></p>
 		<p><input disabled="true" type="checkbox"> <strong> Allow Restricted Domains </strong>(By default, all domains in <strong>Restricted Domains</strong> field will be restricted. This option will invert this feature by allowing ONLY these domains) </p>
 
 		<table class="mo_oauth_client_mapping_table" style="width:90%">

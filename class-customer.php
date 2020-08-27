@@ -29,7 +29,7 @@ class Mo_OAuth_Client_Customer {
 	function create_customer(){
 		$url = get_option('host_name') . '/moas/rest/customer/add';
 		$this->email 		= get_option('mo_oauth_admin_email');
-		$this->phone 		= get_option('mo_oauth_admin_phone');
+		$this->phone 		= get_option('mo_oauth_client_admin_phone');
 		$password 			= get_option('password');
 		$firstName    		= get_option('mo_oauth_admin_fname');
 		$lastName     		= get_option('mo_oauth_admin_lname');
@@ -104,7 +104,7 @@ class Mo_OAuth_Client_Customer {
 	
 	function add_oauth_application( $name, $app_name ) {
 		$url = get_option('host_name') . '/moas/rest/application/addoauth';
-		$customerKey = get_option('mo_oauth_admin_customer_key');
+		$customerKey = get_option('mo_oauth_client_admin_customer_key');
 		$scope = get_option('mo_oauth_' . $name . '_scope');
 		$client_id = get_option('mo_oauth_' . $name . '_client_id');
 		$client_secret = get_option('mo_oauth_' . $name . '_client_secret');
@@ -283,7 +283,7 @@ class Mo_OAuth_Client_Customer {
 			$apiKey =  $this->defaultApiKey;
 
 			$username = get_option('mo_oauth_admin_email');
-			$phone=get_option('mo_oauth_admin_phone');
+			$phone=get_option('mo_oauth_client_admin_phone');
 			/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
 			$currentTimeInMillis = self::get_timestamp();
 
@@ -573,10 +573,10 @@ class Mo_OAuth_Client_Customer {
 	function mo_oauth_forgot_password($email) {
 		$url = get_option ( 'host_name' ) . '/moas/rest/customer/password-reset';
 		/* The customer Key provided to you */
-		$customerKey = get_option ( 'mo_oauth_admin_customer_key' );
+		$customerKey = get_option ( 'mo_oauth_client_admin_customer_key' );
 		
 		/* The customer API Key provided to you */
-		$apiKey = get_option ( 'mo_oauth_admin_api_key' );
+		$apiKey = get_option ( 'mo_oauth_client_admin_api_key' );
 		
 		/* Current time in milliseconds since midnight, January 1, 1970 UTC. */
 		$currentTimeInMillis = self::get_timestamp();

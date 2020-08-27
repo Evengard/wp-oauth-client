@@ -181,6 +181,17 @@ a {
       </div>
     </div>
   </div>
+  <div class="row-view">
+    <div class="grid_view column_container">
+      <div class="column_inner">
+        <div class="row benefits-outer-block">
+          <img src="<?php echo plugins_url("images/discord.png", __FILE__) ?>" width="40px" height="40px">
+          <h5 style="margin-top:1em;"><a href="">Discord Role Mapping</a></h5>
+          <p>Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?php

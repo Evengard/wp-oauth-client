@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.16.3
+ * Version: 6.17.0
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -86,15 +86,15 @@ class mo_oauth {
 	}
 	public function mo_oauth_deactivate() {
 		delete_option('host_name');
-		delete_option('new_registration');
-		delete_option('mo_oauth_admin_phone');
-		delete_option('verify_customer');
-		delete_option('mo_oauth_admin_customer_key');
-		delete_option('mo_oauth_admin_api_key');
-		delete_option('mo_oauth_new_customer');
-		delete_option('customer_token');
+		delete_option('mo_oauth_client_new_registration');
+		delete_option('mo_oauth_client_admin_phone');
+		delete_option('mo_oauth_client_verify_customer');
+		delete_option('mo_oauth_client_admin_customer_key');
+		delete_option('mo_oauth_client_admin_api_key');
+		delete_option('mo_oauth_client_new_customer');
+		delete_option('mo_oauth_client_customer_token');
 		delete_option('message');
-		delete_option('mo_oauth_registration_status');
+		delete_option('mo_oauth_client_registration_status');
 		delete_option('mo_oauth_client_show_mo_server_message');
 		wp_clear_scheduled_hook( 'check_if_wp_rest_apis_are_open' );
 	}
@@ -245,7 +245,7 @@ class mo_oauth {
 				}
 
 				update_option( 'mo_oauth_admin_email', $email );
-				update_option( 'mo_oauth_admin_phone', $phone );
+				update_option( 'mo_oauth_client_admin_phone', $phone );
 				update_option( 'mo_oauth_admin_fname', $fname );
 				update_option( 'mo_oauth_admin_lname', $lname );
 				update_option( 'mo_oauth_admin_company', $company );
@@ -276,15 +276,15 @@ class mo_oauth {
 					}
 				} else {
 					update_option( 'message', 'Passwords do not match.');
-					delete_option('verify_customer');
+					delete_option('mo_oauth_client_verify_customer');
 					$this->mo_oauth_show_error_message();
 				}
 			}
 		}
 
 		if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_client_goto_login" && isset( $_REQUEST['mo_oauth_goto_login_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_goto_login_form_field'] ) ), 'mo_oauth_goto_login_form' )) {
-			delete_option( 'new_registration' );
-			update_option( 'verify_customer', 'true' );
+			delete_option( 'mo_oauth_client_new_registration' );
+			update_option( 'mo_oauth_client_verify_customer', 'true' );
 		}
 
 		 if(isset($_POST['option']) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_validate_otp" && isset( $_REQUEST['mo_oauth_verify_otp_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_verify_otp_form_field'] ) ), 'mo_oauth_verify_otp_form' )){
@@ -296,7 +296,7 @@ class mo_oauth {
 				$otp_token = '';
 				if( $this->mo_oauth_check_empty_or_null( $_POST['mo_oauth_otp_token'] ) ) {
 					update_option( 'message', 'Please enter a value in OTP field.');
-					update_option('mo_oauth_registration_status','MO_OTP_VALIDATION_FAILURE');
+					update_option('mo_oauth_client_registration_status','MO_OTP_VALIDATION_FAILURE');
 					$this->mo_oauth_show_error_message();
 					return;
 				} else{
@@ -309,7 +309,7 @@ class mo_oauth {
 					$this->create_customer();
 				}else{
 					update_option( 'message','Invalid one time passcode. Please enter a valid OTP.');
-					update_option('mo_oauth_registration_status','MO_OTP_VALIDATION_FAILURE');
+					update_option('mo_oauth_client_registration_status','MO_OTP_VALIDATION_FAILURE');
 					$this->mo_oauth_show_error_message();
 				}
 		 	}
@@ -338,15 +338,15 @@ class mo_oauth {
 				$content = $customer->get_customer_key();
 				$customerKey = json_decode( $content, true );
 				if( json_last_error() == JSON_ERROR_NONE ) {
-					update_option( 'mo_oauth_admin_customer_key', $customerKey['id'] );
-					update_option( 'mo_oauth_admin_api_key', $customerKey['apiKey'] );
-					update_option( 'customer_token', $customerKey['token'] );
+					update_option( 'mo_oauth_client_admin_customer_key', $customerKey['id'] );
+					update_option( 'mo_oauth_client_admin_api_key', $customerKey['apiKey'] );
+					update_option( 'mo_oauth_client_customer_token', $customerKey['token'] );
 					if( isset( $customerKey['phone'] ) )
-						update_option( 'mo_oauth_admin_phone', $customerKey['phone'] );
+						update_option( 'mo_oauth_client_admin_phone', $customerKey['phone'] );
 					delete_option('password');
 					update_option( 'message', 'Customer retrieved successfully');
-					delete_option('verify_customer');
-					delete_option('new_registration');
+					delete_option('mo_oauth_client_verify_customer');
+					delete_option('mo_oauth_client_new_registration');
 					$this->mo_oauth_show_success_message();
 				} else {
 					update_option( 'message', 'Invalid username or password. Please try again.');
@@ -704,11 +704,11 @@ class mo_oauth {
 			if(strcasecmp($content['status'], 'SUCCESS') == 0) {
 					update_option( 'message', ' A one time passcode is sent to ' . get_option('mo_oauth_admin_email') . ' again. Please check if you got the otp and enter it here.');
 					$_SESSION['mo_oauth_transactionId'] = $content['txId'];
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS');
+					update_option('mo_oauth_client_registration_status','MO_OTP_DELIVERED_SUCCESS');
 					$this->mo_oauth_show_success_message();
 			}else{
 					update_option('message','There was an error in sending email. Please click on Resend OTP to try again.');
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE');
+					update_option('mo_oauth_client_registration_status','MO_OTP_DELIVERED_FAILURE');
 					$this->mo_oauth_show_error_message();
 			}
 		} else if (isset($_POST ['option']) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_resend_otp_phone" && isset( $_REQUEST['mo_oauth_resend_otp_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_resend_otp_form_field'] ) ), 'mo_oauth_resend_otp_form' )) {
@@ -716,17 +716,17 @@ class mo_oauth {
 				if( mo_oauth_is_curl_installed() == 0 ) {
 					return $this->mo_oauth_show_curl_error();
 				}
-				$phone = get_option('mo_oauth_admin_phone');
+				$phone = get_option('mo_oauth_client_admin_phone');
 				$customer = new Mo_OAuth_Client_Customer();
 				$content = json_decode($customer->send_otp_token('', $phone, FALSE, TRUE), true);
 				if (strcasecmp($content ['status'], 'SUCCESS') == 0) {
 					update_option('message', ' A one time passcode is sent to ' . $phone . ' again. Please check if you got the otp and enter it here.');
 					update_option('mo_oauth_transactionId', $content ['txId']);
-					update_option('mo_oauth_registration_status', 'MO_OTP_DELIVERED_SUCCESS_PHONE');
+					update_option('mo_oauth_client_registration_status', 'MO_OTP_DELIVERED_SUCCESS_PHONE');
 					$this->mo_oauth_show_success_message();
 				} else {
 					update_option('message', 'There was an error in sending email. Please click on Resend OTP to try again.');
-					update_option('mo_oauth_registration_status', 'MO_OTP_DELIVERED_FAILURE_PHONE');
+					update_option('mo_oauth_client_registration_status', 'MO_OTP_DELIVERED_FAILURE_PHONE');
 					$this->mo_oauth_show_error_message();
 				}
 			}else if (isset($_POST ['option']) && sanitize_text_field( wp_unslash( $_POST['option'] ) ) == 'mo_oauth_forgot_password_form_option' && isset( $_REQUEST['mo_oauth_forgotpassword_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_forgotpassword_form_field'] ) ), 'mo_oauth_forgotpassword_form' )) {
@@ -750,9 +750,9 @@ class mo_oauth {
 				}
 		} else if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_change_email"  && isset( $_REQUEST['mo_oauth_change_email_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_change_email_form_field'] ) ), 'mo_oauth_change_email_form')) {
 			//Adding back button
-			update_option('verify_customer', '');
-			update_option('mo_oauth_registration_status','');
-			update_option('new_registration','true');
+			update_option('mo_oauth_client_verify_customer', '');
+			update_option('mo_oauth_client_registration_status','');
+			update_option('mo_oauth_client_new_registration','true');
 		} else if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_register_with_phone_option" && isset( $_REQUEST['mo_oauth_register_with_phone_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_register_with_phone_form_field'] ) ), 'mo_oauth_register_with_phone_form')) {
 
 			if( current_user_can( 'administrator' ) ) {
@@ -762,17 +762,17 @@ class mo_oauth {
 				$phone = stripslashes($_POST['phone']);
 				$phone = str_replace(' ', '', $phone);
 				$phone = str_replace('-', '', $phone);
-				update_option('mo_oauth_admin_phone', $phone);
+				update_option('mo_oauth_client_admin_phone', $phone);
 				$customer = new Mo_OAuth_Client_Customer();
 				$content=json_decode( $customer->send_otp_token('', $phone, FALSE, TRUE),true);
 				if($content) {
-					update_option( 'message', ' A one time passcode is sent to ' . get_site_option('mo_oauth_admin_phone') . '. Please enter the otp here to verify your email.');
+					update_option( 'message', ' A one time passcode is sent to ' . get_site_option('mo_oauth_client_admin_phone') . '. Please enter the otp here to verify your email.');
 					$_SESSION['mo_oauth_transactionId'] = $content['txId'];
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_SUCCESS_PHONE');
+					update_option('mo_oauth_client_registration_status','MO_OTP_DELIVERED_SUCCESS_PHONE');
 					$this->mo_oauth_show_success_message();
 				}else{
 					update_option('message','There was an error in sending SMS. Please click on Resend OTP to try again.');
-					update_option('mo_oauth_registration_status','MO_OTP_DELIVERED_FAILURE_PHONE');
+					update_option('mo_oauth_client_registration_status','MO_OTP_DELIVERED_FAILURE_PHONE');
 					$this->mo_oauth_show_error_message();
 				}
 			}
@@ -799,7 +799,7 @@ class mo_oauth {
 					if ( $email == '' ) {
 						$email = $user->user_email;
 					}
-					$phone = get_option( 'mo_oauth_admin_phone' );
+					$phone = get_option( 'mo_oauth_client_admin_phone' );
 					//only reason
 					$feedback_reasons = new Mo_OAuth_Client_Customer();
 					$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $phone, $message, "Feedback: WordPress ".MO_OAUTH_PLUGIN_NAME ), true );
@@ -821,17 +821,17 @@ class mo_oauth {
 		$content = $customer->get_customer_key();
 		$customerKey = json_decode( $content, true );
 		if( json_last_error() == JSON_ERROR_NONE ) {
-			update_option( 'mo_oauth_admin_customer_key', $customerKey['id'] );
-			update_option( 'mo_oauth_admin_api_key', $customerKey['apiKey'] );
-			update_option( 'customer_token', $customerKey['token'] );
+			update_option( 'mo_oauth_client_admin_customer_key', $customerKey['id'] );
+			update_option( 'mo_oauth_client_admin_api_key', $customerKey['apiKey'] );
+			update_option( 'mo_oauth_client_customer_token', $customerKey['token'] );
 			update_option('password', '' );
 			update_option( 'message', 'Customer retrieved successfully' );
-			delete_option('verify_customer');
-			delete_option('new_registration');
+			delete_option('mo_oauth_client_verify_customer');
+			delete_option('mo_oauth_client_new_registration');
 			$this->mo_oauth_show_success_message();
 		} else {
 			update_option( 'message', 'You already have an account with miniOrange. Please enter a valid password.');
-			update_option('verify_customer', 'true');
+			update_option('mo_oauth_client_verify_customer', 'true');
 			$this->mo_oauth_show_error_message();
 
 		}
@@ -842,17 +842,17 @@ class mo_oauth {
 		$customerKey = json_decode( $customer->create_customer(), true );
 		if( strcasecmp( $customerKey['status'], 'CUSTOMER_USERNAME_ALREADY_EXISTS') == 0 ) {
 			$this->mo_oauth_get_current_customer();
-			delete_option('mo_oauth_new_customer');
+			delete_option('mo_oauth_client_new_customer');
 		} else if( strcasecmp( $customerKey['status'], 'SUCCESS' ) == 0 ) {
-			update_option( 'mo_oauth_admin_customer_key', $customerKey['id'] );
-			update_option( 'mo_oauth_admin_api_key', $customerKey['apiKey'] );
-			update_option( 'customer_token', $customerKey['token'] );
+			update_option( 'mo_oauth_client_admin_customer_key', $customerKey['id'] );
+			update_option( 'mo_oauth_client_admin_api_key', $customerKey['apiKey'] );
+			update_option( 'mo_oauth_client_customer_token', $customerKey['token'] );
 			update_option( 'password', '');
 			update_option( 'message', 'Registered successfully.');
-			update_option('mo_oauth_registration_status','MO_OAUTH_REGISTRATION_COMPLETE');
-			update_option('mo_oauth_new_customer',1);
-			delete_option('verify_customer');
-			delete_option('new_registration');
+			update_option('mo_oauth_client_registration_status','MO_OAUTH_REGISTRATION_COMPLETE');
+			update_option('mo_oauth_client_new_customer',1);
+			delete_option('mo_oauth_client_verify_customer');
+			delete_option('mo_oauth_client_new_registration');
 			$this->mo_oauth_show_success_message();
 		}
 	}
@@ -894,7 +894,7 @@ class mo_oauth {
 
 	function mo_oauth_is_customer_registered() {
 		$email 			= get_option('mo_oauth_admin_email');
-		$customerKey 	= get_option('mo_oauth_admin_customer_key');
+		$customerKey 	= get_option('mo_oauth_client_admin_customer_key');
 		if( ! $email || ! $customerKey || ! is_numeric( trim( $customerKey ) ) ) {
 			return 0;
 		} else {

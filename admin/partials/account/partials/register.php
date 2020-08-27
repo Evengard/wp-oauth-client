@@ -1,7 +1,7 @@
 <?php
 
 function mo_oauth_client_register_ui() {
-	update_option ( 'new_registration', 'true' );
+	update_option ( 'mo_oauth_client_new_registration', 'true' );
 	$current_user = wp_get_current_user();
 	?>
 			<!--Register with miniOrange-->
@@ -49,7 +49,7 @@ function mo_oauth_client_register_ui() {
 
 						<tr  class="hidden">
 							<td><b>&nbsp;&nbsp;Phone number :</b></td>
-							 <td><input class="mo_table_textbox" type="text" name="phone" pattern="[\+]?([0-9]{1,4})?\s?([0-9]{7,12})?" id="phone" title="Phone with country code eg. +1xxxxxxxxxx" placeholder="Phone with country code eg. +1xxxxxxxxxx" value="<?php echo get_option('mo_oauth_admin_phone');?>" />
+							 <td><input class="mo_table_textbox" type="text" name="phone" pattern="[\+]?([0-9]{1,4})?\s?([0-9]{7,12})?" id="phone" title="Phone with country code eg. +1xxxxxxxxxx" placeholder="Phone with country code eg. +1xxxxxxxxxx" value="<?php echo get_option('mo_oauth_client_admin_phone');?>" />
 							 This is an optional field. We will contact you only if you need support.</td>
 							</tr>
 						</tr>
@@ -107,7 +107,7 @@ function mo_oauth_client_show_customer_info() {
 		</tr>
 		<tr>
 			<td style="width:45%; padding: 10px;">Customer ID</td>
-			<td style="width:55%; padding: 10px;"><?php echo get_option( 'mo_oauth_admin_customer_key' ) ?></td>
+			<td style="width:55%; padding: 10px;"><?php echo get_option( 'mo_oauth_client_admin_customer_key' ) ?></td>
 		</tr>
 		</table>
 		<br /><br />

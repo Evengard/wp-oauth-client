@@ -3,16 +3,16 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta
 Requires at least: 3.0.1
 Tested up to: 5.5
-Stable tag: 6.16.3
+Stable tag: 6.17.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Allows SSO with Cognito, Office 365, Clever, Azure, Okta, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
+SSO with Cognito, Azure, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
 
 == Description ==
 
 This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
-It also covers User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site.
+It also provides unlimited User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
 
 
 [youtube https://youtu.be/rIe2yvree0g]
@@ -168,6 +168,7 @@ We have a variety of add-ons that can be integrated with the OAuth Single Sign O
 *	BuddyPress Integration – This add-on maps the attributes fetched from the OAuth / OpenID Connect compliant IdP with BuddyPress attributes.
 *	Login Form Add-On - This add-on provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.
 *	Membership Level based Login Redirection - This add-on allows to redirect users to custom pages based on users' membership levels after Single Sign On. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.
+*       Discord Role Mapping - Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.
 
 = Real Time User Provisioning using SCIM =
 Provides use-provisioning from your IDP to your WordPress using SCIM standard. You can refer our <a href="https://www.miniorange.com/wordpress-miniorange-scim-user-provisioner-with-onelogin/" target="_blank"> WordPress User Provisioning using SCIM </a> plugin.
@@ -240,6 +241,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.17.0 =
+* Configuration fixes
+* UI Updates
 
 = 6.16.3 =
 * Compatibility with WordPress 5.5

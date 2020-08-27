@@ -78,3 +78,16 @@ function copyUrl() {
 	tooltip.innerHTML = "Copied";
     // document.getElementById("redirect_url_change_warning").style.display = "none";
 } 
+
+function showClientSecret(){
+	var field = document.getElementById("mo_oauth_client_secret");
+	var show_button = document.getElementById("show_button");
+	if(field.type == "password"){
+		field.type = "text";
+		show_button.className = "fa fa-eye-slash";
+	}
+	else{
+		field.type = "password";
+		show_button.className = "fa fa-eye";
+	}
+}

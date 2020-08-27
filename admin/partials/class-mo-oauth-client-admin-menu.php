@@ -62,7 +62,7 @@ function mo_oauth_client_main_menu() {
 }
 
 
-function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_admin_customer_key') > 138200)return true;else return false;}
+function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_client_admin_customer_key') > 138200)return true;else return false;}
 
 class Mo_OAuth_Client_Admin_Menu {
 
@@ -176,11 +176,11 @@ public static function show_rest_api_secure_message()
 
 	public static function show_tab($currenttab) {
 			if($currenttab == 'account') {
-				if (get_option ( 'verify_customer' ) == 'true') {
+				if (get_option ( 'mo_oauth_client_verify_customer' ) == 'true') {
 					Mo_OAuth_Client_Admin_Account::verify_password();
-				} else if (trim ( get_option ( 'mo_oauth_admin_email' ) ) != '' && trim ( get_option ( 'mo_oauth_admin_api_key' ) ) == '' && get_option ( 'new_registration' ) != 'true') {
+				} else if (trim ( get_option ( 'mo_oauth_admin_email' ) ) != '' && trim ( get_option ( 'mo_oauth_client_admin_api_key' ) ) == '' && get_option ( 'mo_oauth_client_new_registration' ) != 'true') {
 					Mo_OAuth_Client_Admin_Account::verify_password();
-				} else if(get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_registration_status')=='MO_OTP_VALIDATION_FAILURE' ||get_option('mo_oauth_registration_status') ==  'MO_OTP_DELIVERED_SUCCESS_PHONE' ||get_option('mo_oauth_registration_status') == 'MO_OTP_DELIVERED_FAILURE_PHONE'){
+				} else if(get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_client_registration_status')=='MO_OTP_VALIDATION_FAILURE' ||get_option('mo_oauth_client_registration_status') ==  'MO_OTP_DELIVERED_SUCCESS_PHONE' ||get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_FAILURE_PHONE'){
 					Mo_OAuth_Client_Admin_Account::otp_verification();
 				} else {
 					Mo_OAuth_Client_Admin_Account::register();

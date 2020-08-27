@@ -34,6 +34,7 @@
 		<input type="hidden" id="mo_oauth_app_nameid" value="<?php echo $currentappname;?>">
 		<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp['apptype'];?>">
 		<input class="mo_table_textbox" required="" type="hidden" name="mo_oauth_custom_app_name" value="<?php echo $currentappname;?>">
+
 		<table class="mo_settings_table">
 			<tr id="mo_oauth_display_app_name_div">
 				<td><strong>Display App Name:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
@@ -51,7 +52,11 @@
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font>Client Secret:</strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_secret" value="<?php echo $currentapp['clientsecret'];?>"></td>
+				<td>
+					<input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="password"  name="mo_oauth_client_secret" value="<?php echo $currentapp['clientsecret'];?>">
+					
+					<i class="fa fa-eye" onclick="showClientSecret()" id="show_button" style="margin-left:-30px; cursor:pointer;"></i>
+				</td>
 			</tr>
 			<tr>
 				<td><strong>Scope:</strong></td>
@@ -172,22 +177,19 @@
 				console.error(err);
 			}
 		}
-		function outFunc() {
-  					var tooltip = document.getElementById("moTooltip");
-  					tooltip.innerHTML = "Copy to clipboard";
-					
+
+		function showClientSecret(){
+			var field = document.getElementById("mo_oauth_client_secret");
+			var show_button = document.getElementById("show_button");
+			if(field.type == "password"){
+				field.type = "text";
+				show_button.className = "fa fa-eye-slash";
 			}
-			function copyUrl() {
-  				var copyText = document.getElementById("callbackurl");
-  				outFunc();
-  				copyText.select();
-  				copyText.setSelectionRange(0, 99999); 
-  				document.execCommand("copy");
-  				var tooltip = document.getElementById("moTooltip");
-  				tooltip.innerHTML = "Copied";
-  				
-				// document.getElementById("redirect_url_change_warning").style.display = "none";
-			} 
+			else{
+				field.type = "password";
+				show_button.className = "fa fa-eye";
+			}
+		}
 		</script>
 		<?php }
 		mo_oauth_client_grant_type_settings();

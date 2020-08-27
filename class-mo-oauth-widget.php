@@ -200,7 +200,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				
 					if(strpos($authorizationUrl, '?' ) !== false)
 					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
-				    else 
+				    else
 					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
 
 					if(session_id() == '' || !isset($_SESSION))
@@ -214,7 +214,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			}
 		}
 
-		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_GET['code'])) {  
+		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_GET['code'])) {
 
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
@@ -293,9 +293,13 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							$currentapp['send_headers'] = false;
 						if(!isset($currentapp['send_body']))
 							$currentapp['send_body'] = false;
-						
-						$accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
-                                                 
+
+                        if(strpos($currentapp['authorizeurl'], 'clever.com/oauth') != false || 
+                    		$currentapp['appId'] == 'bitrix24') {
+                            $accessToken = $mo_oauth_handler->getAccessTokenCurl($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+                        } else {
+                            $accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+                        }
 						if(!$accessToken)
 							exit('Invalid token received.');
 
@@ -378,10 +382,10 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 		} else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'generateDynmicUrl' ) !== false ) {
 			$client_id = get_option('mo_oauth_' . $_REQUEST['app_name'] . '_client_id');
 			$timestamp = round( microtime(true) * 1000 );
-			$api_key = get_option('mo_oauth_admin_api_key');
+			$api_key = get_option('mo_oauth_client_admin_api_key');
 			$token = $client_id . ':' . number_format($timestamp, 0, '', '') . ':' . $api_key;
 
-			$customer_token = get_option('customer_token');
+			$customer_token = get_option('mo_oauth_client_customer_token');
 			$method = 'AES-128-ECB';
 			$ivSize = openssl_cipher_iv_length($method);
 			$iv     = openssl_random_pseudo_bytes($ivSize);
@@ -390,7 +394,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			$token_params = urlencode( $token_params_encode );
 
 			$return_url = urlencode( site_url() . '/?option=mooauth' );
-			$url = get_option('host_name') . '/moas/oauth/client/authorize?token=' . $token_params . '&id=' . get_option('mo_oauth_admin_customer_key') . '&encrypted=true&app=' . $_REQUEST['app_name'] . '_oauth&returnurl=' . $return_url;
+			$url = get_option('host_name') . '/moas/oauth/client/authorize?token=' . $token_params . '&id=' . get_option('mo_oauth_client_admin_customer_key') . '&encrypted=true&app=' . $_REQUEST['app_name'] . '_oauth&returnurl=' . $return_url;
 			wp_redirect( $url );
 			exit;
 		} else if( isset( $_REQUEST['option'] ) and strpos( $_REQUEST['option'], 'mooauth' ) !== false ){
