@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This plugin allows login (Single Sign On) into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.17.0
+ * Version: 6.17.1
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -442,7 +442,7 @@ class mo_oauth {
                             $newapp['policy'] = $policy;
                         } elseif(isset($_POST['mo_oauth_provider_realm'])) {
                             $realm = stripslashes(trim($_POST['mo_oauth_provider_realm']));
-                            $discovery_endpoint = str_replace("realm", $realm, $discovery_endpoint);
+                            $discovery_endpoint = str_replace("realmname", $realm, $discovery_endpoint);
                             $newapp['realm'] = $realm;
                         }
 

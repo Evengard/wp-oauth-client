@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta
 Requires at least: 3.0.1
 Tested up to: 5.5
-Stable tag: 6.17.0
+Stable tag: 6.17.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -241,6 +241,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.17.1 =
+* Keycloak configuration fixes
+* UI Updates
 
 = 6.17.0 =
 * Configuration fixes
