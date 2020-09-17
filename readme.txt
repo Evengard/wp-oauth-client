@@ -1,9 +1,9 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, oauth 2.0, Single sign on, sso, wordpress sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta
+Tags: oauth, Single sign on, sso, wordpress sso, multisite sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta sso
 Requires at least: 3.0.1
 Tested up to: 5.5
-Stable tag: 6.17.1
+Stable tag: 6.17.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -20,7 +20,7 @@ It also provides unlimited User Authentication with OAuth & OIDC protocol and al
 
 = Single Sign-On(SSO) =
 
-In simple term, Single Sign On(SSO) means login into 1 site / application using the credentials of another app/site.
+In simple term, Single Sign On(SSO) means login into any site / application using the credentials of another app/site.
 Example. If you have all your Users/Customers/Members/Employees stored on 1 site(ex. gmail, wordpress, etc.), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register/login all your users of site A into Site B using the login credentials/account of Site A. This is call Single Sign-On or SSO.
 
 = Single Sign On supported Third Party Application / OAuth-OIDC Provider =
@@ -30,10 +30,10 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 = Single Sign On USE-CASES =
 
 * Single Sign-On between WordPress - Wordpress(Login with WordPress) :
-	1. Single Sign-On to 1 WordPress site using User Credentials stored on Another WordPress site
+	1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on Another WordPress site
 	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
 * Single Sign-On between WordPress and Any OAuth / OpenID Connect (OIDC) application(Login with Social Login Apps / Custom Providers) :
-    1. Single Sign-On to 1 WordPress site using User Credentials stored on your third party application
+        1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on your third party application
 	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
 * Single Sign-On into WordPress Using existing User stores(Active Directory/Database)
 
@@ -71,7 +71,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	Force Authentication / Protect Complete Site : Allows user to restrict login(Single Sign On) / authorization for particular site
 *	Multiple Userinfo Endpoints Support : OAuth Login(Single Sign On) supports multiple Userinfo Endpoints.
 *	App domain specific Registration Restrictions : OAuth Login (Single Sign On) restricts registration on your site based on the person's email address domain
-*	Multi-site Support : OAuth Login(Single Sign On) have unique ability to support multiple sites under one account
+*	Multisite Support : OAuth Login(Single Sign On) have unique ability to support multiple sites (multisite) under one account
 
 = ENTERPRISE VERSION FEATURES =
 
@@ -89,63 +89,55 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 = No SSL restriction =
 *	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
-= List of popular OAuth Providers we support for Single Sign On (SSO) =
-*   	Office 365
-*   	Clever
-*	Azure AD
-*	AWS Cognito
-*   	WHMCS
-*   	Zoho
-*   	Ping Federate (Ping / Ping Identity)
-*	Slack
-*	Discord
+= List of popular OAuth / OpenID Connect Providers we support for Single Sign On (SSO) =
+*   <a href="https://plugins.miniorange.com/office-365-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Office 365</a>
+*   <a href="https://plugins.miniorange.com/azure-b2c-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure B2C</a>
+*   <a href="https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure AD</a>
+*	<a href="https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/" target="_blank">AWS Cognito
+*   <a href="https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/" target="_blank">Clever</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-whmcs-oauth-openid-connect-server/" target="_blank">WHMCS</a>
+*   <a href="https://plugins.miniorange.com/ping-federate-single-sign-on-for-wordpress-using-oauth/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/" target="_blank">Slack</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-discord-as-oauth-server/" target="_blank">Discord</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-wso2-as-an-oauth-openid-connect-server/" target="_blank">WSO2</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/" target="_blank">Salesforce</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-paypal-as-oauth-server/" target="_blank">PayPal</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-google-as-oauth-server/" target="_blank">Google Apps</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/" target="_blank">Okta</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-onelogin-as-openid-connect-server/" target="_blank">OneLogin</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-yahoo-as-oauth-server/" target="_blank">Yahoo</a>
+*	<a href="https://plugins.miniorange.com/step-step-guide-to-single-sign-on-into-wordpress-using-openathens-oauth/" target="_blank">OpenAthens</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-linkedin-oauthopenid-connect-server/" target="_blank">LinkedIn</a>
+*	<a href="https://plugins.miniorange.com/guide-to-configure-gitlab-as-oauth-server/" target="_blank">Gitlab</a>
+*	<a href="https://plugins.miniorange.com/guide-configure-gluu-oauth-server/" target="_blank">Gluu Server</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-wso2-as-an-oauth-openid-connect-server/" target="_blank">WSO2</a>
 *	HR Answerlink / Support center
-*	WSO2
+*   Zoho
 *	Wechat
 *	Weibo
-*   	LinkedIn
-*	Gitlab
 *	Shibboleth
 *	Blizzard (Formerly Battle.net)
 *	servicem8
 *	Meetup
 *	Eve Online
-*	Gluu Server
-*   	WSO2
 *	NetIQ
 * 	Centrify
-*   	Shibboleth
-*   	Azure B2C
-*   	Egnyte
-*   	Twitter
-*   	OpenAM
-*   	Azure B2C
-*   	Basecamp
-*   	Steam
-*   	Webflow
-
-
-= List of popular OpenID Connect (OIDC) Providers we support for Single Sign On (SSO) =
+*   Shibboleth
+*   Egnyte
+*   Twitter
+*   OpenAM
+*   Basecamp
+*   Steam
+*   Webflow
 *	Amazon
-*	Salesforce
-*	PayPal
-*	Google Apps
-*	AWS Cognito
-*	Okta
-*	OneLogin
-*	Yahoo
 *	ADFS
 *	Gigya
-*   	Swiss-RX-Login (Swiss RX Login)
-*   	Azure AD
-*   	Azure B2C
+*   Swiss-RX-Login (Swiss RX Login)
 *	PhantAuth
 * 	XING
-*   	OpenAM
-*   	Centrify
-*   	Egnyte
+*   Centrify
+*   Egnyte
 * 	DID
-*	OpenAthens
 *	Stripe
 
 = List of grant types we support for Single Sign On (SSO) =
@@ -241,6 +233,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.17.2 =
+* Minor fixes
 
 = 6.17.1 =
 * Keycloak configuration fixes
