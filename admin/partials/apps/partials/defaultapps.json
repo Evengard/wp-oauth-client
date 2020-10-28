@@ -47,6 +47,9 @@
 	"okta": {
 		"label":"Okta", "type":"openidconnect", "image":"okta.png", "scope": "openid", "domain":"Add issuer ex. https://dev-123456.okta.com", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://{yourOktaDomain}.com/oauth2/default/v1/authorize", "token": "https://{yourOktaDomain}.com/oauth2/default/v1/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/", "logo_class":"fa fa-lock"
 	},
+	"ping": {
+		"label":"Ping", "type":"openidconnect", "image":"ping.png", "scope": "openid", "domain":"Add ping domain ex. https://localhost:9031", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://{yourPingDomain}.com/as/authorization.oauth2", "token": "https://{yourPingDomain}.com/as/token.oauth2", "userinfo": "https://{yourPingDomain}.com/as/userinfo.openid", "guide":"https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/", "logo_class":"fa fa-lock"
+	},
 	"onelogin": {
 		"label":"OneLogin", "type":"openidconnect", "image":"onelogin.png", "scope": "openid", "domain":"https://subdomain.onelogin.com", "discovery":"domain/oidc/2/.well-known/openid-configuration", "authorize": "https://<site-url>.onelogin.com/oidc/auth", "token": "https://<site-url>.onelogin.com/oidc/token", "userinfo": "", "guide":"https://plugins.miniorange.com/guide-to-configure-onelogin-as-openid-connect-server/", "logo_class":"fa fa-lock"
 	},
@@ -78,7 +81,7 @@
 		"label":"GitLab", "type":"oauth", "image":"gitlab.png", "scope": "read_user", "domain": "", "discovery":"https://gitlab.com/.well-known/openid-configuration", "authorize": "https://gitlab.com/oauth/authorize", "token": "http://gitlab.com/oauth/token", "userinfo": "https://gitlab.com/api/v4/user", "guide":"https://plugins.miniorange.com/guide-to-configure-gitlab-as-oauth-server/", "logo_class":"fa fa-gitlab"
 	},
 	"clever": {
-		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "domain": "", "discovery":"", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v2.0/me", "guide":"https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/", "logo_class":"fa fa-lock"
+		"label":"Clever", "type":"oauth", "image":"clever.png", "scope": "read:students read:teachers read:user_id", "domain": "", "discovery":"", "authorize": "https://clever.com/oauth/authorize", "token": "https://clever.com/oauth/tokens", "userinfo": "https://api.clever.com/v2.1/me", "guide":"https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/", "logo_class":"fa fa-lock"
 	},
 	"salesforce": {
 		"label":"Salesforce", "type":"oauth", "image":"salesforce.png", "scope": "email", "domain": "", "discovery":"https://login.salesforce.com/.well-known/openid-configuration", "authorize": "https://login.salesforce.com/services/oauth2/authorize", "token": "https://login.salesforce.com/services/oauth2/token", "userinfo": "https://login.salesforce.com/services/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/", "logo_class":"fa fa-lock"

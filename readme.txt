@@ -1,33 +1,33 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, Single sign on, sso, wordpress sso, multisite sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta sso
+Tags: oauth, Single sign on, sso, wordpress sso, multisite sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso
 Requires at least: 3.0.1
 Tested up to: 5.5
-Stable tag: 6.17.2
+Stable tag: 6.17.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-SSO with Cognito, Azure, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
+Single Sign On (SSO) into WordPress with AWS Cognito, Azure B2C, Azure AD, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
 
 == Description ==
 
-This plugin allows login (Single Sign On) into WordPress with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
-It also provides unlimited User Authentication with OAuth & OIDC protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
+This WordPress Single Sign-On (SSO) plugin allows login (Single Sign On) with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+It also provides unlimited User Authentication with OAuth & OpenID Connect protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
 
 
 [youtube https://youtu.be/rIe2yvree0g]
 
 
-= Single Sign-On(SSO) =
+= WordPress Single Sign-On(SSO) =
 
-In simple term, Single Sign On(SSO) means login into any site / application using the credentials of another app/site.
+Single Sign On(SSO) means login into any site / application using the credentials of another app/site.
 Example. If you have all your Users/Customers/Members/Employees stored on 1 site(ex. gmail, wordpress, etc.), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register/login all your users of site A into Site B using the login credentials/account of Site A. This is call Single Sign-On or SSO.
 
-= Single Sign On supported Third Party Application / OAuth-OIDC Provider =
+= WordPress Single Sign On supported Third Party Application / OAuth-OIDC Provider =
 * The other terms are: OAuth Provider, OAuth Server, OpenID Connect Server, OpenID Connect Provider, OIDC Provider, OIDC Server, OAuth Application, OpenID Connect Application, OIDC Application, OpenIDConnect Server, OpenIDCConnect Provider, OpenIDConnect Application
 * This Third Party Application can be anything where User Accounts are stored or site/application where you want to store/migrate all the users. It can be your social app/site, wordpress, custom app or any database.
 
-= Single Sign On USE-CASES =
+= WordPress Single Sign On USE-CASES =
 
 * Single Sign-On between WordPress - Wordpress(Login with WordPress) :
 	1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on Another WordPress site
@@ -35,13 +35,13 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 * Single Sign-On between WordPress and Any OAuth / OpenID Connect (OIDC) application(Login with Social Login Apps / Custom Providers) :
         1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on your third party application
 	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
-* Single Sign-On into WordPress Using existing User stores(Active Directory/Database)
+* Single Sign-On into WordPress Using existing User stores (Active Directory/Database)
 
 = FREE VERSION FEATURES =
 
 *	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth / OpenIDConnect server or custom OAuth / OpenIDConnect server like AWS Cognito, Azure, Office 365, Google Apps, etc.
-*   	Single Sign On (SSO) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
-*   	Auto Create Users (User Provisioing) : After SSO, new user automatically gets created in WordPress
+*   Single Sign On (SSO) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
+*   Auto Create Users (User Provisioing) : After SSO, new user automatically gets created in WordPress
 *	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
 *	Attribute Mapping : OAuth Login supports username Attribute Mapping feature to map WordPress user profile username attribute.
 *	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
@@ -53,7 +53,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 = STANDARD VERSION FEATURES =
 
 *	All the FREE Version Features included.
-*   	Single Sign On (SSO) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
+*   WordPress Single Sign On (SSO) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
 *	Optionally Auto Register Users : OAuth Login (Single Sign On) does automatic user registration after login if the user is not already registered with your site
 *	Basic Role Mapping :  OAuth Login (Single Sign On) provides basic Attribute Mapping feature to map WordPress user profile attributes like username, firstname, lastname, email and profile picture. Manage username & email with data provided.
                           Also, Assign default role to user registering through OAuth Login based on rules you define.
@@ -66,7 +66,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 = PREMIUM VERSION FEATURES =
 
 *	All the STANDARD Version Features
-*       Single Sign On (SSO) Grant Support - Standard OAuth2.0 Grants: Authorization Code, Implicit Grant, Password Grant, Refresh Token Grant (Customization Available)
+*   WordPress Single Sign On (SSO) Grant Support - Standard OAuth2.0 Grants: Authorization Code, Implicit Grant, Password Grant, Refresh Token Grant (Customization Available)
 *	Advanced Role Mapping : Assign roles to users registering through OAuth Login(Single Sign On) based on rules you define.
 *	Force Authentication / Protect Complete Site : Allows user to restrict login(Single Sign On) / authorization for particular site
 *	Multiple Userinfo Endpoints Support : OAuth Login(Single Sign On) supports multiple Userinfo Endpoints.
@@ -77,7 +77,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 
 *	All the PREMIUM Version Features
 *	Multiple OAuth / OpenID Connect Provider Support
-*   	Single Sign On (SSO) Grant Support - Standard OAuth2.0 Grants : Authorization Code, Implicit Grant, Password Grant, Refresh Token Grant, Client Credential Grant (Customization Available)
+*   WordPress Single Sign On (SSO) Grant Support - Standard OAuth2.0 Grants : Authorization Code, Implicit Grant, Password Grant, Refresh Token Grant, Client Credential Grant, Hybrid Grant (Customization Available)
 *	Single Login button for Multiple Apps : It provides single login button for multiple providers
 *	Extended OAuth API support : Extend OAuth API support to extend functionality to the existing OAuth client.
 *	BuddyPress Attribute Mapping : OAuth Login allows BuddyPress Attribute Mapping.
@@ -94,6 +94,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *   <a href="https://plugins.miniorange.com/azure-b2c-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure B2C</a>
 *   <a href="https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure AD</a>
 *	<a href="https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/" target="_blank">AWS Cognito
+*	<a href="https://plugins.miniorange.com/guide-to-configure-keycloak-as-oauth-server/" target="_blank">Keycloak
 *   <a href="https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/" target="_blank">Clever</a>
 *   <a href="https://plugins.miniorange.com/guide-to-configure-whmcs-oauth-openid-connect-server/" target="_blank">WHMCS</a>
 *   <a href="https://plugins.miniorange.com/ping-federate-single-sign-on-for-wordpress-using-oauth/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
@@ -111,6 +112,9 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	<a href="https://plugins.miniorange.com/guide-to-configure-gitlab-as-oauth-server/" target="_blank">Gitlab</a>
 *	<a href="https://plugins.miniorange.com/guide-configure-gluu-oauth-server/" target="_blank">Gluu Server</a>
 *   <a href="https://plugins.miniorange.com/guide-to-configure-wso2-as-an-oauth-openid-connect-server/" target="_blank">WSO2</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-github-as-oauth-server/" target="_blank">GitHub</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-box-as-oauth-server/" target="_blank">Box</a>
+*   <a href="https://plugins.miniorange.com/guide-to-configure-identityserver4-as-an-oauth-server/" target="_blank">IdentityServer4</a>
 *	HR Answerlink / Support center
 *   Zoho
 *	Wechat
@@ -140,7 +144,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 * 	DID
 *	Stripe
 
-= List of grant types we support for Single Sign On (SSO) =
+= List of grant types we support for WordPress Single Sign On (SSO) =
 *   Authorization code grant
 *   Implicit grant
 *   Resource owner credentials grant (Password Grant)
@@ -148,11 +152,11 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *   Refresh token grant
 
 
-= Other OAuth / OpenID Connect Providers we support for Single Sign On (SSO) =
+= Other OAuth / OpenID Connect Providers we support for WordPress Single Sign On (SSO) =
 *	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever etc.
 
 
-== Supported Add-ons with Single Sign On (SSO) ==
+== WordPress Single Sign On (SSO) Supported Add-ons ==
 
 We have a variety of add-ons that can be integrated with the OAuth Single Sign On plugin to improve the OAuth SSO functionality of your WordPress site.
 
@@ -160,7 +164,7 @@ We have a variety of add-ons that can be integrated with the OAuth Single Sign O
 *	BuddyPress Integration – This add-on maps the attributes fetched from the OAuth / OpenID Connect compliant IdP with BuddyPress attributes.
 *	Login Form Add-On - This add-on provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.
 *	Membership Level based Login Redirection - This add-on allows to redirect users to custom pages based on users' membership levels after Single Sign On. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.
-*       Discord Role Mapping - Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.
+*   Discord Role Mapping - Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.
 
 = Real Time User Provisioning using SCIM =
 Provides use-provisioning from your IDP to your WordPress using SCIM standard. You can refer our <a href="https://www.miniorange.com/wordpress-miniorange-scim-user-provisioner-with-onelogin/" target="_blank"> WordPress User Provisioning using SCIM </a> plugin.
@@ -233,6 +237,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.17.3 =
+* Clever & Ping configuration fixes
+* UI updates
 
 = 6.17.2 =
 * Minor fixes
