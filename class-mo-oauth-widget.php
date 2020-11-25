@@ -191,9 +191,17 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			if($appslist == false){
 				exit("Looks like you have not configured OAuth provider, please try to configure OAuth provider first");
 			}
-
+				
 			foreach($appslist as $key => $app){
 				if($appname==$key){
+
+					if($app['appId']=="twitter")
+							{
+								  include "twitter.php";
+								  setcookie('tappname',$appname);
+                				  Mo_twitter::mo_openid_get_app_code($_COOKIE['tappname']);
+                				  exit();
+							}
 
 					$state = base64_encode($appname);
 					$authorizationUrl = $app['authorizeurl'];
@@ -213,6 +221,87 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				}
 			}
 		}
+
+		else if( strpos( $_SERVER['REQUEST_URI'], "openidcallback") !== false ||((strpos( $_SERVER['REQUEST_URI'], "oauth_token")!== false)&&(strpos( $_SERVER['REQUEST_URI'], "oauth_verifier") ))) {
+        			
+					$appslist = get_option('mo_oauth_apps_list');
+					$username_attr = "";
+					$currentapp = false;
+					foreach($appslist as $key => $app){
+						if($key == $_COOKIE['tappname']){
+							include "twitter.php";
+							$currentapp = $app;
+							if(isset($app['username_attr'])){
+								$username_attr = $app['username_attr'];
+							}else if(isset($app['email_attr'])){
+									mo_oauth_update_email_to_username_attr($_COOKIE['tappname']);
+									$username_attr = $app['email_attr'];	
+							}
+						}
+					}
+
+     	   			$resourceOwner=Mo_twitter::mo_openid_get_access_token($_COOKIE['tappname']);
+
+     	   			$username = "";
+					update_option('mo_oauth_attr_name_list', $resourceOwner);
+					//TEST Configuration
+					if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
+						echo '<div style="font-family:Calibri;padding:0 3%;">';
+						echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
+						echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
+						mo_oauth_client_testattrmappingconfig("",$resourceOwner);
+						echo "</table>";
+						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Proceed To Attribute/Role Mapping</a></div>';
+						exit();
+					}
+					//$username_attr='first_name';
+					if(!empty($username_attr))
+						$username = mo_oauth_client_getnestedattribute($resourceOwner, $username_attr); //$resourceOwner[$email_attr];
+					
+					if(empty($username) || "" === $username)
+						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
+					
+					if ( ! is_string( $username ) ) {
+						wp_die( 'Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ) );
+					}
+			
+					$user = get_user_by("login",$username);
+					// if(!$user)
+					// 	$user = get_user_by( 'email', $username);
+
+					if($user){
+						$user_id = $user->ID;
+					} else {
+						$user_id = 0;
+						if(mo_oauth_hbca_xyake()) {
+							if( get_option('mo_oauth_flag') != true )
+							{
+								$user = mo_oauth_jhuyn_jgsukaj($username);
+							} else {
+								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
+							} 							
+						} else {
+							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
+						}
+						
+					}
+					if($user){
+						wp_set_current_user($user->ID);
+						wp_set_auth_cookie($user->ID);
+						$user  = get_user_by( 'ID',$user->ID );
+						do_action( 'wp_login', $user->user_login, $user );
+						$redirect_to = get_option('mo_oauth_redirect_url');
+
+						if($redirect_to == false){
+							$redirect_to = home_url();
+						}
+
+						wp_redirect($redirect_to);						
+						exit;
+					}
+
+
+    								}
 
 		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_GET['code'])) {
 
@@ -310,6 +399,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 					}
+
 					$username = "";
 					update_option('mo_oauth_attr_name_list', $resourceOwner);
 					//TEST Configuration

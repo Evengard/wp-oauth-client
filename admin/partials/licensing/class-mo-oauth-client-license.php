@@ -311,7 +311,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
                                     <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection )</li>
+                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection,</li>
                                             <li type="square"; >Discord Role Mapping</li>
                                         </ul>
                                     <!-- </li> -->
@@ -419,7 +419,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
                                     <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection )</li>
+                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection,</li>
                                             <li type="square"; >Discord Role Mapping</li>
                                         </ul><br>
                                     <li><br></li>

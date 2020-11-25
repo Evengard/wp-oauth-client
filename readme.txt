@@ -1,17 +1,17 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: oauth, Single sign on, sso, wordpress sso, multisite sso, openid, login, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso
+Tags: WordPress SSO, oauth, login, Single sign on, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso
 Requires at least: 3.0.1
 Tested up to: 5.5
-Stable tag: 6.17.3
+Stable tag: 6.18.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Single Sign On (SSO) into WordPress with AWS Cognito, Azure B2C, Azure AD, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
+Single Sign On (SSO) into WordPress with AWS Cognito, Azure B2C, Azure AD, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Apple, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
 
 == Description ==
 
-This WordPress Single Sign-On (SSO) plugin allows login (Single Sign On) with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+WordPress Single Sign-On (SSO) with OAuth / OpenID Connect plugin allows login (Single Sign On) with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
 It also provides unlimited User Authentication with OAuth & OpenID Connect protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
 
 
@@ -90,33 +90,34 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
 = List of popular OAuth / OpenID Connect Providers we support for Single Sign On (SSO) =
-*   <a href="https://plugins.miniorange.com/office-365-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Office 365</a>
-*   <a href="https://plugins.miniorange.com/azure-b2c-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure B2C</a>
-*   <a href="https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on/" target="_blank">Azure AD</a>
-*	<a href="https://plugins.miniorange.com/sso-wordpress-using-aws-cognito-openid-connect-protocol/" target="_blank">AWS Cognito
-*	<a href="https://plugins.miniorange.com/guide-to-configure-keycloak-as-oauth-server/" target="_blank">Keycloak
-*   <a href="https://plugins.miniorange.com/guide-to-configure-clever-oauthopenid-connect-server/" target="_blank">Clever</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-whmcs-oauth-openid-connect-server/" target="_blank">WHMCS</a>
-*   <a href="https://plugins.miniorange.com/ping-federate-single-sign-on-for-wordpress-using-oauth/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/" target="_blank">Slack</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-discord-as-oauth-server/" target="_blank">Discord</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-wso2-as-an-oauth-openid-connect-server/" target="_blank">WSO2</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-salesforce-as-oauth-server/" target="_blank">Salesforce</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-paypal-as-oauth-server/" target="_blank">PayPal</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-google-as-oauth-server/" target="_blank">Google Apps</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-okta-as-openid-connect-server/" target="_blank">Okta</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-onelogin-as-openid-connect-server/" target="_blank">OneLogin</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-yahoo-as-oauth-server/" target="_blank">Yahoo</a>
+*   <a href="https://plugins.miniorange.com/office-365-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Office 365</a>
+*   <a href="https://plugins.miniorange.com/azure-b2c-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure B2C</a>
+*   <a href="https://plugins.miniorange.com/azure-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure AD</a>
+*   <a href="https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_black">Twitter</a>
+*	<a href="https://plugins.miniorange.com/aws-cognito-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">AWS Cognito
+*	<a href="https://plugins.miniorange.com/keycloak-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Keycloak
+*   <a href="https://plugins.miniorange.com/clever-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Clever</a>
+*   <a href="https://plugins.miniorange.com/whmcs-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">WHMCS</a>
+*   <a href="https://plugins.miniorange.com/ping-federate-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
+*	<a href="https://plugins.miniorange.com/slack-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Slack</a>
+*	<a href="https://plugins.miniorange.com/discord-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Discord</a>
+*	<a href="https://plugins.miniorange.com/wso2-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">WSO2</a>
+*	<a href="https://plugins.miniorange.com/salesforce-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Salesforce</a>
+*	<a href="https://plugins.miniorange.com/paypal-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">PayPal</a>
+*	<a href="https://plugins.miniorange.com/google-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Google Apps</a>
+*	<a href="https://plugins.miniorange.com/okta-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Okta</a>
+*	<a href="https://plugins.miniorange.com/onelogin-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">OneLogin</a>
+*	<a href="https://plugins.miniorange.com/yahoo-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Yahoo</a>
 *	<a href="https://plugins.miniorange.com/step-step-guide-to-single-sign-on-into-wordpress-using-openathens-oauth/" target="_blank">OpenAthens</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-linkedin-oauthopenid-connect-server/" target="_blank">LinkedIn</a>
-*	<a href="https://plugins.miniorange.com/guide-to-configure-gitlab-as-oauth-server/" target="_blank">Gitlab</a>
-*	<a href="https://plugins.miniorange.com/guide-configure-gluu-oauth-server/" target="_blank">Gluu Server</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-wso2-as-an-oauth-openid-connect-server/" target="_blank">WSO2</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-github-as-oauth-server/" target="_blank">GitHub</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-box-as-oauth-server/" target="_blank">Box</a>
-*   <a href="https://plugins.miniorange.com/guide-to-configure-identityserver4-as-an-oauth-server/" target="_blank">IdentityServer4</a>
+*   <a href="https://plugins.miniorange.com/linkedin-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">LinkedIn</a>
+*	<a href="https://plugins.miniorange.com/gitlab-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Gitlab</a>
+*	<a href="https://plugins.miniorange.com/gluu-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Gluu Server</a>
+*   <a href="https://plugins.miniorange.com/github-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">GitHub</a>
+*   <a href="https://plugins.miniorange.com/box-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Box</a>
+*   <a href="https://plugins.miniorange.com/identityserver4-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer4</a>
 *	HR Answerlink / Support center
 *   Zoho
+*   Apple
 *	Wechat
 *	Weibo
 *	Shibboleth
@@ -150,6 +151,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *   Resource owner credentials grant (Password Grant)
 *   Client credentials grant
 *   Refresh token grant
+*   Hybrid Grant
 
 
 = Other OAuth / OpenID Connect Providers we support for WordPress Single Sign On (SSO) =
@@ -237,6 +239,11 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.18.0 =
+* Added Twitter support Application
+* Added Freja eID Application
+* UI updates
 
 = 6.17.3 =
 * Clever & Ping configuration fixes

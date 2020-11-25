@@ -71,6 +71,7 @@
 			<div class="tooltip" style="display: inline;"><span class="tooltiptext" id="moTooltip">Copy to clipboard</span><i class="fa fa-clipboard fa-border" style="font-size:20px; align-items: center;vertical-align: middle;" aria-hidden="true" onclick="copyUrl()" onmouseout="outFunc()"></i></div>
 			</td>
 			</tr>
+			
 			<tr id="mo_oauth_custom_app_name_div">
 				<td><strong><font color="#FF0000">*</font>App Name (<?php echo $currentapp->type;?>):</strong></td>
 				<td><input class="mo_table_textbox" onkeyup="updateFormAction()" type="text" id="mo_oauth_custom_app_name" name="mo_oauth_custom_app_name" value="<?php echo $tempappname; ?>" pattern="^[a-zA-Z0-9]+( [a-zA-Z0-9\s]+)*$" required title="Please do not add any special characters." placeholder="Do not add any special characters" maxlength="14"></td>
@@ -131,6 +132,7 @@
                     <td><strong>Scope:</strong></td>
                     <td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php if(isset($currentapp->scope)) echo $currentapp->scope;?>"></td>
                 </tr>
+                <?php if($currentapp->label !='twitter'){?>
 			<tr id="mo_oauth_authorizeurl_div">
 				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
 				<td><input class="mo_table_textbox" <?php if(!isset($currentapp->discovery) || $currentapp->discovery=="") echo 'required';?> type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php if(isset($currentapp->authorize)) echo $currentapp->authorize;?>"></td>
@@ -150,6 +152,7 @@
                 <td><strong>Send client credentials in:</strong></td>
                 <td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_authorization_header" value ="1" checked /> Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" name="mo_oauth_body" value ="0"/> Body<div style="padding:5px;"></div></td>
             </tr>
+        <?php }?>
 			<tr>
 				<td><strong>login button:</strong></td>
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" checked/>Show on login page</td>

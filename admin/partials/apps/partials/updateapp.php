@@ -93,7 +93,9 @@
                     <?php
                 }
             }
-            if($is_other_app){
+
+
+            if($is_other_app && $currentapp['appId']!='twitter'){
 			    if(!isset($refapp->discovery) || $refapp->discovery =="" || !get_option('mo_existing_app_flow')) { ?>
 				<tr  id="mo_oauth_authorizeurl_div">
 					<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
@@ -127,10 +129,7 @@
 				<td><strong>JWKS URL:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
 				<td><input class="mo_table_textbox" type="text" value="" disabled></td>
 			</tr>
-			<tr>
-				<td><strong>Login Button:</strong></td>
-				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" <?php if(isset($currentapp['show_on_login_page'])) { if($currentapp['show_on_login_page'] === 1 ) echo 'checked'; } ; ?>/>Show on login page</td>
-			</tr>
+			
 			<tr>
 				<td><br></td>
 				<td><br></td>
@@ -138,6 +137,10 @@
 
 			<?php } ?>
 			<tr>
+				<tr>
+				<td><strong>Login Button:</strong></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" <?php if(isset($currentapp['show_on_login_page'])) { if($currentapp['show_on_login_page'] === 1 ) echo 'checked'; } ; ?>/>Show on login page</td>
+			</tr>
 				<td>&nbsp;</td>
 				<td>
 					<input type="submit" name="submit" value="Save settings" class="button button-primary button-large" />
