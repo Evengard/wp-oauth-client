@@ -35,7 +35,7 @@ function mo_oauth_client_plugin_settings_script($hook) {
 
 function mo_oauth_client_main_menu() {
 	$today = date("Y-m-d H:i:s");
-	$date = "2020-11-30 23:59:59";
+	$date = "2020-12-31 23:59:59";
 	$currenttab = "";
 	if(isset($_GET['tab']))
 		$currenttab = $_GET['tab'];
@@ -151,12 +151,12 @@ public static function show_rest_api_secure_message()
             	<?php wp_nonce_field('mo_oauth_client_bfs_note_form','mo_oauth_client_bfs_note_form_field'); ?>
 				<input type="hidden" name="option" value="mo_oauth_client_bfs_note_message"/>	
                 <div class="notice notice-info"style="padding-right: 38px;position: relative;border-color:red; background-color:black"><h4><center><i class="fa fa-gift" style="font-size:50px;color:red;"></i>&nbsp;&nbsp;
-				<big><font style="color:white; font-size:30px;"><b>BLACK FRIDAY SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.</font></center></h4>
+				<big><font style="color:white; font-size:30px;"><b>END OF YEAR SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.</font></center></h4>
 				<p style="text-align: center; font-size: 60px; margin-top: 0px; color:white;" id="demo"></p>
 				</div>
 			</form>
 		<script>
-		var countDownDate = <?php echo strtotime('Nov 30, 2020 23:59:59') ?> * 1000;
+		var countDownDate = <?php echo strtotime('Dec 31, 2020 23:59:59') ?> * 1000;
 		var now = <?php echo time() ?> * 1000;
 		var x = setInterval(function() {
 			now = now + 1000;
