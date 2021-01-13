@@ -1,51 +1,50 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: WordPress SSO, oauth, login, Single sign on, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso
+Tags: WordPress SSO, oauth, login, Single sign on, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c
 Requires at least: 3.0.1
-Tested up to: 5.5
-Stable tag: 6.18.1
+Tested up to: 5.6
+Stable tag: 6.19.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Single Sign On (SSO) into WordPress with AWS Cognito, Azure B2C, Azure AD, Okta, Office 365, Clever, WSO2, Onelogin, Keycloak, WHMCS, Apple, Google Apps, Salesforce & many OAuth / OpenID Servers[24/7 SUPPORT]. It also allows Single Sign On with WordPress as well as custom providers.
+WordPress Login (SSO) with AWS Cognito, Azure AD B2C, Okta, Ping, Clever, WSO2, Onelogin, Keycloak, many OAuth / OpenID Providers[24/7 SUPPORT]. 
 
 == Description ==
 
-WordPress Single Sign-On (SSO) with OAuth / OpenID Connect plugin allows login (Single Sign On) with your Office 365, Azure AD, Azure B2C, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 Server and OpenID Connect (OIDC) 1.0 standard.
+WordPress Single Sign-On (SSO) with OAuth / OpenID Connect plugin allows login (Single Sign On) with your Apple, Twitter, Azure AD B2C, WSO2, Office 365, Azure AD, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress SSO ( Login ) plugin supports SSO with many OAuth 2.0 and OpenID Connect (OIDC) 1.0 providers.
 It also provides unlimited User Authentication with OAuth & OpenID Connect protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
-
 
 [youtube https://youtu.be/rIe2yvree0g]
 
 
 = WordPress Single Sign-On(SSO) =
 
-Single Sign On(SSO) means login into any site / application using the credentials of another app/site.
-Example. If you have all your Users/Customers/Members/Employees stored on 1 site(ex. gmail, wordpress, etc.), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register/login all your users of site A into Site B using the login credentials/account of Site A. This is call Single Sign-On or SSO.
+Single Sign-On ( SSO ) allows user to login into any site / application using the credentials of another app/site.
+Example. If you have all your Users / Customers / Members / Employees stored on 1 site (ex. microsoft azure, gmail, wordpress, cognito, etc. ), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register / login all your users of site A into Site B using the login credentials/account of Site A. This is called Single Sign-On or SSO.
 
-= WordPress Single Sign On supported Third Party Application / OAuth-OIDC Provider =
-* The other terms are: OAuth Provider, OAuth Server, OpenID Connect Server, OpenID Connect Provider, OIDC Provider, OIDC Server, OAuth Application, OpenID Connect Application, OIDC Application, OpenIDConnect Server, OpenIDCConnect Provider, OpenIDConnect Application
-* This Third Party Application can be anything where User Accounts are stored or site/application where you want to store/migrate all the users. It can be your social app/site, wordpress, custom app or any database.
+= WordPress Single Sign-On supported Third Party Application / OAuth OpenID Provider =
+* The other terms are: OAuth Identity Provider, OAuth Server, OpenID Connect Server, OpenID Connect Provider, OIDC Provider, OIDC Server, OAuth Application, OpenID Connect Application, OIDC Application, OpenIDConnect Server, OpenIDCConnect Provider, OpenIDConnect Application
+* This Third Party Application can be anything where User Accounts are stored or site/application where you want to store/migrate all the users. It can be your social login app, wordpress site, custom provider or any database.
 
 = WordPress Single Sign On USE-CASES =
 
-* Single Sign-On between WordPress - Wordpress(Login with WordPress) :
-	1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on Another WordPress site
-	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
-* Single Sign-On between WordPress and Any OAuth / OpenID Connect (OIDC) application(Login with Social Login Apps / Custom Providers) :
-        1. Single Sign-On to 1 WordPress site (single / multisite) using User Credentials stored on your third party application
-	2. Single Sign-On to 1 / multiple WordPress sites (or subsites) using User Credentials stored on Another WordPress site
-* Single Sign-On into WordPress Using existing User stores (Active Directory/Database)
+* Single Sign-On between WordPress - Wordpress ( Login with WordPress ) :
+	1. Single Sign-On to a WordPress site ( single / multisite ) using User Credentials stored on Another WordPress site
+	2. Single Sign-On to 1 / multiple WordPress sites ( or subsites ) using User Credentials stored on Another WordPress site
+* Single Sign-On between WordPress and Any OAuth / OpenID Connect ( OIDC ) application ( Login with Social Login Apps / Custom Providers ) :
+    1. Single Sign-On to 1 WordPress site ( single / multisite ) using User Credentials stored on your third party application
+	2. Single Sign-On to 1 / multiple WordPress sites ( or subsites ) using User Credentials stored on Another WordPress site
+* Single Sign-On into WordPress Using existing User stores ( Active Directory / Database )
 
 = FREE VERSION FEATURES =
 
 *	WordPress OAuth Login supports single sign-on / SSO with any 3rd party OAuth / OpenIDConnect server or custom OAuth / OpenIDConnect server like AWS Cognito, Azure, Office 365, Google Apps, etc.
-*   Single Sign On (SSO) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
-*   Auto Create Users (User Provisioing) : After SSO, new user automatically gets created in WordPress
+*   Single Sign On ( SSO ) Grant Support - Standard OAuth 2.0 Grant :  Authorization Code
+*   Auto Create Users ( User Provisioing ) : After SSO, new user automatically gets created in WordPress
 *	Account Linking : After user SSO to WordPress, if user already exists in WordPress, then his profile gets updated or it will create a new WordPress User
-*	Attribute Mapping : OAuth Login supports username Attribute Mapping feature to map WordPress user profile username attribute.
-*	Login Widget : Use Widgets to easily integrate the login link with your WordPress site
-*	OpenID Connect / OAuth Provider Support : OAuth Login (Single Sign On) supports only one OpenID Connect / OAuth Provider.
+*	Attribute Mapping : OAuth Login allows to map your Identity Providers attributes with WordPress Username Attribute. 
+*	Login Widget : Use Widgets to easily integrate the login on your WordPress site
+*	OpenID Connect / OAuth Provider Support : OAuth Login (Single Sign On) supports any OpenID Connect / OAuth Provider.
 *	Redirect URL after Login : OAuth Login (Single Sign On) Automatically Redirects user after successful login.
 *	Logging :  If you run into issues OAuth Login (Single Sign On) can be helpful to enable debug logging
 
@@ -144,6 +143,17 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 *   Egnyte
 * 	DID
 *	Stripe
+*   Coil
+*   Parallel Markets
+*   VATSIM
+*   Liferay
+*   Fatsecret
+*   Intuit
+*   iMIS
+*   ORY Hydra
+*   FusionAuth
+*   Kakao
+*   ID.me
 
 = List of grant types we support for WordPress Single Sign On (SSO) =
 *   Authorization code grant
@@ -155,7 +165,7 @@ Example. If you have all your Users/Customers/Members/Employees stored on 1 site
 
 
 = Other OAuth / OpenID Connect Providers we support for WordPress Single Sign On (SSO) =
-*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me etc.
 
 
 == WordPress Single Sign On (SSO) Supported Add-ons ==
@@ -239,6 +249,12 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.19.0 =
+* Added Debug log feature
+* Added check for state parameter
+* Updated add-ons tab UI and Feedback form UI
+* Added WP 5.6 Compatibility
 
 = 6.18.1 =
 * Minor UI changes

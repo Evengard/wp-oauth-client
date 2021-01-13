@@ -121,6 +121,11 @@
                     <td><strong>Send client credentials in:</strong></td>
                     <td><div style="padding:5px;"></div><input type="checkbox" class="mo_table_textbox" name="mo_oauth_authorization_header" <?php if(isset($currentapp['send_headers'])){if($currentapp['send_headers'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1"> Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" class="mo_table_textbox" name="mo_oauth_body"<?php if(isset($currentapp['send_body'])){if($currentapp['send_body'] == 1){ echo 'checked';}}else {echo 'checked';}?> value="1"> Body<div style="padding:5px;"></div></td>
                 </tr>
+                <tr>
+				<td><strong>State Parameter :</strong></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_state" value ="1" <?php if(isset($currentapp['send_state'])){if($currentapp['send_state'] == 1){ echo 'checked';}}else {echo 'checked';} ?>/>Send state parameter</td>
+				<td><br></td>
+			</tr>
 			<tr>
 				<td><strong>Group User Info Endpoint:</strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
 				<td><input class="mo_table_textbox" type="text" value="" disabled></td>

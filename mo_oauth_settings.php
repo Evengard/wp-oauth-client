@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This Single Sign-On plugin allows login into WordPress with your Azure AD, AWS Cognito, Centrify, Invision Community, Slack, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.18.1
+ * Version: 6.19.0
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -96,6 +96,8 @@ class mo_oauth {
 		delete_option('message');
 		delete_option('mo_oauth_client_registration_status');
 		delete_option('mo_oauth_client_show_mo_server_message');
+		delete_option('mo_oauth_log');
+		delete_option('mo_oauth_debug');
 		wp_clear_scheduled_hook( 'check_if_wp_rest_apis_are_open' );
 	}
 
@@ -374,6 +376,7 @@ class mo_oauth {
                     $selectedapp = stripslashes($_POST['mo_oauth_app_name']);
                     $send_headers = isset($_POST['mo_oauth_authorization_header']) ? sanitize_post($_POST['mo_oauth_authorization_header']) : "0";
                     $send_body = isset($_POST['mo_oauth_body']) ? sanitize_post($_POST['mo_oauth_body']) : "0";
+                    $send_state=isset($_POST['mo_oauth_state']) ? (int)filter_var($_POST['mo_oauth_state'], FILTER_SANITIZE_NUMBER_INT) : 0;
                     $show_on_login_page = isset($_POST['mo_oauth_show_on_login_page']) ? (int)filter_var($_POST['mo_oauth_show_on_login_page'], FILTER_SANITIZE_NUMBER_INT) : 0;
 
                     if ($selectedapp == 'wso2') {
@@ -412,6 +415,7 @@ class mo_oauth {
 					$newapp['ssoprotocol'] = $ssoprotocol;
                     $newapp['send_headers'] = $send_headers;
                     $newapp['send_body'] = $send_body;
+                    $newapp['send_state']=$send_state;
                     $newapp['show_on_login_page'] = $show_on_login_page;
                     if (isset($_POST['mo_oauth_app_type'])) {
                         $newapp['apptype'] = stripslashes($_POST['mo_oauth_app_type']);
@@ -787,22 +791,52 @@ class mo_oauth {
 			
 			if( current_user_can( 'administrator' ) ) {
 				$user = wp_get_current_user();
+
 				$message = 'Plugin Deactivated:';
-				$deactivate_reason         = array_key_exists( 'deactivate_reason_radio', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['deactivate_reason_radio'] ) ) : false;
+				if(isset($_POST['deactivate_reason_select'])){
+					$deactivate_reason = $_POST['deactivate_reason_select'];
+				}
+				
 				$deactivate_reason_message = array_key_exists( 'query_feedback', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['query_feedback'] ) ) : false;
+
+				
+
 				if ( $deactivate_reason ) {
 					$message .= $deactivate_reason;
 					if ( isset( $deactivate_reason_message ) ) {
-						$message .= ':' . $deactivate_reason_message;
+						$message .= ': ' . $deactivate_reason_message;
 					}
-					$email = get_option( "mo_oauth_admin_email" );
-					if ( $email == '' ) {
-						$email = $user->user_email;
+
+					if(isset($_POST['rate'])){
+					$rate_value = htmlspecialchars($_POST['rate']);
 					}
-					$phone = get_option( 'mo_oauth_client_admin_phone' );
+
+					$rating = "[Rating: ".$rate_value."]";
+
+					$email = $_POST['query_mail'];
+					if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+						$email = get_option("mo_oauth_admin_email");
+						if(empty($email)){
+							$email = $user->user_email;
+						}
+					}
+
+					$reply_required = '';
+					if(isset($_POST['get_reply']))
+						$reply_required = htmlspecialchars($_POST['get_reply']);
+						if(empty($reply_required)){
+						$reply_required = "No";
+						$reply ='[Reply :'.$reply_required.']';
+					}else{
+						$reply_required = "Yes";
+						$reply ='[Reply :'.$reply_required.']';
+					}
+
+					$reply = $rating.' '.$reply;
+
 					//only reason
 					$feedback_reasons = new Mo_OAuth_Client_Customer();
-					$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $phone, $message, "Feedback: WordPress ".MO_OAUTH_PLUGIN_NAME ), true );
+					$submited = json_decode( $feedback_reasons->mo_oauth_send_email_alert( $email, $reply, $message, "Feedback: WordPress ".MO_OAUTH_PLUGIN_NAME ), true );
 					deactivate_plugins( __FILE__ );
 					update_option( 'message', 'Thank you for the feedback.' );
 					$this->mo_oauth_show_success_message();

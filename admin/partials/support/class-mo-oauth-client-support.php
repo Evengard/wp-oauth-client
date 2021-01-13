@@ -46,7 +46,9 @@ class Mo_OAuth_Client_Admin_Support {
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/6.4.1/js/intlTelInput.min.js"></script>
 
         <script>
-			jQuery("#contact_us_phone").intlTelInput();
+			jQuery("#contact_us_phone").intlTelInput({
+				nationalMode: false,
+			});
 			function mo_oauth_valid_query(f) {
 				!(/^[a-zA-Z?,.\(\)\/@ 0-9]*$/).test(f.value) ? f.value = f.value.replace(
 						/[^a-zA-Z?,.\(\)\/@ 0-9]/, '') : null;
@@ -86,7 +88,7 @@ class Mo_OAuth_Client_Admin_Support {
 						</select></td>
 					</tr>
 					<tr id="setup_guide_link" style="display: none;">
-						<td colspan="2">Have you checked the setup guide <a href="https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-client" target="_blank">here</a>?</td>
+						<td colspan="2">Have you checked the setup guide <a href="https://plugins.miniorange.com/wordpress-single-sign-on-sso-with-oauth-openid-connect" target="_blank">here</a>?</td>
 					</tr>
 					<tr>
 						<td><strong><font id="required_mark" color="#FF0000" style="display: none;">*</font>Description:</td></strong></td>

@@ -152,7 +152,13 @@
                 <td><strong>Send client credentials in:</strong></td>
                 <td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_authorization_header" value ="1" checked /> Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" name="mo_oauth_body" value ="0"/> Body<div style="padding:5px;"></div></td>
             </tr>
+
         <?php }?>
+        	<tr>
+				<td><strong>State Parameter :</strong></td>
+				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_state" value ="1" <?php if(isset($currentapp->send_state)) { if($currentapp->send_state === 1 ){ echo 'checked';}else{$currentapp->send_state=1;echo 'checked';} } ; ?> checked/>Send state parameter</td>
+				<td><br></td>
+			</tr>
 			<tr>
 				<td><strong>login button:</strong></td>
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" checked/>Show on login page</td>

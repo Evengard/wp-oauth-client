@@ -71,6 +71,19 @@ function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_client_admin_customer_key
 class Mo_OAuth_Client_Admin_Menu {
 
 	public static function show_menu($currenttab) {
+		
+		if(!get_option('mo_oauth_log'))
+		{
+			update_option('mo_oauth_log',uniqid());
+			$mo_file=fopen(plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php',"w");
+			chmod(plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php', 0644);
+			copy(plugin_dir_path(__FILE__).'mo_log_down.php',plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php');
+			update_option('mo_oauth_debug','mo_oauth_debug'.uniqid());
+			global $mo_debug_file;
+			$mo_debug_file=fopen(plugin_dir_path(__FILE__).'/../../'.get_option('mo_oauth_debug').'.log',"w");
+			chmod(plugin_dir_path(__FILE__).'/../../'.get_option('mo_oauth_debug').'.log', 0644);
+		}
+
 		?> <div class="wrap">
 			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
 		</div>
@@ -82,6 +95,8 @@ class Mo_OAuth_Client_Admin_Menu {
                 <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
                 <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
                 <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank">Feature Details</a>
+                 <a id="features_button_id" class="add-new-h2" style="background-color: #4f4d4f;color: white;font-size: 15px;" href="<?php echo plugin_dir_url(__FILE__).get_option('mo_oauth_log').'.php'; ?>">Download Error Logs
+                 	</a>
 
 			</h1>
 			<?php if ( 'licensing' === $currenttab ) { ?>

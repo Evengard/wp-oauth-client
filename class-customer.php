@@ -198,7 +198,7 @@ class Mo_OAuth_Client_Customer {
 		$args = array(
 			'method' =>'POST',
 			'body' => $field_string,
-			'timeout' => '5',
+			'timeout' => '15',
 			'redirection' => '5',
 			'httpversion' => '1.0',
 			'blocking' => true,
@@ -444,7 +444,7 @@ class Mo_OAuth_Client_Customer {
 			return wp_remote_retrieve_body($response);
 	}
 	
-	function mo_oauth_send_email_alert($email,$phone,$message,$subject){
+	function mo_oauth_send_email_alert($email,$reply,$message,$subject){
 
 		if(!$this->check_internet_connection())
 			return;
@@ -469,7 +469,7 @@ class Mo_OAuth_Client_Customer {
 		$user         = wp_get_current_user();
 		$query        = '[WP ' . MO_OAUTH_PLUGIN_NAME . ' '.$plugin_version.'] : ' . $message;
 
-		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Phone Number :'.$phone.'<br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Query :'.$query.'</div>';
+		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>'.$reply.'<br><br>Query :'.$query.'</div>';
 
 		$fields = array(
 			'customerKey'	=> $customerKey,

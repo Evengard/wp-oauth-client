@@ -1,5 +1,7 @@
 <?php
 
+include 'mo_oauth_log.php';
+
 class Mo_Oauth_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -189,11 +191,13 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				setcookie("mo_oauth_test", false);
 
 			if($appslist == false){
+				MO_Oauth_Debug::mo_oauth_log('Looks like you have not configured OAuth provider, please try to configure OAuth provider first');
 				exit("Looks like you have not configured OAuth provider, please try to configure OAuth provider first");
 			}
 				
 			foreach($appslist as $key => $app){
-				if($appname==$key){
+
+				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'])){
 
 					if($app['appId']=="twitter")
 							{
@@ -211,6 +215,28 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				    else
 					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
 
+					if ( strpos( $authorizationUrl, 'apple' ) !== false ) {
+						$authorizationUrl = str_replace( "response_type=code", "response_type=code+id_token", $authorizationUrl );
+						$authorizationUrl = $authorizationUrl . "&response_mode=form_post";
+					}
+
+					if(session_id() == '' || !isset($_SESSION))
+						session_start();
+					$_SESSION['oauth2state'] = $state;
+					$_SESSION['appname'] = $appname;
+
+					header('Location: ' . $authorizationUrl);
+					exit;
+				}
+				else{
+					$state=null;
+					$authorizationUrl = $app['authorizeurl'];
+				
+					if(strpos($authorizationUrl, '?' ) !== false)
+					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code";
+				    else
+					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code";
+
 					if(session_id() == '' || !isset($_SESSION))
 						session_start();
 					$_SESSION['oauth2state'] = $state;
@@ -220,8 +246,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					exit;
 				}
 			}
-		}
-
+			}
+		
 		else if( strpos( $_SERVER['REQUEST_URI'], "openidcallback") !== false ||((strpos( $_SERVER['REQUEST_URI'], "oauth_token")!== false)&&(strpos( $_SERVER['REQUEST_URI'], "oauth_verifier") ))) {
         			
 					$appslist = get_option('mo_oauth_apps_list');
@@ -258,10 +284,13 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					if(!empty($username_attr))
 						$username = mo_oauth_client_getnestedattribute($resourceOwner, $username_attr); //$resourceOwner[$email_attr];
 					
-					if(empty($username) || "" === $username)
+					if(empty($username) || "" === $username){
+						MO_Oauth_Debug::mo_oauth_log('Username not received. Check your Attribute Mapping configuration.');
 						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
+					}
 					
 					if ( ! is_string( $username ) ) {
+						MO_Oauth_Debug::mo_oauth_log('Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ));
 						wp_die( 'Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ) );
 					}
 			
@@ -278,7 +307,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							{
 								$user = mo_oauth_jhuyn_jgsukaj($username);
 							} else {
-								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
+								$mo_message=base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' );
+  							    MO_Oauth_Debug::mo_oauth_log($mo_message);
+   							    wp_die($mo_message);
 							} 							
 						} else {
 							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
@@ -303,7 +334,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
     								}
 
-		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_GET['code'])) {
+		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_REQUEST['code'])) {
 
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
@@ -317,11 +348,17 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				exit('Invalid state');
 			} */
 
-			if (!isset($_GET['code'])){
-				if(isset($_GET['error_description']))
-					exit($_GET['error_description']);
-				else if(isset($_GET['error']))
-					exit($_GET['error']);
+			if (!isset($_REQUEST['code'])){
+				if(isset($_REQUEST['error_description'])){
+					MO_Oauth_Debug::mo_oauth_log($_REQUEST['error_description']);
+					exit($_REQUEST['error_description']);
+				}
+				else if(isset($_REQUEST['error']))
+				{
+					MO_Oauth_Debug::mo_oauth_log($_REQUEST['error']);
+					exit($_REQUEST['error']);
+				}
+				MO_Oauth_Debug::mo_oauth_log('Invalid response');
 				exit('Invalid response');
 			} else {
 
@@ -331,11 +368,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 					if (isset($_SESSION['appname']) && !empty($_SESSION['appname']))
 						$currentappname = $_SESSION['appname'];
-					else if (isset($_GET['state']) && !empty($_GET['state'])){
-						$currentappname = base64_decode($_GET['state']);
+					else if (isset($_REQUEST['state']) && !empty($_REQUEST['state'])){
+						$currentappname = base64_decode($_REQUEST['state']);
 					}
 
 					if (empty($currentappname)) {
+						MO_Oauth_Debug::mo_oauth_log('No request found for this application.');
 						exit('No request found for this application.');
 					}
 
@@ -354,23 +392,32 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						}
 					}
 
-					if (!$currentapp)
+					if (!$currentapp){
+						MO_Oauth_Debug::mo_oauth_log('Application not configured.');
 						exit('Application not configured.');
+					}
 
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 						// OpenId connect
-						if(!isset($currentapp['send_headers']))
-							$currentapp['send_headers'] = false;
-						if(!isset($currentapp['send_body']))
-							$currentapp['send_body'] = false;
-						$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
-								$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+						if( isset( $_REQUEST['id_token'] ) ) {
+							$idToken = $_REQUEST['id_token'];
+						} else {
+							if(!isset($currentapp['send_headers']))
+								$currentapp['send_headers'] = false;
+							if(!isset($currentapp['send_body']))
+								$currentapp['send_body'] = false;
+							$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
+									$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+	
+							$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
 
-						$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
+						}	
 		
-						if(!$idToken)
+						if(!$idToken){
+							MO_Oauth_Debug::mo_oauth_log('Invalid token received.');
 							exit('Invalid token received.');
+						}
 						else
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
 
@@ -389,14 +436,16 @@ function mo_oauth_update_email_to_username_attr($currentappname){
                         } else {
                             $accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
                         }
-						if(!$accessToken)
+						if(!$accessToken){
+							MO_Oauth_Debug::mo_oauth_log('Invalid token received.');
 							exit('Invalid token received.');
+						}
 
 						$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 						if (substr($resourceownerdetailsurl, -1) == "=") {
 							$resourceownerdetailsurl .= $accessToken;
 						}
-						
+
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
 					}
 
@@ -416,10 +465,13 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					if(!empty($username_attr))
 						$username = mo_oauth_client_getnestedattribute($resourceOwner, $username_attr); //$resourceOwner[$email_attr];
 
-					if(empty($username) || "" === $username)
+					if(empty($username) || "" === $username){
+						MO_Oauth_Debug::mo_oauth_log('Username not received. Check your Attribute Mapping configuration.');
 						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
+					}
 					
 					if ( ! is_string( $username ) ) {
+						MO_Oauth_Debug::mo_oauth_log('Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ));
 						wp_die( 'Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ) );
 					}
 
@@ -436,7 +488,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							{
 								$user = mo_oauth_jhuyn_jgsukaj($username);
 							} else {
-								wp_die( base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' ) );
+								$mo_message= base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' );
+  							    MO_Oauth_Debug::mo_oauth_log($mo_message);
+    							wp_die($mo_message);
 							} 							
 						} else {
 							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
@@ -463,6 +517,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 					// Failed to get the access token or user details.
 					//print_r($e);
+					MO_Oauth_Debug::mo_oauth_log($e->getMessage());
 					exit($e->getMessage());
 
 				}

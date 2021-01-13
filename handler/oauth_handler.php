@@ -22,23 +22,28 @@ class Mo_OAuth_Hanlder {
 
 		if(curl_error($ch)){
 			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			MO_Oauth_Debug::mo_oauth_log(curl_error($ch));
 			exit( curl_error($ch) );
 		}
 
 		if(!is_array(json_decode($content, true))){
 			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			MO_Oauth_Debug::mo_oauth_log("Invalid response received.");
 			exit("Invalid response received.");
 		}
 
 		$content = json_decode($content,true);
 		if(isset($content["error_description"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error"]);
 			exit($content["error"]);
 		} else if(isset($content["access_token"])) {
 			$access_token = $content["access_token"];
 		} else {
 			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
+			MO_Oauth_Debug::mo_oauth_log('Invalid response received from OAuth Provider. Contact your administrator for more details.');
 			exit('Invalid response received from OAuth Provider. Contact your administrator for more details.');
 		}
 
@@ -94,19 +99,23 @@ class Mo_OAuth_Hanlder {
 			'sslverify'   => false
 		) );
 		if ( is_wp_error( $response ) ) {
+			MO_Oauth_Debug::mo_oauth_log('Invalid response recieved while fetching token');
 			wp_die( $response );
 		}
 		$response =  $response['body'] ;
 
 		if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
+			MO_Oauth_Debug::mo_oauth_log('Invalid response received.');
 			exit("Invalid response received.");
 		}
 		
 		$content = json_decode($response,true);
 		if(isset($content["error_description"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error"]);
 			exit($content["error"]);
 		}
 		
@@ -120,6 +129,7 @@ class Mo_OAuth_Hanlder {
 			return $content;
 			exit;
 		} else {
+			MO_Oauth_Debug::mo_oauth_log('Invalid response received from OpenId Provider. Contact your administrator for more details.Response : '.$response);
 			echo 'Invalid response received from OpenId Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
 			exit;
 		}
@@ -133,6 +143,7 @@ class Mo_OAuth_Hanlder {
 				return json_decode($id_body,true);
 			}
 		}
+		MO_Oauth_Debug::mo_oauth_log('Invalid response received.Id_token : '.$id_token);
 		echo 'Invalid response received.<br><b>Id_token : </b>'.$id_token;
 		exit;
 	}
@@ -152,20 +163,28 @@ class Mo_OAuth_Hanlder {
 			'sslverify'   => false
 		) );
 
+		if ( is_wp_error( $response ) ) {
+			MO_Oauth_Debug::mo_oauth_log('Invalid response recieved while fetching resource owner details');
+			wp_die( $response );
+		}
+
 		$response =  $response['body'] ;
 
 		if(!is_array(json_decode($response, true))){
 			$response = addcslashes($response, '\\');
 			if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
+			MO_Oauth_Debug::mo_oauth_log("Invalid response received.");
 			exit("Invalid response received.");
 			}
 		}
 		
 		$content = json_decode($response,true);
 		if(isset($content["error_description"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error"]);
 			exit($content["error"]);
 		}
 
@@ -186,8 +205,10 @@ class Mo_OAuth_Hanlder {
 
 		$content = json_decode($response,true);
 		if(isset($content["error_description"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
+			MO_Oauth_Debug::mo_oauth_log($content["error"]);
 			exit($content["error"]);
 		}
 		

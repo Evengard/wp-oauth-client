@@ -141,7 +141,7 @@
 		"label":"Identity Server", "type":"oauth", "image":"identityserver.png", "scope": "openid", "domain": "https://baseaddress", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<your-identityserver-domain>/connect/authorize", "token": "https://<your-identityserver-domain>/connect/token", "userinfo": "https://your-domain/connect/introspect", "guide":"https://plugins.miniorange.com/guide-to-configure-identityserver4-as-an-oauth-server", "logo_class":"fa fa-lock"
 	},
 	"nextcloud": {
-		"label":"Nextcloud", "type":"oauth", "image":"nextcloud.png", "scope": "", "domain": "https://nextcloud.test/subdirectory", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<your-nextcloud-domain>/apps/oauth2/authorize", "token": "https://<your-nextcloud-domain>/apps/oauth2/api/v1/token", "userinfo": "https://<your-nextcloud-domain>/ocs/v2.php/cloud/user?format=json", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Nextcloud", "type":"oauth", "image":"nextcloud.png", "scope": "", "domain": "https://nextcloud.test/subdirectory", "discovery":"", "authorize": "https://<your-nextcloud-domain>/index.php/apps/oauth2/authorize", "token": "https://<your-nextcloud-domain>/index.php/apps/oauth2/api/v1/token", "userinfo": "https://<your-nextcloud-domain>/ocs/v2.php/cloud/user?format=json", "guide":"https://plugins.miniorange.com/nextcloud-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
 	"twitch": {
 		"label":"Twitch", "type":"oauth", "image":"twitch.png", "scope": "Analytics:read:extensions", "domain": "", "discovery":"https://id.twitch.tv/oauth2/.well-known/openid-configuration", "authorize": "https://id.twitch.tv/oauth2/authorize", "token": "https://id.twitch.tv/oauth2/token", "userinfo": "https://id.twitch.tv/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-twitch-as-an-oauth-server", "logo_class":"fa fa-lock"
@@ -164,8 +164,23 @@
 	"did": {
 		"label":"DID App", "type":"openidconnect", "image":"did.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://auth.did.app/oidc/authorize", "token": "https://auth.did.app/oidc/token", "userinfo": "https://auth.did.app/oidc/userinfo", "guide":"", "logo_class":"fa fa-lock"
 	},
+	"coil": {
+		"label":"Coil", "type":"oauth", "image":"coil.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://coil.com/oauth/auth", "token": "https://coil.com/oauth/token", "userinfo": "https://api.coil.com/user/info", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"vatsim": {
+		"label":"VATSIM", "type":"oauth", "image":"vatsim.png", "scope": "full_name email", "domain": "", "discovery":"", "authorize": "https://auth.vatsim.net/oauth/authorize", "token": "https://auth.vatsim.net/oauth/token", "userinfo": "https://auth.vatsim.net/api/user", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"intuit": {
+		"label":"Intuit", "type":"oauth", "image":"intuit.png", "scope": "openid email profile", "domain": "", "discovery":"", "authorize": "https://appcenter.intuit.com/connect/oauth2", "token": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", "userinfo": "https://accounts.platform.intuit.com/v1/openid_connect/userinfo", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"blizzard": {
+		"label":"Blizzard", "type":"oauth", "image":"blizzard.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://us.battle.net/oauth/authorize", "token": "https://us.battle.net/oauth/token", "userinfo": "https://us.battle.net/oauth/userinfo", "guide":"https://plugins.miniorange.com/blizzard-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
+	},
 	"auth0": {
 		"label":"Auth0", "type":"openidconnect", "image":"auth0.png", "scope": "openid profile", "domain": "https://<your-auth0-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<your-auth0-domain>/authorize", "token": "https://<your-auth0-domain>/oauth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"apple": {
+		"label":"Apple", "type":"openidconnect", "image":"apple.png", "scope": "email", "domain": "", "discovery":"", "authorize": "https://appleid.apple.com/auth/authorize", "token": "https://appleid.apple.com/auth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "domain": "",  "discovery":"", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
