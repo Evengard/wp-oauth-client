@@ -3,11 +3,11 @@ Contributors: cyberlord92,oauth
 Tags: WordPress SSO, oauth, login, Single sign on, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c
 Requires at least: 3.0.1
 Tested up to: 5.6
-Stable tag: 6.19.0
+Stable tag: 6.19.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-WordPress Login (SSO) with AWS Cognito, Azure AD B2C, Okta, Ping, Clever, WSO2, Onelogin, Keycloak, many OAuth / OpenID Providers[24/7 SUPPORT]. 
+WordPress Login (SSO) with AWS Cognito, Azure AD B2C, Okta, Ping, Clever, WSO2, Onelogin, Keycloak, many OAuth / OpenID Providers [24/7 SUPPORT]. 
 
 == Description ==
 
@@ -154,6 +154,7 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 *   FusionAuth
 *   Kakao
 *   ID.me
+*   MoxiWorks
 
 = List of grant types we support for WordPress Single Sign On (SSO) =
 *   Authorization code grant
@@ -162,10 +163,11 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 *   Client credentials grant
 *   Refresh token grant
 *   Hybrid Grant
+*   Authorization code grant with PKCE flow
 
 
 = Other OAuth / OpenID Connect Providers we support for WordPress Single Sign On (SSO) =
-*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks etc.
 
 
 == WordPress Single Sign On (SSO) Supported Add-ons ==
@@ -249,6 +251,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.19.1 =
+* Minor bug fixes
 
 = 6.19.0 =
 * Added Debug log feature

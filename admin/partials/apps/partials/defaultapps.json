@@ -1,6 +1,6 @@
 {
 	"office365": {
-		"label":"Office 365", "type":"openidconnect", "image":"office365.png", "scope": "openid", "tenant": "tenent-id", "discovery": "https://login.microsoftonline.com/tenant/.well-known/openid-configuration", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
+		"label":"Office 365", "type":"openidconnect", "image":"office365.png", "scope": "openid", "tenant": "tenent-id", "discovery": "https://login.microsoftonline.com/tenant/.well-known/openid-configuration", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/office-365-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-windowslive"
 	},
 	"azure": {
 		"label":"Azure AD", "type":"openidconnect", "image":"azure.png", "scope": "openid", "tenant": "tenent-id", "discovery": "https://login.microsoftonline.com/tenant/.well-known/openid-configuration", "authorize": "https://login.microsoftonline.com/{tenant-id}/oauth2/authorize", "token": "https://login.microsoftonline.com/{tenant-id}/oauth2/token", "userinfo": "https://login.windows.net/common/openid/userinfo", "guide":"https://plugins.miniorange.com/azure-ad-login-for-wordpress-oauth-openid-single-sign-on", "logo_class":"fa fa-windowslive"
@@ -21,13 +21,13 @@
 		"label":"keycloak", "type":"openidconnect", "image":"keycloak.png", "scope": "openid", "domain": "http://keycloakhost:keycloakport", "realmname":"", "discovery":"domain/auth/realms/realmname/.well-known/uma2-configuration", "authorize": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/auth", "token": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/token", "userinfo": "{your-domain}/auth/realms/{realm}/protocol/openid-connect/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-keycloak-as-oauth-server/", "logo_class":"fa fa-lock"
 	},
 	"wordpress": {
-		"label":"WordPress", "type":"oauth", "image":"wordpress.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://<your-site-url>/wp-json/moserver/authorize", "token": "https://<your-site-url>/wp-json/moserver/token", "userinfo": "https://<your-site-url>/wp-json/moserver/resource", "guide":"https://plugins.miniorange.com/step-by-step-guide-for-wordpress-oauth-server", "logo_class":"fa fa-wordpress"
+		"label":"WordPress", "type":"oauth", "image":"wordpress.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://<your-site-url>/wp-json/moserver/authorize", "token": "https://<your-site-url>/wp-json/moserver/token", "userinfo": "https://<your-site-url>/wp-json/moserver/resource", "guide":"https://plugins.miniorange.com/guide-to-setup-single-sign-on-between-two-wordpress-sites", "logo_class":"fa fa-wordpress"
 	},
 	"zoho": {
 		"label":"Zoho", "type":"oauth", "image":"zoho.png", "scope": "aaaserver.profile.READ", "domain": "", "discovery":"", "authorize": "https://accounts.zoho.in/oauth/v2/auth", "token": "https://accounts.zoho.in/oauth/v2/token", "userinfo": "https://accounts.zoho.com/oauth/user/info", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"miniorange": {
-		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "domain": "https://<server-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://login.xecurify.com/moas/idp/openidsso", "token": "https://login.xecurify.com/moas/rest/oauth/token", "userinfo": "https://login.xecurify.com/moas/rest/oauth/getuserinfo", "guide":"", "logo_class":"fa fa-lock"
+		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "domain": "https://<server-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://login.xecurify.com/moas/idp/openidsso", "token": "https://login.xecurify.com/moas/rest/oauth/token", "userinfo": "https://login.xecurify.com/moas/rest/oauth/getuserinfo", "guide":"https://plugins.miniorange.com/single-sign-on-sso-into-wordpress-using-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
 	"slack": {
 		"label":"Slack", "type":"oauth", "image":"slack.png", "scope": "users.profile:read", "domain": "", "discovery":"", "authorize": "https://slack.com/oauth/authorize", "token": "https://slack.com/api/oauth.access", "userinfo": "https://slack.com/api/users.profile.get", "guide":"https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/", "logo_class":"fa fa-slack"
@@ -132,7 +132,7 @@
 		"label":"Zendesk", "type":"oauth", "image":"zendesk.png", "scope": "read write", "domain": "https://hostname", "discovery":"https://server.com/.well-known/openid-configuration", "authorize": "https://{subdomain}.zendesk.com/oauth/authorizations/new", "token": "https://{subdomain}.zendesk.com/oauth/tokens", "userinfo": "https://{subdomain}.zendesk.com/api/v2/users", "guide":"https://plugins.miniorange.com/guide-to-configure-zendesk-as-oauth-server/", "logo_class":"fa fa-lock"
 	},
 	"Freja eID":{
-		"label":"Freja eID", "type":"openidconnect", "image":"freja.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://oidc.prod.frejaeid.com/oidc/authorize", "token": "https://oidc.prod.frejaeid.com/oidc/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Freja eID", "type":"openidconnect", "image":"freja.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://oidc.prod.frejaeid.com/oidc/authorize", "token": "https://oidc.prod.frejaeid.com/oidc/token", "userinfo": "", "guide":"https://plugins.miniorange.com/login-with-freja-eid-using-wordpress-oauth-client", "logo_class":"fa fa-lock"
 	},
 	"laravel": {
 		"label":"Laravel", "type":"oauth", "image":"laravel.png", "scope": "", "domain": "", "discovery":"", "authorize": "http://your-laravel-site-url/oauth/authorize", "token": "http://your-laravel-site-url/oauth/token", "userinfo": "http://your-laravel-site-url/api/user/get", "guide":"https://plugins.miniorange.com/laravel-passport-as-an-oauth-server", "logo_class":"fa fa-lock"
@@ -165,13 +165,13 @@
 		"label":"DID App", "type":"openidconnect", "image":"did.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://auth.did.app/oidc/authorize", "token": "https://auth.did.app/oidc/token", "userinfo": "https://auth.did.app/oidc/userinfo", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"coil": {
-		"label":"Coil", "type":"oauth", "image":"coil.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://coil.com/oauth/auth", "token": "https://coil.com/oauth/token", "userinfo": "https://api.coil.com/user/info", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Coil", "type":"oauth", "image":"coil.png", "scope": "openid email", "domain": "", "discovery":"", "authorize": "https://coil.com/oauth/auth", "token": "https://coil.com/oauth/token", "userinfo": "https://api.coil.com/user/info", "guide":"https://plugins.miniorange.com/coil-single-sign-on-sso", "logo_class":"fa fa-lock"
 	},
 	"vatsim": {
-		"label":"VATSIM", "type":"oauth", "image":"vatsim.png", "scope": "full_name email", "domain": "", "discovery":"", "authorize": "https://auth.vatsim.net/oauth/authorize", "token": "https://auth.vatsim.net/oauth/token", "userinfo": "https://auth.vatsim.net/api/user", "guide":"", "logo_class":"fa fa-lock"
+		"label":"VATSIM", "type":"oauth", "image":"vatsim.png", "scope": "full_name email", "domain": "", "discovery":"", "authorize": "https://auth.vatsim.net/oauth/authorize", "token": "https://auth.vatsim.net/oauth/token", "userinfo": "https://auth.vatsim.net/api/user", "guide":"https://plugins.miniorange.com/vatsim-single-sign-on-sso", "logo_class":"fa fa-lock"
 	},
 	"intuit": {
-		"label":"Intuit", "type":"oauth", "image":"intuit.png", "scope": "openid email profile", "domain": "", "discovery":"", "authorize": "https://appcenter.intuit.com/connect/oauth2", "token": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", "userinfo": "https://accounts.platform.intuit.com/v1/openid_connect/userinfo", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Intuit", "type":"oauth", "image":"intuit.png", "scope": "openid email profile", "domain": "", "discovery":"", "authorize": "https://appcenter.intuit.com/connect/oauth2", "token": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", "userinfo": "https://accounts.platform.intuit.com/v1/openid_connect/userinfo", "guide":"https://plugins.miniorange.com/login-with-intuit-using-wordpress-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
 	"blizzard": {
 		"label":"Blizzard", "type":"oauth", "image":"blizzard.png", "scope": "openid", "domain": "", "discovery":"", "authorize": "https://us.battle.net/oauth/authorize", "token": "https://us.battle.net/oauth/token", "userinfo": "https://us.battle.net/oauth/userinfo", "guide":"https://plugins.miniorange.com/blizzard-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
@@ -180,7 +180,7 @@
 		"label":"Auth0", "type":"openidconnect", "image":"auth0.png", "scope": "openid profile", "domain": "https://<your-auth0-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<your-auth0-domain>/authorize", "token": "https://<your-auth0-domain>/oauth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"apple": {
-		"label":"Apple", "type":"openidconnect", "image":"apple.png", "scope": "email", "domain": "", "discovery":"", "authorize": "https://appleid.apple.com/auth/authorize", "token": "https://appleid.apple.com/auth/token", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
+		"label":"Apple", "type":"openidconnect", "image":"apple.png", "scope": "email", "domain": "", "discovery":"", "authorize": "https://appleid.apple.com/auth/authorize", "token": "https://appleid.apple.com/auth/token", "userinfo": "", "guide":"https://plugins.miniorange.com/login-with-apple-app-using-wordpress-oauth-client", "logo_class":"fa fa-lock"
 	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "domain": "",  "discovery":"", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
