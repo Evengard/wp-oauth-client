@@ -1,9 +1,9 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: WordPress SSO, oauth, login, Single sign on, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c
+Tags: WordPress SSO, oauth, login, WordPress Single sign-on, Single Sign-On, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c
 Requires at least: 3.0.1
 Tested up to: 5.6
-Stable tag: 6.19.1
+Stable tag: 6.19.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -12,12 +12,12 @@ WordPress Login (SSO) with AWS Cognito, Azure AD B2C, Okta, Ping, Clever, WSO2, 
 == Description ==
 
 WordPress Single Sign-On (SSO) with OAuth / OpenID Connect plugin allows login (Single Sign On) with your Apple, Twitter, Azure AD B2C, WSO2, Office 365, Azure AD, Clever, AWS Cognito, WSO2, Ping, Keycloak, WHMCS, Okta, LinkedIn, Invision Community, Slack, Amazon, Discord, Twitter, Google Apps or other custom OAuth 2.0 / OpenID Connect providers. WordPress SSO ( Login ) plugin supports SSO with many OAuth 2.0 and OpenID Connect (OIDC) 1.0 providers.
-It also provides unlimited User Authentication with OAuth & OpenID Connect protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments.
+It also provides unlimited User Authentication with OAuth & OpenID Connect protocol and allow authorized user to login into WordPress site. Support provided for Single site & Multisite Network enviornments. 
 
 [youtube https://youtu.be/rIe2yvree0g]
 
 
-= WordPress Single Sign-On(SSO) =
+= WordPress Single Sign-On / SSO ( Login into WordPress ) =
 
 Single Sign-On ( SSO ) allows user to login into any site / application using the credentials of another app/site.
 Example. If you have all your Users / Customers / Members / Employees stored on 1 site (ex. microsoft azure, gmail, wordpress, cognito, etc. ), lets say site A and you want all of them to register/login into your WordPress site say site B. In this scenario, you can register / login all your users of site A into Site B using the login credentials/account of Site A. This is called Single Sign-On or SSO.
@@ -31,10 +31,10 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 * Single Sign-On between WordPress - Wordpress ( Login with WordPress ) :
 	1. Single Sign-On to a WordPress site ( single / multisite ) using User Credentials stored on Another WordPress site
 	2. Single Sign-On to 1 / multiple WordPress sites ( or subsites ) using User Credentials stored on Another WordPress site
-* Single Sign-On between WordPress and Any OAuth / OpenID Connect ( OIDC ) application ( Login with Social Login Apps / Custom Providers ) :
+* Single Sign-On into WordPress with Any OAuth / OpenID Connect ( OIDC ) application ( Login with Social Login Apps / Custom Providers ) :
     1. Single Sign-On to 1 WordPress site ( single / multisite ) using User Credentials stored on your third party application
 	2. Single Sign-On to 1 / multiple WordPress sites ( or subsites ) using User Credentials stored on Another WordPress site
-* Single Sign-On into WordPress Using existing User stores ( Active Directory / Database )
+* Single Sign-On into WordPress Using existing Userstores ( Active Directory / Database )
 
 = FREE VERSION FEATURES =
 
@@ -84,6 +84,11 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 *	WP Hooks for Different Events : Provides support for different hooks for user defined functions
 *	Single Sign On Login Reports : OAuth Login (Single Sign On) creates user login and registration reports based on application used.
 
+= ALL INCLUSIVE VERSION FEATURES =
+
+*  All-in-one SSO plan with support of add-ons / Third Party Plugin compatibility
+*  Third Party Plugin Compatibility: WooCommerce plugin compatibility with SSO
+*  Add-on Support: Page & Post Restriction, BuddyPress Integrator, Login Form Add-on, Membership based Login, LearnDash Integration, Attribute Based Redirection, SCIM User Provisioning
 
 = No SSL restriction =
 *	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
@@ -114,7 +119,9 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 *   <a href="https://plugins.miniorange.com/github-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">GitHub</a>
 *   <a href="https://plugins.miniorange.com/box-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Box</a>
 *   <a href="https://plugins.miniorange.com/identityserver4-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer4</a>
+*   Identity Server3 
 *	HR Answerlink / Support center
+*   ABSORB LMS
 *   Zoho
 *   Apple
 *	Wechat
@@ -167,7 +174,7 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 
 
 = Other OAuth / OpenID Connect Providers we support for WordPress Single Sign On (SSO) =
-*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks etc.
+*	Other oauth 2.0 servers oauth single sign-on plugin support includes Office 365, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks, ClassLink, Google Classroom, MemberClicks, BankID etc.
 
 
 == WordPress Single Sign On (SSO) Supported Add-ons ==
@@ -223,14 +230,16 @@ add_action( 'show_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'mo_oauth_my_show_extra_profile_fields' );
 </code>
 
+= This WordPress SSO / Login plugin is not compatible with plugins installed on my site. What can I do? =
+Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
-= I need integration of this plugin with my other installed plugins like BuddyPress, etc.? =
-We will help you in integrating this plugin with your other installed plugins. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
+= I need integration of this plugin with my other installed plugins like BuddyPress, Woocommerce, Learndash and other third party plugins? =
+We will help you in integrating this plugin with your other installed plugins. This plugin is already compatible with WooCommerce, BuddyPress & Learndash. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> or <a href="http://miniorange.com/contact" target="_blank">Contact us</a>. You can also submit your query from plugin's configuration page.
 
-= I verified the OTP received over my email and entering the same password that I registered with, but I am still getting the error message - "Invalid password." =
-Please write to us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> and we will get back to you very soon.
+= Can I add multiple SSO options on my WordPress sites? =
+Yes, you can add multiple IDPs for Single Sign-on on your WordPress sites. e.g. Google Apps, Office 365, Salesforce and many more.
 
-=  I would like to change our license to support the Different Domain. How do we do this? =
+=  I would like to change our license domain. How do we do this? =
 Yes, You can now activate the license on your new domain. Write us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> we will help you set up.
 
 = Is it possible to set a different redirect URL after login & logout =
@@ -251,6 +260,10 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.19.2
+* Compatibility with WooCommerce plugin
+* UI updates.
 
 = 6.19.1 =
 * Minor bug fixes
