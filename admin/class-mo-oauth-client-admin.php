@@ -49,6 +49,5 @@ class Mo_OAuth_Client_Admin {
 		global $wpdb;
 		update_option( 'host_name', 'https://login.xecurify.com' );
 		$customerRegistered = mo_oauth_is_customer_registered();
-		//mo_oauth_client_main_menu();
 	}
 }

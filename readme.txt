@@ -3,7 +3,7 @@ Contributors: cyberlord92,oauth
 Tags: WordPress SSO, oauth, login, WordPress Single sign-on, Single Sign-On, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c
 Requires at least: 3.0.1
 Tested up to: 5.6
-Stable tag: 6.19.2
+Stable tag: 6.19.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -35,6 +35,7 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
     1. Single Sign-On to 1 WordPress site ( single / multisite ) using User Credentials stored on your third party application
 	2. Single Sign-On to 1 / multiple WordPress sites ( or subsites ) using User Credentials stored on Another WordPress site
 * Single Sign-On into WordPress Using existing Userstores ( Active Directory / Database )
+* Others : eCommerce Single Sign-On (Login) & other third party integration with SSO features
 
 = FREE VERSION FEATURES =
 
@@ -87,7 +88,7 @@ Example. If you have all your Users / Customers / Members / Employees stored on 
 = ALL INCLUSIVE VERSION FEATURES =
 
 *  All-in-one SSO plan with support of add-ons / Third Party Plugin compatibility
-*  Third Party Plugin Compatibility: WooCommerce plugin compatibility with SSO
+*  Third Party Plugin Compatibility: WooCommerce plugin compatibility with SSO / Login
 *  Add-on Support: Page & Post Restriction, BuddyPress Integrator, Login Form Add-on, Membership based Login, LearnDash Integration, Attribute Based Redirection, SCIM User Provisioning
 
 = No SSL restriction =
@@ -260,6 +261,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.19.3 =
+* Minor Code Fixes
 
 = 6.19.2
 * Compatibility with WooCommerce plugin
