@@ -99,15 +99,15 @@ The plugin can also support WordPress Single Sign On with any Identity Provider 
 *	Login to WordPress (WordPress SSO) using Google credentials (Google Apps Login) or any other app without having an SSL or HTTPS enabled site.
 
 = List of popular OAuth / OpenID Connect Providers we support for Single Sign On (SSO) =
-*   <a href="https://plugins.miniorange.com/office-365-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Office 365</a>
-*   <a href="https://plugins.miniorange.com/azure-b2c-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure B2C</a>
-*   <a href="https://plugins.miniorange.com/azure-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure AD</a>
-*   <a href="https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_black">Twitter</a>
+*	<a href="https://plugins.miniorange.com/office-365-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Office 365</a>
+*	<a href="https://plugins.miniorange.com/azure-b2c-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure B2C</a>
+*	<a href="https://plugins.miniorange.com/azure-ad-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Azure AD</a>
+*	<a href="https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_black">Twitter</a>
 *	<a href="https://plugins.miniorange.com/aws-cognito-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">AWS Cognito
 *	<a href="https://plugins.miniorange.com/keycloak-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Keycloak
-*   <a href="https://plugins.miniorange.com/clever-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Clever</a>
-*   <a href="https://plugins.miniorange.com/whmcs-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">WHMCS</a>
-*   <a href="https://plugins.miniorange.com/ping-federate-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
+*	<a href="https://plugins.miniorange.com/clever-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Clever</a>
+*	<a href="https://plugins.miniorange.com/whmcs-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">WHMCS</a>
+*	<a href="https://plugins.miniorange.com/ping-federate-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Ping Federate (Ping / Ping Identity)</a>
 *	<a href="https://plugins.miniorange.com/slack-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Slack</a>
 *	<a href="https://plugins.miniorange.com/discord-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Discord</a>
 *	<a href="https://plugins.miniorange.com/wso2-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">WSO2</a>
@@ -118,18 +118,18 @@ The plugin can also support WordPress Single Sign On with any Identity Provider 
 *	<a href="https://plugins.miniorange.com/onelogin-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">OneLogin</a>
 *	<a href="https://plugins.miniorange.com/yahoo-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Yahoo</a>
 *	<a href="https://plugins.miniorange.com/step-step-guide-to-single-sign-on-into-wordpress-using-openathens-oauth/" target="_blank">OpenAthens</a>
-*   <a href="https://plugins.miniorange.com/linkedin-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">LinkedIn</a>
+*	<a href="https://plugins.miniorange.com/linkedin-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">LinkedIn</a>
 *	<a href="https://plugins.miniorange.com/gitlab-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Gitlab</a>
 *	<a href="https://plugins.miniorange.com/gluu-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Gluu Server</a>
-*   <a href="https://plugins.miniorange.com/github-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">GitHub</a>
-*   <a href="https://plugins.miniorange.com/box-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Box</a>
-*   <a href="https://plugins.miniorange.com/identityserver4-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer4</a>
-*   <a href="https://plugins.miniorange.com/identityserver3-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer3</a>
-*   <a href="https://plugins.miniorange.com/login-with-apple-app-using-wordpress-oauth-client/" target="_blank">Apple</a>
-*   <a href="https://plugins.miniorange.com/blizzard-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Blizzard</a> (Formerly Battle.net)
+*	<a href="https://plugins.miniorange.com/github-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">GitHub</a>
+*	<a href="https://plugins.miniorange.com/box-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Box</a>
+*	<a href="https://plugins.miniorange.com/identityserver4-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer4</a>
+*	<a href="https://plugins.miniorange.com/identityserver3-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">IdentityServer3</a>
+*	<a href="https://plugins.miniorange.com/login-with-apple-app-using-wordpress-oauth-client/" target="_blank">Apple</a>
+*	<a href="https://plugins.miniorange.com/blizzard-single-sign-on-wordpress-sso-oauth-openid-connect/" target="_blank">Blizzard</a> (Formerly Battle.net)
 *	HR Answerlink / Support center
-*   ABSORB LMS
-*   Zoho
+*	ABSORB LMS
+*	Zoho
 *	Wechat
 *	Weibo
 *	Shibboleth
@@ -138,29 +138,29 @@ The plugin can also support WordPress Single Sign On with any Identity Provider 
 *	Eve Online
 *	NetIQ
 * 	Centrify
-*   Shibboleth
-*   Egnyte
-*   Twitter
-*   OpenAM
-*   Basecamp
-*   Steam
-*   Webflow
+*	Shibboleth
+*	Egnyte
+*	Twitter
+*	OpenAM
+*	Basecamp
+*	Steam
+*	Webflow
 *	Amazon
 *	ADFS
 *	Gigya
-*   Swiss-RX-Login (Swiss RX Login)
+*	Swiss-RX-Login (Swiss RX Login)
 *	PhantAuth
-* 	XING
-*   Centrify
-*   Egnyte
-* 	DID
+*	XING
+*	Centrify
+*	Egnyte
+*	DID
 *	Stripe
-*   Coil
-*   Parallel Markets
-*   VATSIM
-*   Liferay
-*   Fatsecret
-*   Intuit
+*	Coil
+*	Parallel Markets
+*	VATSIM
+*	Liferay
+*	Fatsecret
+*	Intuit
 *	iMIS
 *	ORY Hydra
 *	FusionAuth
