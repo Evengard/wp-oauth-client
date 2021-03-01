@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.19.3
+ * Version: 6.19.4
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -449,10 +449,22 @@ class mo_oauth {
                             $discovery_endpoint = str_replace("realmname", $realm, $discovery_endpoint);
                             $newapp['realm'] = $realm;
                         }
+                        error_log("OAuth Client Endpoint: ");
+                        error_log($discovery_endpoint);
+                        $provider_se = null;
 
-                        if(is_url($discovery_endpoint) ){
+                        if((filter_var($discovery_endpoint, FILTER_VALIDATE_URL))){
                             update_option('mo_oc_valid_discovery_ep', true);
-                            $provider_se = json_decode(file_get_contents($discovery_endpoint));
+                            $arrContextOptions=array( 
+                        		"ssl"=>array(
+                        			"verify_peer"=>false,
+                        			"verify_peer_name"=>false,
+                        		),
+                        	);  
+                        	$content=@file_get_contents($discovery_endpoint,false, stream_context_create($arrContextOptions));
+                            $provider_se = array();
+                            if($content)
+                            	$provider_se=json_decode($content);
                             $scope1 = isset($provider_se->scopes_supported[0])?$provider_se->scopes_supported[0] : "";
                             $scope2 = isset($provider_se->scopes_supported[1])?$provider_se->scopes_supported[1] : "";
                             $pscope = stripslashes($scope1)." ".stripslashes($scope2);
@@ -472,7 +484,7 @@ class mo_oauth {
 					$appslist[$appname] = $newapp;
 					update_option('mo_oauth_apps_list', $appslist);
 
-					if( isset($_POST['mo_oauth_discovery']) && !is_url($discovery_endpoint) )
+					if( isset($_POST['mo_oauth_discovery']) && !$provider_se)
                     {
                         update_option( 'message', '<strong>Error: </strong> Incorrect Domain/Tenant/Policy/Realm. Please configure with correct values and try again.' );
                         update_option( 'mo_discovery_validation', 'invalid');

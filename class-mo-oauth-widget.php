@@ -303,14 +303,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					} else {
 						$user_id = 0;
 						if(mo_oauth_hbca_xyake()) {
-							if( get_option('mo_oauth_flag') != true )
-							{
-								$user = mo_oauth_jhuyn_jgsukaj($username);
-							} else {
-								$mo_message=base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' );
-  							    MO_Oauth_Debug::mo_oauth_log($mo_message);
-   							    wp_die($mo_message);
-							} 							
+							$user = mo_oauth_jhuyn_jgsukaj($username);
 						} else {
 							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
 						}
@@ -484,18 +477,10 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					} else {
 						$user_id = 0;
 						if(mo_oauth_hbca_xyake()) {
-							if( get_option('mo_oauth_flag') != true )
-							{
-								$user = mo_oauth_jhuyn_jgsukaj($username);
-							} else {
-								$mo_message= base64_decode( 'PGRpdiBzdHlsZT0ndGV4dC1hbGlnbjpjZW50ZXI7Jz48Yj5Vc2VyIEFjY291bnQgZG9lcyBub3QgZXhpc3QuPC9iPjwvZGl2Pjxicj48c21hbGw+VGhpcyB2ZXJzaW9uIHN1cHBvcnRzIEF1dG8gQ3JlYXRlIFVzZXIgZmVhdHVyZSB1cHRvIDEwIFVzZXJzLiBQbGVhc2UgdXBncmFkZSB0byB0aGUgaGlnaGVyIHZlcnNpb24gb2YgdGhlIHBsdWdpbiB0byBlbmFibGUgYXV0byBjcmVhdGUgdXNlciBmb3IgdW5saW1pdGVkIHVzZXJzIG9yIGFkZCB1c2VyIG1hbnVhbGx5Ljwvc21hbGw+' );
-  							    MO_Oauth_Debug::mo_oauth_log($mo_message);
-    							wp_die($mo_message);
-							} 							
+							$user = mo_oauth_jhuyn_jgsukaj($username);
 						} else {
 							$user = mo_oauth_hjsguh_kiishuyauh878gs($username);
 						}
-						
 					}
 					if($user){
 						wp_set_current_user($user->ID);
@@ -650,11 +635,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 	function mo_oauth_jkhuiysuayhbw($ejhi)
 	{
-		$option = 0; $flag = false;	
+		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi);
+		/*$option = 0; $flag = false;	
 		$mo_oauth_authorizations = get_option('mo_oauth_authorizations');
 		if(!empty($mo_oauth_authorizations))
 			$option = get_option( 'mo_oauth_authorizations' );
-		$user = mo_oauth_hjsguh_kiishuyauh878gs($ejhi);
+		
 		if($user);								
 			++$option;							
 		update_option( 'mo_oauth_authorizations', $option);
@@ -662,7 +648,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 		{
 			$mo_oauth_set_val = base64_decode('bW9fb2F1dGhfZmxhZw==');
 		    update_option($mo_oauth_set_val, true);
-		}
+		}*/
 		return $user;
 	}
 

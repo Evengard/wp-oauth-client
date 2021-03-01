@@ -72,7 +72,15 @@ class Mo_OAuth_Client_Admin_Menu {
 
 	public static function show_menu($currenttab) {
 		
-		if(!get_option('mo_oauth_log'))
+		$mo_debug_flag = 0;
+		if(get_option('mo_oauth_log'))
+		{
+			if( !file_exists((plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php')) ){
+				$mo_debug_flag = 1;
+			}
+		}
+
+		if(!get_option('mo_oauth_log')|| $mo_debug_flag)
 		{
 			update_option('mo_oauth_log',uniqid());
 			$mo_file=fopen(plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php',"w");

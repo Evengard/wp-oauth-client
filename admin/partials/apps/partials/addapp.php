@@ -135,7 +135,7 @@
                 <?php if($currentapp->label !='twitter'){?>
 			<tr id="mo_oauth_authorizeurl_div">
 				<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
-				<td><input class="mo_table_textbox" <?php if(!isset($currentapp->discovery) || $currentapp->discovery=="") echo 'required';?> type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php if(isset($currentapp->authorize)) echo $currentapp->authorize;?>"></td>
+				<td><input class="mo_table_textbox" <?php if(!isset($currentapp->discovery) || $currentapp->discovery=="") echo 'required';?> type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php if(isset($currentapp->authorize)) echo htmlentities($currentapp->authorize);?>"></td>
 			</tr>
 			<tr id="mo_oauth_accesstokenurl_div">
 				<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>

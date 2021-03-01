@@ -2,11 +2,127 @@
   
 class Mo_OAuth_Client_Admin_Addons {
 
+  public static $all_addons = array(
+        array(
+          'tag' => 'page-restriction',
+          'title' => 'Page & Post Restriction',
+          'desc' => 'Allows to restrict access to WordPress pages/posts based on user roles and their login status, thereby preventing them from unauthorized access.',
+          'img' => 'images/page-restriction.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-page-restriction',
+        ),
+
+        array(
+          'tag' => 'fsso',
+          'title' => 'Two Factor Authentication',
+          'desc' => 'Supported 2FA methods:- Google Authenticator, OTP Over SMS, OTP Over Email, Email Verification, miniOrange methods. <br>Additional Features:- Unlimited Users & Multisite support,Website Security features',
+          'img' => 'images/fsso.png',
+          'link' => 'https://plugins.miniorange.com/2-factor-authentication-for-wordpress',
+        ),
+
+        array(
+          'tag' => 'buddypress',
+          'title' => 'BuddyPress Integrator',
+          'desc' => 'Allows to integrate user information received from OAuth/OpenID Provider with the BuddyPress profile.',
+          'img' => 'images/buddypress.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-buddypress-integrator',
+        ),
+
+        array(
+          'tag' => 'login-form',
+          'title' => 'Login Form Add-on',
+          'desc' => 'Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.',
+          'img' => 'images/login-form.png',
+        ),
+
+        array(
+          'tag' => 'member-login',
+          'title' => 'Membership based Login',
+          'desc' => "Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.",
+          'img' => 'images/member-login.png',
+        ),
+
+        array(
+          'tag' => 'learndash',
+          'title' => 'LearnDash Integration',
+          'desc' => 'If you want to integrate LearnDash with your IDP then you can opt-in for this add-on. This add-on will map the users to LearnDash groups based on the attributes sent by your IDP.',
+          'img' => 'images/learndash.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-learndash-integrator',
+        ),
+
+        array(
+          'tag' => 'login-audit',
+          'title' => 'SSO Login Audit',
+          'desc' => 'SSO Login Audit captures all the SSO users and will generate the reports.',
+          'img' => 'images/report.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-sso-login-audit',
+        ),
+
+        array(
+          'tag' => 'attribute',
+          'title' => 'Attribute Based Redirection',
+          'desc' => 'ABR add-on helps you to redirect your users to different pages after they log into your site, based on the attributes sent by your Identity Provider.',
+          'img' => 'images/attribute-icon.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
+        ),
+
+        array(
+          'tag' => 'scim',
+          'title' => 'SCIM User Provisioning',
+          'desc' => 'This plugin allows user provisioning with SCIM standard. System for Cross-domain Identity Management is a standard for automating the exchange of user identity information between identity domains, or IT systems.',
+          'img' => 'images/scim.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-user-provisioning',
+        ),
+
+        array(
+          'tag' => 'discord',
+          'title' => 'Discord Role Mapping',
+          'desc' => 'Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.',
+          'img' => 'images/discord.png',
+          'link' => 'https://plugins.miniorange.com/discord-wordpress-single-sign-on-integration',
+        ),
+
+        array(
+          'tag' => 'session',
+          'title' => 'SSO Session Management',
+          'desc' => 'SSO session management add-on manages the login session time of your users based on their WordPress roles.',
+          'img' => 'images/session.jpg',
+          'link' => 'https://plugins.miniorange.com/sso-session-management',
+        ),
+
+        array(
+          'tag' => 'media',
+          'title' => 'Media Restriction',
+          'desc' => 'miniOrange Media Restriction add-on restrict unauthorized users from accessing the media files on your WordPress site.',
+          'img' => 'images/media.jpg',
+          'link' => 'https://plugins.miniorange.com/wordpress-media-restriction',
+        ),
+
+        array(
+          'tag' => 'profile_pic',
+          'title' => 'Profile Picture Add-on',
+          'desc' => 'Maps raw image data or URL received from your Identity Provider into Gravatar for the user.',
+          'img' => 'images/profile_pic.png',
+        ),
+
+      );
+
+  public static $RECOMMENDED_ADDONS_PATH = array(
+
+        "learndash"     =>  "sfwd-lms/sfwd_lms.php",
+        "buddypress"    =>  "buddypress/bp-loader.php",
+        "memberpress"   =>  "memberpress/memberpress.php",
+        "woocommerce"   =>  "woocommerce/woocommerce.php"
+    );
+      
+
   public static function addons() {
       self::addons_page();
   }
     
-    public static function addons_page(){
+    public static function addons_page() {
+
+      $addons_recommended = array();
+      
 ?>
 
 <style>
@@ -21,7 +137,7 @@ class Mo_OAuth_Client_Admin_Addons {
 .column_container {
   position: relative;
   box-sizing: border-box;
-  margin-top: 30px;
+  margin-top: 20px;
   border-color: 1px solid red;
   z-index: 1000;
 }  
@@ -152,200 +268,65 @@ a {
                    value="<?php echo "http://plugins.miniorange.com/go/oauth-2fa-buy-now-payment"; ?>"/>
             <input type="text" name="requestOrigin" id="requestOrigin"/>
 </form>
-<div class="mo_table_layout">
-  <b><p style="padding-left: 15px;font-size: 20px;">Check out our add-ons :</p></b>
-<div class="outermost-div" style="background-color:#f7f7f7;opacity:0.9;">
-  <div class="row-view">
-    <div class="grid_view column_container" style="border-radius: 5px;">
-      <div class="column_inner" style="border-radius: 5px;">
-        <div class="row benefits-outer-block">
-        <div class="mo_float-container">
-           <div class="mo_float-child" style="margin-left: 0px;padding-left: 0px;"> 
-          <img src="<?php echo plugins_url("images/page-restriction.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href="https://developers.miniorange.com/docs/oauth/wordpress/client/page-restriction-addon" target="_blank">Page & Post Restriction</a></p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;">Allows to restrict access to WordPress pages/posts based on user roles and their login status, thereby preventing them from unauthorized access.</p>
-      </div>
-        </div>
-    </div>  
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-           <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/fsso.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;"><a href="http://plugins.miniorange.com/go/oauth-2fa-plugin-details" target="_blank">Two Factor Authentication</a></p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;"><b>Supported 2FA methods:- </b>Google Authenticator, OTP Over SMS, OTP Over Email, Email Verification, miniOrange methods.<br><b> Additional Features:- </b>Unlimited Users & Multisite support,Website Security features</p>
-      </div>
-        </div>
-    </div>   
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/buddypress-logo.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;"><a href="https://developers.miniorange.com/docs/oauth/wordpress/client/buddypress-integration" target="_blank">BuddyPress Integrator</a></p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">Allows to integrate user information received from OAuth/OpenID Provider with the BuddyPress profile.</p>
-        </div>
-      </div>
-    </div> 
-    <div class="row-view"> 
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/login-form.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">Login Form Add-on</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.</p>
-        </div>
-      </div>
-    </div>
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-         <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/member-login.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">Membership based Login</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.</p>
-        </div>
-      </div>    
-    </div>  
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/learndash-icon.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">LearnDash Integration</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">LearnDash is popular WordPress LMS plugin. If you want to integrate LearnDash with your IDP then you can opt-in for this add-on. This add-on will map the users to LearnDash groups based on the attributes sent by your IDP.</p>
-      </div>
-    </div>
-  </div>
+  
+  <?php
+  foreach (Mo_OAuth_Client_Admin_Addons::$RECOMMENDED_ADDONS_PATH as $key => $value) {
+    if(is_plugin_active($value)){
+      $addon = $key;
+      $addons_recommended[$addon] = $addon;
+    }
+  }
+
+  if(sizeof($addons_recommended)>0){ ?>
+    <div class="mo_table_layout">
+    <b><p style="padding-left: 15px;font-size: 20px;margin-top: 10px; margin-bottom: 10px;">Recommended Add-ons for you:</p></b>
+    <div class="outermost-div" style="background-color:#f7f7f7;opacity:0.9; ">
     <div class="row-view">
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-           <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/report-icon.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">SSO Login Audit</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">SSO Login Audit captures all the SSO users and will generate the reports.</p>
-        </div>
-      </div>
-    </div>  
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-           <div class="mo_float-container">
-           <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/attribute-icon.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2" style="width: px;">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">Attribute Based Redirection</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">ABR add-on helps you to redirect your users to different pages after they log into your site, based on the attributes sent by your Identity Provider.</p>
-        </div>
-      </div>    
-    </div>  
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-          <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/scim-icon.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">SCIM User Provisioning</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">This plugin allows user provisioning with SCIM standard. System for Cross-domain Identity Management is a standard for automating the exchange of user identity information between identity domains, or IT systems.</p>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row-view">
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-          <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/discord.png", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">Discord Role Mapping</p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.</p>
-        </div>
-      </div>
-    </div>
-    <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-          <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/session.jpg", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">SSO Session Management
-          </p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">SSO session management add-on manages the login session time of your users based on their WordPress roles.</p>
-        </div>
-      </div>
-    </div>
-     <div class="grid_view column_container">
-      <div class="column_inner">
-        <div class="row benefits-outer-block">
-          <div class="mo_float-container">
-          <div class="mo_float-child"> 
-          <img src="<?php echo plugins_url("images/media.jpg", __FILE__) ?>" width="45px" height="48px">
-          </div>
-          <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-family: Verdana, Arial, Helvetica, sans-serif;">Media Restriction
-          </p></strong></div>
-          </div>
-        </div>
-          <p style="text-align: center;font-size: 12px;">miniOrange Media Restriction add-on restrict unauthorized users from accessing the media files on your WordPress site.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <?php
+     foreach ($addons_recommended as $key => $value)
+      Mo_OAuth_Client_Admin_Addons::get_single_addon_cardt($value);
+  }
+
+    ?>
   </div>
 </div>
+</div>
+
+<div class="mo_table_layout">
+  <b><p style="padding-left: 15px;font-size: 20px;margin-top: 10px; margin-bottom: 10px;">Check out our add-ons :</p></b>
+<div class="outermost-div" style="background-color:#f7f7f7;opacity:0.9;">
+
+  <?php
+
+  $available_addons = array();
+  foreach (Mo_OAuth_Client_Admin_Addons::$all_addons as $key => $value) {
+    # code...
+    if(!array_search($value['tag'], $addons_recommended))
+      array_push($available_addons, $value['tag']);
+  }
+
+  $all_addons = Mo_OAuth_Client_Admin_Addons::$all_addons;
+  $total_addons = sizeof($available_addons);
+    
+    for ($i=0; $i < $total_addons; $i++) { ?>
+      <div class="row-view">
+        <?php 
+        Mo_OAuth_Client_Admin_Addons::get_single_addon_cardt($available_addons[$i]);
+        if($i+1 >= $total_addons)
+          break;
+        Mo_OAuth_Client_Admin_Addons::get_single_addon_cardt($available_addons[$i+1]);
+        $i++;
+        if($i+1 >= $total_addons)
+          break;
+        Mo_OAuth_Client_Admin_Addons::get_single_addon_cardt($available_addons[$i+1]);
+        $i++;
+        ?>
+      </div> 
+    <?php 
+  }
+  ?>
+</div></div>
+
 
 <script type="text/javascript">
    function upgradeform(planType) {
@@ -369,6 +350,35 @@ a {
             }
 </script>
 <?php
+    }
+
+    public static function get_single_addon_cardt($tag){
+      foreach (Mo_OAuth_Client_Admin_Addons::$all_addons as $key => $value) {
+        # code...
+        if(array_search($tag, $value)){
+          $addon = $value;
+          break;
+        }
+      }
+      if(isset($addon)){
+    ?>
+      <div class="grid_view column_container" style="border-radius: 5px;">
+        <div class="column_inner" style="border-radius: 5px;">
+        <div class="row benefits-outer-block">
+        <div class="mo_float-container">
+            <div class="mo_float-child" style="margin-left: 0px;padding-left: 0px;"> 
+            <img src="<?php echo plugins_url($addon['img'], __FILE__) ?>" width="45px" height="48px">
+            </div>
+        <div class="mo_float-child2">
+          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href= "<?php echo isset($addon['link']) ? $addon['link'] : '';?>" target="_blank"><?php echo $addon['title'] ?></a></p></strong></div>
+          </div>
+        </div>
+        <p style="text-align: center;font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;"><?php echo $addon['desc'] ?></p>
+        </div>
+        </div>
+      </div>
+        <?php
+      }
     }
 }
 ?>

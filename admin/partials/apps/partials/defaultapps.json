@@ -27,7 +27,7 @@
 		"label":"Zoho", "type":"oauth", "image":"zoho.png", "scope": "aaaserver.profile.READ", "domain": "", "discovery":"", "authorize": "https://accounts.zoho.in/oauth/v2/auth", "token": "https://accounts.zoho.in/oauth/v2/token", "userinfo": "https://accounts.zoho.com/oauth/user/info", "guide":"", "logo_class":"fa fa-lock"
 	},
 	"miniorange": {
-		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "domain": "https://<server-domain>", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://login.xecurify.com/moas/idp/openidsso", "token": "https://login.xecurify.com/moas/rest/oauth/token", "userinfo": "https://login.xecurify.com/moas/rest/oauth/getuserinfo", "guide":"https://plugins.miniorange.com/single-sign-on-sso-into-wordpress-using-oauth-openid-connect", "logo_class":"fa fa-lock"
+		"label":"miniOrange", "type":"oauth", "image":"miniorange.png", "scope": "openid", "domain": "https://<server-domain>", "discovery":"", "authorize": "https://login.xecurify.com/moas/idp/openidsso", "token": "https://login.xecurify.com/moas/rest/oauth/token", "userinfo": "https://login.xecurify.com/moas/rest/oauth/getuserinfo", "guide":"https://plugins.miniorange.com/single-sign-on-sso-into-wordpress-using-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
 	"slack": {
 		"label":"Slack", "type":"oauth", "image":"slack.png", "scope": "users.profile:read", "domain": "", "discovery":"", "authorize": "https://slack.com/oauth/authorize", "token": "https://slack.com/api/oauth.access", "userinfo": "https://slack.com/api/users.profile.get", "guide":"https://plugins.miniorange.com/guide-to-configure-slack-as-oauth-server/", "logo_class":"fa fa-slack"
@@ -143,8 +143,11 @@
 	"nextcloud": {
 		"label":"Nextcloud", "type":"oauth", "image":"nextcloud.png", "scope": "", "domain": "https://nextcloud.test/subdirectory", "discovery":"", "authorize": "https://<your-nextcloud-domain>/index.php/apps/oauth2/authorize", "token": "https://<your-nextcloud-domain>/index.php/apps/oauth2/api/v1/token", "userinfo": "https://<your-nextcloud-domain>/ocs/v2.php/cloud/user?format=json", "guide":"https://plugins.miniorange.com/nextcloud-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
+	"classlink": {
+		"label":"ClassLink", "type":"oauth", "image":"classlink.png", "scope": "profile email", "domain": "", "discovery":"", "authorize": "https://launchpad.classlink.com/oauth2/v2/auth", "token": "https://launchpad.classlink.com/oauth2/v2/token", "userinfo": "https://nodeapi.classlink.com/v2/my/info", "guide":"", "logo_class":"fa fa-lock"
+	},
 	"twitch": {
-		"label":"Twitch", "type":"oauth", "image":"twitch.png", "scope": "Analytics:read:extensions", "domain": "", "discovery":"https://id.twitch.tv/oauth2/.well-known/openid-configuration", "authorize": "https://id.twitch.tv/oauth2/authorize", "token": "https://id.twitch.tv/oauth2/token", "userinfo": "https://id.twitch.tv/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-twitch-as-an-oauth-server", "logo_class":"fa fa-lock"
+		"label":"Twitch", "type":"openidconnect", "image":"twitch.png", "scope": "user:read:email openid", "domain": "", "discovery":"", "authorize": "https://id.twitch.tv/oauth2/authorize?claims={\"id_token\":{\"email\":null,\"email_verified\":null,\"picture\":null, \"preferred_username\":null}}", "token": "https://id.twitch.tv/oauth2/token", "userinfo": "https://id.twitch.tv/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-twitch-as-an-oauth-server", "logo_class":"fa fa-lock"
 	},
 	"wildApricot": {
 		"label":"Wild Apricot", "type":"oauth", "image":"wildApricot.png", "scope": "auto", "domain": "", "discovery":"", "authorize": "https://<your_account_url>/sys/login/OAuthLogin", "token": "https://oauth.wildapricot.org/auth/token", "userinfo": "https://api.wildapricot.org/v2.1/accounts/<account_id>/contacts/me", "guide":"https://plugins.miniorange.com/guide-configure-wild-apricot-oauth-server", "logo_class":"fa fa-lock"

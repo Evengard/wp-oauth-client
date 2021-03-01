@@ -99,7 +99,7 @@
 			    if(!isset($refapp->discovery) || $refapp->discovery =="" || !get_option('mo_existing_app_flow')) { ?>
 				<tr  id="mo_oauth_authorizeurl_div">
 					<td><strong><font color="#FF0000">*</font>Authorize Endpoint:</strong></td>
-					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo htmlentities($currentapp['authorizeurl']);?>"></td>
 				</tr>
 				<tr id="mo_oauth_accesstokenurl_div">
 					<td><strong><font color="#FF0000">*</font>Access Token Endpoint:</strong></td>
