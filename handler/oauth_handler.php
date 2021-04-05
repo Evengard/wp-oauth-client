@@ -60,11 +60,14 @@ class Mo_OAuth_Hanlder {
 			exit;
 		} else {
 			echo 'Invalid response received from OAuth Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
+			MO_Oauth_Debug::mo_oauth_log($response);
 			exit;
 		}
 	}
 
 	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+
+		MO_Oauth_Debug::mo_oauth_log('Token request content => ');
 
 		$clientsecret = html_entity_decode( $clientsecret );
 		$body = array(
@@ -86,7 +89,12 @@ class Mo_OAuth_Hanlder {
 		}else if(!$send_headers && $send_body){
 				unset( $headers['Authorization'] );
 		}
-		
+		MO_Oauth_Debug::mo_oauth_log('Token endpoint URL => '.$tokenendpoint);	
+		MO_Oauth_Debug::mo_oauth_log('body =>');
+		MO_Oauth_Debug::mo_oauth_log($body);	
+		MO_Oauth_Debug::mo_oauth_log('headers =>');
+		MO_Oauth_Debug::mo_oauth_log($headers);
+
 		$response   = wp_remote_post( $tokenendpoint, array(
 			'method'      => 'POST',
 			'timeout'     => 45,
@@ -100,13 +108,15 @@ class Mo_OAuth_Hanlder {
 		) );
 		if ( is_wp_error( $response ) ) {
 			MO_Oauth_Debug::mo_oauth_log('Invalid response recieved while fetching token');
+			MO_Oauth_Debug::mo_oauth_log($response);
 			wp_die( $response );
 		}
 		$response =  $response['body'] ;
-
+		MO_Oauth_Debug::mo_oauth_log('Token Endpoint response => '.$response);
 		if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
 			MO_Oauth_Debug::mo_oauth_log('Invalid response received.');
+			MO_Oauth_Debug::mo_oauth_log($response['body']);
 			exit("Invalid response received.");
 		}
 		
@@ -143,7 +153,7 @@ class Mo_OAuth_Hanlder {
 				return json_decode($id_body,true);
 			}
 		}
-		MO_Oauth_Debug::mo_oauth_log('Invalid response received.Id_token : '.$id_token);
+		MO_Oauth_Debug::mo_oauth_log('Invalid response received while fetching Id token from the Resource Owner. Id_token : '.$id_token);
 		echo 'Invalid response received.<br><b>Id_token : </b>'.$id_token;
 		exit;
 	}
@@ -151,6 +161,11 @@ class Mo_OAuth_Hanlder {
 	function getResourceOwner($resourceownerdetailsurl, $access_token){
 		$headers = array();
 		$headers['Authorization'] = 'Bearer '.$access_token;
+
+		MO_Oauth_Debug::mo_oauth_log('Resource Owner request content => ');			
+		MO_Oauth_Debug::mo_oauth_log('headers =>');
+		MO_Oauth_Debug::mo_oauth_log($headers);
+		MO_Oauth_Debug::mo_oauth_log('Resource Owner Endpoint: '.$resourceownerdetailsurl);
 
 		$response   = wp_remote_post( $resourceownerdetailsurl, array(
 			'method'      => 'GET',
@@ -165,6 +180,7 @@ class Mo_OAuth_Hanlder {
 
 		if ( is_wp_error( $response ) ) {
 			MO_Oauth_Debug::mo_oauth_log('Invalid response recieved while fetching resource owner details');
+			MO_Oauth_Debug::mo_oauth_log($response);
 			wp_die( $response );
 		}
 

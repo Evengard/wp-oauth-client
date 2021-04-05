@@ -279,7 +279,7 @@ a {
 
   if(sizeof($addons_recommended)>0){ ?>
     <div class="mo_table_layout">
-    <b><p style="padding-left: 15px;font-size: 20px;margin-top: 10px; margin-bottom: 10px;">Recommended Add-ons for you:</p></b>
+  <b><p style="padding-left: 15px;font-size: 20px;"><?php _e('Check out our add-ons :','miniorange-login-with-eve-online-google-facebook'); ?></p></b>
     <div class="outermost-div" style="background-color:#f7f7f7;opacity:0.9; ">
     <div class="row-view">
     <?php

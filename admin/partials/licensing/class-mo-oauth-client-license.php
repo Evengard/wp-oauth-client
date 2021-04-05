@@ -185,9 +185,9 @@ class Mo_OAuth_Client_Admin_Licensing {
         <div class="cd-pricing-switcher">
             <p class="fieldset">
                 <input type="radio" name="sitetype" value="singlesite" id="singlesite" checked>
-                <label for="singlesite">Single Site</label>
+                <label for="singlesite"><?php _e('Single Site','miniorange-login-with-eve-online-google-facebook'); ?></label>
                 <input type="radio" name="sitetype" value="multisite" id="multisite">
-                <label for="multisite">Multisite Network</label>
+                <label for="multisite"><?php _e('Multisite Network','miniorange-login-with-eve-online-google-facebook'); ?></label>
                 <span class="cd-switch"></span>
             </p>
         </div>
@@ -212,7 +212,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><small>[Standard]</small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>349<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -243,7 +243,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><small>[PREMIUM]</small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>499<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_premium_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_premium_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -274,7 +274,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><small>[ENTERPRISE]</small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>549<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_enterprise_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_enterprise_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;Unlimited OAuth / OpenID Connect <br>provider Support</li>
@@ -305,7 +305,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
@@ -323,7 +323,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                             <div class="moc-licensing-plan-header">
                                 <div class="moc-licensing-plan-name">OAuth Client + Cloud IDP Package</div>
                                 </div>
-                            <a class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" href="mailto:info@xecurify.com" target="_blank">Contact Us</a>
+                            <a class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" href="mailto:info@xecurify.com" target="_blank"><?php _e('Contact Us','miniorange-login-with-eve-online-google-facebook'); ?></a>
                             <br>
                             <div class="moc-licensing-plan-price"><sup>$</sup>349 +<sup>$</sup>0.0019<sup>**</sup></div>
                             <div class="moc-licensing-plan-usp">(miniOrange Cloud IDP(B2C))</div>
@@ -446,8 +446,8 @@ class Mo_OAuth_Client_Admin_Licensing {
                     <!-- Licensing Plans End -->
                     <div class="moc-licensing-notice"><b>
                         <span style="color: red;">**</span>OAuth Client + Cloud IDP Package Pricing will be based on plugin plan you select + Cloud IDP pricing per User authentication(first 50,000 authentications would be free).<br><br>
-                        <span style="color: red;">*</span>Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.
-                        <p><span style="color: red;">*</span><strong>MultiSite Network Support</strong>
+                        <span style="color: red;">*</span>Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.<br><br>
+                        <p><span style="color: red;">*</span><strong>MultiSite Network Support</strong><br>
                             There is an additional cost for the number of subsites in Multisite Network.</p></b>
 
                         <p>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> for any queries regarding the return policy.</p>

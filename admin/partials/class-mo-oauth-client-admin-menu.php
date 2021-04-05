@@ -70,46 +70,77 @@ function mo_oauth_hbca_xyake(){if(get_option('mo_oauth_client_admin_customer_key
 
 class Mo_OAuth_Client_Admin_Menu {
 
+	public static function logfile_delete(){
+
+		$mo_file_path1=dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.get_option('mo_oauth_debug').'.log';
+		if(file_exists($mo_file_path1)) {
+	 		unlink($mo_file_path1);
+	   	}	
+	  	
+	}
+
 	public static function show_menu($currenttab) {
-		
-		$mo_debug_flag = 0;
-		if(get_option('mo_oauth_log'))
-		{
-			if( !file_exists((plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php')) ){
-				$mo_debug_flag = 1;
+
+
+		if( get_option('mo_debug_check') ){
+			update_option( 'mo_debug_check',0 );
+		}
+
+		$log_file_path = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.get_option('mo_oauth_debug').'.log';
+
+		$mo_log_enable = get_option('mo_debug_enable');
+
+		$mo_oauth_debug = get_option('mo_oauth_debug');
+
+		if( $mo_log_enable ){
+			$key=604800;
+			$mo_debug_times=get_option('mo_debug_time');
+			$mo_curr_time=current_time('timestamp');
+
+			$mo_oauth_var=(int)(($mo_curr_time-$mo_debug_times)/($key));
+			if($mo_oauth_var>=1)
+			{
+				update_option('mo_debug_time',$mo_debug_times+($mo_oauth_var*$key));
+				update_option('mo_debug_enable',0);
+				
+	    		self::logfile_delete();
+				delete_option('mo_oauth_debug');
 			}
 		}
-
-		if(!get_option('mo_oauth_log')|| $mo_debug_flag)
-		{
-			update_option('mo_oauth_log',uniqid());
-			$mo_file=fopen(plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php',"w");
-			chmod(plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php', 0644);
-			copy(plugin_dir_path(__FILE__).'mo_log_down.php',plugin_dir_path(__FILE__).get_option('mo_oauth_log').'.php');
-			update_option('mo_oauth_debug','mo_oauth_debug'.uniqid());
-			global $mo_debug_file;
-			$mo_debug_file=fopen(plugin_dir_path(__FILE__).'/../../'.get_option('mo_oauth_debug').'.log',"w");
-			chmod(plugin_dir_path(__FILE__).'/../../'.get_option('mo_oauth_debug').'.log', 0644);
+		else{
+			self::logfile_delete();
+			delete_option('mo_oauth_debug');
 		}
 
+		if( ( $mo_log_enable && !$mo_oauth_debug ) || ( $mo_log_enable && ( !file_exists( $log_file_path ) ) ) ){
+
+				update_option('mo_oauth_debug','mo_oauth_debug'.uniqid());
+				$mo_oauth_debugs=get_option('mo_oauth_debug');
+				$mo_file_addr2=dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.$mo_oauth_debugs.'.log';
+				$mo_debug_file=fopen($mo_file_addr2,"w");
+				chmod($mo_file_addr2,0644);
+				update_option( 'mo_debug_check',1 );
+				MO_Oauth_Debug::mo_oauth_log('');
+				update_option( 'mo_debug_check',0 );			
+		}
+		
+		
 		?> <div class="wrap">
 			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
 		</div>
 		        <div class="wrap">
             <h1>
 
-                miniOrange <?php echo MO_OAUTH_PLUGIN_NAME; ?>&nbsp
-                <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Premium plans</a>
-                <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank">Troubleshooting</a>
-                <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank">Ask questions on our forum</a>
-                <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank">Feature Details</a>
-                 <a id="features_button_id" class="add-new-h2" style="background-color: #4f4d4f;color: white;font-size: 15px;" href="<?php echo plugin_dir_url(__FILE__).get_option('mo_oauth_log').'.php'; ?>">Download Error Logs
-                 	</a>
-
+                miniOrange OAuth Single Sign On
+                &nbsp
+                <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>"><?php esc_html_e('Premium plans','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank"><?php esc_html_e('Troubleshooting','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank"><?php esc_html_e('Ask questions on our forum','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank"><?php esc_html_e('Feature Details','miniorange-login-with-eve-online-google-facebook')?></a>
 			</h1>
 			<?php if ( 'licensing' === $currenttab ) { ?>
 				<div id="moc-lp-imp-btns" style="float:right;">
-					<a class="btn btn-outline-danger" target="_blank" href="https://plugins.miniorange.com/wordpress-oauth-client">Full Feature List</a>&emsp;<a class="btn btn-outline-primary" onclick="getlicensekeys()" href="#">Get License Keys</a>
+					<a class="btn btn-outline-danger" target="_blank" href="https://plugins.miniorange.com/wordpress-oauth-client"><?php _e('Full Feature List','miniorange-login-with-eve-online-google-facebook');?></a>&emsp;<a class="btn btn-outline-primary" onclick="getlicensekeys()" href="#"><?php _e('Get License Keys','miniorange-login-with-eve-online-google-facebook');?></a>
 				</div>
 			<?php } /*else { ?>
 				<div class="buts" style="float:right;">
@@ -130,14 +161,14 @@ class Mo_OAuth_Client_Admin_Menu {
         </style>
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
-			<a id="tab-config" class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config">Configure OAuth</a>
-			<a id="tab-attrmapping" class="nav-tab <?php if($currenttab == 'attributemapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=attributemapping">Attribute/Role Mapping</a>
-			<a id="tab-signinsettings" class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings">Login Settings</a>
-			<a id="tab-customization" class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization">Login Button Customization</a>
-			<a id="tab-requestdemo" class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo">Trials Available</a>
+			<a id="tab-config" class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config"><?php esc_html_e('Configure OAuth','miniorange-login-with-eve-online-google-facebook')?></a>
+			<a id="tab-attrmapping" class="nav-tab <?php if($currenttab == 'attributemapping') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=attributemapping"><?php esc_html_e('Attribute/Role Mapping','miniorange-login-with-eve-online-google-facebook')?></a>
+			<a id="tab-signinsettings" class="nav-tab <?php if($currenttab == 'signinsettings') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=signinsettings"><?php esc_html_e('Login Settings','miniorange-login-with-eve-online-google-facebook')?></a>
+			<a id="tab-customization" class="nav-tab <?php if($currenttab == 'customization') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=customization"><?php esc_html_e('Login Button Customization','miniorange-login-with-eve-online-google-facebook')?></a>
+			<a id="tab-requestdemo" class="nav-tab <?php if($currenttab == 'requestfordemo') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=requestfordemo"><?php esc_html_e('Trials Available','miniorange-login-with-eve-online-google-facebook')?></a>
 			<!-- <a class="nav-tab <?php //if($currenttab == 'faq') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=faq">Frequently Asked Questions [FAQ]</a>	 -->
-			<a id="tab-acc-setup" class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account">Account Setup</a>
-            <a id="tab-addons" class="nav-tab <?php if($currenttab == 'addons') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=addons">Add-ons</a>
+			<a id="tab-acc-setup" class="nav-tab <?php if($currenttab == 'account') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=account"><?php esc_html_e('Account Setup','miniorange-login-with-eve-online-google-facebook')?></a>
+            <a id="tab-addons" class="nav-tab <?php if($currenttab == 'addons') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=addons"><?php esc_html_e('Add-ons','miniorange-login-with-eve-online-google-facebook')?></a>
 			<!-- <a class="nav-tab <?php //if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> -->
 		</h2>
 		</div>
@@ -206,7 +237,7 @@ public static function show_rest_api_secure_message()
             	<?php wp_nonce_field('mo_oauth_mo_server_message_form','mo_oauth_mo_server_message_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
-                    <h4>Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can <a href="https://idp.miniorange.com/b2c-pricing" target="_blank">click here</a> to find more about it.</h4>
+                    <h4><?php _e('Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can','miniorange-login-with-eve-online-google-facebook');?> <a href="https://idp.miniorange.com/b2c-pricing" target="_blank"><?php _e('click here','miniorange-login-with-eve-online-google-facebook');?></a> <?php _e('to find more about it.','miniorange-login-with-eve-online-google-facebook');?></h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>

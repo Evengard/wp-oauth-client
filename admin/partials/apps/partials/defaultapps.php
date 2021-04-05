@@ -1,11 +1,11 @@
 <?php
 
 function mo_oauth_client_show_default_apps() { ?>
-	<input type="text" id="mo_oauth_client_default_apps_input" onkeyup="mo_oauth_client_default_apps_input_filter()" placeholder="Select application" title="Type in a Application Name">
+	<input type="text" id="mo_oauth_client_default_apps_input" onkeyup="mo_oauth_client_default_apps_input_filter()" placeholder="<?php esc_html_e('Select application','miniorange-login-with-eve-online-google-facebook')?>" title="Type in a Application Name">
 
-	<h3>OAuth / OpenID Connect Providers</h3>
+	<h3><?php esc_html_e('OAuth / OpenID Connect Providers','miniorange-login-with-eve-online-google-facebook')?></h3>
 	<hr />
-	<h4>Pre-Configured Applications&emsp;<div class="mo-oauth-tooltip">&#x1F6C8;<div class="mo-oauth-tooltip-text mo-tt-right">By selecting pre-configured applications, the configuration would already be half-done!</div> </div></h4>
+	<h4><?php esc_html_e('Pre-Configured Applications','miniorange-login-with-eve-online-google-facebook')?>&emsp;<div class="mo-oauth-tooltip">&#x1F6C8;<div class="mo-oauth-tooltip-text mo-tt-right"><?php esc_html_e('By selecting pre-configured applications, the configuration would already be half-done!','miniorange-login-with-eve-online-google-facebook')?></div> </div></h4>
 	<ul id="mo_oauth_client_default_apps">
 		<div id="mo_oauth_client_searchable_apps">
 		<?php
@@ -23,7 +23,7 @@ function mo_oauth_client_show_default_apps() { ?>
 		</div>
 		<div id="mo_oauth_client_search_res"></div>
 		<hr>
-		<h4>Custom Applications&emsp;<div class="mo-oauth-tooltip">&#x1F6C8;<div class="mo-oauth-tooltip-text mo-tt-right">Your provider is not in the list? You can select the type of your provider and configure it yourself!</div> </div></h4>
+		<h4><?php esc_html_e('Custom Applications','miniorange-login-with-eve-online-google-facebook')?>&emsp;<div class="mo-oauth-tooltip">&#x1F6C8;<div class="mo-oauth-tooltip-text mo-tt-right"><?php esc_html_e('Your provider is not in the list? You can select the type of your provider and configure it yourself!','miniorange-login-with-eve-online-google-facebook')?></div> </div></h4>
 		<div id="mo_oauth_client_custom_apps">
 			<?php
 				foreach( $custom_apps as $appId => $application ) {

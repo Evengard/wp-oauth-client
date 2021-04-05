@@ -10,16 +10,16 @@
 			$democss = "width: 350px; height:35px;";
 		?>
 			<div class="mo_table_layout">
-			    <h3> Demo Request Form : </h3>
+			    <h3> <?php _e('Demo Request Form','miniorange-login-with-eve-online-google-facebook'); ?> : </h3>
 			    <!-- <div class="mo_table_layout mo_modal-demo"> -->
 			    	<form method="post" action="">
 					<input type="hidden" name="option" value="mo_oauth_client_demo_request_form" />
 					<?php wp_nonce_field('mo_oauth_client_demo_request_form', 'mo_oauth_client_demo_request_field'); ?>
 			    	<table cellpadding="4" cellspacing="4">
                         <tr>
-						  	<td><strong>Usecase : </strong></td>
+						  	<td><strong><?php _e('Usecase','miniorange-login-with-eve-online-google-facebook'); ?> : </strong></td>
 							<td>
-							<textarea type="text" minlength="15" name="mo_auto_create_demosite_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="Write us about your usecase" required value=""></textarea>
+							<textarea type="text" minlength="15" name="mo_auto_create_demosite_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="<?php _e('Write us about your usecase','miniorange-login-with-eve-online-google-facebook'); ?>" required value=""></textarea>
 							</td>
 						  </tr> 	
                         <tr>
@@ -31,7 +31,7 @@
 							<td><input required type="email" style="<?php echo $democss; ?>" name="mo_auto_create_demosite_email" placeholder="Email id" value="<?php echo get_option("mo_oauth_admin_email"); ?>" /></td>
 						</tr>
 						<tr>
-							<td><strong>Request a demo for : </strong></td>
+							<td><strong><?php _e('Request a demo for','miniorange-login-with-eve-online-google-facebook'); ?> : </strong></td>
 							<td>
 								<select required style="<?php echo $democss; ?>" name="mo_auto_create_demosite_demo_plan" id="mo_oauth_client_demo_plan_id">
 									<option disabled selected>------------------ Select ------------------</option>
@@ -54,7 +54,7 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="submit" name="submit" value="Submit Demo Request" class="button button-primary button-large" />
+                                <input type="submit" name="submit" value="<?php _e('Submit Demo Request','miniorange-login-with-eve-online-google-facebook'); ?>" class="button button-primary button-large" />
                             </td>
                         </tr>
 			    	</table>

@@ -54,21 +54,21 @@ function mo_oauth_client_applist_page() {
 			if(sizeof($appslist)>0)
 				echo "<br><a href='#'><button disabled style='float:right'>Add Application</button></a>";
 			else
-				echo "<br><a href='admin.php?page=mo_oauth_settings&action=add'><button style='float:right'>Add Application</button></a>";
-			echo "<h3>Applications List</h3>";
+				echo "<br><a href='admin.php?page=mo_oauth_settings&action=add'><button style='float:right'>".__('Add Application','miniorange-login-with-eve-online-google-facebook')."</button></a>";
+			echo "<h3>".__('Applications List','miniorange-login-with-eve-online-google-facebook')."</h3>";
 			if(is_array($appslist) && sizeof($appslist)>0)
-				echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>You can only add 1 application with free version. Upgrade to <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>enterprise</b></a> to add more.</p>";
+				echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>".__('You can only add 1 application with free version. Upgrade to','miniorange-login-with-eve-online-google-facebook')." <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>enterprise</b></a> ".__('to add more.','miniorange-login-with-eve-online-google-facebook')."</p>";
 			echo "<table class='tableborder'>";
-			echo "<tr><th><b>Name</b></th><th>Action</th></tr>";
+			echo "<tr><th><b>".__('Name','miniorange-login-with-eve-online-google-facebook')."</b></th><th>".__('Action','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
 			foreach($appslist as $key => $app){
 				$currentapp=$app;
-				echo "<tr><td>".$key, " (", $currentapp['apptype'], ") "."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>Edit Application</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#attribute-mapping'>Attribute Mapping</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#role-mapping'>Role Mapping</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>Delete</a> | ";
+				echo "<tr><td>".$key, " (", $currentapp['apptype'], ") "."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>".__('Edit Application','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#attribute-mapping'>".__('Attribute Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#role-mapping'>".__('Role Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>".__('Delete','miniorange-login-with-eve-online-google-facebook')."</a> | ";
 				if(isset($_GET['action'])) {
 					if($_GET['action'] == 'instructions') {
-					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>Hide Instructions</a></td></tr>";
+					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>".__('Hide Instructions','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
 					}
 				} else {
-					echo "<a href='admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".((isset($app['appId']) ? $app['appId'] : ''))."'>How to Configure?</a></td></tr>";
+					echo "<a href='admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".((isset($app['appId']) ? $app['appId'] : ''))."'>".__('How to Configure?','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
 				}
 
 			}

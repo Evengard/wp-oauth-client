@@ -10,16 +10,16 @@ function mo_oauth_client_register_ui() {
 			<input type="hidden" name="option" value="mo_oauth_register_customer" />
 			<div class="mo_table_layout">
 				<div id="toggle1" class="">
-					<h3>Register with miniOrange <small style="font-size: x-small;">[OPTIONAL]</small></h3> 
+					<h3><?php _e('Register with miniOrange','miniorange-login-with-eve-online-google-facebook'); ?> <small style="font-size: x-small;">[OPTIONAL]</small></h3> 
 				</div>
 				<div id="panel1">
 					<!--<p><b>Register with miniOrange</b></p>-->
 					<!-- <p>Please enter a valid Email ID that you have access to. You will be able to move forward after verifying an OTP that we will be sending to this email.
 					</p> -->
-					<p style="font-size:14px;"><b>Why should I register? </b></p>
+					<p style="font-size:14px;"><b><?php _e('Why should I register?','miniorange-login-with-eve-online-google-facebook'); ?> </b></p>
 	                    <div id="help_register_desc" style="background: aliceblue; padding: 10px 10px 10px 10px; border-radius: 10px;">
-	                        You should register so that in case you need help, we can help you with step by step instructions.
-	                        <b>You will also need a miniOrange account to upgrade to the premium version of the plugins.</b> We do not store any information except the email that you will use to register with us.
+	                        <?php _e('You should register so that in case you need help, we can help you with step by step instructions.','miniorange-login-with-eve-online-google-facebook'); ?>
+	                        <b><?php _e('You will also need a miniOrange account to upgrade to the premium version of the plugins.','miniorange-login-with-eve-online-google-facebook'); ?></b> <?php _e('We do not store any information except the email that you will use to register with us.','miniorange-login-with-eve-online-google-facebook'); ?>
 	                    </div>
                     </p>
 					<table class="mo_settings_table">
@@ -71,8 +71,8 @@ function mo_oauth_client_register_ui() {
 							<td>&nbsp;</td>
 							<!-- <td><br /><input type="submit" name="submit" value="Save" style="width:100px;"
 								class="button button-primary button-large" /></td> -->
-							<td><br><input type="submit" name="submit" value="Register" class="button button-primary button-large"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" name="mo_oauth_client_goto_login" id="mo_oauth_client_goto_login" value="Already have an account?" class="button button-primary button-large"/>&nbsp;&nbsp;</td>
+							<td><br><input type="submit" name="submit" value="<?php _e('Register','miniorange-login-with-eve-online-google-facebook')?>" class="button button-primary button-large"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="button" name="mo_oauth_client_goto_login" id="mo_oauth_client_goto_login" value="<?php _e('Already have an account?','miniorange-login-with-eve-online-google-facebook') ?>" class="button button-primary button-large"/>&nbsp;&nbsp;</td>
 						</tr>
 					</table>
 				</div>

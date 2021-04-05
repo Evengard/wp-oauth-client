@@ -3,11 +3,13 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.19.5
+ * Version: 6.19.6
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
-* License URI: https://docs.miniorange.com/mit-license
+ * License URI: https://docs.miniorange.com/mit-license
+ * Text Domain:       miniorange-login-with-eve-online-google-facebook
+ * Domain Path:       /languages
 */
 
 require('handler/oauth_handler.php');
@@ -23,13 +25,15 @@ class mo_oauth {
 	function __construct() {
 
 		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
-		add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
+		//add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
+		add_action('plugins_loaded',array($this,'mo_load_plugin_textdomain'));
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
 		//add_action( 'admin_init', array( $this, 'tutorial' ) );
 		register_activation_hook(__FILE__, array($this,'mo_oauth_set_cron_job'));
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
 		add_action( 'admin_footer', array( $this, 'mo_oauth_client_feedback_request' ) );
 		add_action( 'check_if_wp_rest_apis_are_open', array( $this, 'mo_oauth_scheduled_task' ) );
+		
 
 	}
 
@@ -38,6 +42,14 @@ class mo_oauth {
 			$tour = new MOCVisualTour();
 		}
 	}*/
+
+	public function mo_load_plugin_textdomain() {
+		load_plugin_textdomain(
+			'miniorange-login-with-eve-online-google-facebook',
+			false,
+			basename( dirname( __FILE__ ) ) . '/languages'
+		);
+	}
 
 	function mo_oauth_success_message() {
 		$class = "error";
@@ -217,6 +229,62 @@ class mo_oauth {
 				$this->mo_oauth_deactivate();
 				return;
 			}
+		}
+
+		if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_enable_debug" && isset( $_REQUEST['mo_oauth_enable_debug_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_enable_debug_nonce'] ) ), 'mo_oauth_enable_debug' ))
+			{
+				$debug_enable = isset($_POST['mo_oauth_debug_check']);
+				$mo_time = current_time('timestamp');
+				update_option('mo_debug_enable',$debug_enable);
+				if( get_option('mo_debug_enable') ){
+					update_option('mo_debug_check',1);
+					update_option('mo_debug_time',$mo_time);
+				}	
+
+				if( get_option('mo_debug_enable') && !get_option('mo_oauth_debug') ){
+					update_option('mo_oauth_debug','mo_oauth_debug'.uniqid());
+					$mo_oauth_debugs=get_option('mo_oauth_debug');
+					$mo_file_addr2=dirname(__FILE__).'/'.$mo_oauth_debugs.'.log';
+					$mo_debug_file=fopen($mo_file_addr2,"w");
+					chmod($mo_file_addr2,0644);
+					update_option( 'mo_debug_check',1 );
+					MO_Oauth_Debug::mo_oauth_log('');
+					update_option( 'mo_debug_check',0 );
+				}
+
+			return;
+
+		}
+
+		if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_enable_debug_download" && isset( $_REQUEST['mo_oauth_enable_debug_download_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_enable_debug_download_nonce'] ) ), 'mo_oauth_enable_debug_download' ))
+			{
+				$mo_filepath=plugin_dir_path(__FILE__).get_option('mo_oauth_debug').'.log';
+
+				if (!is_file($mo_filepath)) {
+					 echo("404 File not found!"); // file not found to download
+					 exit();
+			    }
+
+			    $mo_len = filesize($mo_filepath); // get size of file
+				$mo_filename = basename($mo_filepath); // get name of file only
+				$mo_file_extension = strtolower(pathinfo($mo_filename,PATHINFO_EXTENSION));
+				//Set the Content-Type to the appropriate setting for the file
+				$mo_ctype="application/force-download";
+				ob_clean();
+				//Begin writing headers
+				header("Pragma: public");
+				header("Expires: 0");
+				header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+				header("Cache-Control: public"); 
+				header("Content-Description: File Transfer");
+				header("Content-Type: $mo_ctype");
+				//Force the download
+				$mo_header="Content-Disposition: attachment; filename=".$mo_filename.";";
+				header($mo_header );
+				header("Content-Transfer-Encoding: binary");
+				header("Content-Length: ".$mo_len);
+				@readfile($mo_filepath);
+				exit;
 		}
 
 		if( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_register_customer" && isset( $_REQUEST['mo_oauth_register_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_register_form_field'] ) ), 'mo_oauth_register_form' )) {
@@ -449,12 +517,14 @@ class mo_oauth {
                             $discovery_endpoint = str_replace("realmname", $realm, $discovery_endpoint);
                             $newapp['realm'] = $realm;
                         }
+
                         error_log("OAuth Client Endpoint: ");
                         error_log($discovery_endpoint);
                         $provider_se = null;
 
                         if((filter_var($discovery_endpoint, FILTER_VALIDATE_URL))){
                             update_option('mo_oc_valid_discovery_ep', true);
+                            
                             $arrContextOptions=array( 
                         		"ssl"=>array(
                         			"verify_peer"=>false,
@@ -462,9 +532,12 @@ class mo_oauth {
                         		),
                         	);  
                         	$content=@file_get_contents($discovery_endpoint,false, stream_context_create($arrContextOptions));
+
                             $provider_se = array();
+
                             if($content)
                             	$provider_se=json_decode($content);
+
                             $scope1 = isset($provider_se->scopes_supported[0])?$provider_se->scopes_supported[0] : "";
                             $scope2 = isset($provider_se->scopes_supported[1])?$provider_se->scopes_supported[1] : "";
                             $pscope = stripslashes($scope1)." ".stripslashes($scope2);
@@ -966,7 +1039,6 @@ function is_url($url){
     return (bool)(sizeof($array_op ) > 0);
 
 }
-
 new mo_oauth;
 function run_mo_oauth_client() { $plugin = new Mo_OAuth_Client();$plugin->run();}
 run_mo_oauth_client();

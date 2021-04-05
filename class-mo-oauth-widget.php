@@ -225,6 +225,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
 
+					MO_Oauth_Debug::mo_oauth_log('Authorization Url => '.$authorizationUrl);
+
 					header('Location: ' . $authorizationUrl);
 					exit;
 				}
@@ -241,6 +243,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						session_start();
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
+
+					MO_Oauth_Debug::mo_oauth_log('Authorization Url => '.$authorizationUrl);
 
 					header('Location: ' . $authorizationUrl);
 					exit;
@@ -393,6 +397,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 						// OpenId connect
+
+						MO_Oauth_Debug::mo_oauth_log('OpenId Flow');
+
 						if( isset( $_REQUEST['id_token'] ) ) {
 							$idToken = $_REQUEST['id_token'];
 						} else {
@@ -411,11 +418,20 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							MO_Oauth_Debug::mo_oauth_log('Invalid token received.');
 							exit('Invalid token received.');
 						}
-						else
+						else{
+							MO_Oauth_Debug::mo_oauth_log('ID Token => ');
+							MO_Oauth_Debug::mo_oauth_log($idToken);
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
+
+							MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => ');
+							MO_Oauth_Debug::mo_oauth_log($resourceOwner);
+						}
 
 					} else {
 						// echo "OAuth";
+
+						MO_Oauth_Debug::mo_oauth_log('OAuth Flow');
+
 						$accessTokenUrl = $currentapp['accesstokenurl'];
 						
 						if(!isset($currentapp['send_headers']))
@@ -438,8 +454,11 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						if (substr($resourceownerdetailsurl, -1) == "=") {
 							$resourceownerdetailsurl .= $accessToken;
 						}
-
+						MO_Oauth_Debug::mo_oauth_log('Access Token => '.$accessToken);
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
+
+						MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => ');
+						MO_Oauth_Debug::mo_oauth_log($resourceOwner);
 					}
 
 					$username = "";
@@ -448,7 +467,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					if(isset($_COOKIE['mo_oauth_test']) && $_COOKIE['mo_oauth_test']){
 						echo '<div style="font-family:Calibri;padding:0 3%;">';
 						echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
-						echo "<h2>Test Configuration</h2><table><tr><th>Attribute Name</th><th>Attribute Value</th></tr>";
+						echo "<h2>".__('Test Configuration','miniorange-login-with-eve-online-google-facebook')."</h2><table><tr><th>".__('Attribute Name','miniorange-login-with-eve-online-google-facebook')."</th><th>".__('Attribute Value','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
 						mo_oauth_client_testattrmappingconfig("",$resourceOwner);
 						echo "</table>";
 						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Proceed To Attribute/Role Mapping</a></div>';
