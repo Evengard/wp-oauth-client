@@ -482,10 +482,10 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						exit('Username not received. Check your <b>Attribute Mapping</b> configuration.');
 					}
 					
-					if ( ! is_string( $username ) ) {
+					/*if ( ! is_string( $username ) ) {
 						MO_Oauth_Debug::mo_oauth_log('Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ));
 						wp_die( 'Username is not a string. It is ' . mo_oauth_client_get_proper_prefix( gettype( $username ) ) );
-					}
+					}*/
 
 					$user = get_user_by("login",$username);
 					// if(!$user)

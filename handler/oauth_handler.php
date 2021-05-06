@@ -116,7 +116,8 @@ class Mo_OAuth_Hanlder {
 		if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
 			MO_Oauth_Debug::mo_oauth_log('Invalid response received.');
-			MO_Oauth_Debug::mo_oauth_log($response['body']);
+			if(isset($response['body']))
+				MO_Oauth_Debug::mo_oauth_log($response['body']);
 			exit("Invalid response received.");
 		}
 		

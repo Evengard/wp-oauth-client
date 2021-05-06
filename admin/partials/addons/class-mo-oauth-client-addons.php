@@ -32,6 +32,7 @@ class Mo_OAuth_Client_Admin_Addons {
           'title' => 'Login Form Add-on',
           'desc' => 'Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.',
           'img' => 'images/login-form.png',
+          'link' => 'https://plugins.miniorange.com/idp-login-form-plugin-for-sso',
         ),
 
         array(
@@ -39,6 +40,7 @@ class Mo_OAuth_Client_Admin_Addons {
           'title' => 'Membership based Login',
           'desc' => "Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.",
           'img' => 'images/member-login.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
         ),
 
         array(

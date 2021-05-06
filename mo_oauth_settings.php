@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.19.6
+ * Version: 6.19.7
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -535,17 +535,30 @@ class mo_oauth {
 
                             $provider_se = array();
 
-                            if($content)
-                            	$provider_se=json_decode($content);
+                            if($content){
+	                            $provider_se=json_decode($content);
 
-                            $scope1 = isset($provider_se->scopes_supported[0])?$provider_se->scopes_supported[0] : "";
-                            $scope2 = isset($provider_se->scopes_supported[1])?$provider_se->scopes_supported[1] : "";
-                            $pscope = stripslashes($scope1)." ".stripslashes($scope2);
-                            $newapp['scope'] = (isset($scope) && $scope != "" ) ? $scope : $pscope;
-                            $newapp['authorizeurl'] = isset($provider_se->authorization_endpoint) ? stripslashes($provider_se->authorization_endpoint) : "";
-                            $newapp['accesstokenurl'] = isset($provider_se->token_endpoint) ? stripslashes($provider_se->token_endpoint ) : "";
-                            $newapp['resourceownerdetailsurl'] = isset($provider_se->userinfo_endpoint) ? stripslashes($provider_se->userinfo_endpoint) : "";
-                            $newapp['discovery'] = $discovery_endpoint;
+	                            $scope1 = isset($provider_se->scopes_supported[0])?$provider_se->scopes_supported[0] : "";
+	                            $scope2 = isset($provider_se->scopes_supported[1])?$provider_se->scopes_supported[1] : "";
+	                            $openid = '';
+	                            if($scope1 != 'openid' && $scope2 != 'openid' && in_array('openid', $provider_se->scopes_supported))
+	                            	$openid = 'openid';
+	                            if($openid != '')
+	                            	$pscope = $openid." ".stripslashes($scope1)." ".stripslashes($scope2);
+	                            else 
+	                            	$pscope = stripslashes($scope1)." ".stripslashes($scope2);
+
+	                            $newapp['scope'] = (isset($scope) && $scope != "" ) ? $scope : $pscope;
+	                            $newapp['authorizeurl'] = isset($provider_se->authorization_endpoint) ? stripslashes($provider_se->authorization_endpoint) : "";
+	                            $newapp['accesstokenurl'] = isset($provider_se->token_endpoint) ? stripslashes($provider_se->token_endpoint ) : "";
+	                            $newapp['resourceownerdetailsurl'] = isset($provider_se->userinfo_endpoint) ? stripslashes($provider_se->userinfo_endpoint) : "";
+	                            $newapp['discovery'] = $discovery_endpoint;
+                        	}else{
+				    $newapp['scope'] = isset($scope) ? $scope : '';
+	                            $newapp['authorizeurl'] = "";
+	                            $newapp['accesstokenurl'] = "";
+	                            $newapp['resourceownerdetailsurl'] = "";
+                        	}
                         }
                     } else {
                         update_option('mo_oc_valid_discovery_ep', true);

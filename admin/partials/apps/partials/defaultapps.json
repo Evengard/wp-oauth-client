@@ -185,6 +185,15 @@
 	"apple": {
 		"label":"Apple", "type":"openidconnect", "image":"apple.png", "scope": "email", "domain": "", "discovery":"", "authorize": "https://appleid.apple.com/auth/authorize", "token": "https://appleid.apple.com/auth/token", "userinfo": "", "guide":"https://plugins.miniorange.com/login-with-apple-app-using-wordpress-oauth-client", "logo_class":"fa fa-lock"
 	},
+	"servicenow": {
+		"label":"ServiceNow", "type":"oauth", "image":"servicenow.png", "scope": "", "domain": "", "discovery":"", "authorize": "https://<your-servicenow-domain>/oauth_auth.do", "token": "https://<your-servicenow-domain>/oauth_token.do", "userinfo": "https://<your-servicenow-domain>/<rest-api-path>?access_token=", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"ibmappid": {
+		"label":"IBM App ID", "type":"openidconnect", "image":"ibmappid.png", "scope": "openid", "domain":"Add issuer ex. https://au-syd.appid.cloud.ibm.com/oauth/v4/d01706ba-c084-4784-a080-ff95945b8111", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<region>.appid.cloud.ibm.com/oauth/v4/<tenant-id>/authorization", "token": "https://<region>.appid.cloud.ibm.com/oauth/v4/<tenant-id>/token", "userinfo": "https://<region>.appid.cloud.ibm.com/oauth/v4/<tenant-id>/userinfo", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"idaptive": {
+		"label":"Idaptive | CyberArk", "type":"openidconnect", "image":"idaptive.png", "scope": "openid", "domain":"Add issuer ex. https://aae8888.my.idaptive.app/oidc", "discovery":"domain/.well-known/openid-configuration", "authorize": "https://<idaptive-domain>/OAuth2/Authorize/oidc", "token": "https://<idaptive-domain>/OAuth2/Token/oidc", "userinfo": "https://<idaptive-domain>/OAuth2/UserInfo/oidc", "guide":"", "logo_class":"fa fa-lock"
+	},
 	"other": {
 		"label":"Custom OAuth 2.0 App", "type":"oauth", "image":"customapp.png", "scope": "", "domain": "",  "discovery":"", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	},
