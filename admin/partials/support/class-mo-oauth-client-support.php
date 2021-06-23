@@ -3,8 +3,8 @@
 class Mo_OAuth_Client_Admin_Support {
 	
 	public static function support() {
-		self::setup_call_page();
 		self::support_page();
+		self::setup_call_page();
 		self::mo_download_log();
 	}
 	
@@ -13,7 +13,8 @@ class Mo_OAuth_Client_Admin_Support {
 		<div id="mo_support_layout" class="mo_support_layout">
 			<div>
 				<h3><?php esc_html_e('Contact Us','miniorange-login-with-eve-online-google-facebook')?></h3>
-				<p><?php esc_html_e('Need any help? Couldn\'t find an answer in ','miniorange-login-with-eve-online-google-facebook')?><a href="<?php echo add_query_arg( array('tab' => 'faq'), $_SERVER['REQUEST_URI'] ); ?>">FAQ</a>?<br><?php esc_html_e('Just send us a query so we can help you.','miniorange-login-with-eve-online-google-facebook')?></p>
+				<p><?php esc_html_e('Need any help? Couldn\'t find an answer in ','miniorange-login-with-eve-online-google-facebook')?><a href="https://faq.miniorange.com/kb/oauth-openid-connect" target="_blank">FAQ</a>?<br><br><?php esc_html_e('Just give us a call at ','miniorange-login-with-eve-online-google-facebook')?><b>+1 978 658 9387</b><br>
+				<?php esc_html_e('or send a query so we can help you.','miniorange-login-with-eve-online-google-facebook')?></p>
 				<form method="post" action="">
 					<?php wp_nonce_field('mo_oauth_support_form','mo_oauth_support_form_field'); ?>
 					<input type="hidden" name="option" value="mo_oauth_contact_us_query_option" />
@@ -104,9 +105,7 @@ class Mo_OAuth_Client_Admin_Support {
 
 	public static function setup_call_page() {
 	?>
-		<input type="button" value="<?php esc_html_e('Setup a Call / Screen-share session','miniorange-login-with-eve-online-google-facebook'); ?>" class="button button-primary button-large" id="setup_call_button">
-		<br><br>
-		<div id="mo_setup_call_layout" class="mo_support_layout" style="display:none;">
+		<div id="mo_setup_call_layout" class="mo_support_layout" >
 			<h3><?php esc_html_e('Setup a Call / Screen-share session','miniorange-login-with-eve-online-google-facebook')?></h3>
 			<form method="post" action="">
 				<?php wp_nonce_field('mo_oauth_setup_call_form','mo_oauth_setup_call_form_field'); ?>
@@ -149,13 +148,11 @@ class Mo_OAuth_Client_Admin_Support {
 				<input type="hidden" name="mo_oauth_time_diff" id="mo_oauth_time_diff">
 			</form>
 		</div>
+		<br>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script>
-			jQuery("#setup_call_button").click(function() {
-				jQuery("#mo_setup_call_layout").css({'display':'block', 'margin-bottom':'20px'});
-			});
 			jQuery('#calldate').datepicker({
 				dateFormat: 'd MM, yy',
 				beforeShowDay: $.datepicker.noWeekends,

@@ -173,7 +173,7 @@ class Mo_OAuth_Client_Customer {
 		wp_get_current_user();
 		
 		$mo_oauth = new mo_oauth();
-		$plugin_config          = $mo_oauth->export_plugin_config( true );
+		$plugin_config          = $mo_oauth->mo_oauth_export_plugin_config( true );
 		$config_to_send         = json_encode( $plugin_config, JSON_UNESCAPED_SLASHES );
 		$plugin_version         = get_plugin_data( __DIR__ . DIRECTORY_SEPARATOR . 'mo_oauth_settings.php' )['Version'];
 

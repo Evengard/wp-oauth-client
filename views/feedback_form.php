@@ -108,7 +108,7 @@ function mo_oauth_client_display_feedback_form() {
             return false;
         }
 
-        jQuery('a[aria-label="Deactivate <?php echo MO_OAUTH_README_PLUGIN_NAME; ?>"]').click(function () {
+        jQuery('#deactivate-<?php echo MO_OAUTH_README_PLUGIN_URI; ?>').click(function () {
             var mo_oauth_client_modal = document.getElementById('oauth_client_feedback_modal');
             var mo_skip_oauth_client = document.getElementById('mo_skip_oauth_client');
             var mo_oauth_client_close = document.getElementById("mo_oauth_client_close");

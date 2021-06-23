@@ -6,7 +6,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	public function __construct() {
 		update_option( 'host_name', 'https://login.xecurify.com' );
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'mo_oauth_register_plugin_styles' ) );
 		add_action( 'init', array( $this, 'mo_oauth_start_session' ) );
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
 		add_action( 'login_form', array( $this, 'mo_oauth_wplogin_form_button' ) );
@@ -81,7 +81,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		echo $args['after_widget'];
 	}
 
-	public function update( $new_instance, $old_instance ) {
+	public function mo_oauth_update( $new_instance, $old_instance ) {
 		$instance = array();
 		if(isset($new_instance['wid_title']))
 			$instance['wid_title'] = strip_tags( $new_instance['wid_title'] );
@@ -91,7 +91,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	public function mo_oauth_login_form() {
 		global $post;
-		$this->error_message();
+		$this->mo_oauth_error_message();
 		$temp = '';
 
 		$appslist = get_option('mo_oauth_apps_list');
@@ -154,7 +154,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 
 
-	public function error_message() {
+	public function mo_oauth_error_message() {
 		if( isset( $_SESSION['msg'] ) and $_SESSION['msg'] ) {
 			echo '<div class="' . $_SESSION['msg_class'] . '">' . $_SESSION['msg'] . '</div>';
 			unset( $_SESSION['msg'] );
@@ -162,7 +162,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 		}
 	}
 
-	public function register_plugin_styles() {
+	public function mo_oauth_register_plugin_styles() {
 		wp_enqueue_style( 'style_login_widget', plugins_url( 'css/style_login_widget.css', __FILE__ ) );
 	}
 

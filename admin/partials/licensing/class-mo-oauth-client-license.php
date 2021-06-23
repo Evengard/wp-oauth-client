@@ -21,7 +21,11 @@ class Mo_OAuth_Client_Admin_Licensing {
                 text-align: center;
             }
             .moc-licensing-notice {
-                width: 90%;
+                background: #f2f2f2;
+                padding: 1%;
+                border-radius: 2%;
+                line-height: 1;
+                width: 100%;
                 margin-top: 5%;
             }
             .moc-licensing-plan-header {
@@ -309,35 +313,26 @@ class Mo_OAuth_Client_Admin_Licensing {
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
-                                    <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
+                                    <li>&#9989;&emsp;<b>Add-Ons Support for below Add-Ons:</b></li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection,</li>
-                                            <li type="square"; >Discord Role Mapping</li>
+                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM,</li>
+                                            <li type="square">Page Restriction,</li>
+                                            <li type="square">BuddyPress Attribute Mapping,</li>
+                                            <li type="square">Login Form Add-On,</li>
+                                            <li type="square">Discord Role Mapping,</li>
+                                            <li type="square">LearnDash Attribute Integration Add-On,</li>
+                                            <li type="square">Media Restriction Add-On (Premium Plan),</li>
+                                            <li type="square">Attribute based Redirection,</li>
+                                            <li type="square">SSO Session Management,</li>
+                                            <li type="square">Membership Level Based Login Redirection,</li>
+                                            <li type="square">SSO Login Audit,</li>
+                                            <li type="square">Regex Role Mapping Add-on</li>
                                         </ul>
                                     <!-- </li> -->
                                 </ul>
                             </div>
                         </div>
                         <br>
-                        <div class="moc-licensing-plan card-body">
-                            <div class="moc-licensing-plan-header">
-                                <div class="moc-licensing-plan-name">OAuth Client + Cloud IDP Package</div>
-                                </div>
-                            <a class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" href="mailto:info@xecurify.com" target="_blank"><?php _e('Contact Us','miniorange-login-with-eve-online-google-facebook'); ?></a>
-                            <br>
-                            <div class="moc-licensing-plan-price"><sup>$</sup>349 +<sup>$</sup>0.0019<sup>**</sup></div>
-                            <div class="moc-licensing-plan-usp">(miniOrange Cloud IDP(B2C))</div>
-                            <div class="moc-licensing-plan-feature-list">
-                                <ul>
-                                    <li>&#9989;Features provided in selected WP OAuth <br>Client SSO Plan</li>
-                                    <li>&#9989;Upto 50k Free User authentications</li>
-                                    <li>&#9989;Free SSO Setup with miniOrange Cloud IDP/OAuth Server</li>
-                                    <li>&#9989;Free Migration from existing IDP/User Directory</li>
-                                </ul>
-                                <b>Please <a href="https://idp.miniorange.com/b2c-pricing" target="_blank"><u>click here</u></a> to know more about our Identity Provider Services.
-                                </b>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -445,10 +440,11 @@ class Mo_OAuth_Client_Admin_Licensing {
             </div>    
                     <!-- Licensing Plans End -->
                     <div class="moc-licensing-notice"><b>
-                        <span style="color: red;">**</span>OAuth Client + Cloud IDP Package Pricing will be based on plugin plan you select + Cloud IDP pricing per User authentication(first 50,000 authentications would be free).<br><br>
                         <span style="color: red;">*</span>Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.<br><br>
+
+                        <p><span style="color: red;">*</span>We provide deep discounts on bulk license purchases and pre-production environment licenses. As the no. of licenses increases, the discount percentage also increases.</p>
                         <p><span style="color: red;">*</span><strong>MultiSite Network Support</strong><br>
-                            There is an additional cost for the number of subsites in Multisite Network.</p></b>
+                            There is an additional cost for the number of subsites in Multisite Network. The Multisite licenses are based on the <b>total number of subsites</b> in your WordPress Network.</p></b>
 
                         <p>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> for any queries regarding the return policy.</p>
                     </div>
