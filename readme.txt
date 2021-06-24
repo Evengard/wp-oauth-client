@@ -52,11 +52,11 @@ Azure SSO also supports syncing Azure user profile to WordPress profile with the
 The SSO plugin supports Login with AWS Cognito, Login with Amazon, Login into WordPress with Cognito, and associated social login accounts. Also supports user profile syncing and role mapping into WordPress, fetching token from AWS Cognito to make the other API calls to extend the existing functionality.
 It supports customization for integrating Cognito SDKs like syncing new registrations from Wordpress to Cognito, Login into the site via default wordpress login form instead of redirecting to the Cognito’s login page, connecting Cognito User Pool, login redirections, and many more.
 
-**Discord SSO **
+**Discord SSO**
 This Single Sign-On plugin allows Login into WordPress using Discord. The other supported use-cases are syncing user profile from Discord to WordPress, Role mapping into WordPress based on Discord roles, Avatar Mapping along with customizations like WordPress to Discord role mapping, managing Guild members, handling subscriptions based access to discord channels from a WordPress site.
 It also supports customization for integrating different WordPress and Discord applications.
 
-**Keycloak SSO **
+**Keycloak SSO**
 This Single Sign-On plugin supports SSO with Keycloak. Keycloak server authenticates the user for WordPress. On successful authentication. It also provides an identity token and an access token that contains user profile information along with roles. The access token from Keycloak can be used to invoke other remote services on behalf of the user.
 WordPress can make the REST invocations on remote services using this access token. 
 OAuth / OIDC SSO plugin also allows you to make the authorization decisions based on role-based access control (RBAC) on WordPress site using the role mapping feature. You can map different WordPress roles to the Users based on their Keycloak roles and capabilities.
