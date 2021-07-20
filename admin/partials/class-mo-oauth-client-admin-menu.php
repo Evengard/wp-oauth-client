@@ -21,6 +21,8 @@ function mo_oauth_client_plugin_settings_style($hook) {
 	wp_enqueue_style( 'mo_oauth_admin_settings_font_awesome', plugin_dir_url( dirname(__FILE__) ) . 'css/font-awesome.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_inteltelinput_style', plugin_dir_url( dirname(__FILE__) ) . 'css/intlTelInput.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_jquery_ui_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery-ui.css' );
 }
 
 function mo_oauth_client_plugin_settings_script($hook) {
@@ -31,6 +33,9 @@ function mo_oauth_client_plugin_settings_script($hook) {
 	wp_enqueue_script( 'mo_oauth_admin_settings_script', plugin_dir_url( dirname(__FILE__) ) . 'js/settings.js' );
 	wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugin_dir_url( dirname(__FILE__) ) . 'js/phone.js' );
 	wp_enqueue_script( 'mo_oauth_admin_settings_datatable_script', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery.dataTables.min.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_jquery-2.1.3', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery-2.1.3.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_jquery-ui', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery-ui.js' );
+	wp_enqueue_script( 'mo_oauth_admin_settings_inteltelinput', plugin_dir_url( dirname(__FILE__) ) . 'js/intlTelInput.min.js' );
 }
 
 function mo_oauth_client_main_menu() {

@@ -13,7 +13,7 @@ function mo_oauth_client_show_default_apps() { ?>
 			$defaultappsjson =json_decode($defaultapps);
 			$custom_apps = [];
 			foreach($defaultappsjson as $appId => $application) {
-				if ( 'other' === $appId || 'openidconnect' === $appId ) {
+				if ( 'other' === $appId || 'openidconnect' === $appId || 'oauth1' == $appId) {
 					$custom_apps[ $appId ] = $application;
 					continue;
 				}

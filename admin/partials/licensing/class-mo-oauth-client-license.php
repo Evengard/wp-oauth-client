@@ -213,7 +213,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
                                 <div class="moc-licensing-plan-name">Unlimited user creation<br>+<br>Advanced Attribute Mapping</div><div><br></div>
-                                <div class="moc-licensing-plan-price"><small>[Standard]</small></div>
+                                <div class="moc-licensing-plan-price"><small>[STANDARD]</small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>349<sup>*</sup></div>
                             </div>
                             <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
@@ -222,9 +222,10 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
                                     <li>&#9989;&emsp;Auto Create Users (Unlimited Users)</li>
                                     <li>&#9989;&emsp;Account Linking</li>
-                                    <li>&#9989;&emsp;Advanced Attribute Mapping<br>&nbsp;</li>
+                                    <li>&#9989;&emsp;Advanced Attribute Mapping</li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <li>&#9989;&emsp;Authorization Code Grant&nbsp;<br>&nbsp;<br>&nbsp;<br></li>
+                                    <!-- <li>&#9989;&emsp;Authorization Code Grant&nbsp;<br>&nbsp;<br>&nbsp;<br></li> -->
+                                    <li>&#9989;&emsp;Authorization Code Grant&nbsp;<br>&nbsp;<br></li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Basic Role Mapping</li>
@@ -232,6 +233,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#10060;&emsp;<span class="text-muted">Protect complete site</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Domain specific registration</span></li>
                                     <!-- <li>&#10060;&emsp;<span class="text-muted">Multi-site Support</span></li>                                     -->
+                                    <li>&#10060;&emsp;<span class="text-muted">Hide & Disable WP Login</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
@@ -255,7 +257,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Account Linking</li>
                                     <li>&#9989;&emsp;Advanced + Custom Attribute Mapping</li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant<br>&nbsp;<br></li>
+                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant</li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
@@ -263,6 +265,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <!-- <li>&#9989;&emsp;Multi-site Support*</li> -->
+                                    <li>&#10060;&emsp;<span class="text-muted">Hide & Disable WP Login</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
@@ -291,9 +294,9 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
                                     <li>&#9989;&emsp;JWT Support</li>
-                                    <li>&#9989;&emsp;Hide & Disable WP Login</li>
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
+                                    <li>&#9989;&emsp;Hide & Disable WP Login</li>
                                     <!-- <li>&#9989;&emsp;Multi-site Support*</li> -->
                                     <li>&#9989;&emsp;Dynamic Callback URL</li>
                                     <li>&#9989;&emsp;WP hooks to read token, login event and extend plugin functionality</li>
@@ -307,6 +310,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                         <div class="moc-licensing-plan card-body moc-lp-highlight">
                             <div class="moc-licensing-plan-header">
                                 <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
+                                <div class="moc-licensing-plan-price"><small><br></small></div>
                                 <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
                             </div>
                             <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
@@ -326,8 +330,13 @@ class Mo_OAuth_Client_Admin_Licensing {
                                             <li type="square">SSO Session Management,</li>
                                             <li type="square">Membership Level Based Login Redirection,</li>
                                             <li type="square">SSO Login Audit,</li>
+                                            <li type="square">Azure Forgot/Reset Password Policy Add-on,</li>
                                             <li type="square">Regex Role Mapping Add-on</li>
-                                        </ul>
+                                            <li><br></li>
+                                            <li><br></li>
+                                            <li><br></li>
+                                            <li><br></li>
+                                        </ul><br>
                                     <!-- </li> -->
                                 </ul>
                             </div>
@@ -353,7 +362,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Account Linking</li>
                                     <li>&#9989;&emsp;Advanced + Custom Attribute Mapping</li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant<br>&nbsp;<br></li>
+                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant</li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
@@ -361,6 +370,8 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Multi-site Support*</li>
+                                    <!-- <li>&#9989;&emsp;Multi-site Support*</li> -->
+                                    <li>&#10060;&emsp;<span class="text-muted">Hide & Disable WP Login</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
@@ -389,10 +400,10 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
                                     <li>&#9989;&emsp;JWT Support</li>
-                                    <li>&#9989;&emsp;Hide & Disable WP Login</li>
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Multi-site Support*</li>
+                                    <li>&#9989;&emsp;Hide & Disable WP Login</li>
                                     <li>&#9989;&emsp;Dynamic Callback URL</li>
                                     <li>&#9989;&emsp;WP hooks to read token, login event and extend plugin functionality</li>
                                     <li>&#9989;&emsp;End User Login Reports / Analytics</li>
@@ -414,22 +425,25 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
                                     <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square"; >BuddyPress Attribute Mapping,</li> <li type="square">Page Restriction,</li> <li type="square">Login Form Add-on,</li> <li type="square">Membership Level based Login Redirection,</li>
-                                            <li type="square"; >Discord Role Mapping</li>
+                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM,</li>
+                                            <li type="square">Page Restriction,</li>
+                                            <li type="square">BuddyPress Attribute Mapping,</li>
+                                            <li type="square">Login Form Add-On,</li>
+                                            <li type="square">Discord Role Mapping,</li>
+                                            <li type="square">LearnDash Attribute Integration Add-On,</li>
+                                            <li type="square">Media Restriction Add-On (Premium Plan),</li>
+                                            <li type="square">Attribute based Redirection,</li>
+                                            <li type="square">SSO Session Management,</li>
+                                            <li type="square">Membership Level Based Login Redirection,</li>
+                                            <li type="square">SSO Login Audit,</li>
+                                            <li type="square">Azure Forgot/Reset Password Policy Add-on,</li>
+                                            <li type="square">Regex Role Mapping Add-on</li>
+                                            <li><br></li>
+                                            <li><br></li>
+                                            <li><br></li>
+                                            <li><br></li>
+                                            <li><br></li>
                                         </ul><br>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
-                                    <li><br></li>
                                     <!-- </li> -->
                                 </ul>
                             </div>

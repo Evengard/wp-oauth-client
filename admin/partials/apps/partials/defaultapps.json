@@ -60,7 +60,7 @@
 		"label":"Facebook", "type":"oauth", "image":"facebook.png", "scope": "public_profile email", "domain":"", "discovery":"", "authorize": "https://www.facebook.com/dialog/oauth", "token": "https://graph.facebook.com/v2.8/oauth/access_token", "userinfo": "https://graph.facebook.com/me/?fields=id,name,email,age_range,first_name,gender,last_name,link", "guide":"http://plugins.miniorange.com/guide-to-configure-facebook-as-oauth-server/", "logo_class":"fa fa-facebook"
 	},
 	"twitter":{
-		"label":"twitter", "type":"oauth", "image":"twitter.png", "scope": "profile","guide":"", "logo_class":"fa fa-lock", "guide":"https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect"
+		"label":"twitter", "type":"oauth1", "image":"twitter.png", "scope": "profile","guide":"", "logo_class":"fa fa-lock","authorize":"https://api.twitter.com/oauth/authenticate" ,"requesturl":"https://twitter.com/oauth/request_token","token":"https://twitter.com/oauth/access_token","userinfo":"https://api.twitter.com/1.1/account/verify_credentials.json","guide":"https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect"
 	},
 	"gluu": {
 		"label":"Gluu Server", "type":"oauth", "image":"gluu.png", "scope": "openid", "domain":"https://hostname", "discovery":"domain/.well-known/openid-configuration", "authorize": "http://<gluu-server-domain>/oxauth/restv1/authorize", "token": "http://<gluu-server-domain>/oxauth/restv1/token", "userinfo": "http:///<gluu-server-domain>/oxauth/restv1/userinfo", "guide":"https://plugins.miniorange.com/guide-configure-gluu-oauth-server/", "logo_class":"fa fa-lock"
@@ -199,5 +199,8 @@
 	},
 	"openidconnect": {
 		"label":"Custom OpenID Connect App", "type":"openidconnect", "image":"customapp.png", "scope": "", "domain": "", "discovery":"", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
+	},
+	"oauth1": {
+		"label":"Custom OAuth 1.0 App", "type":"oauth1", "image":"customapp.png", "scope": "", "domain": "", "discovery":"", "request": "", "authorize": "", "token": "", "userinfo": "", "guide":"", "logo_class":"fa fa-lock"
 	}
 }

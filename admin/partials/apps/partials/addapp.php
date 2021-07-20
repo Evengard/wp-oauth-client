@@ -96,8 +96,11 @@
 				</td>
 
 			</tr>
+
 		</table>
-            <?php if(isset($currentapp->discovery) && $currentapp->discovery !="") {?>
+		
+			<?php
+		if(isset($currentapp->discovery) && $currentapp->discovery !="") {?>
 		<table class="mo_settings_table">
                 <tr>
                     <td><input type="hidden" id="mo_oauth_discovery" name="mo_oauth_discovery" value="<?php if(isset($currentapp->discovery)) echo $currentapp->discovery;?>"></td>
@@ -127,13 +130,22 @@
                 <?php }
             } ?>
 		<table class="mo_settings_table" id="mo_oauth_client_endpoints">
-            <?php if(!isset($currentapp->discovery) || $currentapp->discovery =="") {?>
+            <?php if(!isset($currentapp->discovery) || $currentapp->discovery =="") {
+            		if($currentapp->type != 'oauth1'){
+            	?>
                 <tr>
                     <td><strong><?php esc_html_e('Scope:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
                     <td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php if(isset($currentapp->scope)) echo $currentapp->scope;?>"></td>
                 </tr>
-                <?php if($currentapp->label !='twitter'){?>
+                <?php } ?>
 			<tr id="mo_oauth_authorizeurl_div">
+				<?php if($currentapp->type == 'oauth1'){  ?>
+				<tr>
+                	<td><strong><font color="#FF0000">*</font><?php esc_html_e('Request Token Endpoint:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
+                	<td><input class="mo_table_textbox" id="mo_oauth_requesturl"  name="mo_oauth_requesturl" required="" type="text"  value="<?php if(isset($currentapp->requesturl)) echo esc_attr($currentapp->requesturl);?>"></td>
+              
+                </tr>
+            <?php }?>
 				<td><strong><font color="#FF0000">*</font><?php esc_html_e('Authorize Endpoint:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
 				<td><input class="mo_table_textbox" <?php if(!isset($currentapp->discovery) || $currentapp->discovery=="") echo 'required';?> type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php if(isset($currentapp->authorize)) echo $currentapp->authorize;?>"></td>
 			</tr>
@@ -141,14 +153,15 @@
 				<td><strong><font color="#FF0000">*</font><?php esc_html_e('Access Token Endpoint:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
 				<td><input class="mo_table_textbox" <?php if(!isset($currentapp->discovery) || $currentapp->discovery=="") echo 'required';?> type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php if(isset($currentapp->token)) echo $currentapp->token;?>"></td>
 			</tr>
-			<?php if(!isset($currentapp->type) || $currentapp->type=='oauth') {?>
+			<?php if(!isset($currentapp->type) || $currentapp->type=='oauth' || $currentapp->type=='oauth1') {?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><font color="#FF0000">*</font><?php esc_html_e('Get User Info Endpoint:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
 					<td><input class="mo_table_textbox" <?php if(!isset($currentapp->type) || $currentapp->type=='oauth' || !isset($currentapp->discovery) || $currentapp->discovery=="" ) echo 'required';?> type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" value="<?php if(isset($currentapp->userinfo)) echo $currentapp->userinfo;?>"></td>
 				</tr>
-			<?php } ?>
-            <?php } ?>
-        	<?php } ?>
+			<?php } 
+        	 } 
+        	if($currentapp->type!='oauth1'){
+        	?>
             <tr>
                 <td><strong><?php esc_html_e('Send client credentials in:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
                 <td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_authorization_header" value ="1" checked /> Header<span style="padding:0px 0px 0px 8px;"></span><input type="checkbox" name="mo_oauth_body" value ="0"/> Body<div style="padding:5px;"></div></td>
@@ -159,6 +172,7 @@
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_state" value ="1" <?php if(isset($currentapp->send_state)) { if($currentapp->send_state === 1 ){ echo 'checked';}else{$currentapp->send_state=1;echo 'checked';} } ; ?> checked/><?php esc_html_e('Send state parameter','miniorange-login-with-eve-online-google-facebook')?></td>
 				<td><br></td>
 			</tr>
+			<?php } ?>
 			<tr>
 				<td><strong><?php esc_html_e('login button:','miniorange-login-with-eve-online-google-facebook')?></strong></td>
 				<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_show_on_login_page" value ="1" checked/><?php esc_html_e('Show on login page','miniorange-login-with-eve-online-google-facebook')?></td>

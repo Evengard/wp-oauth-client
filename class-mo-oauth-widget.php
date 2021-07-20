@@ -197,13 +197,13 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				
 			foreach($appslist as $key => $app){
 
-				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'])){
-
-					if($app['appId']=="twitter")
-							{
-								  include "twitter.php";
+				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'] | $app['appId'] == 'oauth1' || $app['appId'] == 'twitter')){
+					
+					if($app['appId']=="twitter" || $app['appId']=='oauth1')
+							{	
+								  include "custom-oauth1.php";
 								  setcookie('tappname',$appname);
-                				  Mo_twitter::mo_openid_get_app_code($_COOKIE['tappname']);
+                				   MO_Custom_OAuth1::mo_oauth1_auth_request($_COOKIE['tappname']);
                 				  exit();
 							}
 
@@ -254,12 +254,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 		
 		else if( strpos( $_SERVER['REQUEST_URI'], "openidcallback") !== false ||((strpos( $_SERVER['REQUEST_URI'], "oauth_token")!== false)&&(strpos( $_SERVER['REQUEST_URI'], "oauth_verifier") ))) {
         			
-					$appslist = get_option('mo_oauth_apps_list');
+        			$appslist = get_option('mo_oauth_apps_list');
 					$username_attr = "";
 					$currentapp = false;
 					foreach($appslist as $key => $app){
 						if($key == $_COOKIE['tappname']){
-							include "twitter.php";
+							include "custom-oauth1.php";
 							$currentapp = $app;
 							if(isset($app['username_attr'])){
 								$username_attr = $app['username_attr'];
@@ -270,7 +270,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						}
 					}
 
-     	   			$resourceOwner=Mo_twitter::mo_openid_get_access_token($_COOKIE['tappname']);
+     	   			$resourceOwner = MO_Custom_OAuth1::mo_oidc1_get_access_token($_COOKIE['tappname']);
 
      	   			$username = "";
 					update_option('mo_oauth_attr_name_list', $resourceOwner);
@@ -393,7 +393,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						MO_Oauth_Debug::mo_oauth_log('Application not configured.');
 						exit('Application not configured.');
 					}
-
+					$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 						// OpenId connect
@@ -411,7 +411,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 									$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
 	
 							$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
-
+							// $userinfoToken = isset($tokenResponse["access_token"]) ? $tokenResponse["access_token"] : $tokenResponse["id_token"];
+							
 						}	
 		
 						if(!$idToken){
@@ -422,7 +423,6 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							MO_Oauth_Debug::mo_oauth_log('ID Token => ');
 							MO_Oauth_Debug::mo_oauth_log($idToken);
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
-
 							MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => ');
 							MO_Oauth_Debug::mo_oauth_log($resourceOwner);
 						}
@@ -450,7 +450,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							exit('Invalid token received.');
 						}
 
-						$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
+						//$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 						if (substr($resourceownerdetailsurl, -1) == "=") {
 							$resourceownerdetailsurl .= $accessToken;
 						}

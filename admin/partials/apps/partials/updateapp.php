@@ -48,19 +48,21 @@
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font><?php _e('Client ID:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value="<?php echo $currentapp['clientid'];?>"></td>
+				<td><input class="mo_table_textbox" required="" type="text" name="mo_oauth_client_id" value="<?php echo esc_attr($currentapp['clientid']);?>"></td>
 			</tr>
 			<tr>
 				<td><strong><font color="#FF0000">*</font><?php _e('Client Secret:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
 				<td>
-					<input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="password"  name="mo_oauth_client_secret" value="<?php echo $currentapp['clientsecret'];?>">
+					<input id="mo_oauth_client_secret" class="mo_table_textbox" required="" type="password"  name="mo_oauth_client_secret" value="<?php echo esc_attr($currentapp['clientsecret']);?>">
 					
 					<i class="fa fa-eye" onclick="showClientSecret()" id="show_button" style="margin-left:-30px; cursor:pointer;"></i>
 				</td>
 			</tr>
 			<tr>
+				<?php if($refapp->type != 'oauth1'){ ?>
 				<td><strong><?php _e('Scope:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-				<td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php echo $currentapp['scope'];?>"></td>
+				<td><input class="mo_table_textbox" type="text" name="mo_oauth_scope" value="<?php echo esc_attr($currentapp['scope']);?>"></td>
+			<?php }?>
 			</tr>
             <?php if(isset($refapp->discovery) && $refapp->discovery !="" && get_option('mo_existing_app_flow') == true ) { ?>
                 <tr>
@@ -82,8 +84,17 @@
                     <?php } if(isset($currentapp['policy'])) { ?>
                 <tr>
                     <td><strong><font color="#FF0000"></font><?php echo $currentappname; ?> <?php _e('Policy:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-                    <td><input <?php if($valid_discovery == 'invalid') echo 'style="border-color:red;"'?> class="mo_table_textbox" type="text" name="mo_oauth_provider_policy" value="<?php echo $currentapp['policy']; ?>">&nbsp;&nbsp;&nbsp;<?php if($valid_discovery == 'valid'){echo $is_valid; } else echo $is_invalid; ?></td>
+                    <td><input <?php if($valid_discovery == 'invalid') echo 'style="border-color:red;"'?> class="mo_table_textbox" type="text"  name="mo_oauth_provider_policy" 
+								value="<?php echo esc_attr($currentapp['policy']); ?>">&nbsp;&nbsp;&nbsp;<?php if($valid_discovery == 'valid'){echo $is_valid; } else echo $is_invalid; ?></td>
                 </tr>
+                <tr>
+					<td><strong><font color="#FF0000"></font><?php esc_html_e('Reset / Forgot Password Policy:','miniorange-login-with-eve-online-google-facebook')?></strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[ALL-INCLUSIVE]</a></small></font></td>
+					<td><input class="mo_table_textbox" type="text" disabled readonly="true" placeholder= "<?php echo "Ex. myapp_reset_password"?>"></td>
+			</tr>					
+			<tr>
+				<td></td>
+				<td><font><small><strong style="color: rgb(255,0,0);">[This field is necessary to enable 'Forgot Password / Reset Password' flow from Azure's Login page]</strong></small></font></td>
+				</tr>
             <?php } elseif(isset($currentapp['realm'])) { ?>
                     <tr>
                         <td><strong><font color="#FF0000"></font><?php echo $currentappname; ?> <?php _e('Realm:','miniorange-login-with-eve-online-google-facebook'); ?></strong>
@@ -94,16 +105,20 @@
                 }
             }
 
-
-            if($is_other_app && $currentapp['appId']!='twitter'){
-			    if(!isset($refapp->discovery) || $refapp->discovery =="" || !get_option('mo_existing_app_flow')) { ?>
+			    if(!isset($refapp->discovery) || $refapp->discovery =="" || !get_option('mo_existing_app_flow')) { 
+			    	if($refapp->type == 'oauth1'){	?>
+			    		<tr  id="mo_oauth_requesturl_div">
+					<td><strong><font color="#FF0000">*</font><?php _e('Request Endpoint:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_requesturl" name="mo_oauth_requesturl" value="<?php echo esc_attr($currentapp['requesturl']);?>"></td>
+				</tr>
+			<?php }?>
 				<tr  id="mo_oauth_authorizeurl_div">
 					<td><strong><font color="#FF0000">*</font><?php _e('Authorize Endpoint:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo $currentapp['authorizeurl'];?>"></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_authorizeurl" name="mo_oauth_authorizeurl" value="<?php echo esc_attr($currentapp['authorizeurl']);?>"></td>
 				</tr>
 				<tr id="mo_oauth_accesstokenurl_div">
 					<td><strong><font color="#FF0000">*</font><?php _e('Access Token Endpoint:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo $currentapp['accesstokenurl'];?>"></td>
+					<td><input class="mo_table_textbox" required="" type="text" id="mo_oauth_accesstokenurl" name="mo_oauth_accesstokenurl" value="<?php echo esc_attr($currentapp['accesstokenurl']);?>"></td>
 				</tr>
 				<?php if( isset($currentapp['apptype']) && $currentapp['apptype'] != 'openidconnect') {
 						$oidc = false;
@@ -113,9 +128,9 @@
 					?>
 				<tr id="mo_oauth_resourceownerdetailsurl_div">
 					<td><strong><?php if($oidc === false) { echo '<font color="#FF0000">*</font>'; } ?><?php _e('Get User Info Endpoint:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
-					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo $currentapp['resourceownerdetailsurl']; } ?>"></td>
+					<td><input class="mo_table_textbox" type="text" id="mo_oauth_resourceownerdetailsurl" name="mo_oauth_resourceownerdetailsurl" <?php if($oidc === false) { echo 'required';} ?> value="<?php if(isset($currentapp['resourceownerdetailsurl'])) { echo esc_attr($currentapp['resourceownerdetailsurl']); } ?>"></td>
 				</tr>
-                <?php } ?>
+                <?php } if($refapp->type != 'oauth1'){ ?>
 
                 <tr>
                     <td><strong><?php _e('Send client credentials in:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
@@ -134,13 +149,11 @@
 				<td><strong><?php _e('JWKS URL:','miniorange-login-with-eve-online-google-facebook'); ?></strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
 				<td><input class="mo_table_textbox" type="text" value="" disabled></td>
 			</tr>
-			
+			<?php } ?>
 			<tr>
 				<td><br></td>
 				<td><br></td>
 			</tr>
-
-			<?php } ?>
 			<tr>
 				<tr>
 				<td><strong><?php _e('Login Button:','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>

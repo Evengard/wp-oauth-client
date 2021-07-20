@@ -216,13 +216,13 @@ class Mo_OAuth_Client_Customer {
 		return true;
 	}
 
-	function submit_setup_call( $email, $issue, $desc, $call_date, $call_time_zone, $call_time, $ist_date, $ist_time ) {
+	function submit_setup_call( $email, $issue, $desc, $call_date, $call_time_zone, $call_time, $ist_date, $ist_time, $phone, $send_config = true ) {
 		if(!$this->check_internet_connection())
 			return;
 		$url = get_option( 'host_name' ) . '/moas/api/notify/send';
 		
 		$plugin_version     = get_plugin_data( __DIR__ . DIRECTORY_SEPARATOR . 'mo_oauth_settings.php' )['Version'];
-
+		
 		$customerKey = $this->defaultCustomerKey;
 		$apiKey =  $this->defaultApiKey;
 
@@ -236,7 +236,14 @@ class Mo_OAuth_Client_Customer {
 		global $user;
 		$user         = wp_get_current_user();
 
-		$content='<div>Hello,<br><br>First Name : '.$user->user_firstname.'<br><br>Last Name : '.$user->user_lastname.'<br><br>Company : <a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Email : <a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Issue : '.$issue.'<br><br>Description : '.$desc.'<br><br>Preferred time ('.$call_time_zone.') : '.$call_time.', '.$call_date.'<br><br>IST time : '.$ist_time.', '.$ist_date.'</div>';
+		if( $send_config ) {
+			$mo_oauth = new mo_oauth();
+			$plugin_config          = $mo_oauth->mo_oauth_export_plugin_config( true );
+			$config_to_send     = json_encode( $plugin_config, JSON_UNESCAPED_SLASHES );
+			$desc .= "<br><br>Config String:<br><pre style=\"border:1px solid #444;padding:10px;\"><code>" . $config_to_send . "</code></pre>";
+		}
+
+		$content='<div>Hello,<br><br>First Name : '.$user->user_firstname.'<br><br>Last Name : '.$user->user_lastname.'<br><br>Company : <a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Email : <a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Preferred time ('.$call_time_zone.') : '.$call_time.', '.$call_date.'<br><br>IST time : '.$ist_time.', '.$ist_date.'<br><br>Issue : '.$issue.'<br><br>Description : '.$desc.'</div>';
 
 		$fields = array(
 			'customerKey'	=> $customerKey,
@@ -274,6 +281,8 @@ class Mo_OAuth_Client_Customer {
 			echo "Something went wrong: $error_message";
 			exit();
 		}
+
+		return true;
 	}
 	
 	function send_otp_token($email, $phone, $sendToEmail = TRUE, $sendToPhone = FALSE){
@@ -509,7 +518,7 @@ class Mo_OAuth_Client_Customer {
 		}
 	}
 
-	function mo_oauth_send_demo_alert($email,$demo_plan,$message,$subject) {
+	function mo_oauth_send_demo_alert($email,$demo_plan,$message,$addons_selected,$subject) {
 
 		if(!$this->check_internet_connection())
 			return;
@@ -529,9 +538,7 @@ class Mo_OAuth_Client_Customer {
 
 		global $user;
 		$user         = wp_get_current_user();
-
-		$content='<div >Hello, </a><br><br>Email :<a href="mailto:'. $fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Requested Demo for     : ' . $demo_plan . '<br><br>Requirements (User usecase)           : ' . $message.'</div>';
-
+		$content='<div >Hello, </a><br><br>Email :<a href="mailto:'. $fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Requested Demo for     : ' . $demo_plan . '<br><br>Add-ons     : ' . $addons_selected . '<br><br>Requirements (User usecase)           : ' . $message.'</div>';
 		$fields = array(
 			'customerKey'	=> $customerKey,
 			'sendEmail' 	=> true,

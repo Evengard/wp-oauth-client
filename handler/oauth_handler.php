@@ -149,7 +149,7 @@ class Mo_OAuth_Hanlder {
 	function getResourceOwnerFromIdToken($id_token){
 		$id_array = explode(".", $id_token);
 		if(isset($id_array[1])) {
-			$id_body = base64_decode($id_array[1]);
+			$id_body = base64_decode( str_pad( strtr( $id_array[1], '-_', '+/' ), strlen( $id_array[1] ) % 4, '=', STR_PAD_RIGHT ) );
 			if(is_array(json_decode($id_body, true))){
 				return json_decode($id_body,true);
 			}

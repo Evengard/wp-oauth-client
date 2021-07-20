@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.20.0
+ * Version: 6.20.1
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -485,6 +485,11 @@ class mo_oauth {
                     $newapp['send_body'] = $send_body;
                     $newapp['send_state']=$send_state;
                     $newapp['show_on_login_page'] = $show_on_login_page;
+                   
+                    if($appname == 'oauth1' || $appname == 'twitter'){
+                    	$newapp['requesturl'] = isset($_POST['mo_oauth_requesturl']) ? stripslashes($_POST['mo_oauth_requesturl']) : "";
+                    }
+                    
                     if (isset($_POST['mo_oauth_app_type'])) {
                         $newapp['apptype'] = stripslashes($_POST['mo_oauth_app_type']);
                     } else {
@@ -492,7 +497,7 @@ class mo_oauth {
                     }
 
                     if(isset($_POST['mo_oauth_app_name'])) {
-                        $newapp['appId'] = stripslashes( $_POST['mo_oauth_app_name'] );
+                        $newapp['appId'] = sanitize_text_field( $_POST['mo_oauth_app_name'] );
                     }
 
                     if (isset($_POST['mo_oauth_discovery']) && $_POST['mo_oauth_discovery'] != "") {
@@ -651,74 +656,73 @@ class mo_oauth {
 					// $submited = json_decode( $customer->mo_oauth_send_email_alert( $email, $phone, $query, "Query for WP OAuth Single Sign On - ".$email ), true );
 					// update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
 					// $this->mo_oauth_show_success_message();
-					$submited = $customer->submit_contact_us( $email, $phone, $query, $send_config );
+
+					$mo_call_setup = array_key_exists('oauth_setup_call', $_POST);
+					$mo_call_setup_validated = false;
+
+					if($mo_call_setup === true){
+						$issue = isset($_POST['mo_oauth_setup_call_issue']) ? stripslashes( $_POST['mo_oauth_setup_call_issue'] ) : '';
+						$call_date = stripslashes($_POST['mo_oauth_setup_call_date']);
+						$time_diff = stripslashes($_POST['mo_oauth_time_diff']);
+						$call_time = stripslashes($_POST['mo_oauth_setup_call_time']);
+
+						if ( !($this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $issue ) || $this->mo_oauth_check_empty_or_null( $call_date ) || $this->mo_oauth_check_empty_or_null( $time_diff ) || $this->mo_oauth_check_empty_or_null( $call_time )) ) {
+							// Please modify the $time_diff to test for the different timezones.
+							// Note - $time_diff for IST is -330
+							// $time_diff = 240;
+							$hrs = floor(abs($time_diff)/60);
+							$mins = fmod(abs($time_diff),60);
+							if($mins == 0) {
+								$mins = '00';
+							}
+							$sign = '+';
+							if($time_diff > 0) {
+								$sign = '-';
+							}
+							$call_time_zone = 'UTC '.$sign.' '.$hrs.':'.$mins;
+							$call_date = date("jS F",strtotime($call_date));
+							
+							//code to convert local time to IST
+							$local_hrs = explode(':', $call_time)[0];
+							$local_mins = explode(':', $call_time)[1];
+							$call_time_mins = ($local_hrs * 60) + $local_mins;
+							$ist_time = $call_time_mins + $time_diff + 330;
+							$ist_date = $call_date;
+							if($ist_time > 1440) {
+								$ist_time = fmod($ist_time,1440);
+								$ist_date = date("jS F", strtotime("1 day", strtotime($call_date)));
+							}
+							else if($ist_time < 0) {
+								$ist_time = 1440 + $ist_time;
+								$ist_date = date("jS F", strtotime("-1 day", strtotime($call_date)));
+							}
+							$ist_hrs = floor($ist_time/60);
+							$ist_hrs = sprintf("%02d", $ist_hrs);
+
+							$ist_mins = fmod($ist_time,60);
+							$ist_mins = sprintf("%02d", $ist_mins);
+							
+							$ist_time = $ist_hrs.':'.$ist_mins;
+							 $mo_call_setup_validated = true;
+						}
+						
+					}
+					if ($mo_call_setup && $mo_call_setup_validated) {
+						$submited = $customer->submit_setup_call( $email, $issue, $query, $call_date, $call_time_zone, $call_time, $ist_date, $ist_time, $phone, $send_config);
+					}elseif($mo_call_setup || $mo_call_setup_validated){
+						$submited = false;
+					}
+					else{
+						$submited = $customer->submit_contact_us( $email, $phone, $query, $send_config );
+					}
+					
 					if ( $submited == false ) {
-						update_option('message', 'Your query could not be submitted. Please try again.');
+						update_option('message', 'Your query could not be submitted. Please fill up all the required fields and try again.');
 						$this->mo_oauth_show_error_message();
 					} else {
 						update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
 						$this->mo_oauth_show_success_message();
 					}
-				}
-			}	
-		} 
-		elseif( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_setup_call_option" && isset( $_REQUEST['mo_oauth_setup_call_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_setup_call_form_field'] ) ), 'mo_oauth_setup_call_form' )) {
-
-			if( current_user_can( 'administrator' ) ) {
-				if( mo_oauth_is_curl_installed() == 0 ) {
-					return $this->mo_oauth_show_curl_error();
-				}
-				$email = sanitize_email( $_POST['mo_oauth_setup_call_email'] );
-				$issue = stripslashes( $_POST['mo_oauth_setup_call_issue'] );
-				$desc = stripslashes( $_POST['mo_oauth_setup_call_desc'] );
-				$call_date = $_POST['mo_oauth_setup_call_date'];
-				$time_diff = $_POST['mo_oauth_time_diff'];
-				$call_time = $_POST['mo_oauth_setup_call_time'];
-				$customer = new Mo_OAuth_Client_Customer();
-				if ( $this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $issue ) || $this->mo_oauth_check_empty_or_null( $call_date ) || $this->mo_oauth_check_empty_or_null( $time_diff ) || $this->mo_oauth_check_empty_or_null( $call_time ) ) {
-					update_option('message', 'Please fill up all the required fields.');
-					$this->mo_oauth_show_error_message();
-				} else {
-					// Please modify the $time_diff to test for the different timezones.
-					// Note - $time_diff for IST is -330
-					// $time_diff = 240;
-					$hrs = floor(abs($time_diff)/60);
-					$mins = fmod(abs($time_diff),60);
-					if($mins == 0) {
-						$mins = '00';
-					}
-					$sign = '+';
-					if($time_diff > 0) {
-						$sign = '-';
-					}
-					$call_time_zone = 'UTC '.$sign.' '.$hrs.':'.$mins;
-					$call_date = date("jS F",strtotime($call_date));
-					
-					//code to convert local time to IST
-					$local_hrs = explode(':', $call_time)[0];
-					$local_mins = explode(':', $call_time)[1];
-					$call_time_mins = ($local_hrs * 60) + $local_mins;
-					$ist_time = $call_time_mins + $time_diff + 330;
-					$ist_date = $call_date;
-					if($ist_time > 1440) {
-						$ist_time = fmod($ist_time,1440);
-						$ist_date = date("jS F", strtotime("1 day", strtotime($call_date)));
-					}
-					else if($ist_time < 0) {
-						$ist_time = 1440 + $ist_time;
-						$ist_date = date("jS F", strtotime("-1 day", strtotime($call_date)));
-					}
-					$ist_hrs = floor($ist_time/60);
-					$ist_hrs = sprintf("%02d", $ist_hrs);
-
-					$ist_mins = fmod($ist_time,60);
-					$ist_mins = sprintf("%02d", $ist_mins);
-					
-					$ist_time = $ist_hrs.':'.$ist_mins;
-
-					$customer->submit_setup_call( $email, $issue, $desc, $call_date, $call_time_zone, $call_time, $ist_date, $ist_time);
-					update_option('message', 'Thanks for getting in touch! We shall get back to you shortly.');
-					$this->mo_oauth_show_success_message();
 				}
 			}	
 		} 
@@ -738,8 +742,16 @@ class mo_oauth {
 					$this->mo_oauth_show_error_message();
 				} else {
 
-					$demosite_status = (bool) @fsockopen('demo.miniorange.com', 443, $iErrno, $sErrStr, 5);
-
+				$demosite_status = (bool) @fsockopen('demo.miniorange.com', 443, $iErrno, $sErrStr, 5);
+				$addons = Mo_OAuth_Client_Admin_Addons::$all_addons;
+				$addons_selected = '';
+				foreach($addons as $key => $value){
+					if(isset($_POST[$value['tag']]) && sanitize_text_field($_POST[$value['tag']]) == "true")
+						$addons_selected.= $value['title'].", ";
+				}
+				$addons_selected = rtrim($addons_selected, ", ");
+				if(empty($addons_selected) || is_null($addons_selected))
+					$addons_selected = 'No Add-ons selected';
 					if ( $demosite_status && "Not Sure" !==  $demo_plan ) {
 						$url = 'http://demo.miniorange.com/wordpress-oauth/';
 	
@@ -751,7 +763,8 @@ class mo_oauth {
 								'mo_auto_create_demosite_email' => $email,
 								'mo_auto_create_demosite_usecase' => $query,
 								'mo_auto_create_demosite_demo_plan' => $demo_plan,
-								'mo_auto_create_demosite_plugin_name' => MO_OAUTH_PLUGIN_SLUG
+								'mo_auto_create_demosite_plugin_name' => MO_OAUTH_PLUGIN_SLUG,
+								'mo_auto_create_demosite_addons' => $addons_selected
 							),
 							'timeout' => '20',
 							'redirection' => '5',
@@ -773,7 +786,7 @@ class mo_oauth {
 	
 						if(is_null($output)){
 							$customer = new Mo_OAuth_Client_Customer();
-							$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Client On Demo Request - ".$email );
+							$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query,$addons_selected, "WP OAuth Client On Demo Request - ".$email );
 							update_option('message', "Thanks Thanks for getting in touch! We shall get back to you shortly.");
 							$this->mo_oauth_show_success_message();
 						} else {
@@ -787,7 +800,7 @@ class mo_oauth {
 						}
 					} else {
 						$customer = new Mo_OAuth_Client_Customer();
-						$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query, "WP OAuth Client On Demo Request - ".$email );
+						$customer->mo_oauth_send_demo_alert( $email, $demo_plan, $query,$addons_selected, "WP OAuth Client On Demo Request - ".$email );
 						update_option('message', "Thanks Thanks for getting in touch! We shall get back to you shortly.");
 						$this->mo_oauth_show_success_message();
 					}

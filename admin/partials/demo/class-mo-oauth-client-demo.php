@@ -9,29 +9,20 @@
 		public static function demo_request(){
 			$democss = "width: 350px; height:35px;";
 		?>
-			<div class="mo_table_layout">
-			    <h3> <?php _e('Demo Request Form','miniorange-login-with-eve-online-google-facebook'); ?> : </h3>
-			    <!-- <div class="mo_table_layout mo_modal-demo"> -->
+			<div class="mo_demo_layout">
+			    <h3> <?php _e('Request for Demo','miniorange-login-with-eve-online-google-facebook'); ?>  </h3>
+			    <hr>
+			    <?php _e('Want to try out the paid features before purchasing the license? Just let us know which plan you\'re interested in and we will setup a demo for you.','miniorange-login-with-eve-online-google-facebook');?>
 			    	<form method="post" action="">
 					<input type="hidden" name="option" value="mo_oauth_client_demo_request_form" />
 					<?php wp_nonce_field('mo_oauth_client_demo_request_form', 'mo_oauth_client_demo_request_field'); ?>
-			    	<table cellpadding="4" cellspacing="4">
-                        <tr>
-						  	<td><strong><?php _e('Usecase','miniorange-login-with-eve-online-google-facebook'); ?> : </strong></td>
-							<td>
-							<textarea type="text" minlength="15" name="mo_auto_create_demosite_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="<?php _e('Write us about your usecase','miniorange-login-with-eve-online-google-facebook'); ?>" required value=""></textarea>
-							</td>
-						  </tr> 	
-                        <tr>
-							<td></td>
-							<td style="width:350px;"><p style="color:grey;font-size:14px">Example. Login into wordpress using Cognito,<br> SSO into wordpress with my company credentials,<br> Restrict gmail.com accounts to my wordpress site etc.</p></td>
-						</tr>
+			    	<table class="mo_demo_table_layout" cellpadding="4" cellspacing="4">
 			    		<tr>
-							<td><strong>Email id : </strong></td>
-							<td><input required type="email" style="<?php echo $democss; ?>" name="mo_auto_create_demosite_email" placeholder="Email id" value="<?php echo get_option("mo_oauth_admin_email"); ?>" /></td>
+							<td><strong>Email id <p style="display:inline;color:red;">*</p>: </strong></td>
+							<td><input required type="email" style="<?php echo $democss; ?>" name="mo_auto_create_demosite_email" placeholder="We will use this email to setup the demo for you" value="<?php echo esc_html(get_option("mo_oauth_admin_email")); ?>" /></td>
 						</tr>
 						<tr>
-							<td><strong><?php _e('Request a demo for','miniorange-login-with-eve-online-google-facebook'); ?> : </strong></td>
+							<td><strong><?php _e('Request a demo for','miniorange-login-with-eve-online-google-facebook'); ?> <p style="display:inline;color:red;">*</p>: </strong></td>
 							<td>
 								<select required style="<?php echo $democss; ?>" name="mo_auto_create_demosite_demo_plan" id="mo_oauth_client_demo_plan_id">
 									<option disabled selected>------------------ Select ------------------</option>
@@ -43,6 +34,27 @@
 								</select>
 							</td>
 					  	</tr>
+                        <tr>
+						  	<td><strong><?php _e('Usecase','miniorange-login-with-eve-online-google-facebook'); ?><p style="display:inline;color:red;">*</p> : </strong></td>
+							<td>
+							<textarea type="text" minlength="15" name="mo_auto_create_demosite_usecase" style="resize: vertical; width:350px; height:100px;" rows="4" placeholder="<?php _e('Example. Login into wordpress using Cognito, SSO into wordpress with my company credentials, Restrict gmail.com accounts to my wordpress site etc.','miniorange-login-with-eve-online-google-facebook'); ?>" required value=""></textarea>
+							</td>
+						  </tr> 
+						  <tr id="add-on-list">
+					        <td colspan="2">
+					        <p><strong><?php _e('Select the Add-ons you are interested in (Optional)','miniorange-login-with-eve-online-google-facebook');?> :</strong></p>
+					        <p><i><strong>(<?php _e('Note','miniorange-login-with-eve-online-google-facebook');?>: </strong> <?php _e('All-Inclusive plan entitles all the addons in the license cost itself.','miniorange-login-with-eve-online-google-facebook');?> )</i></p>
+					        <div style="padding-left:20px;">
+					       <?php
+						        foreach(Mo_OAuth_Client_Admin_Addons::$all_addons as $key => $value){
+						        	if(true === $value['in_allinclusive']){?>
+						            <input type="checkbox" style="margin-top:2px;margin-bottom:2px;" name="<?php echo esc_html($value['tag']); ?>" value="true"> <?php echo esc_html($value['title']); ?><br/>
+						            <?php
+						        	}
+						        }
+						        ?>
+					        </div></td>
+        				</tr>	
 <!--
 					  	<tr id="demoDescription" style="display:none;">
 						  	<td><strong>Description : </strong></td>

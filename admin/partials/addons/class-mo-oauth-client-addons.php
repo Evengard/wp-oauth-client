@@ -9,70 +9,7 @@ class Mo_OAuth_Client_Admin_Addons {
           'desc' => 'Allows to restrict access to WordPress pages/posts based on user roles and their login status, thereby preventing them from unauthorized access.',
           'img' => 'images/page-restriction.png',
           'link' => 'https://plugins.miniorange.com/wordpress-page-restriction',
-        ),
-
-        array(
-          'tag' => 'fsso',
-          'title' => 'Two Factor Authentication',
-          'desc' => 'Supported 2FA methods:- Google Authenticator, OTP Over SMS, OTP Over Email, Email Verification, miniOrange methods. <br>Additional Features:- Unlimited Users & Multisite support,Website Security features',
-          'img' => 'images/fsso.png',
-          'link' => 'https://plugins.miniorange.com/2-factor-authentication-for-wordpress',
-        ),
-
-        array(
-          'tag' => 'buddypress',
-          'title' => 'BuddyPress Integrator',
-          'desc' => 'Allows to integrate user information received from OAuth/OpenID Provider with the BuddyPress profile.',
-          'img' => 'images/buddypress.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-buddypress-integrator',
-        ),
-
-        array(
-          'tag' => 'login-form',
-          'title' => 'Login Form Add-on',
-          'desc' => 'Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.',
-          'img' => 'images/login-form.png',
-          'link' => 'https://plugins.miniorange.com/idp-login-form-plugin-for-sso',
-        ),
-
-        array(
-          'tag' => 'member-login',
-          'title' => 'Membership based Login',
-          'desc' => "Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.",
-          'img' => 'images/member-login.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
-        ),
-
-        array(
-          'tag' => 'learndash',
-          'title' => 'LearnDash Integration',
-          'desc' => 'If you want to integrate LearnDash with your IDP then you can opt-in for this add-on. This add-on will map the users to LearnDash groups based on the attributes sent by your IDP.',
-          'img' => 'images/learndash.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-learndash-integrator',
-        ),
-
-        array(
-          'tag' => 'login-audit',
-          'title' => 'SSO Login Audit',
-          'desc' => 'SSO Login Audit captures all the SSO users and will generate the reports.',
-          'img' => 'images/report.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-sso-login-audit',
-        ),
-
-        array(
-          'tag' => 'attribute',
-          'title' => 'Attribute Based Redirection',
-          'desc' => 'ABR add-on helps you to redirect your users to different pages after they log into your site, based on the attributes sent by your Identity Provider.',
-          'img' => 'images/attribute-icon.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
-        ),
-
-        array(
-          'tag' => 'scim',
-          'title' => 'SCIM User Provisioning',
-          'desc' => 'This plugin allows user provisioning with SCIM standard. System for Cross-domain Identity Management is a standard for automating the exchange of user identity information between identity domains, or IT systems.',
-          'img' => 'images/scim.png',
-          'link' => 'https://plugins.miniorange.com/wordpress-user-provisioning',
+          'in_allinclusive' => true,
         ),
 
         array(
@@ -81,6 +18,34 @@ class Mo_OAuth_Client_Admin_Addons {
           'desc' => 'Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while SSO.',
           'img' => 'images/discord.png',
           'link' => 'https://plugins.miniorange.com/discord-wordpress-single-sign-on-integration',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'learndash',
+          'title' => 'LearnDash Integration',
+          'desc' => 'If you want to integrate LearnDash with your IDP then you can opt-in for this add-on. This add-on will map the users to LearnDash groups based on the attributes sent by your IDP.',
+          'img' => 'images/learndash.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-learndash-integrator',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'buddypress',
+          'title' => 'BuddyPress Integrator',
+          'desc' => 'Allows to integrate user information received from OAuth/OpenID Provider with the BuddyPress profile.',
+          'img' => 'images/buddypress.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-buddypress-integrator',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'scim',
+          'title' => 'SCIM User Provisioning',
+          'desc' => 'This plugin allows user provisioning with SCIM standard. System for Cross-domain Identity Management is a standard for automating the exchange of user identity information between identity domains, or IT systems.',
+          'img' => 'images/scim.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-user-provisioning',
+          'in_allinclusive' => true,
         ),
 
         array(
@@ -89,6 +54,16 @@ class Mo_OAuth_Client_Admin_Addons {
           'desc' => 'SSO session management add-on manages the login session time of your users based on their WordPress roles.',
           'img' => 'images/session.jpg',
           'link' => 'https://plugins.miniorange.com/sso-session-management',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'login-form',
+          'title' => 'Login Form Add-on',
+          'desc' => 'Provides Login form for OAuth/OpenID login instead of a only a button. It relies on OAuth/OpenID plugin to have Password Grant configured. It can be customized using custom CSS and JS.',
+          'img' => 'images/login-form.png',
+          'link' => 'https://plugins.miniorange.com/idp-login-form-plugin-for-sso',
+          'in_allinclusive' => true,
         ),
 
         array(
@@ -97,6 +72,43 @@ class Mo_OAuth_Client_Admin_Addons {
           'desc' => 'miniOrange Media Restriction add-on restrict unauthorized users from accessing the media files on your WordPress site.',
           'img' => 'images/media.jpg',
           'link' => 'https://plugins.miniorange.com/wordpress-media-restriction',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'member-login',
+          'title' => 'Membership based Login',
+          'desc' => "Allows to redirect users to custom pages based on users' membership levels. Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.",
+          'img' => 'images/member-login.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'attribute',
+          'title' => 'Attribute Based Redirection',
+          'desc' => 'ABR add-on helps you to redirect your users to different pages after they log into your site, based on the attributes sent by your Identity Provider.',
+          'img' => 'images/attribute-icon.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'fsso',
+          'title' => 'Two Factor Authentication',
+          'desc' => 'Supported 2FA methods:- Google Authenticator, OTP Over SMS, OTP Over Email, Email Verification, miniOrange methods. <br>Additional Features:- Unlimited Users & Multisite support,Website Security features',
+          'img' => 'images/fsso.png',
+          'link' => 'https://plugins.miniorange.com/2-factor-authentication-for-wordpress',
+          'in_allinclusive' => false,
+        ),
+
+        array(
+          'tag' => 'jwetoken',
+          'title' => 'SSO Into Multiple Apps',
+          'desc' => 'Allows you to set up Single Sign-On using <strong>JWE BASED COOKIE TECHNIQUE</strong>. You can allow your users to perform Single Sign-On into multiple applications without entering the credentials again if they are hosted on the same domain or subdomain.',
+          'img' => 'images/jwe_token.jpg',
+          'link' => 'https://plugins.miniorange.com/sso-in-wordpress-and-applications-using-jwe-token-in-cookie',
+          'in_allinclusive' => false,
         ),
 
         array(
@@ -104,6 +116,25 @@ class Mo_OAuth_Client_Admin_Addons {
           'title' => 'Profile Picture Add-on',
           'desc' => 'Maps raw image data or URL received from your Identity Provider into Gravatar for the user.',
           'img' => 'images/profile_pic.png',
+          'in_allinclusive' => false,
+        ),
+
+        array(
+          'tag' => 'login-audit',
+          'title' => 'SSO Login Audit',
+          'desc' => 'SSO Login Audit captures all the SSO users and will generate the reports.',
+          'img' => 'images/report.png',
+          'link' => 'https://plugins.miniorange.com/wordpress-sso-login-audit',
+          'in_allinclusive' => true,
+        ),
+
+        array(
+          'tag' => 'azure',
+          'title' => 'Forgot/Reset Password Policy Add-on',
+          'desc' => 'Enables the the Forgot Password option provided on Azures Login page using the Azure Password Reset policy while SSO into WordPress.',
+          'img' => 'images/azure.png',
+          'link' => 'https://plugins.miniorange.com/self-service-reset-password-for-azure-active-directory-b2c',
+          'in_allinclusive' => false,
         ),
 
       );
@@ -159,11 +190,11 @@ class Mo_OAuth_Client_Admin_Addons {
   padding-left: 1em;
   padding-right: 3em;
   padding-top: 3px;
-  width: 80%;
+  width: 85%;
   margin: 0;
   padding-bottom: 1em;
   background:#fff;
-  height:230px;
+  height:250px;
   overflow: hidden;
   box-shadow: 0 5px 10px rgba(0,0,0,.20);
   border-radius: 5px;
@@ -193,7 +224,7 @@ class Mo_OAuth_Client_Admin_Addons {
 
 .mo_float-container {
     border: 1px solid #fff;
-    padding-bottom: 50px;
+    padding-bottom: 70px;
    padding-top: 10px;
    padding-left: 1px;
    padding-right: 2px;
@@ -356,8 +387,7 @@ a {
 
     public static function get_single_addon_cardt($tag){
       foreach (Mo_OAuth_Client_Admin_Addons::$all_addons as $key => $value) {
-        # code...
-        if(array_search($tag, $value)){
+        if(strpos( $value['tag'], $tag ) !== false){
           $addon = $value;
           break;
         }
