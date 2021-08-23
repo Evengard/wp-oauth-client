@@ -11,29 +11,28 @@
 		}
 	?>
 	<div id="toggle2" class="mo_panel_toggle">
-		<table class="mo_settings_table">
-			<tr>
-				<td><h3><?php esc_html_e('Add Application','miniorange-login-with-eve-online-google-facebook')?></h3></td>
-				<?php
-					if(isset($_GET['appId'])) {
-						$currentAppId = $_GET['appId'];
-						if(isset($_GET['action']) && ($_GET['action'] == 'instructions')) {
-							echo "
-							<td align=\"right\"><a href=\"admin.php?page=mo_oauth_settings&tab=config&appId=".$currentAppId."\"><div id='mo_oauth_config_guide' style=\"display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px\">Hide instructions ^</div></a></td> ";
-						} else {
-							echo "
-							<td align=\"right\"><a href=\"admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".$currentAppId."\"><div id='mo_oauth_config_guide' style=\"display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px\">How to Configure?</div></a></td>
-							";
-						}
-					} else { ?>
-						<td align="right"><span style="position: relative; float: right;padding-left: 13px;padding-right:13px;background-color:white;border-radius:4px;">
-							&nbsp;
-						</span></td> <?php
-					}
-
-				?>
-			</tr>
-		</table>
+		<h3><?php esc_html_e('Add Application','miniorange-login-with-eve-online-google-facebook')?>
+		  <span style="float:right">
+	        <?php
+			if ( isset( $_GET['appId'] ) ) {
+	        	$currentAppId = stripslashes( $_GET['appId'] );
+			    $currentapp = mo_oauth_client_get_app($currentAppId);
+			    $refAppId = array("other", "openidconnect");
+			    $tempappname = !in_array($currentapp->appId, $refAppId) ? $currentapp->appId : "customApp";
+			    $app = mo_oauth_client_get_app($tempappname);
+                if ( isset( $app->video ) ) { 
+	                ?> 
+	                <a href="<?php echo $app->video; ?>" target="_blank" class="mo-oauth-setup-video-button" style="text-decoration: none;" >Video Guide</a> 
+	                <?php
+				}
+				if ( isset( $app->guide ) ) { 
+					?> <a href="<?php echo $app->guide; ?>" target="_blank" class="mo-oauth-setup-guide-button" style="text-decoration: none;" > Setup Guide </a>
+					<?php
+				}
+	        }
+            ?>
+              </span>
+         </h3>
 		<form name="f" method="post" id="show_pointers">
 			<?php wp_nonce_field('mo_oauth_clear_pointers_form','mo_oauth_clear_pointers_form_field'); ?>
         	<input type="hidden" name="option" value="clear_pointers"/>

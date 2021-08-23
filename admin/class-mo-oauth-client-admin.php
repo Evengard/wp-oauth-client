@@ -20,6 +20,7 @@ class Mo_OAuth_Client_Admin {
 	public function enqueue_styles() {
 		if(isset($_REQUEST['tab']) && $_REQUEST['tab'] == 'licensing'){
             wp_enqueue_style( 'mo_oauth_bootstrap_css', plugins_url( 'css/bootstrap/bootstrap.min.css', __FILE__ ) );
+            wp_enqueue_style('mo_oauth_license_page_style', plugins_url( 'css/mo-oauth-licensing.css', __FILE__ ) );
         }
 
 	}

@@ -23,7 +23,22 @@
 		
 	?>
 		<div id="toggle2" class="mo_panel_toggle">
-			<h3><?php _e('Configure OAuth Provider','miniorange-login-with-eve-online-google-facebook'); ?></h3>
+			<h3><?php _e('Configure OAuth Provider','miniorange-login-with-eve-online-google-facebook'); ?>
+			   <span style="float:right">
+            <?php
+                
+                 $refAppId = array("other","openidconnect");
+                 $tempappname = !in_array($currentapp['appId'], $refAppId) ? $currentapp['appId'] : "customApp";
+                 $app = mo_oauth_client_get_app($tempappname);
+					if (isset($app->video))
+					{ ?> <a href="<?php echo $app->video; ?>" target="_blank" class="mo-oauth-setup-video-button" style="text-decoration: none;" >Video Guide</a> <?php
+					}
+					if (isset($app->guide))
+					{ ?> <a href="<?php echo $app->guide; ?>" target="_blank" class="mo-oauth-setup-guide-button" style="text-decoration: none;" > Setup Guide </a> <?php
+					}
+			?>
+                </span>
+		     </h3>
 		</div>
 		<div id="mo_oauth_update_app">
 			

@@ -88,57 +88,60 @@ class Mo_OAuth_Client_Admin_Support {
 		</div>
 		
         <script>
-			jQuery("#contact_us_phone").intlTelInput({
-				nationalMode: false,
-			});
-			function mo_oauth_valid_query(f) {
-				!(/^[a-zA-Z?,.\(\)\/@ 0-9]*$/).test(f.value) ? f.value = f.value.replace(
-						/[^a-zA-Z?,.\(\)\/@ 0-9]/, '') : null;
-			}
+        	jQuery(document).ready(function ($) {
 
-			jQuery( function() {
-	            jQuery("#mo_oauth_setup_call_div").hide();
-	            
-	            jQuery("#oauth_setup_call").click(function() {
-	                if(jQuery(this).is(":checked")) {
-	                    jQuery("#mo_oauth_setup_call_div").show();
-	                    document.getElementById("issue_dropdown").required = true;
-	                    document.getElementById("calldate").required = true;
-	                    document.getElementById("mo_oauth_setup_call_time").required = true;
+				jQuery("#contact_us_phone").intlTelInput({
+					nationalMode: false,
+				});
+				function mo_oauth_valid_query(f) {
+					!(/^[a-zA-Z?,.\(\)\/@ 0-9]*$/).test(f.value) ? f.value = f.value.replace(
+							/[^a-zA-Z?,.\(\)\/@ 0-9]/, '') : null;
+				}
 
-	                } else {
-	                    jQuery("#mo_oauth_setup_call_div").hide();
-	                    document.getElementById("issue_dropdown").required = false;
-	                    document.getElementById("calldate").required = false;
-	                    document.getElementById("mo_oauth_setup_call_time").required = false;
-	                }
-	            });
-	        });
+				jQuery( function() {
+		            jQuery("#mo_oauth_setup_call_div").hide();
+		            
+		            jQuery("#oauth_setup_call").click(function() {
+		                if(jQuery(this).is(":checked")) {
+		                    jQuery("#mo_oauth_setup_call_div").show();
+		                    document.getElementById("issue_dropdown").required = true;
+		                    document.getElementById("calldate").required = true;
+		                    document.getElementById("mo_oauth_setup_call_time").required = true;
 
-			jQuery('#calldate').datepicker({
-				dateFormat: 'd MM, yy',
-				beforeShowDay: $.datepicker.noWeekends,
-				minDate: 1,
-			});
-			jQuery('#issue_dropdown').change(function() {
-				if(document.getElementById("sso_setup_issue").selected) {
-					document.getElementById("setup_guide_link").style.display = "table-row";
-				}
-				else {
-					document.getElementById("setup_guide_link").style.display = "none";	
-				}
-				if(document.getElementById("other_issue").selected) {
-					document.getElementById("required_mark").style.display = "inline";
-					document.getElementById("issue_description").required = true;
-				}
-				else {
-					document.getElementById("required_mark").style.display = "none";
-					document.getElementById("issue_description").required = false;	
-				}
-			});
-			var d = new Date();
-	  		var n = d.getTimezoneOffset();
-	  		document.getElementById("mo_oauth_time_diff").value = n;
+		                } else {
+		                    jQuery("#mo_oauth_setup_call_div").hide();
+		                    document.getElementById("issue_dropdown").required = false;
+		                    document.getElementById("calldate").required = false;
+		                    document.getElementById("mo_oauth_setup_call_time").required = false;
+		                }
+		            });
+		        });
+
+				jQuery('#calldate').datepicker({
+					dateFormat: 'd MM, yy',
+					beforeShowDay: $.datepicker.noWeekends,
+					minDate: 1,
+				});
+				jQuery('#issue_dropdown').change(function() {
+					if(document.getElementById("sso_setup_issue").selected) {
+						document.getElementById("setup_guide_link").style.display = "table-row";
+					}
+					else {
+						document.getElementById("setup_guide_link").style.display = "none";	
+					}
+					if(document.getElementById("other_issue").selected) {
+						document.getElementById("required_mark").style.display = "inline";
+						document.getElementById("issue_description").required = true;
+					}
+					else {
+						document.getElementById("required_mark").style.display = "none";
+						document.getElementById("issue_description").required = false;	
+					}
+				});
+				var d = new Date();
+		  		var n = d.getTimezoneOffset();
+		  		document.getElementById("mo_oauth_time_diff").value = n;
+		  	});
 
 		</script>
 		<br/>

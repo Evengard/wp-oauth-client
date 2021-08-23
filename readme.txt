@@ -1,14 +1,14 @@
 === OAuth Single Sign On - SSO (OAuth Client) ===
 Contributors: cyberlord92,oauth
-Tags: WordPress SSO, oauth 2.0, login, WordPress Single sign-on, Single Sign-On, sso, multisite sso, openid, wordpress login, Azure, WordPress Single Sign-On, Keycloak, Okta sso, wordpress multisite sso, twitter sso, azure ad b2c, social login, oauth 1.0, oauth2, oidc, openid connect
+Tags: WordPress SSO, oauth 2.0, login, Single Sign-On, sso, multisite sso, Azure, Keycloak, Cognito, Okta sso, azure ad b2c, social login
 Requires at least: 3.0.1
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 6.20.1
+Stable tag: 6.20.2
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-WordPress Login ( SSO ) with AWS Cognito, Azure AD, Azure B2C, Okta, Ping, Clever, WSO2, Onelogin, Keycloak, many OAuth & OpenID Providers [24/7 SUPPORT].
+WordPress Login ( SSO ) with Azure AD, Azure B2C, AWS Cognito, Okta, Ping, Clever, WSO2, Onelogin, Keycloak, many OAuth & OpenID Providers [24/7 SUPPORT]
 
 == Description ==
 
@@ -171,6 +171,7 @@ The plugin can also support WordPress Single Sign On ( SSO ) with any Identity P
 *	<a href="https://plugins.miniorange.com/hubspot-single-sign-on-for-wordpress-using-oauth" target="_blank"> Hubspot </a> ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	<a href="https://plugins.miniorange.com/twitter-single-sign-on-wordpress-sso-oauth-openid-connect" target="_black"> Twitter </a> ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	<a href="https://plugins.miniorange.com/netiq-single-sign-on-for-wordpress-using-oauth" target="_black"> NetIQ </a> ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
+*	Oracle IDCS ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	HR Answerlink / Support center ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	ABSORB LMS ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	Zoho ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
@@ -202,7 +203,7 @@ The plugin can also support WordPress Single Sign On ( SSO ) with any Identity P
 *	FusionAuth ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	ID.me ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	MoxiWorks ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
-*	Idaptive ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
+*	Idaptive | CyberArk ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	Splitwise ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	Infusionsoft ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
 *	JOIN IT ( supports OAuth 2.0 / OpenID Connect SSO for WordPress login )
@@ -225,7 +226,7 @@ The plugin can also support WordPress Single Sign On ( SSO ) with any Identity P
 
 
 = Other OAuth and OpenID Connect ( OIDC ) Providers we support for WordPress Single Sign-On ( SSO ) =
-*	Other oauth 2.0 and OpenId Connect ( OIDC ) 1.0 servers WordPress Single Sign-On ( SSO ) plugin support includes Office 365, AWS Cognito, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign-On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks, ClassLink, Google Classroom, MemberClicks, BankID, CSI, Idaptive, Splitwise, Infusionsoft, Hubspot, Join It, MyAcademicID, MemberConnex, Novi, Coassemble, Servicenow, IBM APP ID, Nimble AMS, iSpring LMS, Neon CRM, EPIC, IPB forum, Wiziq, Sprinklr, Elvanto, FranceConnect, Church Online, Bigcommerce, Sewobe, PracticePanther, SubscribeStar, Eventbrite, Medi-Access, Lichess, CILogon, Simplecast, SURF etc.
+*	Other oauth 2.0 and OpenId Connect ( OIDC ) 1.0 servers WordPress Single Sign-On ( SSO ) plugin support includes Office 365, AWS Cognito, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive CyberArk, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign-On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks, ClassLink, Google Classroom, MemberClicks, BankID, CSI, Splitwise, Infusionsoft, Hubspot, Join It, MyAcademicID, MemberConnex, Novi, Coassemble, Servicenow, IBM APP ID, Nimble AMS, iSpring LMS, Neon CRM, EPIC, IPB forum, Wiziq, Sprinklr, Elvanto, FranceConnect, Church Online, Bigcommerce, Sewobe, PracticePanther, SubscribeStar, Eventbrite, Medi-Access, Lichess, CILogon, Simplecast, SURF, MediaWiki, UNA, NetSuite, Oracle IDCS, Globus etc.
 
 
 == WordPress Single Sign-On ( SSO ) Supported Add-ons ==
@@ -318,6 +319,14 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.20.2 =
+* LearnPress conflict fix
+* WordFence 2FA conflict fix
+* Added Automatic Attr Mapping
+* Setup guide & Video guide button on UI
+* Licensing plan UI change
+* Readme changes
 
 = 6.20.1 =
 * Added WP 5.8 Compatibility

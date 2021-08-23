@@ -1,172 +1,137 @@
 <?php
 
+include_once dirname( __FILE__ ) . '/class-mo-oauth-client-license-pricing-breakdown.php';
+
+
 class Mo_OAuth_Client_Admin_Licensing {
     public static function emit_css() {
         ?>
         <style>
-            .mo-oauth-licensing-container {
-                margin: 0 auto;
-                padding: 10px;
-            }
-            .mo-oauth-licensing-header {
-                /* text-align: center; */
-            }
-            .moct-align-left {
-                text-align: left;
-            }
-            .moct-align-right {
-                text-align: right;
-            }
-            .moct-align-center {
-                text-align: center;
-            }
-            .moc-licensing-notice {
-                background: #f2f2f2;
-                padding: 1%;
-                border-radius: 2%;
-                line-height: 1;
-                width: 100%;
-                margin-top: 5%;
-            }
-            .moc-licensing-plan-header {
-                font-size: 32px;
-                font-variant: small-caps;
-                border-radius: 1rem 1rem 0px 0px;
-            }
-            .moc-licensing-plan-header hr {
-                margin: 1.5rem 0;
-            }
-            .moc-licensing-plan-feature-list {
-                font-size: 12px;
-                padding-top: 10px;
-            }
-            .moc-licensing-plan-feature-list li {
-                text-align: left;
-                padding: 10px;
-                border: none;
-            }
-            .moc-licensing-plan-feature-list li:nth-child(even) {
-                background-color: #f0f0f0;
-            }
-            .moc-licensing-plan-usp {
-                font-size: 18px;
-                font-weight: 500;
-                padding-bottom: 10px;
-            }
-            .moc-licensing-plan-price {
-                font-size: 24px;
-                font-weight: 400;
-            }
-            .moc-licensing-plan-name {  
-                font-size: 16px;    
-                font-weight: 500;   
-            }   
-            .moc-all-inclusive-licensing-plan-name {    
-                font-size: 40px;    
-                font-weight: 500;   
-            }
-            .moc-licensing-plan {
-                border-radius: 1rem;
-                border: 1px solid #00788E;
-                margin: 0.5rem 0;
-                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
-                transition: 0.3s;
-            }
-            .moc-licensing-plan:hover {
-                margin-top: -.25rem;
-                margin-bottom: .25rem;
-                /* border: 1px solid #17a2b8; */
-                border: 1px solid rgb(112, 165, 245);
-                box-shadow: 0 16px 32px 0 rgba(112, 165, 245, 0.8);
-            }
-            .moc-lp-buy-btn {
+           .moc-lp-buy-btn {
                 border-radius: 5rem;
                 letter-spacing: .1rem;
                 font-weight: bold;
                 padding: 1rem;
-                opacity: 0.7;
+                
             }
             .moc-lp-buy-btn:hover {
                 opacity: 1;
             }
-            .moc-lp-highlight {
-                box-shadow: 0 16px 32px 0 #563d7c66;
-                border: 1px solid #2B1251;
-            }
-            .moc-lp-highlight:hover {
-                border: 1px solid #563d7c;
-                box-shadow: 0 16px 32px 0 #563d7ccc;
-            }
-            .btn-purple {
-                color: #ffffff;
-                background: radial-gradient(circle, #563d7c, #452c6b);
-                border-color: #563d7c;
-            }
-            .btn-purple:hover {
-                background: radial-gradient(circle, #452c6b, #563d7c);
-            }
-            .cd-pricing-switcher {
-                margin-top: 2em;
-                text-align: center;
-            }
-            .cd-pricing-switcher .fieldset {
-                display: inline-block;
-                position: relative;
-                border-radius: 50em;
-                border: 1px solid #17a2b8;
-                background-color: #17a2b8;
-            }
-            .cd-pricing-switcher input[type="radio"] {
-                position: absolute;
-                opacity: 0;
-            }
-            .cd-pricing-switcher label {
-                position: relative;
-                z-index: 1;
-                display: inline-block;
-                float: left;
-                width: 160px;
-                height: 40px;
-                line-height: 40px;
-                cursor: pointer;
-                font-size: 1.4rem;
-                color: #FFFFFF;
-                font-size:18px;
-                margin-bottom: 5px;
-            }
-            .cd-pricing-switcher .cd-switch {
-                /* floating background */
-                position: absolute;
-                top: 2px;
-                left: 2px;
-                height: 40px;
-                width: 160px;
-                background-color: black;
-                border-radius: 50em;
-                -webkit-transition: -webkit-transform 0.5s;
-                -moz-transition: -moz-transform 0.5s;
-                transition: transform 0.5s;
-            }
-            .cd-pricing-switcher input[type="radio"]:checked + label + .cd-switch,
-            .cd-pricing-switcher input[type="radio"]:checked + label:nth-of-type(n) + .cd-switch {
-                /* use label:nth-of-type(n) to fix a bug on safari with multiple adjacent-sibling selectors*/
-                -webkit-transform: translateX(155px);
-                -moz-transform: translateX(155px);
-                -ms-transform: translateX(155px);
-                -o-transform: translateX(155px);
-                transform: translateX(155px);
-            }
-            h4 {
-                font-size: 13px;
-                margin: 1.33em 0px;
-                font-weight: 600;
-            }
+            .widget-header-text{
+    color: #fff;
+    padding: 10px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.widget-header-close-icon{
+    margin-right: 10px;
+    color: white;
+}
+
+.widget-header{
+    border-radius: 5px 5px 0 0;
+    height: 40px;
+    max-height: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #6b778c;
+    position: relative;
+}
+
+.sticky {
+    position: fixed;
+    top: 30px;
+    width: 100%;
+}
+
+.underscore {
+    border-bottom:3px solid red;
+}
         </style>
         <?php
     }
+
     public static function show_licensing_page(){
+
         self::emit_css();
         ?>
+        <div id="navbar" style="padding-left: 22%;padding-top: 1%"  >
+          <b><a href="#licensing_plans" id="plans-section" class="navbar-links">Plans</a></b>
+          <b><a href="#upgrade-steps" id="upgrade-section" class="navbar-links">Upgrade Steps</a></b>
+          <b><a href="#payment-method" id="payment-section" class="navbar-links">Payment Methods</a></b>
+        </div>
+<script>    
+
+        window.onscroll = function() {moOAuthStickyNavbar()};
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+
+        function moOAuthStickyNavbar() {
+            
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky")
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
+
+        var selectArray = JSON.parse('<?php echo json_encode(new MoOAuthLicensePlansPricing()) ?>');
+
+        function createSelectOptions(elemId) {
+                var selectPricingArray = selectArray[elemId];
+                var selectElem = ' <div class="cd-price"><span class="cd-currency">$</span><span class="cd-value" id="standardID">' + selectArray[elemId]["1"] + '<sup style="color:#b5c9bb">*</sup></span></div>' + '</header> <!-- .cd-pricing-header --></a>' + '<h3 class="instanceClass" >No. of instances:';
+                var selectElem = selectElem + ' <select class="selectInstancesClass" required="true" onchange="changePricing(this)" id="' + elemId + '">';
+                jQuery.each(selectPricingArray, function (instances, price) {
+                    selectElem = selectElem + '<option value="' + instances + '" data-value="' + instances + '">' + instances + ' </option>';
+                })
+                selectElem = selectElem + "</select>";
+                return document.write(selectElem);
+            }
+
+            function createSelectWithSubsitesOptions(elemId) {
+                var selectPricingArray = selectArray[elemId];
+                var selectSubsitePricingArray = selectArray['subsiteIntances'];
+                var selectElem = ' <div class="cd-price"><span class="cd-currency">$</span><span class="cd-value" id="standardID">' + selectArray[elemId]["1"] + '<sup style="color:#b5c9bb;">*</sup></span></span></div>' + '</header> <!-- .cd-pricing-header --></a>' + '<footer class="cd-pricing-footer"><div style="display: inline-block;float: left;"><h4 class="instanceClass" style="margin-bottom:2px;">No. of instances:';
+                var selectElem = selectElem + ' <select class="selectInstancesClass" required="true" onchange="changePricing(this)" id="' + elemId + '">';
+                jQuery.each(selectPricingArray, function (instances, price) {
+                    selectElem = selectElem + '<option value="' + instances + '" data-value="' + instances + '">' + instances + ' </option>';
+                })
+                selectElem = selectElem + "</select></h3>";
+                selectElem = selectElem + '<h3 class="instanceClass" stlye="padding-top:2px;" >No. of subsites:&nbsp&nbsp';
+                selectElem = selectElem + '<select class="selectInstancesClass" required="true" onchange="changePricing(this)" id="' + elemId + '" name="' + elemId + '-subsite">';
+                jQuery.each(selectSubsitePricingArray, function (instances, price) {
+                    selectElem = selectElem + '<option value="' + instances + '" data-value="' + instances + '">' + instances + ' </option>';
+                })
+                selectElem = selectElem + "</select></h3></div>";
+                return document.write(selectElem);
+            }
+
+            function changePricing($this) {
+                var selectId = jQuery($this).attr("id");
+                var selectSubsiteValue = jQuery("select[name=" + selectId + "-subsite]").val();
+                var e = document.getElementById(selectId);
+                var strUser = e.options[e.selectedIndex].value;
+                var strUserInstances = strUser != "UNLIMITED" ? strUser : 500;
+                selectArrayElement = [];
+                selectSubsiteArrayElement = selectArray.subsiteIntances[selectSubsiteValue];
+                if (selectId == "pricingStandard") selectArrayElement = selectArray.pricingStandard[strUser];
+                if (selectId == "pricingPremium") selectArrayElement = selectArray.pricingPremium[strUser];
+                if (selectId == "pricingEnterprise") selectArrayElement = selectArray.pricingEnterprise[strUser];
+                if (selectId == "pricingAllinclusive") selectArrayElement = selectArray.pricingAllinclusive[strUser];
+                if (selectId == "mulPricingPremium") selectArrayElement = parseInt(selectArray.mulPricingPremium[strUser].replace(",", "")) + parseInt(parseInt(selectSubsiteArrayElement) * parseInt(strUserInstances));
+                if (selectId == "mulPricingEnterprise") selectArrayElement = parseInt(selectArray.mulPricingEnterprise[strUser].replace(",", "")) + parseInt(parseInt(selectSubsiteArrayElement) * parseInt(strUserInstances));
+                if (selectId == "mulPricingAllinclusive") selectArrayElement = parseInt(selectArray.mulPricingAllinclusive[strUser].replace(",", "")) + parseInt(parseInt(selectSubsiteArrayElement) * parseInt(strUserInstances));
+                jQuery("#" + selectId).parents("div.individual-container").find(".cd-value").text(selectArrayElement);
+            }
+
+    </script>
+    <!--  -->
         <!-- Important JSForms -->
         <input type="hidden" value="<?php echo mo_oauth_is_customer_registered();?>" id="mo_customer_registered">
         <form style="display:none;" id="loginform"
@@ -186,7 +151,12 @@ class Mo_OAuth_Client_Admin_Licensing {
         </form>
         <!-- End Important JSForms -->
         <!-- Licensing Table -->
-        <div class="cd-pricing-switcher">
+        <br>
+
+        <div style="text-align: center;" id="licensing_plans" onmouseenter="onMouseEnter('plans-section', '3px solid #093553')" onmouseleave="onMouseEnter('plans-section', 'none')">
+            <h1>Choose From The Below Plans To Upgrade</h1>
+        </div>
+        <div class="cd-pricing-switcher" onmouseenter="onMouseEnter('plans-section')" onmouseleave="onMouseEnter('plans-section', 1)">
             <p class="fieldset">
                 <input type="radio" name="sitetype" value="singlesite" id="singlesite" checked>
                 <label for="singlesite"><?php _e('Single Site','miniorange-login-with-eve-online-google-facebook'); ?></label>
@@ -196,7 +166,7 @@ class Mo_OAuth_Client_Admin_Licensing {
             </p>
         </div>
     
-        <div class="mo-oauth-licensing-container">
+        <div class="mo-oauth-licensing-container" style="height: 100%;margin-bottom: 5%" onmouseenter="onMouseEnter('plans-section','3px solid #093553')" onmouseleave="onMouseEnter('plans-section', 'none')">
         <div class="mo-oauth-licensing-header">
             <div class="container-fluid">
                 <div class="row">
@@ -209,47 +179,54 @@ class Mo_OAuth_Client_Admin_Licensing {
                 </div>
                 <div id="single-site-section">
                 <div class="row justify-content-center mx-15">
-                    <div class="col-3 moct-align-center">
+                    <div class="col-3 moct-align-center individual-container">
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
+                                <div class="moc-licensing-plan-price"><strong>STANDARD</strong></div>
+                                <hr>
                                 <div class="moc-licensing-plan-name">Unlimited user creation<br>+<br>Advanced Attribute Mapping</div><div><br></div>
-                                <div class="moc-licensing-plan-price"><small>[STANDARD]</small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>349<sup>*</sup></div>
+                                <script>
+                                createSelectOptions('pricingStandard');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_standard_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_standard_plan')" ><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
                                     <li>&#9989;&emsp;Auto Create Users (Unlimited Users)</li>
                                     <li>&#9989;&emsp;Account Linking</li>
-                                    <li>&#9989;&emsp;Advanced Attribute Mapping</li>
+                                    <li>&#9989;&emsp;Advanced Attribute Mapping<br></li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <!-- <li>&#9989;&emsp;Authorization Code Grant&nbsp;<br>&nbsp;<br>&nbsp;<br></li> -->
-                                    <li>&#9989;&emsp;Authorization Code Grant&nbsp;<br>&nbsp;<br></li>
+                                    <li>&#9989;&emsp;Authorization Code Grant <br><br><br></li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Basic Role Mapping</li>
                                     <li>&#10060;&emsp;<span class="text-muted">JWT Support</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Protect complete site</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Domain specific registration</span></li>
-                                    <!-- <li>&#10060;&emsp;<span class="text-muted">Multi-site Support</span></li>                                     -->
                                     <li>&#10060;&emsp;<span class="text-muted">Hide & Disable WP Login</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
+                                    <!-- <li>&#10060;&emsp;<span class="text-muted">Multi-site Support</span></li>                                     -->
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support</span></li>
+                                    
+                                    
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 moct-align-center">
+                    <div class="col-3 moct-align-center individual-container">
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
+                                <div class="moc-licensing-plan-price"><strong>PREMIUM</strong></div>
+                                <hr>
                                 <div class="moc-licensing-plan-name">Protect site with SSO login<br>+<br>Email Domains restriction</div><div><br></div>
-                                <div class="moc-licensing-plan-price"><small>[PREMIUM]</small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>499<sup>*</sup></div>
+                                 <script>
+                                createSelectOptions('pricingPremium');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_premium_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: black" onclick="upgradeform('wp_oauth_client_premium_plan')" ><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -257,7 +234,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Account Linking</li>
                                     <li>&#9989;&emsp;Advanced + Custom Attribute Mapping</li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant</li>
+                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant<br><br></li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
@@ -270,18 +247,22 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">End User Login Reports / Analytics</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Add-Ons Support</span></li>
+                                    
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 moct-align-center">
-                        <div class="moc-licensing-plan card-body moc-lp-highlight">
+                    <div class="col-3 moct-align-center individual-container">
+                        <div class="moc-licensing-plan card-body ">
                             <div class="moc-licensing-plan-header">
+                                <div class="moc-licensing-plan-price"><strong>ENTERPRISE</strong></div>
+                                <hr>
                                 <div class="moc-licensing-plan-name">Multiple providers support<br>+<br>Dynamic Callback URL<br>+<br>Developer Hooks</div>
-                                <div class="moc-licensing-plan-price"><small>[ENTERPRISE]</small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>549<sup>*</sup></div>
+                               <script>
+                                createSelectOptions('pricingEnterprise');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_enterprise_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_enterprise_plan')"><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;Unlimited OAuth / OpenID Connect <br>provider Support</li>
@@ -297,6 +278,8 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Hide & Disable WP Login</li>
+                                    
+                                    
                                     <!-- <li>&#9989;&emsp;Multi-site Support*</li> -->
                                     <li>&#9989;&emsp;Dynamic Callback URL</li>
                                     <li>&#9989;&emsp;WP hooks to read token, login event and extend plugin functionality</li>
@@ -306,37 +289,41 @@ class Mo_OAuth_Client_Admin_Licensing {
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 moct-align-center">
-                        <div class="moc-licensing-plan card-body moc-lp-highlight">
+                    <div class="col-3 moct-align-center individual-container">
+                        <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
-                                <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
-                                <div class="moc-licensing-plan-price"><small><br></small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
+                                 <div class="moc-licensing-plan-price"><strong>ALL-INCLUSIVE</strong></div>
+                                <hr>
+                                <div class="moc-licensing-plan-name">All Enterprise Features<br>+<br>Add-Ons*<br><a href="admin.php?page=mo_oauth_settings&tab=addons">(Check here)</a><br><br></div>
+                               <script>
+                                createSelectOptions('pricingAllinclusive');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')"><?php _e('Buy Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')" style="background-color: black"><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
-                                    <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
-                                    <li>&#9989;&emsp;<b>Add-Ons Support for below Add-Ons:</b></li>
+                                    <li>&#9989;&emsp;All Enterprise Plan Features</li>
+                                    <li>&#9989;&emsp;Add-Ons Support are as below:</li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM,</li>
-                                            <li type="square">Page Restriction,</li>
-                                            <li type="square">BuddyPress Attribute Mapping,</li>
-                                            <li type="square">Login Form Add-On,</li>
-                                            <li type="square">Discord Role Mapping,</li>
-                                            <li type="square">LearnDash Attribute Integration Add-On,</li>
-                                            <li type="square">Media Restriction Add-On (Premium Plan),</li>
-                                            <li type="square">Attribute based Redirection,</li>
-                                            <li type="square">SSO Session Management,</li>
-                                            <li type="square">Membership Level Based Login Redirection,</li>
-                                            <li type="square">SSO Login Audit,</li>
-                                            <li type="square">Azure Forgot/Reset Password Policy Add-on,</li>
+                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM</li>
+                                            <li type="square">Page Restriction</li>
+                                            <li type="square">BuddyPress Attribute Mapping</li>
+                                            <li type="square">Login Form Add-On</li>
+                                            <li type="square">Discord Role Mapping</li>
+                                            <li type="square">LearnDash Attribute Integration Add-On</li>
+                                            <li type="square">Media Restriction Add-On (Premium Plan)</li>
+                                            <li type="square">Attribute based Redirection</li>
+                                            <li type="square">SSO Session Management</li>
+                                            <li type="square">Membership Level Based Login Redirection</li>
+                                            <li type="square">SSO Login Audit</li>
                                             <li type="square">Regex Role Mapping Add-on</li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                        </ul><br>
+                                            <li><span></span></li>
+                                            <li><span></span>&nbsp;</li>
+                                            <li><span></span></li>
+                                            <li><span></span>&nbsp;&nbsp;&nbsp;<br></li>
+                                            <br>
+                                            <br>
+                                        </ul>
                                     <!-- </li> -->
                                 </ul>
                             </div>
@@ -347,14 +334,17 @@ class Mo_OAuth_Client_Admin_Licensing {
             </div>
             <div id="multisite-network-section" style="display: none;">
                 <div class="row justify-content-center mx-15">
-                    <div class="col-3 moct-align-center">
+                    <div class="col-3 moct-align-center individual-container">
                         <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
+                                <div class="moc-licensing-plan-price"><strong>PREMIUM</strong></div>
+                                <hr>
                                 <div class="moc-licensing-plan-name">Protect site with SSO login<br>+<br>Email Domains restriction</div><div><br></div>
-                                <div class="moc-licensing-plan-price"><small>[PREMIUM]</small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>499<sup>*</sup></div>
+                                <script>
+                                createSelectWithSubsitesOptions('mulPricingPremium');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_multisite_premium_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_multisite_premium_plan')">Upgrade Now</button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -362,7 +352,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Account Linking</li>
                                     <li>&#9989;&emsp;Advanced + Custom Attribute Mapping</li>
                                     <li>&#9989;&emsp;Login Widget, Shortcode and Login Link</li>
-                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant</li>
+                                    <li>&#9989;&emsp;Authorization Code Grant, Password Grant, Implicit Grant, Refresh token Grant<br>&nbsp;<br></li>
                                     <li>&#9989;&emsp;Login Button Customization</li>
                                     <li>&#9989;&emsp;Custom Redirect URL after login and logout</li>
                                     <li>&#9989;&emsp;Advanced Role + Group Mapping</li>
@@ -370,7 +360,6 @@ class Mo_OAuth_Client_Admin_Licensing {
                                     <li>&#9989;&emsp;Protect complete site</li>
                                     <li>&#9989;&emsp;Domain specific registration</li>
                                     <li>&#9989;&emsp;Multi-site Support*</li>
-                                    <!-- <li>&#9989;&emsp;Multi-site Support*</li> -->
                                     <li>&#10060;&emsp;<span class="text-muted">Hide & Disable WP Login</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">Dynamic Callback URL</span></li>
                                     <li>&#10060;&emsp;<span class="text-muted">WP hooks to read token, login event and extend plugin functionality</span></li>
@@ -380,14 +369,17 @@ class Mo_OAuth_Client_Admin_Licensing {
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 moct-align-center">
-                        <div class="moc-licensing-plan card-body moc-lp-highlight">
+                    <div class="col-3 moct-align-center individual-container">
+                        <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
+                                <div class="moc-licensing-plan-price"><strong>ENTERPRISE</strong></div>
+                                <hr>
                                 <div class="moc-licensing-plan-name">Multiple providers support<br>+<br>Dynamic Callback URL<br>+<br>Developer Hooks</div>
-                                <div class="moc-licensing-plan-price"><small>[ENTERPRISE]</small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>549<sup>*</sup></div>
+                                <script>
+                                createSelectWithSubsitesOptions('mulPricingEnterprise');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_multisite_enterprise_plan')">Buy Now</button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: black" onclick="upgradeform('wp_oauth_client_multisite_enterprise_plan')" style="background-color: black">Upgrade Now</button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;Unlimited OAuth / OpenID Connect <br>provider Support</li>
@@ -412,38 +404,44 @@ class Mo_OAuth_Client_Admin_Licensing {
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 moct-align-center">
-                        <div class="moc-licensing-plan card-body moc-lp-highlight">
+                    <div class="col-3 moct-align-center individual-container">
+                        <div class="moc-licensing-plan card-body">
                             <div class="moc-licensing-plan-header">
-                                <div class="moc-all-inclusive-licensing-plan-name">All-Inclusive Plan<br></div>
-                                <div class="moc-licensing-plan-price"><small><br></small></div>
-                                <div class="moc-licensing-plan-price"><sup>$</sup>699<sup>*</sup></div>
+                                <div class="moc-licensing-plan-price"><strong>ALL-INCLUSIVE</strong></div>
+                                <hr>
+                                 <div class="moc-licensing-plan-name">All Enterprise Features<br>+<br>Add-Ons*<br><a href="admin.php?page=mo_oauth_settings&tab=addons">(Check here)</a><br><br></div>
+        
+                                <script>
+                                createSelectWithSubsitesOptions('mulPricingAllinclusive');
+                                </script>
                             </div>
-                            <button class="btn btn-block btn-purple text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_multisite_plan')">Buy Now</button>
-                            <div class="moc-licensing-plan-feature-list">
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_all_inclusive_multisite_plan')">Upgrade Now</button>
+                            <div class="moc-licensing-plan-feature-list ">
                                 <ul>
-                                    <li>&#9989;&emsp;<b>All Advanced SSO Features</b></li>
-                                    <li>&#9989; <b>Add-Ons Support for below Add-Ons:</b></li>
+                                    <li>&#9989;&emsp;All Enterprise Plan Features</li>
+                                    <li>&#9989;&emsp;Add-Ons Support are as below:</li>
                                         <ul style="list-style-position: inside";>
-                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM,</li>
-                                            <li type="square">Page Restriction,</li>
-                                            <li type="square">BuddyPress Attribute Mapping,</li>
-                                            <li type="square">Login Form Add-On,</li>
-                                            <li type="square">Discord Role Mapping,</li>
-                                            <li type="square">LearnDash Attribute Integration Add-On,</li>
-                                            <li type="square">Media Restriction Add-On (Premium Plan),</li>
-                                            <li type="square">Attribute based Redirection,</li>
-                                            <li type="square">SSO Session Management,</li>
-                                            <li type="square">Membership Level Based Login Redirection,</li>
-                                            <li type="square">SSO Login Audit,</li>
-                                            <li type="square">Azure Forgot/Reset Password Policy Add-on,</li>
+                                            <li type="square">Real Time User Provisioning from IDP to WordPress - SCIM</li>
+                                            <li type="square">Page Restriction</li>
+                                            <li type="square">BuddyPress Attribute Mapping</li>
+                                            <li type="square">Login Form Add-On</li>
+                                            <li type="square">Discord Role Mapping</li>
+                                            <li type="square">LearnDash Attribute Integration Add-On</li>
+                                            <li type="square">Media Restriction Add-On (Premium Plan)</li>
+                                            <li type="square">Attribute based Redirection</li>
+                                            <li type="square">SSO Session Management</li>
+                                            <li type="square">Membership Level Based Login Redirection</li>
+                                            <li type="square">SSO Login Audit</li>
                                             <li type="square">Regex Role Mapping Add-on</li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                            <li><br></li>
-                                        </ul><br>
+                                            <li><span></span></li>
+                                            <li><span></span>&nbsp;</li>
+                                            <li><span></span>&nbsp;</li>
+
+                                            <li><span></span>&nbsp;&nbsp;&nbsp;<br></li>
+                                            <br>
+                                            <br>
+                                            <br>
+                                        </ul>
                                     <!-- </li> -->
                                 </ul>
                             </div>
@@ -451,21 +449,344 @@ class Mo_OAuth_Client_Admin_Licensing {
                     </div>
                 </div>
             </div>
-            </div>    
+            </div> 
+        </div>
+    </div>
+            <div class="moc-licensing-notice" style="height: 400px; padding-top: 10px;" id="upgrade-steps">
+            <div class="PricingCard-toggle oauth-plan-title mul-dir-heading "  onmouseenter="onMouseEnter('upgrade-section', '3px solid #093553')" onmouseleave="onMouseEnter('upgrade-section', 'none')" style="padding-top: 1px;">
+                        <h2 class="mo-oauth-h2">HOW TO UPGRADE TO PREMIUM</h2>
+                        <!-- <hr style="background-color:#17a2b8; width: 20%;height: 3px;border-width: 3px;"> -->
+                    </div> 
+            <section class="section-steps"  id="section-steps" onmouseenter="onMouseEnter('upgrade-section', '3px solid #093553')" onmouseleave="onMouseEnter('upgrade-section', 'none')">
+                    <div class="row">
+                            <div class="col span-1-of-2 steps-box">
+                                <div class="works-step">
+                                    <div><b>1</b></div>
+                                    <p>
+                                        Click on <b><i>Upgrade Now</i></b> button for required premium plan and you will be redirected to miniOrange login console.
+                                    </p>
+                                </div>
+                                <div class="works-step">
+                                    <div><b>2</b></div>
+                                    <p>
+                                        Enter your miniOrange account credentials. You can create one for free <i><b><a href="admin.php?page=mo_oauth_settings&tab=account">here</a></b></i> if you don't have. Once you have successfuly logged in, you will be redirected towards the payment page. 
+                                    </p>
+                                </div>
+                                <div class="works-step">
+                                    <div><b>3</b></div>
+                                    <p>
+                                        Enter your card details and proceed for payment. On successful payment completion, the premium plugin will be available to download. 
+                                    </p>
+                                </div>
+                                </div>
+                                <div class="col span-1-of-2 steps-box">
+                                <div class="works-step">
+                                    <div><b>4</b></div>
+                                    <p>
+                                        You can download the premium plugin from the <b><i>Releases and Downloads</i></b> section on the miniOrange console.
+                                    </p>
+                                </div>
+                            
+                                <div class="works-step">
+                                    <div><b>5</b></div>
+                                    <p>
+                                        From the WordPress admin dashboard, deactivate the free plugin currently installed.
+                                    </p>
+                                </div>
+                                <div class="works-step">
+                                    <br>
+                                    <div><b>6</b></div>
+                                    <p style="padding-top:10px;">
+                                        Now install the downloaded premium plugin and activate it.
+                                        After activating the premium plugin, login using the account which you have used for the purchase of premium license.<br> <br>
+                                    </p>
+                                </div>
+                            </div>
+                        </div> 
+                        </section>
+                        </div> 
+
+                        <div class="moc-licensing-notice" style="height: 10%px; padding-top: 10px;" >
+
+                            <div class="PricingCard-toggle ">
+                <h2 class="mo-oauth-h2"> INSTANCE - SUBSITES DEFINITION</h2>
+            </div>
+            <!-- <hr style="background-color:#17a2b8; width: 20%;height: 3px;border-width: 3px;"> -->
+                        <br>
+                        <div class="instance-subsites">
+                <div class="row">
+                    <div class="col span-1-of-2 instance-box">
+                        <h3 class="myH3">What is an instance?</h3><br>
+                        <br><p style="font-size: 1em;">A WordPress instance refers to a single installation of a WordPress site. It refers to each individual website where the plugin is active. In the case of a single site WordPress, each website will be counted as a single instance.
+                        <br>
+                        <br> For example, You have 3 sites hosted like one each for development, staging, and production. This will be counted as 3 instances.</p>
+                    </div>
+                    <div class="col span-1-of-2 subsite-box">
+                        <h3 class="myH4">What is a multisite network?</h3><br>
+                        <br><p style="font-size: 1em;">A multisite network means managing multiple sites within the same WordPress installation and has the same database.
+                        <br>
+                        <br>For example, You have 1 WordPress instance/site with 3 subsites in it then it will be counted as 1 instance with 3 subsites.
+                        <br> You have 1 WordPress instance/site with 3 subsites and another WordPress instance/site with 2 subsites then it will be counted as 2 instances with 3 subsites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <div class="moc-licensing-notice" id="payment-method" style="height: 10%;padding-top: 10px;min-height: 400px;" onmouseenter="onMouseEnter('payment-section', '3px solid #093553')" onmouseleave="onMouseEnter('payment-section', 'none')">
+                            <h2 class="mo-oauth-h2">ACCEPTED PAYMENT METHODS</h2>
+                        <section class="payment-methods" style="height: 400px;" >
+                    
+                            
+                        <!-- <hr style="background-color:#17a2b8; width: 20%;height: 3px;border-width: 3px;"> -->
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col span-1-of-3">
+                                <div class="plan-box">
+                                    <div>
+                                        <i style="font-size:30px;" class="fa fa-cc-amex" aria-hidden="true"></i>
+                                        <i style="font-size:30px;" class="fa fa-cc-visa" aria-hidden="true"></i>
+                                        <i style="font-size:30px;" class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        If the payment is made through Credit Card/International Debit Card, the license will be created automatically once the payment is completed.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col span-1-of-3">
+                                <div class="plan-box">
+                                    <div>
+                                        <img class="payment-images" src="<?php echo plugin_dir_url( __FILE__ ) . '/img/paypal.png'; ?>" alt="">
+                                    </div>
+                                    <div>
+                                        Use the following PayPal ID <i><b>info@xecurify.com</b></i> for making the payment via PayPal.<br><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col span-1-of-3">
+                                <div class="plan-box">
+                                    <div>
+                                         <img class="payment-images card-image" src="<?php echo plugin_dir_url( __FILE__ ) . 'includes/css/images/banktransfer.png'; ?>" alt=""> 
+                                        <i style="font-size:30px;" class="fa fa-university" aria-hidden="true"><span style="font-size: 20px;font-weight:500;">&nbsp;&nbsp;Bank Transfer</span></i>
+                                         
+                                    </div>
+                                    <div>
+                                        If you want to use bank transfer for the payment then contact us at <b><i><span>info@xecurify.com</span></i></b>  so that we can provide you the bank details.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p style="margin-top:20px;font-size:16px;">
+                                <span style="font-weight:500;"> Note :</span> Once you have paid through PayPal/Net Banking, please inform us so that we can confirm and update your license.
+                            </p>
+                        </div>
+                    </section>
+                </div>
                     <!-- Licensing Plans End -->
-                    <div class="moc-licensing-notice"><b>
-                        <span style="color: red;">*</span>Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.<br><br>
+                    <div class="moc-licensing-notice" style="min-height:450px;">
+                        <h2 class="mo-oauth-h2">LICENSING POLICY</h2>
+                       <!--  <hr style="background-color:#17a2b8; width: 10%;height: 3px;border-width: 3px;"> -->
+                        <br>
+                        <p style="font-size: 1em;"><span style="color: red;">*</span>Cost applicable for one instance only. Licenses are perpetual and the Support Plan includes 12 months of maintenance (support and version updates). You can renew maintenance after 12 months at 50% of the current license cost.<br></p>
 
-                        <p><span style="color: red;">*</span>We provide deep discounts on bulk license purchases and pre-production environment licenses. As the no. of licenses increases, the discount percentage also increases.</p>
-                        <p><span style="color: red;">*</span><strong>MultiSite Network Support</strong><br>
-                            There is an additional cost for the number of subsites in Multisite Network. The Multisite licenses are based on the <b>total number of subsites</b> in your WordPress Network.</p></b>
+                        <p style="font-size: 1em;"><span style="color: red;">*</span>We provide deep discounts on bulk license purchases and pre-production environment licenses. As the no. of licenses increases, the discount percentage also increases. Contact us at <i><a href="">oauthsupport@xecurify.com</a></i> for more information.</p>
 
-                        <p>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved. Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a> for any queries regarding the return policy.</p>
+                        <p style="font-size: 1em;"><span style="color: red;">*</span><strong>MultiSite Network Support : </strong>
+                            There is an additional cost for the number of subsites in Multisite Network. The Multisite licenses are based on the <b>total number of subsites</b> in your WordPress Network.
+                            <br>
+                            <br>
+                            <strong>Note</strong> : miniOrange does not store or transfer any data which is coming from the OAuth Provider to the WordPress. All the data remains within your premises/server. We do not provide the developer license for our paid plugins and the source code is protected. It is strictly prohibited to make any changes in the code without having written permission from miniOrange. There are hooks provided in the plugin which can be used by the developers to extend the plugin's functionality.
+                            <br>
+                            <br>
+                        At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you've attempted to resolve any issues with our support team, which couldn't get resolved. Please email us at <i><a href="mailto:info@xecurify.com" target="_blank">info@xecurify.com</a></i> for any queries regarding the return policy.</p>
                     </div>
 
                 </div>
             </div>
         </div>
+
+        <div class="support-icon">
+
+        <div class="service-btn" id="service-btn">
+            <div class="service-icon">
+                <img src="<?php echo plugin_dir_url(__FILE__).'img/mail.png';?>" class="service-img" alt="support"style="width: 50px;height: 50px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="support-form-container">
+      <span class="container-rel"></span>
+      <div class="widget-header" >
+        <div class="widget-header-text"><b>Contact miniOrange Support</b></div>
+        <div class="widget-header-close-icon">
+            <button type="button" class="notice-dismiss" id="mo_oauth_help_close_form">
+                </button>
+        </div>
+
+      </div>
+
+    <div class="loading-inner" style="overflow:hidden;">
+      <div class="loading-icon">
+        <div class="loading-icon-inner">
+          <span class="icon-box">
+            <img class="icon-image" src="<?php echo plugin_dir_url(__FILE__).'images/success.png';?>" alt="success">
+          </span>
+          <p class="loading-icon-text">
+              <p>Thanks for your inquiry.<br><br>If you dont hear from us within 24 hours, please feel free to send a follow up email to <a href="mailto:<?php echo 'oauthsupport@xecurify.com';?>"><?php echo 'oauthsupport@xecurify.com';?></a></p>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="loading-inner-2" style="overflow:hidden;">
+      <div class="loading-icon-2">
+        <div class="loading-icon-inner-2">
+          <br>
+          <span class="icon-box-2">
+            <img class="icon-image-2" src="<?php echo plugin_dir_url(__FILE__).'images/error.png';?>" alt="error" >
+          </span>
+          <p class="loading-icon-text-2">
+              <p>Unable to connect to Internet.<br>Please try again.</p>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="loading-inner-3" style="overflow:hidden;">
+      <div class="loading-icon-3">
+          <p class="loading-icon-text-3">
+              <p style="font-size:18px;">Please Wait...</p>
+          </p>
+          <div class="loader"></div>
+      </div>
+    </div>
+    
+
+    <form role="form" action="" id="support-form" method="post" class="support-form top-label">
+        <div class="field-group">
+          <label class="field-group-label" for="email">
+            <span class="label-name">Your Contact E-mail</span>
+          </label>
+          <input type="email" class="field-label-text" style="background-color: #f1f1f1;" name="email" id="person_email" dir="auto"  required="true"  title="Enter a valid email address." placeholder="Enter valid email">
+        </div>
+          <div class="field-group">
+              <label class="field-group-label">
+                  <span class="label-name">What are you looking for</span>
+              </label >
+              <select class="what_you_looking_for" style="background-color: #f1f1f1; max-width:26.5rem;">
+                    <option class="Select-placeholder" value="" disabled>Select Category</option>
+                    <option value="Plugin Pricing">I want to discuss about Plugin Pricing</option>
+                    <option value="Schedule a Demo">I want to schedule a Demo</option>
+                    <option value="Custom Requirement">I have custom requirement</option>
+                    <option value="Others">My reason is not listed here </option>
+              </select>
+          </div>
+
+          <div class="field-group">
+          <label class="field-group-label" for="description">
+            <span class="label-name">How can we help you?</span>
+          </label>
+          <textarea rows="5" id="person_query" name="description" dir="auto" required="true" class="field-label-textarea" placeholder="You will get reply via email"></textarea>
+        </div>
+        <div class="submit_button">
+          <button id="" type="submit" class="button1 button_new_color button__appearance-primary submit-button" value="Submit" aria-disabled="false">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+        jQuery("#mo_oauth_help_close_form").click(function(){
+            jQuery(".support-form-container").css('display','none');
+        });
+
+    </script>
+
+    <script>
+        jQuery(".help-container").click(function(){
+            jQuery(".support-form-container").css('display','block');
+            //jQuery(".help-container").css('display','none');
+        });
+
+        jQuery(".service-img").click(function(){
+            jQuery('input[type="text"], textarea').val('');
+            jQuery('select').val('');
+            jQuery(".support-form-container").css('display','block');
+            jQuery(".support-form").css('display','block');
+            jQuery(".loading-inner").css('display','none');
+            jQuery(".loading-inner-2").css('display','none');
+            jQuery(".loading-inner-3").css('display','none');
+            //jQuery(".help-container").css('display','none');
+        });
+    </script>
+
+    <script>
+    jQuery('.support-form').submit(function(e){
+
+        e.preventDefault();
+        var email = jQuery('#person_email').val();
+        var query = jQuery('#person_query').val();
+        var look= jQuery('.what_you_looking_for').val();
+        var fname = "<?php echo (wp_get_current_user()->user_firstname); ?>";
+        var lname = "<?php echo (wp_get_current_user()->user_lastname); ?>";
+       
+        if(look == '' || look == null){
+            look = 'empty';
+        }
+       
+        query1= '<b>['+look+']</b> <br><b>WP OAuth Client SSO Plugin Licensing Question: </b>'+query+' <br> ';
+
+        if(email == "" || query == "" || query1 == ""){
+
+            jQuery('#login-error').show();
+            jQuery('#errorAlert').show();
+
+        }
+        else{
+            jQuery('input[type="text"], textarea').val('');
+            jQuery('select').val('Select Category');
+            jQuery(".support-form").css('display','none');
+            jQuery(".loading-inner-3").css('display','block');
+            var json = new Object();
+
+            json = {
+                "email" : email,
+                "query" : query1,
+                "ccEmail" : "oauthsupport@xecurify.com",
+                "company" : "<?= $_SERVER ['SERVER_NAME'] ?>",
+                "firstName" : fname,
+                "lastName" : lname,
+            }
+           
+            var jsonString = JSON.stringify(json);
+            jQuery.ajax({
+
+                  url: "https://login.xecurify.com/moas/rest/customer/contact-us",
+                  type : "POST",
+                  data : jsonString,
+                  crossDomain: true,
+                  dataType : "text",
+                  contentType : "application/json; charset=utf-8",
+                  success: function (data, textStatus, xhr) { successFunction();},
+                  error: function (jqXHR, textStatus, errorThrown) { errorFunction(); }
+
+            });
+           
+        }
+    });
+
+    function successFunction(){
+        
+        jQuery(".loading-inner-3").css('display','none');
+        jQuery(".loading-inner").css('display','block');
+    }
+
+    function errorFunction(){
+        
+        jQuery(".loading-inner-3").css('display','none');
+        jQuery(".loading-inner-2").css('display','block');
+    }
+    </script>
+
         <!-- End Licensing Table -->
         <a  id="mobacktoaccountsetup" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'account' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Back</a>
         <!-- JSForms Controllers -->
@@ -504,6 +825,15 @@ class Mo_OAuth_Client_Admin_Licensing {
                 jQuery('#viewlicensekeys').submit();
             }
         </script>
+        <script>
+
+        function onMouseEnter(divid, css){
+
+            
+                document.getElementById(divid).style.borderBottom = css;
+            
+        }
+    </script>
         <!-- End JSForms Controllers -->
         <?php
     }

@@ -331,8 +331,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
     								}
 
-		else if(strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_REQUEST['code'])) {
-
+		else if( !isset($_SERVER['HTTP_X_REQUESTED_WITH']) && (strpos($_SERVER['REQUEST_URI'], "/oauthcallback") !== false || isset($_REQUEST['code']))) {
 			if(session_id() == '' || !isset($_SESSION))
 				session_start();
 
@@ -469,8 +468,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
 						echo "<h2>".__('Test Configuration','miniorange-login-with-eve-online-google-facebook')."</h2><table><tr><th>".__('Attribute Name','miniorange-login-with-eve-online-google-facebook')."</th><th>".__('Attribute Value','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
 						mo_oauth_client_testattrmappingconfig("",$resourceOwner);
+						$username_attr_mapping = array_values( get_option('mo_oauth_apps_list') )[0]['username_attr'];
 						echo "</table>";
-						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Proceed To Attribute/Role Mapping</a></div>';
+						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;<b>'.$username_attr_mapping.'</b> has been mapped to username attribute.&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> to change it</div>';
 						exit();
 					}
 
@@ -619,6 +619,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 	function mo_oauth_client_testattrmappingconfig($nestedprefix, $resourceOwnerDetails, $tr_class_prefix = ''){
 		$tr = '<tr class="' . $tr_class_prefix . 'tr">';
 		$td = '<td class="' . $tr_class_prefix . 'td">';
+
+		$username_value = "";
 		foreach($resourceOwnerDetails as $key => $resource){
 			if(is_array($resource) || is_object($resource)){
 				if(!empty($nestedprefix))
@@ -628,9 +630,28 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			} else {
 				echo $tr . $td;
 				if(!empty($nestedprefix))
-					echo $nestedprefix.".";
+					$key = $nestedprefix.".".$key;
 				echo $key."</td>".$td.$resource."</td></tr>";
+
+				$appslist = get_option('mo_oauth_apps_list');
+				$currentapp = null;
+				$currentappname = null;
+				if ( is_array( $appslist ) ) {
+					foreach( $appslist as $currentappname => $currentapp ) {
+						break;
+					}
+				}
+
+				if( strpos( $key, "username") !== false || strpos( $key, "email") !== false && strpos($username_value, "username") === false ) {
+					$username_value = $key;
+				}
 			}
+		}
+
+		if( !isset($currentapp['username_attr']) && $username_value) {
+			$currentapp['username_attr'] = $username_value;
+			$appslist[$currentappname] = $currentapp;
+			update_option('mo_oauth_apps_list', $appslist);
 		}
 	}
 

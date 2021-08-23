@@ -33,8 +33,8 @@ function mo_oauth_client_plugin_settings_script($hook) {
 	wp_enqueue_script( 'mo_oauth_admin_settings_script', plugin_dir_url( dirname(__FILE__) ) . 'js/settings.js' );
 	wp_enqueue_script( 'mo_oauth_admin_settings_phone_script', plugin_dir_url( dirname(__FILE__) ) . 'js/phone.js' );
 	wp_enqueue_script( 'mo_oauth_admin_settings_datatable_script', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery.dataTables.min.js' );
-	wp_enqueue_script( 'mo_oauth_admin_settings_jquery-2.1.3', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery-2.1.3.js' );
-	wp_enqueue_script( 'mo_oauth_admin_settings_jquery-ui', plugin_dir_url( dirname(__FILE__) ) . 'js/jquery-ui.js' );
+	wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_script( 'mo_oauth_admin_settings_jquery-ui3', includes_url()."js/jquery/ui/datepicker.js" );
 	wp_enqueue_script( 'mo_oauth_admin_settings_inteltelinput', plugin_dir_url( dirname(__FILE__) ) . 'js/intlTelInput.min.js' );
 }
 
@@ -48,7 +48,7 @@ function mo_oauth_client_main_menu() {
 	Mo_OAuth_Client_Admin_Utils::curl_extension_check();
 	Mo_OAuth_Client_Admin_Menu::show_menu($currenttab);
 	echo '<div id="mo_oauth_settings">';
-		Mo_OAuth_Client_Admin_Menu::show_idp_link($currenttab);
+		//Mo_OAuth_Client_Admin_Menu::show_idp_link($currenttab);
 		if(get_option('mo_oauth_client_show_rest_api_message'))
 			Mo_OAuth_Client_Admin_Menu::show_rest_api_secure_message();
 		if ( $today <= $date )
@@ -130,12 +130,13 @@ class Mo_OAuth_Client_Admin_Menu {
 		}
 		
 		
-		?> <div class="wrap">
+		if ( 'licensing' != $currenttab ) { ?><div class="wrap">
 			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
 		</div>
+	<?php } ?>
 		        <div class="wrap">
             <h1>
-
+            	<?php if ( 'licensing' != $currenttab ) { ?>
                 miniOrange OAuth Single Sign On
                 &nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>"><?php esc_html_e('Premium plans','miniorange-login-with-eve-online-google-facebook')?></a>
@@ -143,10 +144,20 @@ class Mo_OAuth_Client_Admin_Menu {
                 <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank"><?php esc_html_e('Ask questions on our forum','miniorange-login-with-eve-online-google-facebook')?></a>
                 <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank"><?php esc_html_e('Feature Details','miniorange-login-with-eve-online-google-facebook')?></a>
 			</h1>
-			<?php if ( 'licensing' === $currenttab ) { ?>
-				<div id="moc-lp-imp-btns" style="float:right;">
-					<a class="btn btn-outline-danger" target="_blank" href="https://plugins.miniorange.com/wordpress-oauth-client"><?php _e('Full Feature List','miniorange-login-with-eve-online-google-facebook');?></a>&emsp;<a class="btn btn-outline-primary" onclick="getlicensekeys()" href="#"><?php _e('Get License Keys','miniorange-login-with-eve-online-google-facebook');?></a>
-				</div>
+			<?php } if ( 'licensing' === $currenttab ) { ?>
+				<div style="background-color:#f9f9f9;  display: flex;justify-content: center; padding-bottom:7px;padding-top:35px;" id="nav-container">
+            <div>
+                <a style="font-size: 16px; color: #000;text-align: center;text-decoration: none;display: inline-block;" href="<?php echo add_query_arg( array( 'tab' => 'default' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">
+                    <button id="Back-To-Plugin-Configuration" type="button" value="Back-To-Plugin-Configuration" class="button button-primary button-large" style="position:absolute;left:10px;background-color: #093553;">
+                        <span class="dashicons dashicons-arrow-left-alt" style="vertical-align: middle;"></span> 
+                        Plugin Configuration
+                    </button> 
+                </a> 
+            </div>
+            <div style="display:block;text-align:center;margin: 10px;">
+                <h2 style="font-size:22px;text-align: center;float: left">miniOrange OAuth & OIDC Single Sign-On</h2>
+            </div>
+        </div>
 			<?php } /*else { ?>
 				<div class="buts" style="float:right;">
 					<div id="restart_tour_button" class="mo-otp-help-button static" style="margin-right:10px;z-index:10">
@@ -164,6 +175,7 @@ class Mo_OAuth_Client_Admin_Menu {
             }
 
         </style>
+        <?php if ( 'licensing' != $currenttab ) { ?>
 		<div id="tab">
 		<h2 class="nav-tab-wrapper">
 			<a id="tab-config" class="nav-tab <?php if($currenttab == 'config') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=config"><?php esc_html_e('Configure OAuth','miniorange-login-with-eve-online-google-facebook')?></a>
@@ -177,7 +189,7 @@ class Mo_OAuth_Client_Admin_Menu {
 			<!-- <a class="nav-tab <?php //if($currenttab == 'licensing') echo 'nav-tab-active';?>" href="admin.php?page=mo_oauth_settings&tab=licensing">Licensing Plans</a> -->
 		</h2>
 		</div>
-		<?php
+		<?php }
 
 	}
 public static function show_rest_api_secure_message()

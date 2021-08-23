@@ -144,7 +144,6 @@ class Mo_OAuth_Client_Admin_Addons {
         "learndash"     =>  "sfwd-lms/sfwd_lms.php",
         "buddypress"    =>  "buddypress/bp-loader.php",
         "memberpress"   =>  "memberpress/memberpress.php",
-        "woocommerce"   =>  "woocommerce/woocommerce.php"
     );
       
 
@@ -312,7 +311,7 @@ a {
 
   if(sizeof($addons_recommended)>0){ ?>
     <div class="mo_table_layout">
-  <b><p style="padding-left: 15px;font-size: 20px;"><?php _e('Check out our add-ons :','miniorange-login-with-eve-online-google-facebook'); ?></p></b>
+  <b><p style="padding-left: 15px;font-size: 20px;"><?php _e('Recommended Add-ons for you:','miniorange-login-with-eve-online-google-facebook'); ?></p></b>
     <div class="outermost-div" style="background-color:#f7f7f7;opacity:0.9; ">
     <div class="row-view">
     <?php

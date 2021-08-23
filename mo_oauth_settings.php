@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.20.1
+ * Version: 6.20.2
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -661,10 +661,10 @@ class mo_oauth {
 					$mo_call_setup_validated = false;
 
 					if($mo_call_setup === true){
-						$issue = isset($_POST['mo_oauth_setup_call_issue']) ? stripslashes( $_POST['mo_oauth_setup_call_issue'] ) : '';
-						$call_date = stripslashes($_POST['mo_oauth_setup_call_date']);
-						$time_diff = stripslashes($_POST['mo_oauth_time_diff']);
-						$call_time = stripslashes($_POST['mo_oauth_setup_call_time']);
+						$issue = isset($_POST['mo_oauth_setup_call_issue']) ? sanitize_text_field($_POST['mo_oauth_setup_call_issue']) : ''; //select
+						$call_date = isset($_POST['mo_oauth_setup_call_date']) ? sanitize_text_field($_POST['mo_oauth_setup_call_date']) : '';
+						$time_diff = isset($_POST['mo_oauth_time_diff']) ? sanitize_text_field($_POST['mo_oauth_time_diff']) : '';	//timezone offset
+						$call_time = isset($_POST['mo_oauth_setup_call_time']) ? sanitize_text_field($_POST['mo_oauth_setup_call_time']) : ''; //time input
 
 						if ( !($this->mo_oauth_check_empty_or_null( $email ) || $this->mo_oauth_check_empty_or_null( $issue ) || $this->mo_oauth_check_empty_or_null( $call_date ) || $this->mo_oauth_check_empty_or_null( $time_diff ) || $this->mo_oauth_check_empty_or_null( $call_time )) ) {
 							// Please modify the $time_diff to test for the different timezones.
