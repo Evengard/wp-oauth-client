@@ -15,7 +15,7 @@
 		  <span style="float:right">
 	        <?php
 			if ( isset( $_GET['appId'] ) ) {
-	        	$currentAppId = stripslashes( $_GET['appId'] );
+	        	$currentAppId = sanitize_text_field( $_GET['appId'] );
 			    $currentapp = mo_oauth_client_get_app($currentAppId);
 			    $refAppId = array("other", "openidconnect");
 			    $tempappname = !in_array($currentapp->appId, $refAppId) ? $currentapp->appId : "customApp";
@@ -45,7 +45,7 @@
 			mo_oauth_client_show_default_apps();
 		} else {
 
-			$currentAppId = $_GET['appId'];
+			$currentAppId = sanitize_text_field($_GET['appId']);
 			$currentapp = mo_oauth_client_get_app($currentAppId);
             $refAppId = array("other", "openidconnect");
             $tempappname = !in_array($currentapp->appId, $refAppId) ? $currentapp->appId : "customApp";
@@ -59,9 +59,9 @@
 			<tr>
 			<td><strong><font color="#FF0000">*</font><?php esc_html_e('Application:','miniorange-login-with-eve-online-google-facebook')?><br><br></strong></td>
 			<td>
-				<input type="hidden" name="mo_oauth_app_name" value="<?php echo $currentAppId;?>">
-				<input type="hidden" name="mo_oauth_app_type" value="<?php echo $currentapp->type;?>">
-				<?php echo $currentapp->label;?> &nbsp;&nbsp;&nbsp;&nbsp; <a style="text-decoration:none" href ="admin.php?page=mo_oauth_settings"><div style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px"><?php esc_html_e('Change Application','miniorange-login-with-eve-online-google-facebook')?></div></a><br><br>
+				<input type="hidden" name="mo_oauth_app_name" value="<?php echo esc_attr($currentAppId);?>">
+				<input type="hidden" name="mo_oauth_app_type" value="<?php echo esc_attr($currentapp->type);?>">
+				<?php echo esc_attr($currentapp->label);?> &nbsp;&nbsp;&nbsp;&nbsp; <a style="text-decoration:none" href ="admin.php?page=mo_oauth_settings"><div style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px"><?php esc_html_e('Change Application','miniorange-login-with-eve-online-google-facebook')?></div></a><br><br>
 			</td>
 			</tr>
 			<tr><td><strong><?php esc_html_e('Redirect / Callback URL: ','miniorange-login-with-eve-online-google-facebook')?></strong><br>&emsp;<font><small><?php esc_html_e('Editable in ','miniorange-login-with-eve-online-google-facebook')?><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>

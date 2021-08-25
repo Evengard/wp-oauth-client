@@ -725,18 +725,17 @@ input:checked + .mo_oauth_slider:before {
 	border-radius: 50%;
 }
 .mo-oauth-setup-guide-button{
-     border: 1px black solid;
+	border: 1px black solid;
 	display:inline-block; 
 	background-color:#ffffff;
 	padding:4px 8px;
 	border-radius:4px;
 	color:#000;
 	font-weight:600;
-	font-size: 13px;
-	
+	font-size: 13px;	
 }
 .mo-oauth-setup-video-button{
-      border: 1px black solid;
+	border: 1px black solid;
 	display:inline-block; 
 	margin-left: -8em;
 	background-color:#ffffff;
@@ -745,30 +744,28 @@ input:checked + .mo_oauth_slider:before {
 	color:#000;
 	font-weight: 600;
 	font-size: 13px;
-	
-
 }
 .mo-oauth-setup-guide-button:before{
-     color: blue;
+	color: blue;
 	font-family: "dashicons";
-  content: "\f330";
-  font-size:20px;
-  display: inline-block;
-  vertical-align: middle;
-  text-decoration: none;
-  font-size: 15px;
-  margin-top: -2px;
+	content: "\f330";
+	font-size:20px;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 15px;
+	margin-top: -2px;
 }
 .mo-oauth-setup-video-button:before{
-    color: red;
+	color: red;
 	font-family: "dashicons";
-  content: "\f19b";
-  font-size:20px;
-  display: inline-block;
-  vertical-align: middle;
-  text-decoration: none;
-   font-size: 17px;
-  margin-top: -2px;
-  margin-right: 2px;
+	content: "\f19b";
+	font-size:20px;
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	font-size: 17px;
+	margin-top: -2px;
+	margin-right: 2px;
 }
 
