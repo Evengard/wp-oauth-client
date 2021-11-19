@@ -38,11 +38,11 @@ class Mo_OAuth_Client_Admin {
 
 	public function admin_menu() {
 
-		$page = add_menu_page( 'MO OAuth Settings ' . __( 'Configure OAuth', 'mo_oauth_settings' ), MO_OAUTH_ADMIN_MENU, 'administrator', 'mo_oauth_settings', array( $this, 'menu_options' ) ,plugin_dir_url(__FILE__) . 'images/miniorange.png');
+		$page = add_menu_page( 'MO OAuth Settings ' . esc_html__( 'Configure OAuth', 'mo_oauth_settings' ), MO_OAUTH_ADMIN_MENU, 'administrator', 'mo_oauth_settings', array( $this, 'menu_options' ) ,plugin_dir_url(__FILE__) . 'images/miniorange.png');
 
 		global $submenu;
 		if(is_array($submenu) && isset($submenu['mo_oauth_settings'])){
-			$submenu['mo_oauth_settings'][0][0] = __( 'Configure OAuth', 'mo_oauth_login' );
+			$submenu['mo_oauth_settings'][0][0] = esc_html__( 'Configure OAuth', 'mo_oauth_login' );
 		}	
 	}
 		

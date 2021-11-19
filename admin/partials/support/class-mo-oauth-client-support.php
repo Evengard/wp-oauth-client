@@ -13,9 +13,9 @@ class Mo_OAuth_Client_Admin_Support {
 			<div>
 				<h3><?php esc_html_e('Contact Us','miniorange-login-with-eve-online-google-facebook')?></h3>
 				<div style="padding-right: 10px;display: block;overflow: auto;">
-                	<div style="float:left;width:10%;"><img src="<?php echo plugin_dir_url( __FILE__ ) . 'phone.svg'?>" width="28" height="28">
+                	<div style="float:left;width:10%;"><img src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . 'phone.svg'?>" width="28" height="28">
                 	</div>
-                	<div style="float:left;width:88%;padding-left:5px;padding-top:5px;font-size:13px;line-height:20px;"><b><?php _e('Need any help? Just give us a call at +1 978 658 9387','miniorange-login-with-eve-online-google-facebook');?></b>
+                	<div style="float:left;width:88%;padding-left:5px;padding-top:5px;font-size:13px;line-height:20px;"><b><?php esc_html_e('Need any help? Just give us a call at +1 978 658 9387','miniorange-login-with-eve-online-google-facebook');?></b>
                 	</div>
             	</div>
 				<p><?php esc_html_e('Couldn\'t find an answer in ','miniorange-login-with-eve-online-google-facebook')?><a href="https://faq.miniorange.com/kb/oauth-openid-connect" target="_blank" rel="noopener">FAQ</a>?<br>
@@ -26,13 +26,13 @@ class Mo_OAuth_Client_Admin_Support {
 					<table class="mo_settings_table">
 						<tr>
 							<td><input type="email" class="mo_table_textbox" required name="mo_oauth_contact_us_email" placeholder="Enter email here"
-							value="<?php echo get_option("mo_oauth_admin_email"); ?>"></td>
+							value="<?php echo esc_attr(get_option("mo_oauth_admin_email")); ?>"></td>
 						</tr>
 						<tr>
-							<td><input class="mo_table_textbox" type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}|[\+]\d{1,4}[\s]" placeholder="Enter phone here" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_client_admin_phone');?>"></td>
+							<td><input class="mo_table_textbox" type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}|[\+]\d{1,4}[\s]" placeholder="Enter phone here" name="mo_oauth_contact_us_phone" value="<?php echo esc_attr(get_option('mo_oauth_client_admin_phone'));?>"></td>
 						</tr>
 						<tr>
-							<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" placeholder="<?php _e('Enter your query here','miniorange-login-with-eve-online-google-facebook'); ?>" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
+							<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" placeholder="<?php esc_html_e('Enter your query here','miniorange-login-with-eve-online-google-facebook'); ?>" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
 						</tr>
 						<tr>
 							<td><input type="checkbox" name="mo_oauth_send_plugin_config" id="mo_oauth_send_plugin_config" checked>&nbsp;<?php esc_html_e('Send Plugin Configuration','miniorange-login-with-eve-online-google-facebook')?></td>
@@ -48,7 +48,7 @@ class Mo_OAuth_Client_Admin_Support {
 							<input type="checkbox" style="background: #DCDAD1;" id="oauth_setup_call" name="oauth_setup_call"/>
 							<span class="mo_oauth_slider round"></span>
 						</label>
-						<b style="font-size: 16px; color: #000000;"><label for="oauth_setup_call"></label><?php _e('Setup a Call/ Screen-share session','miniorange-login-with-eve-online-google-facebook');?></b><br><br>
+						<b style="font-size: 16px; color: #000000;"><label for="oauth_setup_call"></label><?php esc_html_e('Setup a Call/ Screen-share session','miniorange-login-with-eve-online-google-facebook');?></b><br><br>
 
 
 						<div id="mo_oauth_setup_call_div">
@@ -80,7 +80,7 @@ class Mo_OAuth_Client_Admin_Support {
 					</div>
 
 					<div style="text-align:left;">
-						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" value="<?php _e('Submit','miniorange-login-with-eve-online-google-facebook'); ?>" />
+						<input type="submit" name="submit" style="margin:15px; width:100px;" class="button button-primary button-large" value="<?php esc_html_e('Submit','miniorange-login-with-eve-online-google-facebook'); ?>" />
 					</div>
 
 				</form>

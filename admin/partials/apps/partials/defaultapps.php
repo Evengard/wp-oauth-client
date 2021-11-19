@@ -17,7 +17,7 @@ function mo_oauth_client_show_default_apps() { ?>
 					$custom_apps[ $appId ] = $application;
 					continue;
 				}
-				echo '<li data-appid="'.$appId.'"><a ' . ( 'cognito' === $appId ? 'id=vip-default-app' : '' ) . ' href="#"><img class="mo_oauth_client_default_app_icon" src="'. plugins_url( '../images/'.$application->image, __FILE__ ).'"><br>'.$application->label.'</a></li>';
+				echo '<li data-appid="'.esc_attr($appId).'"><a ' . ( 'cognito' === $appId ? 'id=vip-default-app' : '' ) . ' href="#"><img class="mo_oauth_client_default_app_icon" src="'. esc_attr(plugins_url( '../images/'.$application->image, __FILE__ )).'"><br>'.esc_html($application->label).'</a></li>';
 			}
 		?>
 		</div>
@@ -27,7 +27,7 @@ function mo_oauth_client_show_default_apps() { ?>
 		<div id="mo_oauth_client_custom_apps">
 			<?php
 				foreach( $custom_apps as $appId => $application ) {
-					echo '<li data-appid="'.$appId.'"><a href="#"><img class="mo_oauth_client_default_app_icon" src="'. plugins_url( '../images/'.$application->image, __FILE__ ).'"><br>'.$application->label.'</a></li>';
+					echo '<li data-appid="'.esc_attr( $appId ).'"><a href="#"><img class="mo_oauth_client_default_app_icon" src="'. esc_attr( plugins_url( '../images/'.$application->image, __FILE__ ) ).'"><br>'.esc_html( $application->label ).'</a></li>';
 				}
 			?>
 		</div>

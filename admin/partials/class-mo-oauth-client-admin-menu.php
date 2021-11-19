@@ -40,10 +40,10 @@ function mo_oauth_client_plugin_settings_script($hook) {
 
 function mo_oauth_client_main_menu() {
 	$today = date("Y-m-d H:i:s");
-	$date = "2020-12-31 23:59:59";
+	$date = "2021-11-26 23:59:59";
 	$currenttab = "";
 	if(isset($_GET['tab']))
-		$currenttab = $_GET['tab'];
+		$currenttab = sanitize_text_field($_GET['tab']);
 
 	Mo_OAuth_Client_Admin_Utils::curl_extension_check();
 	Mo_OAuth_Client_Admin_Menu::show_menu($currenttab);
@@ -131,7 +131,7 @@ class Mo_OAuth_Client_Admin_Menu {
 		
 		
 		if ( 'licensing' != $currenttab ) { ?><div class="wrap">
-			<div><img style="float:left;" src="<?php echo dirname(plugin_dir_url( __FILE__ ));?>/images/logo.png"></div>
+			<div><img style="float:left;" src="<?php echo esc_attr(dirname(plugin_dir_url( __FILE__ )));?>/images/logo.png"></div>
 		</div>
 	<?php } ?>
 		        <div class="wrap">
@@ -139,7 +139,7 @@ class Mo_OAuth_Client_Admin_Menu {
             	<?php if ( 'licensing' != $currenttab ) { ?>
                 miniOrange OAuth Single Sign On
                 &nbsp
-                <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>"><?php esc_html_e('Premium plans','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo esc_attr(add_query_arg( array( 'tab' => 'licensing' ), htmlentities( sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']) ) ) ) ); ?>"><?php esc_html_e('Premium plans','miniorange-login-with-eve-online-google-facebook')?></a>
                 <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank" rel="noopener"><?php esc_html_e('Troubleshooting','miniorange-login-with-eve-online-google-facebook')?></a>
                 <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank" rel="noopener"><?php esc_html_e('Ask questions on our forum','miniorange-login-with-eve-online-google-facebook')?></a>
                 <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank" rel="noopener"><?php esc_html_e('Feature Details','miniorange-login-with-eve-online-google-facebook')?></a>
@@ -147,7 +147,7 @@ class Mo_OAuth_Client_Admin_Menu {
 			<?php } if ( 'licensing' === $currenttab ) { ?>
 				<div style="background-color:#f9f9f9;  display: flex;justify-content: center; padding-bottom:7px;padding-top:35px;" id="nav-container">
             <div>
-                <a style="font-size: 16px; color: #000;text-align: center;text-decoration: none;display: inline-block;" href="<?php echo add_query_arg( array( 'tab' => 'default' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">
+                <a style="font-size: 16px; color: #000;text-align: center;text-decoration: none;display: inline-block;" href="<?php echo esc_attr(add_query_arg( array( 'tab' => 'default' ), htmlentities( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ) ); ?>">
                     <button id="Back-To-Plugin-Configuration" type="button" value="Back-To-Plugin-Configuration" class="button button-primary button-large" style="position:absolute;left:10px;background-color: #093553;">
                         <span class="dashicons dashicons-arrow-left-alt" style="vertical-align: middle;"></span> 
                         Plugin Configuration
@@ -220,15 +220,17 @@ public static function show_rest_api_secure_message()
         ?>
             <form name="f" method="post" action="" id="mo_oauth_client_bfs_note_form">
             	<?php wp_nonce_field('mo_oauth_client_bfs_note_form','mo_oauth_client_bfs_note_form_field'); ?>
-				<input type="hidden" name="option" value="mo_oauth_client_bfs_note_message"/>	
-                <div class="notice notice-info"style="padding-right: 38px;position: relative;border-color:red; background-color:black"><h4><center><i class="fa fa-gift" style="font-size:50px;color:red;"></i>&nbsp;&nbsp;
-				<big><font style="color:white; font-size:30px;"><b>END OF YEAR SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.</font></center></h4>
+				<input type="hidden" name="option" value="mo_oauth_client_bfs_note_message"/>
+                <div class="notice notice-info"style="padding-right: 38px;position: relative;border-color:red; background-color: #0c082f;
+transform: scaleX(1);
+background-image: url('<?php echo esc_attr(dirname(plugin_dir_url( __FILE__ )));?>/images/3px-tile.png');"><h4><center><i class="fa fa-gift" style="font-size:50px;color:red;"></i>&nbsp;&nbsp;
+				<big><font style="color:white; font-size:30px;"><b>BLACK FRIDAY & CYBER MONDAY SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.</font></center></h4>
 				<p style="text-align: center; font-size: 60px; margin-top: 0px; color:white;" id="demo"></p>
 				</div>
 			</form>
 		<script>
-		var countDownDate = <?php echo strtotime('Dec 31, 2020 23:59:59') ?> * 1000;
-		var now = <?php echo time() ?> * 1000;
+		var countDownDate = <?php echo esc_attr(strtotime('Nov 26, 2021 23:59:59')) ?> * 1000;
+		var now = <?php echo esc_attr(time()) ?> * 1000;
 		var x = setInterval(function() {
 			now = now + 1000;
 			var distance = countDownDate - now;
@@ -254,7 +256,7 @@ public static function show_rest_api_secure_message()
             	<?php wp_nonce_field('mo_oauth_mo_server_message_form','mo_oauth_mo_server_message_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
-                    <h4><?php _e('Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can','miniorange-login-with-eve-online-google-facebook');?> <a href="https://idp.miniorange.com/b2c-pricing" target="_blank" rel="noopener"><?php _e('click here','miniorange-login-with-eve-online-google-facebook');?></a> <?php _e('to find more about it.','miniorange-login-with-eve-online-google-facebook');?></h4>
+                    <h4><?php esc_html_e('Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can','miniorange-login-with-eve-online-google-facebook');?> <a href="https://idp.miniorange.com/b2c-pricing" target="_blank" rel="noopener"><?php esc_html_e('click here','miniorange-login-with-eve-online-google-facebook');?></a> <?php esc_html_e('to find more about it.','miniorange-login-with-eve-online-google-facebook');?></h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>
@@ -277,7 +279,7 @@ public static function show_rest_api_secure_message()
 			return;
 		}
 		foreach( $notices as $key => $notice ) {
-			echo '<div class="notice notice-info" style="padding-right: 38px;position: relative;"><h4>' . $notice .'</h4></div>';
+			echo '<div class="notice notice-info" style="padding-right: 38px;position: relative;"><h4>' . esc_attr($notice) .'</h4></div>';
 		}
 	}
 
@@ -308,7 +310,7 @@ public static function show_rest_api_secure_message()
 				Mo_OAuth_Client_Admin_Apps::attribute_role_mapping();
 			else if($currenttab == '') {
 					?>
-						<a id="goregister" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'config' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">
+						<a id="goregister" style="display:none;" href="<?php echo esc_attr(add_query_arg( array( 'tab' => 'config' ), htmlentities( sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI'] ) ) ) ) ); ?>">
 
 						<script>
 							location.href = jQuery('#goregister').attr('href');

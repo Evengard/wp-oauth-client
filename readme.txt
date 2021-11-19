@@ -4,7 +4,7 @@ Tags: WordPress SSO, oauth 2.0, login, Single Sign-On, sso, multisite sso, Azure
 Requires at least: 3.0.1
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 6.21.0
+Stable tag: 6.21.1
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -324,6 +324,9 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.21.1 =
+* Minor UI change
 
 = 6.21.0 =
 * Added flow driven UI

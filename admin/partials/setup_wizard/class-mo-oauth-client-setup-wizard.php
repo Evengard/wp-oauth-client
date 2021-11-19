@@ -30,7 +30,7 @@ class Mo_OAuth_Client_Setup_Wizard{
 			wp_print_scripts('mo_oauth_setup_wizard_script');
 		echo '</head>
 		<body>
-		    <div class="close"><img src="'. plugins_url( '/images/cross_icon.svg.png', __FILE__ ).'" id="mo-btn-close"></div>
+		    <div class="close"><img src="'. esc_attr(plugins_url( '/images/cross_icon.svg.png', __FILE__ )).'" id="mo-btn-close"></div>
 		    <!-- content header-->
 			<div class="moa">
 			    <h1>Setup Wizard</h1>
@@ -149,7 +149,7 @@ class Mo_OAuth_Client_Setup_Wizard{
 				                <input type="submit" class="mo-button mo-oauth-skip-setup" id="mo-btn-skip" value="Skip">
 				        </div>
 						<div class="mo-hidden">
-							<input type="hidden" name="nonce" id="nonce" value="'.wp_create_nonce("mo-oauth-setup-wizard-nonce").'">
+							<input type="hidden" name="nonce" id="nonce" value="'.esc_attr(wp_create_nonce("mo-oauth-setup-wizard-nonce")).'">
 							<input type="hidden" name="appId" id="appId">
 							<input type="hidden" name="step" id="step">
 							<input type="hidden" name="type" id="type">
@@ -163,7 +163,7 @@ class Mo_OAuth_Client_Setup_Wizard{
     			mo_oauth_client_setup_support();
 	echo	'</div>
 		    <div class="mo-logo-footer">
-		    	Powered by <img src="'.plugin_dir_url( __FILE__ ) . '/images/miniorange.png" alt="miniOrange" />
+		    	Powered by <img src="'.esc_attr(plugin_dir_url( __FILE__ )) . '/images/miniorange.png" alt="miniOrange" />
 		    </div>
 			<script>
 				mo_oauth_auto_fill_form();

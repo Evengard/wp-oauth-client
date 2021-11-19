@@ -288,14 +288,14 @@ a {
   }
 }
 </style>
-<input type="hidden" value="<?php echo mo_oauth_is_customer_registered();?>" id="mo_customer_registered_addon">
+<input type="hidden" value="<?php echo esc_attr( mo_oauth_is_customer_registered() );?>" id="mo_customer_registered_addon">
 
-<a  id="mobacktoaccountsetup_addon" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'account' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Back</a>
+<a  id="mobacktoaccountsetup_addon" style="display:none;" href="<?php echo esc_attr( add_query_arg( array( 'tab' => 'account' ), htmlentities( esc_attr( sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI'] ) ) ) ) ) ); ?>">Back</a>
 
 <form style="display:none;" id="loginform_addon"
-              action="<?php echo get_option( 'host_name' ) . '/moas/login'; ?>"
+              action="<?php echo esc_attr( get_option( 'host_name' ) ) . '/moas/login'; ?>"
               target="_blank" method="post">
-            <input type="email" name="username" value="<?php echo get_option( 'mo_oauth_admin_email' ); ?>"/>
+            <input type="email" name="username" value="<?php echo esc_attr( get_option( 'mo_oauth_admin_email' ) ); ?>"/>
             <input type="text" name="redirectUrl"
                    value="<?php echo "https://plugins.miniorange.com/go/oauth-2fa-buy-now-payment"; ?>"/>
             <input type="text" name="requestOrigin" id="requestOrigin"/>
@@ -398,13 +398,13 @@ a {
         <div class="row benefits-outer-block">
         <div class="mo_float-container">
             <div class="mo_float-child" style="margin-left: 0px;padding-left: 0px;"> 
-            <img src="<?php echo plugins_url($addon['img'], __FILE__) ?>" width="45px" height="48px">
+            <img src="<?php echo esc_attr( plugins_url($addon['img'], __FILE__) ) ?>" width="45px" height="48px">
             </div>
         <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href= "<?php echo isset($addon['link']) ? $addon['link'] : '';?>" target="_blank" rel="noopener"><?php echo $addon['title'] ?></a></p></strong></div>
+          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href= "<?php echo isset($addon['link']) ? esc_attr( $addon['link'] ) : '';?>" target="_blank" rel="noopener"><?php echo esc_html( $addon['title'] ) ?></a></p></strong></div>
           </div>
         </div>
-        <p style="text-align: center;font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;"><?php echo $addon['desc'] ?></p>
+        <p style="text-align: center;font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;"><?php echo esc_html( $addon['desc'] ) ?></p>
         </div>
         </div>
       </div>

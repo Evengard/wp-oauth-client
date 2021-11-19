@@ -1,5 +1,4 @@
 <?php
-	
 	function mo_oauth_client_otp_verification_ui(){ ?>
 		<form name="f" method="post" id="otp_form" action="">
 			<?php wp_nonce_field('mo_oauth_verify_otp_form','mo_oauth_verify_otp_form_field'); ?>
@@ -28,7 +27,7 @@
 		<form name="f" id="mo_oauth_resend_otp_form" method="post" action="">
 			<?php wp_nonce_field('mo_oauth_resend_otp_form','mo_oauth_resend_otp_form_field'); ?>
 			<?php
-			if(get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_client_registration_status') == 'MO_OTP_VALIDATION_FAILURE') {
+			if(get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_client_registration_status') == 'MO_OTP_VALIDATION_FAILURE' ) {
 				echo '<input type="hidden" name="option" value="mo_oauth_resend_otp_email"/>';
 			} else {
 				echo '<input type="hidden" name="option" value="mo_oauth_resend_otp_phone"/>';
@@ -41,7 +40,7 @@
 		</form>
 		<?php
 
-			if(get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_SUCCESS' || get_option('mo_oauth_client_registration_status') == 'MO_OTP_DELIVERED_FAILURE'|| get_option('mo_oauth_client_registration_status')=='MO_OTP_VALIDATION_FAILURE') {
+			if ( get_option( 'mo_oauth_client_registration_status' ) == 'MO_OTP_DELIVERED_SUCCESS' || get_option( 'mo_oauth_client_registration_status' ) == 'MO_OTP_DELIVERED_FAILURE' || get_option( 'mo_oauth_client_registration_status' ) == 'MO_OTP_VALIDATION_FAILURE' ) {
 			echo '<hr>
 
 			<h3>I did not recieve any email with OTP . What should I do ?</h3>
@@ -55,10 +54,10 @@
 				pattern="[\+]\d{11,14}|[\+]\d{1,4}([\s]{0,1})(\d{0}|\d{9,10})" class="mo_oauth_table_textbox" name="phone"
 				title="Phone with country code eg. +1xxxxxxxxxx" required
 				placeholder="Phone with country code eg. +1xxxxxxxxxx"
-				value="'. get_option('mo_oauth_client_admin_phone').'" />
+				value="' . esc_attr( get_option( 'mo_oauth_client_admin_phone' ) ) . '" />
 				<br /><br />
 				<input type="submit" value="Send OTP" class="button button-primary button-large" />
 			</form>';
-		}?></div>
+		} ?></div>
 <?php
 }

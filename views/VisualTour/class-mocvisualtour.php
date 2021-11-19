@@ -117,7 +117,7 @@ class MOCVisualTour {
 	 */
 	public function enqueue_visual_tour_script() {
 		wp_register_script( 'tour_script', TOUR_RES_JS . 'visualTour.js', [ 'jquery' ], NULL, false );
-		$currenttab = isset( $_REQUEST['tab'] ) && '' !== $_REQUEST['tab'] ? $_REQUEST['tab'] : '';
+		$currenttab = isset( $_REQUEST['tab'] ) && '' !== $_REQUEST['tab'] ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : '';
 		wp_localize_script(
 			'tour_script',
 			'moTour',

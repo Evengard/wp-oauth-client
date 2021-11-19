@@ -36,7 +36,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					$logo_class = $this->mo_oauth_client_login_button_logo($app['appId']);
 					
-					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.$key.'\');"><div class="mo_oauth_login_button"><i class="'.$logo_class.' mo_oauth_login_button_icon"></i><h3 class="mo_oauth_login_button_text">Login with '.ucwords($key).'</h3></div></a>';	
+					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.esc_attr($key).'\');"><div class="mo_oauth_login_button"><i class="'.esc_attr($logo_class).' mo_oauth_login_button_icon"></i><h3 class="mo_oauth_login_button_text">Login with '.esc_attr(ucwords($key)).'</h3></div></a>';	
 					echo '</div><br><br>';
 				}
 			}
@@ -143,10 +143,10 @@ class Mo_Oauth_Widget extends WP_Widget {
 		}
 
 		function moOAuthLogin(app_name) {
-			window.location.href = '<?php echo site_url() ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
+			window.location.href = '<?php echo esc_attr(site_url()) ?>' + '/?option=generateDynmicUrl&app_name=' + app_name;
 		}
 		function moOAuthLoginNew(app_name) {
-			window.location.href = '<?php echo site_url() ?>' + '/?option=oauthredirect&app_name=' + app_name;
+			window.location.href = '<?php echo esc_attr(site_url()) ?>' + '/?option=oauthredirect&app_name=' + app_name;
 		}
 	</script>
 	<?php
@@ -156,7 +156,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 	public function mo_oauth_error_message() {
 		if( isset( $_SESSION['msg'] ) and $_SESSION['msg'] ) {
-			echo '<div class="' . $_SESSION['msg_class'] . '">' . $_SESSION['msg'] . '</div>';
+			echo '<div class="' . esc_attr( $_SESSION['msg_class'] ) . '">' . esc_attr( $_SESSION['msg'] ) . '</div>';
 			unset( $_SESSION['msg'] );
 			unset( $_SESSION['msg_class'] );
 		}

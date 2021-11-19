@@ -1,7 +1,7 @@
 <?php
 
 function mo_oauth_client_display_feedback_form() {
-    if ( 'plugins.php' != basename( $_SERVER['PHP_SELF'] ) ) {
+    if ( 'plugins.php' != basename( sanitize_text_field( wp_unslash( $_SERVER['PHP_SELF'] ) ) ) ) {
         return;
     }
     $deactivate_reasons = array(" Issues with SSO Setup", " Upgrading to Paid version", 
@@ -31,25 +31,25 @@ function mo_oauth_client_display_feedback_form() {
                     <div align="center">
                     <div id="smi_rate" style="text-align:center">
                     <input type="radio" name="rate" id="angry" value="1"/>
-                        <label for="angry"><img class="sm" src="<?php echo plugin_dir_url( __FILE__ ) . 'images/angry.png'; ?>" />
+                        <label for="angry"><img class="sm" src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . 'images/angry.png'; ?>" />
                         </label>
                         
                     <input type="radio" name="rate" id="sad" value="2"/>
-                        <label for="sad"><img class="sm" src="<?php echo plugin_dir_url( __FILE__ ) . 'images/sad.png'; ?>" />
+                        <label for="sad"><img class="sm" src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . 'images/sad.png'; ?>" />
                         </label>
                     
                     
                     <input type="radio" name="rate" id="neutral" value="3"/>
-                        <label for="neutral"><img class="sm" src="<?php echo plugin_dir_url( __FILE__ ) . 'images/normal.png'; ?>" />
+                        <label for="neutral"><img class="sm" src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . 'images/normal.png'; ?>" />
                         </label>
                         
                     <input type="radio" name="rate" id="smile" value="4"/>
                         <label for="smile">
-                        <img class="sm" src="<?php echo plugin_dir_url( __FILE__ ) . 'images/smile.png'; ?>" />
+                        <img class="sm" src="<?php echo esc_attr(plugin_dir_url( __FILE__ ) ) . 'images/smile.png'; ?>" />
                         </label>
                         
                     <input type="radio" name="rate" id="happy" value="5" checked/>
-                        <label for="happy"><img class="sm" src="<?php echo plugin_dir_url( __FILE__ ) . 'images/happy.png'; ?>" />
+                        <label for="happy"><img class="sm" src="<?php echo esc_attr( plugin_dir_url( __FILE__ ) ) . 'images/happy.png'; ?>" />
                         </label>
                     </div>
 
@@ -62,7 +62,7 @@ function mo_oauth_client_display_feedback_form() {
                 <?php
                     foreach ( $deactivate_reasons as $deactivate_reason ) 
 
-                        echo '<option id = "'.$deactivate_reason.'" value="'.$deactivate_reason.'" style="text-align:center; text-align-last: center;">'.$deactivate_reason.'</option>';
+                        echo '<option id = "'.esc_attr($deactivate_reason).'" value="'.esc_attr($deactivate_reason).'" style="text-align:center; text-align-last: center;">'.esc_attr($deactivate_reason).'</option>';
                 ?>
                     </select>
                     
@@ -76,7 +76,7 @@ function mo_oauth_client_display_feedback_form() {
                     ?>
                         
                     <div>
-                        <input type="email" id="query_mail" name="query_mail" style="margin-bottom: 10px; text-align:center; border:0px solid black; background:#f0f3f7; width:60%;" placeholder="your email address" required value="<?php echo $email; ?>" readonly="readonly"/>
+                        <input type="email" id="query_mail" name="query_mail" style="margin-bottom: 10px; text-align:center; border:0px solid black; background:#f0f3f7; width:60%;" placeholder="your email address" required value="<?php echo esc_attr($email); ?>" readonly="readonly"/>
                         
                         <i class="fa fa-pencil" onclick="editName()" style="margin-left: -3%; cursor:pointer;"></i>
                         

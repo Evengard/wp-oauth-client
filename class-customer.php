@@ -60,7 +60,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 		
@@ -95,7 +95,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 		
@@ -141,7 +141,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 		
@@ -184,7 +184,7 @@ class Mo_OAuth_Client_Customer {
 		$fields = array(
 			'firstName'			=> $current_user->user_firstname,
 			'lastName'	 		=> $current_user->user_lastname,
-			'company' 			=> $_SERVER['SERVER_NAME'],
+			'company' 			=> sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])),
 			'email' 			=> $email,
 			'ccEmail' 		    => 'oauthsupport@xecurify.com',
 			'phone'				=> $phone,
@@ -244,7 +244,7 @@ class Mo_OAuth_Client_Customer {
 			$desc .= "<br><br>Config String:<br><pre style=\"border:1px solid #444;padding:10px;\"><code>" . $config_to_send . "</code></pre>";
 		}
 
-		$content='<div>Hello,<br><br>First Name : '.$user->user_firstname.'<br><br>Last Name : '.$user->user_lastname.'<br><br>Company : <a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Email : <a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Preferred time ('.$call_time_zone.') : '.$call_time.', '.$call_date.'<br><br>IST time : '.$ist_time.', '.$ist_date.'<br><br>Issue : '.$issue.'<br><br>Description : '.$desc.'</div>';
+		$content='<div>Hello,<br><br>First Name : '.$user->user_firstname.'<br><br>Last Name : '.$user->user_lastname.'<br><br>Company : <a href="'.sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])).'" target="_blank" >'.sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])).'</a><br><br>Email : <a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>Preferred time ('.$call_time_zone.') : '.$call_time.', '.$call_date.'<br><br>IST time : '.$ist_time.', '.$ist_date.'<br><br>Issue : '.$issue.'<br><br>Description : '.$desc.'</div>';
 
 		$fields = array(
 			'customerKey'	=> $customerKey,
@@ -279,7 +279,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 
@@ -337,7 +337,7 @@ class Mo_OAuth_Client_Customer {
 			$response = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
-				echo "Something went wrong: $error_message";
+				echo 'Something went wrong: ' . esc_attr( $error_message );
 				exit();
 			}
 			
@@ -361,7 +361,7 @@ class Mo_OAuth_Client_Customer {
 			$response = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
-				echo "Something went wrong: $error_message";
+				echo 'Something went wrong: ' . esc_attr( $error_message );
 				exit();
 			}
 			
@@ -416,7 +416,7 @@ class Mo_OAuth_Client_Customer {
 			$response = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
-				echo "Something went wrong: $error_message";
+				echo 'Something went wrong: ' . esc_attr( $error_message );
 				exit();
 			}
 			
@@ -447,7 +447,7 @@ class Mo_OAuth_Client_Customer {
 			$response = wp_remote_post( $url, $args );
 			if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
-				echo "Something went wrong: $error_message";
+				echo 'Something went wrong: ' . esc_attr( $error_message );
 				exit();
 			}
 			
@@ -479,7 +479,7 @@ class Mo_OAuth_Client_Customer {
 		$user         = wp_get_current_user();
 		$query        = '[WP ' . MO_OAUTH_PLUGIN_NAME . ' '.$plugin_version.'] : ' . $message;
 
-		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.$_SERVER['SERVER_NAME'].'" target="_blank" >'.$_SERVER['SERVER_NAME'].'</a><br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>'.$reply.'<br><br>Query :'.$query.'</div>';
+		$content='<div >Hello, <br><br>First Name :'.$user->user_firstname.'<br><br>Last  Name :'.$user->user_lastname.'   <br><br>Company :<a href="'.sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])).'" target="_blank" >'.sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])).'</a><br><br>Email :<a href="mailto:'.$fromEmail.'" target="_blank">'.$fromEmail.'</a><br><br>'.$reply.'<br><br>Query :'.$query.'</div>';
 
 		$fields = array(
 			'customerKey'	=> $customerKey,
@@ -514,7 +514,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 	}
@@ -573,7 +573,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 	}
@@ -624,7 +624,7 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			echo 'Something went wrong: ' . esc_attr( $error_message );
 			exit();
 		}
 		

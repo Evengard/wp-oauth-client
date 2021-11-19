@@ -133,21 +133,21 @@ class Mo_OAuth_Client_Admin_Licensing {
     </script>
     <!--  -->
         <!-- Important JSForms -->
-        <input type="hidden" value="<?php echo mo_oauth_is_customer_registered();?>" id="mo_customer_registered">
+        <input type="hidden" value="<?php echo esc_attr(mo_oauth_is_customer_registered());?>" id="mo_customer_registered">
         <form style="display:none;" id="loginform"
-              action="<?php echo get_option( 'host_name' ) . '/moas/login'; ?>"
+              action="<?php echo esc_attr(get_option( 'host_name' )) . '/moas/login'; ?>"
               target="_blank" method="post">
-            <input type="email" name="username" value="<?php echo get_option( 'mo_oauth_admin_email' ); ?>"/>
+            <input type="email" name="username" value="<?php echo esc_attr( get_option( 'mo_oauth_admin_email' ) ); ?>"/>
             <input type="text" name="redirectUrl"
-                   value="<?php echo get_option( 'host_name' ) . '/moas/initializepayment'; ?>"/>
+                   value="<?php echo esc_attr(get_option( 'host_name' )) . '/moas/initializepayment'; ?>"/>
             <input type="text" name="requestOrigin" id="requestOrigin"/>
         </form>
         <form style="display:none;" id="viewlicensekeys"
-              action="<?php echo get_option( 'host_name' ) . '/moas/login'; ?>"
+              action="<?php echo esc_attr(get_option( 'host_name' )) . '/moas/login'; ?>"
               target="_blank" method="post">
-            <input type="email" name="username" value="<?php echo get_option( 'mo_oauth_admin_email' ); ?>"/>
+            <input type="email" name="username" value="<?php echo esc_attr(get_option( 'mo_oauth_admin_email' )); ?>"/>
             <input type="text" name="redirectUrl"
-                   value="<?php echo get_option( 'host_name' ) . '/moas/viewlicensekeys'; ?>"/>
+                   value="<?php echo esc_attr(get_option( 'host_name' )) . '/moas/viewlicensekeys'; ?>"/>
         </form>
         <!-- End Important JSForms -->
         <!-- Licensing Table -->
@@ -159,9 +159,9 @@ class Mo_OAuth_Client_Admin_Licensing {
         <div class="cd-pricing-switcher" onmouseenter="onMouseEnter('plans-section')" onmouseleave="onMouseEnter('plans-section', 1)">
             <p class="fieldset">
                 <input type="radio" name="sitetype" value="singlesite" id="singlesite" checked>
-                <label for="singlesite"><?php _e('Single Site','miniorange-login-with-eve-online-google-facebook'); ?></label>
+                <label for="singlesite"><?php esc_html_e('Single Site','miniorange-login-with-eve-online-google-facebook'); ?></label>
                 <input type="radio" name="sitetype" value="multisite" id="multisite">
-                <label for="multisite"><?php _e('Multisite Network','miniorange-login-with-eve-online-google-facebook'); ?></label>
+                <label for="multisite"><?php esc_html_e('Multisite Network','miniorange-login-with-eve-online-google-facebook'); ?></label>
                 <span class="cd-switch"></span>
             </p>
         </div>
@@ -189,7 +189,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 createSelectOptions('pricingStandard');
                                 </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_standard_plan')" ><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_standard_plan')" ><?php esc_html_e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -226,7 +226,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 createSelectOptions('pricingPremium');
                                 </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: black" onclick="upgradeform('wp_oauth_client_premium_plan')" ><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: black" onclick="upgradeform('wp_oauth_client_premium_plan')" ><?php esc_html_e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;1 OAuth / OpenID Connect provider <br>Support</li>
@@ -262,7 +262,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 createSelectOptions('pricingEnterprise');
                                 </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_enterprise_plan')"><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" style="background-color: #093553" onclick="upgradeform('wp_oauth_client_enterprise_plan')"><?php esc_html_e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;Unlimited OAuth / OpenID Connect <br>provider Support</li>
@@ -299,7 +299,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 createSelectOptions('pricingAllinclusive');
                                 </script>
                             </div>
-                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')" style="background-color: black"><?php _e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
+                            <button class="btn btn-block btn-info text-uppercase moc-lp-buy-btn" onclick="upgradeform('wp_oauth_client_all_inclusive_single_site_plan')" style="background-color: black"><?php esc_html_e('Upgrade Now','miniorange-login-with-eve-online-google-facebook'); ?></button>
                             <div class="moc-licensing-plan-feature-list">
                                 <ul>
                                     <li>&#9989;&emsp;All Enterprise Plan Features</li>
@@ -555,7 +555,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                             <div class="col span-1-of-3">
                                 <div class="plan-box">
                                     <div>
-                                        <img class="payment-images" src="<?php echo plugin_dir_url( __FILE__ ) . '/img/paypal.png'; ?>" alt="">
+                                        <img class="payment-images" src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . '/img/paypal.png'; ?>" alt="">
                                     </div>
                                     <div>
                                         Use the following PayPal ID <i><b>info@xecurify.com</b></i> for making the payment via PayPal.<br><br>
@@ -565,7 +565,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                             <div class="col span-1-of-3">
                                 <div class="plan-box">
                                     <div>
-                                         <img class="payment-images card-image" src="<?php echo plugin_dir_url( __FILE__ ) . 'includes/css/images/banktransfer.png'; ?>" alt=""> 
+                                         <img class="payment-images card-image" src="<?php echo esc_attr(plugin_dir_url( __FILE__ )) . 'includes/css/images/banktransfer.png'; ?>" alt=""> 
                                         <i style="font-size:30px;" class="fa fa-university" aria-hidden="true"><span style="font-size: 20px;font-weight:500;">&nbsp;&nbsp;Bank Transfer</span></i>
                                          
                                     </div>
@@ -609,7 +609,7 @@ class Mo_OAuth_Client_Admin_Licensing {
 
         <div class="service-btn" id="service-btn">
             <div class="service-icon">
-                <img src="<?php echo plugin_dir_url(__FILE__).'img/mail.png';?>" class="service-img" alt="support"style="width: 50px;height: 50px;">
+                <img src="<?php echo esc_attr(plugin_dir_url(__FILE__)).'img/mail.png';?>" class="service-img" alt="support"style="width: 50px;height: 50px;">
             </div>
         </div>
     </div>
@@ -629,7 +629,7 @@ class Mo_OAuth_Client_Admin_Licensing {
       <div class="loading-icon">
         <div class="loading-icon-inner">
           <span class="icon-box">
-            <img class="icon-image" src="<?php echo plugin_dir_url(__FILE__).'images/success.png';?>" alt="success">
+            <img class="icon-image" src="<?php echo esc_attr(plugin_dir_url(__FILE__)).'images/success.png';?>" alt="success">
           </span>
           <p class="loading-icon-text">
               <p>Thanks for your inquiry.<br><br>If you dont hear from us within 24 hours, please feel free to send a follow up email to <a href="mailto:<?php echo 'oauthsupport@xecurify.com';?>"><?php echo 'oauthsupport@xecurify.com';?></a></p>
@@ -643,7 +643,7 @@ class Mo_OAuth_Client_Admin_Licensing {
         <div class="loading-icon-inner-2">
           <br>
           <span class="icon-box-2">
-            <img class="icon-image-2" src="<?php echo plugin_dir_url(__FILE__).'images/error.png';?>" alt="error" >
+            <img class="icon-image-2" src="<?php echo esc_attr(plugin_dir_url(__FILE__)).'images/error.png';?>" alt="error" >
           </span>
           <p class="loading-icon-text-2">
               <p>Unable to connect to Internet.<br>Please try again.</p>
@@ -726,8 +726,8 @@ class Mo_OAuth_Client_Admin_Licensing {
         var email = jQuery('#person_email').val();
         var query = jQuery('#person_query').val();
         var look= jQuery('.what_you_looking_for').val();
-        var fname = "<?php echo (wp_get_current_user()->user_firstname); ?>";
-        var lname = "<?php echo (wp_get_current_user()->user_lastname); ?>";
+        var fname = "<?php echo esc_attr((wp_get_current_user()->user_firstname)); ?>";
+        var lname = "<?php echo esc_attr((wp_get_current_user()->user_lastname)); ?>";
        
         if(look == '' || look == null){
             look = 'empty';
@@ -752,7 +752,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                 "email" : email,
                 "query" : query1,
                 "ccEmail" : "oauthsupport@xecurify.com",
-                "company" : "<?= $_SERVER ['SERVER_NAME'] ?>",
+                "company" : "<?= sanitize_text_field( $_SERVER ['SERVER_NAME'] ) ?>",
                 "firstName" : fname,
                 "lastName" : lname,
             }
@@ -788,7 +788,7 @@ class Mo_OAuth_Client_Admin_Licensing {
     </script>
 
         <!-- End Licensing Table -->
-        <a  id="mobacktoaccountsetup" style="display:none;" href="<?php echo add_query_arg( array( 'tab' => 'account' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>">Back</a>
+        <a  id="mobacktoaccountsetup" style="display:none;" href="<?php echo esc_attr(add_query_arg( array( 'tab' => 'account' ), htmlentities( sanitize_text_field( wp_unslash($_SERVER['REQUEST_URI']) ) ) ) ); ?>">Back</a>
         <!-- JSForms Controllers -->
         <script>
             jQuery("input[name=sitetype]:radio").change(function() {

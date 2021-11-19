@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.21.0
+ * Version: 6.21.1
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -57,7 +57,7 @@ class mo_oauth {
 	function mo_oauth_success_message() {
 		$class = "error";
 		$message = get_option('message');
-		echo "<div class='" . $class . "'> <p>" . $message . "</p></div>";
+		echo "<div class='" . esc_attr( $class ) . "'> <p>" . esc_attr( $message ) . "</p></div>";
 	}
 
 	function mo_oauth_client_feedback_request() {
@@ -67,7 +67,7 @@ class mo_oauth {
 	function mo_oauth_error_message() {
 		$class = "updated";
 		$message = get_option('message');
-		echo "<div class='" . $class . "'><p>" . $message . "</p></div>";
+		echo "<div class='" . esc_attr( $class ) . "'><p>" . esc_attr( $message ) . "</p></div>";
 	}
 	/*
 		*   Custom Intervals
@@ -795,7 +795,7 @@ class mo_oauth {
 	
 						if ( is_wp_error( $response ) ) {
 							$error_message = $response->get_error_message();
-							echo "Something went wrong: $error_message";
+							echo "Something went wrong: ". esc_attr( $error_message );
 							exit();
 						}
 						$output = wp_remote_retrieve_body($response);

@@ -61,8 +61,8 @@ class Mo_OAuth_Hanlder {
 			return $content["access_token"];
 			exit;
 		} else {
-			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OAuth Provider. Contact your administrator for more details. '.$response);
-			echo 'Invalid response received from OAuth Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OAuth Provider. Contact your administrator for more details. '.esc_html($response));
+			echo 'Invalid response received from OAuth Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.esc_html($response);
 			exit;
 		}
 	}
@@ -144,8 +144,8 @@ class Mo_OAuth_Hanlder {
 			return $content;
 			exit;
 		} else {
-			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OpenId Provider. Contact your administrator for more details. Response : '.$response);
-			echo 'Invalid response received from OpenId Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OpenId Provider. Contact your administrator for more details. Response : '.esc_html($response));
+			echo 'Invalid response received from OpenId Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.esc_html($response);
 			exit;
 		}
 	}
@@ -158,8 +158,8 @@ class Mo_OAuth_Hanlder {
 				return json_decode($id_body,true);
 			}
 		}
-		MO_Oauth_Debug::mo_oauth_log('Invalid response received while fetching Id token from the Resource Owner. Id_token : '.$id_token);
-		echo 'Invalid response received.<br><b>Id_token : </b>'.$id_token;
+		MO_Oauth_Debug::mo_oauth_log('Invalid response received while fetching Id token from the Resource Owner. Id_token : '.esc_html($id_token));
+		echo 'Invalid response received.<br><b>Id_token : </b>'.esc_html($id_token);
 		exit;
 	}
 	
