@@ -4,7 +4,7 @@ Tags: WordPress SSO, oauth 2.0, login, Single Sign-On, sso, multisite sso, Azure
 Requires at least: 3.0.1
 Tested up to: 5.8
 Requires PHP: 5.4
-Stable tag: 6.20.4
+Stable tag: 6.21.0
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
@@ -20,7 +20,7 @@ You can checkout below video tutorial to know how to setup SSO with your OAuth /
 
 = WordPress Single Sign-On / SSO ( Login into WordPress ) =
 
-WordPress Single Sign-On ( SSO ) allows users to login into any site / application using the credentials of another app / site.
+WordPress Single Sign-On ( SSO ) allows users to login into any site / application using single set of credentials of another app / site.
 Example. If you have all your Users / Customers / Members / Employees stored on 1 site ( ex. Microsoft Azure AD, Azure B2C, Gmail, WordPress, AWS Cognito, Keycloak etc. ), let's say site A and you want all of them to register / login into your WordPress site say site B. In this scenario, you can register / login all your users of site A into Site B using the login credentials / account of Site A. This is called Single Sign-On or SSO.
 
 = WordPress Single Sign-On ( SSO ) supported Third-Party Application / OAuth OpenID Provider =
@@ -43,8 +43,8 @@ OAuth and OpenID Connect are token based Single Sign-On ( SSO ) protocols which 
 * Others: eCommerce Single Sign On ( SSO ) / Login & other third-party integration with SSO features
 
 **Azure SSO**
-This WordPress Single Sign on plugin support Microsoft Azure SSO use cases with both OAuth and OpenID Connect protocols. It supports policy-based login redirections such as sign-up policy, sign-in policy, custom policy, etc.
-It supports Login with Azure AD, Login with Azure B2C, Login with Office 365, Login with multiple Microsoft applications, SSO with the multi-tenants app ( users registered in different applications from different tenants ) and SSO into multiple WordPress domains / subdomains / subdirectories, role-based access restriction to WordPress pages, Login into WordPress using Microsoft users outside the tenant / application, Integrate Azure SSO with a social account ( facebook, google, etc ) use-cases.
+This WordPress Single Sign on plugin support Microsoft Azure SSO, Office 365 SSO use cases with both OAuth and OpenID Connect protocols. It supports policy-based login redirections such as sign-up policy, sign-in policy, custom policy, etc.
+It supports Azure AD login, Azure B2C login, Office 365 login, Login with multiple Microsoft applications, SSO with the multi-tenants app ( users registered in different applications from different tenants ) and SSO into multiple WordPress domains / subdomains / subdirectories, role-based access restriction to WordPress pages, Login into WordPress using Microsoft users outside the tenant / application, Integrate Azure SSO with a social account ( facebook, google, etc ) use-cases.
 Apart from SSO, it also supports WordPress - Azure integrations / customizations such as token-based calls to specific API / Graph API.
 Azure SSO also supports syncing Azure user profile to WordPress profile with the option to customize the profile attribute mapping ( given_name, family_name, username, email, group, custom attributes, etc ) as per need. 
 
@@ -53,8 +53,8 @@ The SSO plugin supports Login with AWS Cognito, Login with Amazon, Login into Wo
 It supports customization for integrating Cognito SDKs like syncing new registrations from Wordpress to Cognito, Login into the site via default wordpress login form instead of redirecting to the Cognito’s login page, connecting Cognito User Pool, login redirections, and many more.
 
 **Discord SSO**
-This Single Sign-On plugin allows Login into WordPress using Discord. The other supported use-cases are syncing user profile from Discord to WordPress, Role mapping into WordPress based on Discord roles, Avatar Mapping along with customizations like WordPress to Discord role mapping, managing Guild members, handling subscriptions based access to discord channels from a WordPress site.
-It also supports customization for integrating different WordPress and Discord applications.
+This Single Sign-On plugin allows Discord login into WordPress. The other supported use-cases are syncing user profile from Discord to WordPress, Role mapping into WordPress based on Discord roles, Avatar Mapping along with customizations like WordPress to Discord role mapping, managing Guild members, handling subscriptions based access to discord channels from a WordPress site.
+Along with Discord login, it also supports customization for integrating different WordPress and Discord applications.
 
 **Keycloak SSO**
 This Single Sign-On plugin supports SSO with Keycloak. Keycloak server authenticates the user for WordPress. On successful authentication. It also provides an identity token and an access token that contains user profile information along with roles. The access token from Keycloak can be used to invoke other remote services on behalf of the user.
@@ -123,7 +123,7 @@ The plugin can also support WordPress Single Sign On ( SSO ) with any Identity P
 
 = ALL INCLUSIVE VERSION FEATURES =
 
-*All-in-one WordPress Single Sign-On ( SSO ) plan with the support of add-ons / Third Party Plugin compatibility
+*	All-in-one WordPress Single Sign-On ( SSO ) plan with the support of add-ons / Third Party Plugin compatibility
 *	**Third Party Plugin Compatibility for Single Sign-On ( SSO )**: WooCommerce plugin compatibility with WordPress Single Sign-On ( SSO ) / Login plugin
 *	**Add-on Support with SSO Plugin**: SCIM User Provisioning, Page & Post Restriction, BuddyPress Integration, Login Form Add-on, Discord Role Mapping, LearnDash Integration, Media Restriction, Attribute Based Redirection, SSO Session Management, SSO Login Audit, Membership based Login Redirection, Azure Forgot Password / Rest Password Policy Add-on
 
@@ -226,28 +226,33 @@ The plugin can also support WordPress Single Sign On ( SSO ) with any Identity P
 
 
 = Other OAuth and OpenID Connect ( OIDC ) Providers we support for WordPress Single Sign-On ( SSO ) =
-*	Other oauth 2.0 and OpenId Connect ( OIDC ) 1.0 servers WordPress Single Sign-On ( SSO ) plugin support includes Office 365, AWS Cognito, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive CyberArk, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign-On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks, ClassLink, Google Classroom, MemberClicks, BankID, CSI, Splitwise, Infusionsoft, Hubspot, Join It, MyAcademicID, MemberConnex, Novi, Coassemble, Servicenow, IBM APP ID, Nimble AMS, iSpring LMS, Neon CRM, EPIC, IPB forum, Wiziq, Sprinklr, Elvanto, FranceConnect, Church Online, Bigcommerce, Sewobe, PracticePanther, SubscribeStar, Eventbrite, Medi-Access, Lichess, CILogon, Simplecast, SURF, MediaWiki, UNA, NetSuite, Oracle IDCS, Globus, Square, SimpleSAMLphp, Basecamp, HP, SHELL, Otoy etc.
+*	Other oauth 2.0 and OpenId Connect ( OIDC ) 1.0 servers WordPress Single Sign-On ( SSO ) plugin support includes Office 365, AWS Cognito, Egnyte, Autodesk, Zendesk, Foursquare, Harvest, Mailchimp, Bitrix24, Spotify, Vkontakte, Huddle, Reddit, Strava, Ustream, Yammer, RunKeeper, Instagram, SoundCloud, Pocket, PayPal, Pinterest, Vimeo, Nest, Heroku, DropBox, Buffer, Box, Hubic, Deezer, DeviantArt, Delicious, Dailymotion, Bitly, Mondo, Netatmo, Amazon, FitBit, Clever, Sqaure Connect, Windows, Dash 10, Github, Invision Community, Blizzard, authlete, Keycloak, Procore, Eve Online, Laravel Passport, Nextcloud, Renren, Soundcloud, OpenAM, IdentityServer, ORCID, Diaspora, Timezynk, Idaptive CyberArk, Duo Security, Rippling, Crowd, Janrain, Numina Solutions, Ubuntu Single Sign-On, Apple, Ipsilon, Zoho, Itthinx, Fellowshipone, Miro, Naver, Clever, Coil, Parallel Markets, VATSIM, Liferay, Fatsecret, Intuit, iMIS, ORY Hydra, FusionAuth, Kakao, ID.me, MoxiWorks, ClassLink, Google Classroom, MemberClicks, BankID, CSI, Splitwise, Infusionsoft, Hubspot, Join It, MyAcademicID, MemberConnex, Novi, Coassemble, Servicenow, IBM APP ID, Nimble AMS, iSpring LMS, Neon CRM, EPIC, IPB forum, Wiziq, Sprinklr, Elvanto, FranceConnect, Church Online, Bigcommerce, Sewobe, PracticePanther, SubscribeStar, Eventbrite, Medi-Access, Lichess, CILogon, Simplecast, SURF, MediaWiki, UNA, NetSuite, Oracle IDCS, Globus, Square, SimpleSAMLphp, Basecamp, HP, SHELL, Otoy, Simplepass, Feide, Asmodee, SwissID, Miro, Alkami, Switch, Citrix, Schoology, iGov, LearnWorlds etc.
 
 
 == WordPress Single Sign-On ( SSO ) Supported Add-ons ==
 
 We have a variety of add-ons that can be integrated with the OAuth & OpenId Connect Single Sign-On ( SSO ) plugin to improve the OAuth SSO functionality of your WordPress site.
 
-*	**Page Restriction** - This add-on is basically used to protect the pages / posts of your site with OAuth & OpenID Connect compliant IDP ( Server ) login page and also, restrict the access to pages / posts of the site based on the user roles.
-*	**BuddyPress Integration** - This add-on maps the attributes fetched from the OAuth & OpenID Connect compliant IdP with BuddyPress attributes.
-*	**LearnDash Integrator** - LearnDash Integration will map the Single Sign-On ( SSO ) users to LearnDash groups as per the group attributes sent by your Identity Provider.
-*	**Login Form Add-On** - This add-on provides Login form for OAuth2 / OpenID Connect login instead of only a button. It relies on OAuth & OpenID Connect Single Sign-On ( SSO ) plugin to have Password Grant configured. It can be customized using custom CSS and JS.
-*	**Discord Role Mapping** - Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while Single Sign-On ( SSO ).
-*	**Media Restriction** - This add-on restricts unauthorized users from accessing the media files on your WordPress site.
-*	**Attribute Based Redirection** - Attribute Based Redirection add-on can be used to restrict and redirect users to different URLs based on OAuth & OpenID Connect attributes.
-*	**SSO Session Management** - SSO session management add-on manages the login session time of your users based on their WordPress roles.
-*	**SSO Login Audit** - SSO Login Audit captures and tracks all the SSO users and generates reports.
-*	**Membership Level based Login Redirection** - This add-on allows redirecting users to custom pages based on users' membership levels after Single Sign-On ( SSO ). Checks for the user's membership level during every login, so any update on the membership level doesn't affect redirection.
-*	**Azure Forgot Password / Reset Password Policy Add-on** - This add-on enables the Forgot Password option provided on Azures Login page using the Azure's Password Reset policy while SSO into WordPress. 
+*	<a href="https://plugins.miniorange.com/wordpress-page-restriction" target="_blank">**Page Restriction**</a> - This add-on is basically used to protect the pages / posts of your site with OAuth & OpenID Connect compliant IDP ( Server ) login page and also, restrict the access to pages / posts of the site based on the user roles.
+*	<a href="https://plugins.miniorange.com/wordpress-buddypress-integrator" target="_blank">**BuddyPress Integration**</a> - This add-on maps the attributes fetched from the OAuth & OpenID Connect compliant IdP with BuddyPress attributes.
+*	<a href="https://plugins.miniorange.com/wordpress-learndash-integrator" target="_blank">**LearnDash Integrator**</a> - LearnDash Integration will map the Single Sign-On ( SSO ) users to LearnDash groups as per the group attributes sent by your Identity Provider.
+*	<a href="https://plugins.miniorange.com/idp-login-form-plugin-for-sso" target="_blank">**Login Form Add-On**</a> - This add-on provides Login form for OAuth2 / OpenID Connect login instead of only a button. It relies on OAuth & OpenID Connect Single Sign-On ( SSO ) plugin to have Password Grant configured. It can be customized using custom CSS and JS.
+*	<a href="https://plugins.miniorange.com/discord-wordpress-single-sign-on-integration" target="_blank">**Discord Role Mapping**</a> - Discord Role Mapping add-on helps you to get roles from your discord server and maps it to WordPress user while Single Sign-On ( SSO ).
+*	<a href="https://plugins.miniorange.com/wordpress-media-restriction" target="_blank">**Media Restriction**</a> - This add-on restricts unauthorized users from accessing the media files on your WordPress site.
+*	<a href="https://plugins.miniorange.com/wordpress-attribute-based-redirection-restriction" target="_blank">**Attribute Based Redirection**</a> - Attribute Based Redirection add-on can be used to restrict and redirect users to different URLs based on OAuth & OpenID Connect attributes.
+*	<a href="https://plugins.miniorange.com/sso-session-management" target="_blank">**SSO Session Management**</a> - SSO session management add-on manages the login session time of your users based on their WordPress roles.
+*	<a href="https://plugins.miniorange.com/wordpress-sso-login-audit" target="_blank">**SSO Login Audit**</a> - SSO Login Audit captures and tracks all the SSO users and generates reports.
+*	<a href="https://plugins.miniorange.com/self-service-reset-password-for-azure-active-directory-b2c" target="_blank">**Azure B2C Forgot Password / Reset Password Policy Add-on**</a> - This add-on enables the Forgot Password option provided on Azures Login page using the Azure's Password Reset policy while SSO into WordPress.
+*	<a href="https://plugins.miniorange.com/wordpress-woocommerce-integrator" target="_blank">**WooCommerce Integrator**</a> - WooCommerce integrator will map the user profile attributes sent by your OAuth/OpenID provider to the WooCommerce Billing details of the customer on WordPress.
+*	<a href="https://plugins.miniorange.com/aws-cognito-wordpress-single-sign-on-integration" target="_blank">**WordPress Cognito Integrator**</a> - Cognito integrator provides functionality to manage all the user operations such as Login, Registration, Profile update, Password Reset from your WordPress site.
+*	<a href="https://plugins.miniorange.com/wordpress-azure-integration" target="_blank">**WordPress Azure Integrator**</a> - WordPress Azure AD integrator provides functionality to manage all the user operations from your WordPress site. The user operations provided are Login, Registration, Profile update, Password Reset.
 
 
 = Real Time User Provisioning using SCIM =
 Provides user-provisioning ( sync user profiles ) from your IDP ( Okta, Azure, OneLogin etc ) to your WordPress using SCIM standard. You can refer our <a href="https://plugins.miniorange.com/wordpress-user-provisioning/" target="_blank"> WordPress User Provisioning using SCIM </a> plugin.
+
+= WordPress Single Sign-On ( SSO ) plugin Compatibility with different LMS =
+*	Tutor LMS, Sensei, LifterLMS, LearnPress
 
 = REST API Authentication =
 Secures the unauthorized access to your WordPress sites/pages using our <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank"> WordPress REST API Authentication </a> plugin.
@@ -319,6 +324,11 @@ Please email us at <a href="mailto:info@xecurify.com" target="_blank">info@xecur
 7. WordPress Dashboard Login
 
 == Changelog ==
+
+= 6.21.0 =
+* Added flow driven UI
+* PHPCS fixes
+* CSS loading fix
 
 = 6.20.4 =
 * Minor changes in readme

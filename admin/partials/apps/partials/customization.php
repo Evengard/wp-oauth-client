@@ -7,7 +7,7 @@
 	<form id="form-common" name="form-common" method="post" action="admin.php?page=mo_oauth_settings&tab=customization">
 		</form>
 		<div style="padding:15px 0px 15px;"><h2 style="display: inline;"><?php _e('Customize Icons','miniorange-login-with-eve-online-google-facebook'); ?> <small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></h2><span style="float: right;">[
-		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/login-button-customization" target="_blank"><?php _e('Click here','miniorange-login-with-eve-online-google-facebook'); ?></a> <?php _e('to know how this is useful.','miniorange-login-with-eve-online-google-facebook'); ?> ]</span></div>
+		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/login-button-customization" target="_blank" rel="noopener"><?php _e('Click here','miniorange-login-with-eve-online-google-facebook'); ?></a> <?php _e('to know how this is useful.','miniorange-login-with-eve-online-google-facebook'); ?> ]</span></div>
 	
 		<table class="mo_settings_table">
 			<tr>

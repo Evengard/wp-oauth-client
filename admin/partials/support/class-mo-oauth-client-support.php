@@ -18,7 +18,7 @@ class Mo_OAuth_Client_Admin_Support {
                 	<div style="float:left;width:88%;padding-left:5px;padding-top:5px;font-size:13px;line-height:20px;"><b><?php _e('Need any help? Just give us a call at +1 978 658 9387','miniorange-login-with-eve-online-google-facebook');?></b>
                 	</div>
             	</div>
-				<p><?php esc_html_e('Couldn\'t find an answer in ','miniorange-login-with-eve-online-google-facebook')?><a href="https://faq.miniorange.com/kb/oauth-openid-connect" target="_blank">FAQ</a>?<br>
+				<p><?php esc_html_e('Couldn\'t find an answer in ','miniorange-login-with-eve-online-google-facebook')?><a href="https://faq.miniorange.com/kb/oauth-openid-connect" target="_blank" rel="noopener">FAQ</a>?<br>
 				<?php esc_html_e('Just send us a query and we will get back to you soon.','miniorange-login-with-eve-online-google-facebook')?></p>
 				<form method="post" action="">
 					<?php wp_nonce_field('mo_oauth_support_form','mo_oauth_support_form_field'); ?>
@@ -29,7 +29,7 @@ class Mo_OAuth_Client_Admin_Support {
 							value="<?php echo get_option("mo_oauth_admin_email"); ?>"></td>
 						</tr>
 						<tr>
-							<td><input class="mo_table_textbox" style="min-width: 153%;" type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}|[\+]\d{1,4}[\s]" placeholder="Enter phone here" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_client_admin_phone');?>"></td>
+							<td><input class="mo_table_textbox" type="tel" id="contact_us_phone" pattern="[\+]\d{11,14}|[\+]\d{1,4}[\s]\d{9,10}|[\+]\d{1,4}[\s]" placeholder="Enter phone here" name="mo_oauth_contact_us_phone" value="<?php echo get_option('mo_oauth_client_admin_phone');?>"></td>
 						</tr>
 						<tr>
 							<td><textarea class="mo_table_textbox" onkeypress="mo_oauth_valid_query(this)" placeholder="<?php _e('Enter your query here','miniorange-login-with-eve-online-google-facebook'); ?>" onkeyup="mo_oauth_valid_query(this)" onblur="mo_oauth_valid_query(this)" required name="mo_oauth_contact_us_query" rows="4" style="resize: vertical;"></textarea></td>
@@ -63,7 +63,7 @@ class Mo_OAuth_Client_Admin_Support {
 								</select></td>
 							</tr>
 							<tr id="setup_guide_link" style="display: none;">
-								<td colspan="2"><?php esc_html_e('Have you checked the setup guide ','miniorange-login-with-eve-online-google-facebook')?><a href="https://plugins.miniorange.com/wordpress-single-sign-on-sso-with-oauth-openid-connect" target="_blank">here</a>?</td>
+								<td colspan="2"><?php esc_html_e('Have you checked the setup guide ','miniorange-login-with-eve-online-google-facebook')?><a href="https://plugins.miniorange.com/wordpress-single-sign-on-sso-with-oauth-openid-connect" target="_blank" rel="noopener">here</a>?</td>
 							</tr>
 							<tr>
 								<td><strong><font color="#FF0000">*</font><?php esc_html_e('Date:','miniorange-login-with-eve-online-google-facebook')?></td></strong></td>

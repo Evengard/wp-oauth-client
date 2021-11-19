@@ -209,7 +209,8 @@ class Mo_OAuth_Client_Customer {
 		$response = wp_remote_post( $url, $args );
 		if ( is_wp_error( $response ) ) {
 			$error_message = $response->get_error_message();
-			echo "Something went wrong: $error_message";
+			// echo "Something went wrong: $error_message";
+			return false;
 			exit();
 		}
 		

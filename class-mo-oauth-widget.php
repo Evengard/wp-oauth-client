@@ -10,7 +10,6 @@ class Mo_Oauth_Widget extends WP_Widget {
 		add_action( 'init', array( $this, 'mo_oauth_start_session' ) );
 		add_action( 'wp_logout', array( $this, 'mo_oauth_end_session' ) );
 		add_action( 'login_form', array( $this, 'mo_oauth_wplogin_form_button' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'mo_oauth_wplogin_form_style' ) );
 		parent::__construct( 'mo_oauth_widget', MO_OAUTH_ADMIN_MENU, array( 'description' => __( 'Login to Apps with OAuth', 'flw' ), ) );
 
 	 }
@@ -102,6 +101,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 			
 			if( isset($appsConfigured) && $appsConfigured ) {
 
+				$this->mo_oauth_wplogin_form_style();
 				$this->mo_oauth_load_login_script();
 
 				$style = get_option('mo_oauth_icon_width') ? "width:".get_option('mo_oauth_icon_width').";" : "";
@@ -186,12 +186,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			}
 
 			if(isset($_REQUEST['test']))
-				setcookie("mo_oauth_test", true);
+				setcookie("mo_oauth_test", true, null, null, null, true, true);
 			else
-				setcookie("mo_oauth_test", false);
+				setcookie("mo_oauth_test", false, null, null, null, true, true);
 
 			if($appslist == false){
-				MO_Oauth_Debug::mo_oauth_log('Looks like you have not configured OAuth provider, please try to configure OAuth provider first');
+				MO_Oauth_Debug::mo_oauth_log('ERROR : Looks like you have not configured OAuth provider, please try to configure OAuth provider first');
 				exit("Looks like you have not configured OAuth provider, please try to configure OAuth provider first");
 			}
 				
@@ -202,7 +202,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					if($app['appId']=="twitter" || $app['appId']=='oauth1')
 							{	
 								  include "custom-oauth1.php";
-								  setcookie('tappname',$appname);
+								  setcookie('tappname',$appname, null, null, null, true, true);
                 				   MO_Custom_OAuth1::mo_oauth1_auth_request($_COOKIE['tappname']);
                 				  exit();
 							}
@@ -225,8 +225,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
 
-					MO_Oauth_Debug::mo_oauth_log('Authorization Url => '.$authorizationUrl);
-
+					MO_Oauth_Debug::mo_oauth_log('Authorization Request Sent => '.$authorizationUrl);
 					header('Location: ' . $authorizationUrl);
 					exit;
 				}
@@ -244,8 +243,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
 
-					MO_Oauth_Debug::mo_oauth_log('Authorization Url => '.$authorizationUrl);
-
+					MO_Oauth_Debug::mo_oauth_log('Authorization Request Sent => '.$authorizationUrl);
 					header('Location: ' . $authorizationUrl);
 					exit;
 				}
@@ -346,15 +344,15 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
 			if (!isset($_REQUEST['code'])){
 				if(isset($_REQUEST['error_description'])){
-					MO_Oauth_Debug::mo_oauth_log($_REQUEST['error_description']);
+					MO_Oauth_Debug::mo_oauth_log('Authorization Response Recieved => ERROR : '.$_REQUEST['error_description']);
 					exit($_REQUEST['error_description']);
 				}
 				else if(isset($_REQUEST['error']))
 				{
-					MO_Oauth_Debug::mo_oauth_log($_REQUEST['error']);
+					MO_Oauth_Debug::mo_oauth_log('Authorization Response Recieved => ERROR : '.$_REQUEST['error']);
 					exit($_REQUEST['error']);
 				}
-				MO_Oauth_Debug::mo_oauth_log('Invalid response');
+				MO_Oauth_Debug::mo_oauth_log('Authorization Response Recieved => ERROR : Invalid response');
 				exit('Invalid response');
 			} else {
 
@@ -369,7 +367,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					}
 
 					if (empty($currentappname)) {
-						MO_Oauth_Debug::mo_oauth_log('No request found for this application.');
+						MO_Oauth_Debug::mo_oauth_log('ERROR : No request found for this application.');
 						exit('No request found for this application.');
 					}
 
@@ -389,11 +387,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					}
 
 					if (!$currentapp){
-						MO_Oauth_Debug::mo_oauth_log('Application not configured.');
+						MO_Oauth_Debug::mo_oauth_log('Authorization Response Recieved => ERROR : Application not configured.');
 						exit('Application not configured.');
 					}
 					$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
+					MO_Oauth_Debug::mo_oauth_log('Authorization Response Received');
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 						// OpenId connect
 
@@ -415,15 +414,14 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						}	
 		
 						if(!$idToken){
-							MO_Oauth_Debug::mo_oauth_log('Invalid token received.');
+							MO_Oauth_Debug::mo_oauth_log('Token Response Recieved => ERROR : Invalid token received.');
 							exit('Invalid token received.');
 						}
 						else{
 							MO_Oauth_Debug::mo_oauth_log('ID Token => ');
 							MO_Oauth_Debug::mo_oauth_log($idToken);
 							$resourceOwner = $mo_oauth_handler->getResourceOwnerFromIdToken($idToken);
-							MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => ');
-							MO_Oauth_Debug::mo_oauth_log($resourceOwner);
+							MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => '.json_encode($resourceOwner));
 						}
 
 					} else {
@@ -445,7 +443,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
                             $accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
                         }
 						if(!$accessToken){
-							MO_Oauth_Debug::mo_oauth_log('Invalid token received.');
+							MO_Oauth_Debug::mo_oauth_log('Access Token Response => ERROR : Invalid token received.');
 							exit('Invalid token received.');
 						}
 
@@ -453,9 +451,8 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						if (substr($resourceownerdetailsurl, -1) == "=") {
 							$resourceownerdetailsurl .= $accessToken;
 						}
-						MO_Oauth_Debug::mo_oauth_log('Access Token => '.$accessToken);
+						MO_Oauth_Debug::mo_oauth_log('Token Response Recieved => '.$accessToken);
 						$resourceOwner = $mo_oauth_handler->getResourceOwner($resourceownerdetailsurl, $accessToken);
-
 						MO_Oauth_Debug::mo_oauth_log('Resource Owner Response => ');
 						MO_Oauth_Debug::mo_oauth_log($resourceOwner);
 					}
@@ -468,9 +465,19 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						echo '<style>table{border-collapse:collapse;}th {background-color: #eee; text-align: center; padding: 8px; border-width:1px; border-style:solid; border-color:#212121;}tr:nth-child(odd) {background-color: #f2f2f2;} td{padding:8px;border-width:1px; border-style:solid; border-color:#212121;}</style>';
 						echo "<h2>".__('Test Configuration','miniorange-login-with-eve-online-google-facebook')."</h2><table><tr><th>".__('Attribute Name','miniorange-login-with-eve-online-google-facebook')."</th><th>".__('Attribute Value','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
 						mo_oauth_client_testattrmappingconfig("",$resourceOwner);
-						$username_attr_mapping = array_values( get_option('mo_oauth_apps_list') )[0]['username_attr'];
+						$app = array_values( get_option('mo_oauth_apps_list') )[0];
+						if(isset($app['username_attr']))
+							$username_attr_mapping = $app['username_attr'];
+						else
+							$username_attr_mapping = false;
 						echo "</table>";
-						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;<b>'.$username_attr_mapping.'</b> has been mapped to username attribute.&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> to change it</div>';
+						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;';
+						if($username_attr_mapping)
+						echo '<b>'.$username_attr_mapping.'</b> has been mapped to username attribute.&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> to change it';
+						else
+						echo '<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> for attribute mapping';
+						echo '</div>';
+
 						exit();
 					}
 
@@ -641,9 +648,12 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						break;
 					}
 				}
-
-				if( strpos( $key, "username") !== false || strpos( $key, "email") !== false && strpos($username_value, "username") === false ) {
-					$username_value = $key;
+				if(strpos($username_value, "username") === false ) {
+					if(strpos( $key, "username") !== false)
+						$username_value = $key;
+					else if(strpos( $key, "email") !== false && filter_var($resource, FILTER_VALIDATE_EMAIL)){
+						$username_value = $key;
+					}
 				}
 			}
 		}

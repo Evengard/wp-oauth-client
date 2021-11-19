@@ -6,7 +6,7 @@ function mo_oauth_client_grant_type_settings() {
 	<div class="mo_table_layout" id="mo_grant_settings" style="position: relative;">
 		<table class="mo_settings_table">
 			<tr>
-				<td style="padding: 15px 0px 5px;"><h3 style="display: inline;"><?php esc_html_e('Grant Settings','miniorange-login-with-eve-online-google-facebook')?>&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3><span style="float: right;">[ <a href="https://developers.miniorange.com/docs/oauth/wordpress/client/multiple-grant-support" target="_blank">Click here</a> to know how this is useful. ]</span></td>
+				<td style="padding: 15px 0px 5px;"><h3 style="display: inline;"><?php esc_html_e('Grant Settings','miniorange-login-with-eve-online-google-facebook')?>&emsp;<code><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></code></h3><span style="float: right;">[ <a href="https://developers.miniorange.com/docs/oauth/wordpress/client/multiple-grant-support" target="_blank" rel="noopener">Click here</a> to know how this is useful. ]</span></td>
 				<!-- <td align="right"><a href="#" target="_blank" id='mo_oauth_grant_guide' style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px;">What is this?</a></td> -->
 			</tr>
 		</table>
@@ -35,7 +35,7 @@ function mo_oauth_client_grant_type_settings() {
 		</div>
 		<hr>
 		<div style="padding:15px 0px 15px;"><h3 style="display: inline;"><?php esc_html_e('JWT Validation & PKCE','miniorange-login-with-eve-online-google-facebook')?>&emsp;</h3><span style="float: right;">[
-		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/json-web-token-support" target="_blank">Click here</a> <?php esc_html_e('to know how this is useful.','miniorange-login-with-eve-online-google-facebook')?>  ]</span></div>
+		<a href="https://developers.miniorange.com/docs/oauth/wordpress/client/json-web-token-support" target="_blank" rel="noopener">Click here</a> <?php esc_html_e('to know how this is useful.','miniorange-login-with-eve-online-google-facebook')?>  ]</span></div>
 				<div>
 					<table class="mo_settings_table">
 						<tr>

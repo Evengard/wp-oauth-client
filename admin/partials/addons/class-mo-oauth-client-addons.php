@@ -297,7 +297,7 @@ a {
               target="_blank" method="post">
             <input type="email" name="username" value="<?php echo get_option( 'mo_oauth_admin_email' ); ?>"/>
             <input type="text" name="redirectUrl"
-                   value="<?php echo "http://plugins.miniorange.com/go/oauth-2fa-buy-now-payment"; ?>"/>
+                   value="<?php echo "https://plugins.miniorange.com/go/oauth-2fa-buy-now-payment"; ?>"/>
             <input type="text" name="requestOrigin" id="requestOrigin"/>
 </form>
   
@@ -401,7 +401,7 @@ a {
             <img src="<?php echo plugins_url($addon['img'], __FILE__) ?>" width="45px" height="48px">
             </div>
         <div class="mo_float-child2">
-          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href= "<?php echo isset($addon['link']) ? $addon['link'] : '';?>" target="_blank"><?php echo $addon['title'] ?></a></p></strong></div>
+          <div><strong><p style="font-size: 20px;margin: 1px;padding-left: 7px;line-height: 120%;font-weight: 600;font-family: Verdana, Arial, Helvetica, sans-serif;" ><a href= "<?php echo isset($addon['link']) ? $addon['link'] : '';?>" target="_blank" rel="noopener"><?php echo $addon['title'] ?></a></p></strong></div>
           </div>
         </div>
         <p style="text-align: center;font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;"><?php echo $addon['desc'] ?></p>

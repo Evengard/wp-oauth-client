@@ -31,10 +31,10 @@
                  $tempappname = !in_array($currentapp['appId'], $refAppId) ? $currentapp['appId'] : "customApp";
                  $app = mo_oauth_client_get_app($tempappname);
 					if (isset($app->video))
-					{ ?> <a href="<?php echo $app->video; ?>" target="_blank" class="mo-oauth-setup-video-button" style="text-decoration: none;" >Video Guide</a> <?php
+					{ ?> <a href="<?php echo $app->video; ?>" target="_blank" rel="noopener" class="mo-oauth-setup-video-button" style="text-decoration: none;" >Video Guide</a> <?php
 					}
 					if (isset($app->guide))
-					{ ?> <a href="<?php echo $app->guide; ?>" target="_blank" class="mo-oauth-setup-guide-button" style="text-decoration: none;" > Setup Guide </a> <?php
+					{ ?> <a href="<?php echo $app->guide; ?>" target="_blank" rel="noopener" class="mo-oauth-setup-guide-button" style="text-decoration: none;" > Setup Guide </a> <?php
 					}
 			?>
                 </span>

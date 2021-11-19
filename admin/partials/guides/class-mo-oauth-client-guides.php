@@ -6,7 +6,7 @@ class Mo_OAuth_Client_Admin_Guides {
 		self::instructions_page($appname);
 	}
 	
-	 public static function instructions_page($appname){
+	public static function instructions_page($appname){
 		$app = mo_oauth_client_get_app($appname);
 		if(!$app) {
 			$appslist = get_option('mo_oauth_apps_list');
@@ -18,15 +18,18 @@ class Mo_OAuth_Client_Admin_Guides {
 					}
 				}
 			}
-			echo $currentapp['apptype'];
-			if($currentapp['apptype'] === "oauth") {
-				$app = mo_oauth_client_get_app('other');
-			} else {
-				$app = mo_oauth_client_get_app($currentapp['apptype']);
+			if(isset($currentapp)) {
+				echo $currentapp['apptype'];
+				if($currentapp['apptype'] === "oauth") {
+					$app = mo_oauth_client_get_app('other');
+				} else {
+					$app = mo_oauth_client_get_app($currentapp['apptype']);
+				}
 			}
 		}
 		
-		if(strpos($app->label, 'Custom') !== false) {
+		if( $app ) {
+			if(strpos($app->label, 'Custom') !== false) {
 			echo '<br><strong>Instructions to configure '.$app->label.':</strong><ol>';
 		} else {
 			echo '<br><strong>Instructions to configure '.$app->label.' as OAuth Server:</strong><ol>';
@@ -42,6 +45,7 @@ class Mo_OAuth_Client_Admin_Guides {
 			<li>Enter your <i>Client ID</i> and <i>Client Secret</i> provided by your OAuth Provider, on <a href="admin.php?page=mo_oauth_settings&appId='.$app->appId.'" target="_blank"><b>Configure OAuth</b></a> page.</li>';
 		}
 		echo '<li>Once done with configuration, click on <b>Save Settings</b>. Click on <b>Test Configuration</b> button.</li><li> On successful configuration, you will get a table with attributes names and values.<br>For example:<br><img src="'. plugins_url( './images/testconfig.png', __FILE__ ).'" /></li><li>To proceed with SSO, you need to map attributes under Attribute Mapping section. Map attribute with the attribute name provided under Test Configuration table. <a href="https://faq.miniorange.com/knowledgebase/map-roles-usergroup/" target="_blank">Click here</a> to know more about how to configure attributes.</li><li>Go to <b>Appearance->Widgets</b>. Among the available widgets you will find <b>'.MO_OAUTH_ADMIN_MENU.'</b>, drag it to the widget area where you want it to appear.</li><li>To test the SSO, open the page where you have saved the widget in private window. On successful SSO, user will automatically get created in <a href="users.php" target="_blank">WordPress Users list</a>.</li></ol>';
+		}
 	}
 }
 

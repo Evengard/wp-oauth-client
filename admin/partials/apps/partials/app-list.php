@@ -21,37 +21,62 @@ function mo_oauth_client_applist_page() {
 	<div id="mo_oauth_app_list" class="mo_table_layout">
 	<?php
 
-		if(isset($_GET['action']) && $_GET['action']=='delete'){
-			if(isset($_GET['app'])) {
-				mo_oauth_client_delete_app($_GET['app']);
-				if ($_GET['app'] === "CognitoApp") {
-					?>
-					<script>
-						let url = window.location.href;
-						url = url.split("&action=delete&app=CognitoApp")[0];
-						window.location.replace(url);
-					</script>
-					<?php
-					exit();
-				}
-			}
-		} else if(isset($_GET['action']) && $_GET['action']=='instructions'){
-			if(isset($_GET['appId'])){
-				Mo_OAuth_Client_Admin_Guides::instructions($_GET['appId']);
-			}
-		}
+		if(isset($_GET['action'])){
+			switch(sanitize_text_field($_GET['action']))
+			{				
+				case 'delete':	
+					if(isset($_GET['app'])) {
+						$app = sanitize_text_field($_GET['app']);
+						mo_oauth_client_delete_app($app);
+						if ("CognitoApp" === $app) {
+							?>
+							<script>
+								let url = window.location.href;
+								url = url.split("&action=delete&app=CognitoApp")[0];
+								window.location.replace(url);
+							</script>
+							<?php
+							exit();
+						}
+					}
+					mo_oauth_client_get_app_list();
+					break;
 
-		if(isset($_GET['action']) && $_GET['action']=='add'){
-			Mo_OAuth_Client_Admin_Apps::add_app();
-		}
-		else if(isset($_GET['action']) && $_GET['action']=='update'){
-			if(isset($_GET['app']))
-				Mo_OAuth_Client_Admin_Apps::update_app($_GET['app']);
-		}
-		else if(get_option('mo_oauth_apps_list'))
-		{
+				case 'instructions':
+					if(isset($_GET['appId'])){
+						Mo_OAuth_Client_Admin_Guides::instructions(sanitize_text_field($_GET['appId']));
+					}
+					mo_oauth_client_get_app_list();
+					break;
+
+				case 'discard':
+					delete_option('mo_oauth_setup_wizard_app');
+					delete_option('mo_oauth_apps_list');
+					mo_oauth_client_get_app_list();					
+					break;	
+
+				case 'add':
+					Mo_OAuth_Client_Admin_Apps::add_app();
+					break;
+
+				case 'update':
+					if(isset($_GET['app']))
+					Mo_OAuth_Client_Admin_Apps::update_app(sanitize_text_field($_GET['app']));
+					break;			
+			}
+		}else{
+			mo_oauth_client_get_app_list();
+		} 
+	 ?>
+		</div>
+	<?php
+}
+
+	function mo_oauth_client_get_app_list(){
+		if(get_option('mo_oauth_apps_list') || get_option('mo_oauth_setup_wizard_app'))
+			{
 			$appslist = get_option('mo_oauth_apps_list');
-			if(sizeof($appslist)>0)
+			if((is_array($appslist) && sizeof($appslist)>0) || get_option('mo_oauth_setup_wizard_app'))
 				echo "<br><a href='#'><button disabled style='float:right'>Add Application</button></a>";
 			else
 				echo "<br><a href='admin.php?page=mo_oauth_settings&action=add'><button style='float:right'>".__('Add Application','miniorange-login-with-eve-online-google-facebook')."</button></a>";
@@ -59,30 +84,47 @@ function mo_oauth_client_applist_page() {
 			if(is_array($appslist) && sizeof($appslist)>0)
 				echo "<p style='color:#a94442;background-color:#f2dede;border-color:#ebccd1;border-radius:5px;padding:12px'>".__('You can only add 1 application with free version. Upgrade to','miniorange-login-with-eve-online-google-facebook')." <a href='admin.php?page=mo_oauth_settings&tab=licensing'><b>enterprise</b></a> ".__('to add more.','miniorange-login-with-eve-online-google-facebook')."</p>";
 			echo "<table class='tableborder'>";
-			echo "<tr><th><b>".__('Name','miniorange-login-with-eve-online-google-facebook')."</b></th><th>".__('Action','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
-			foreach($appslist as $key => $app){
-				$currentapp=$app;
-				echo "<tr><td>".$key, " (", $currentapp['apptype'], ") "."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".$key."'>".__('Edit Application','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#attribute-mapping'>".__('Attribute Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".$key."#role-mapping'>".__('Role Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".$key."'>".__('Delete','miniorange-login-with-eve-online-google-facebook')."</a> | ";
-				if(isset($_GET['action'])) {
-					if($_GET['action'] == 'instructions') {
-					echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>".__('Hide Instructions','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
+			echo "<tr><th>".__('Name','miniorange-login-with-eve-online-google-facebook')."</th><th>".__('Action','miniorange-login-with-eve-online-google-facebook')."</th></tr>";
+			if(get_option('mo_oauth_setup_wizard_app')){
+				$app = json_decode(get_option('mo_oauth_setup_wizard_app'));
+				echo "<tr><td>".esc_attr($app->mo_oauth_app_name)." (".esc_attr($app->mo_oauth_type).") </td><td><a href='".admin_url( 'admin.php?option=mo_oauth_client_setup_wizard' )."'>".__('Continue Setup','miniorange-login-with-eve-online-google-facebook')."</a> &nbsp <p style='display:inline;color:#a94442;'>(Your application setup is not yet completed)</p> | <a href='admin.php?page=mo_oauth_settings&tab=config&action=discard'>".__('Discard Draft','miniorange-login-with-eve-online-google-facebook')."</a></td><tr>";
+			}
+			else
+				foreach($appslist as $key => $app){
+					$currentapp=$app;
+					echo "<tr><td>".esc_attr($key), " (", esc_attr($currentapp['apptype']), ") "."</td><td><a href='admin.php?page=mo_oauth_settings&tab=config&action=update&app=".esc_attr($key)."'>".__('Edit Application','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".esc_attr($key)."#attribute-mapping'>".__('Attribute Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a href='admin.php?page=mo_oauth_settings&tab=attributemapping&app=".esc_attr($key)."#role-mapping'>".__('Role Mapping','miniorange-login-with-eve-online-google-facebook')."</a> | <a onclick='return confirm(\"Are you sure you want to delete this item?\")' href='admin.php?page=mo_oauth_settings&tab=config&action=delete&app=".esc_attr($key)."'>".__('Delete','miniorange-login-with-eve-online-google-facebook')."</a> | ";
+					if(isset($_GET['action'])) {
+						if('instructions' == sanitize_text_field($_GET['action'] )) {
+						echo "<a href='admin.php?page=mo_oauth_settings&tab=config'>".__('Hide Instructions','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
+						}
+					} else {
+						echo "<a href='admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".((isset($app['appId']) ? esc_attr($app['appId']) : ''))."'>".__('How to Configure?','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
 					}
-				} else {
-					echo "<a href='admin.php?page=mo_oauth_settings&tab=config&action=instructions&appId=".((isset($app['appId']) ? $app['appId'] : ''))."'>".__('How to Configure?','miniorange-login-with-eve-online-google-facebook')."</a></td></tr>";
-				}
 
 			}
 			echo "</table>";
 			echo "<br><br>";
 
 		} else {
-			Mo_OAuth_Client_Admin_Apps::add_app();
-		 } ?>
-		</div>
-	<?php
-}
-
-
+			if(get_option('mo_oauth_setup_wizard_app')){
+				$app = json_decode(get_option('mo_oauth_setup_wizard_app'));
+			echo '';
+			}else{
+				echo '<center><div style="margin:5% 5% 5% 5%;">
+					<h4>
+						Add new client application to implement Single Sign On into your website
+					</h4>
+	                <button class="button button-primary button-large" id="mo-oauth-continue-setup">Add New Application</button>
+                </div><center>
+                <script>
+                	jQuery("#mo-oauth-continue-setup").click(function(){
+                		window.location.href = "'.admin_url( 'admin.php?option=mo_oauth_client_setup_wizard' ).'";
+                	});
+                </script>';
+				// Mo_OAuth_Client_Admin_Apps::add_app();
+			}
+		}
+	}
 
 	function mo_oauth_client_delete_app($appname){
 		$appslist = get_option('mo_oauth_apps_list');

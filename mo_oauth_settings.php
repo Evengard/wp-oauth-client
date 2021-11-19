@@ -3,7 +3,7 @@
  * Plugin Name: OAuth Single Sign On - SSO (OAuth Client)
  * Plugin URI: miniorange-login-with-eve-online-google-facebook
  * Description: This WordPress Single Sign-On plugin allows login into WordPress with your Azure AD B2C, AWS Cognito, Centrify, Salesforce, Discord, WordPress or other custom OAuth 2.0 / OpenID Connect providers. WordPress OAuth Client plugin works with any Identity provider that conforms to the OAuth 2.0 and OpenID Connect (OIDC) 1.0 standard.
- * Version: 6.20.4
+ * Version: 6.21.0
  * Author: miniOrange
  * Author URI: https://www.miniorange.com
  * License: MIT/Expat
@@ -17,19 +17,22 @@ include_once dirname( __FILE__ ) . '/class-mo-oauth-widget.php';
 require('class-customer.php');
 require plugin_dir_path( __FILE__ ) . 'includes/class-mo-oauth-client.php';
 require('views/feedback_form.php');
+require('admin'.DIRECTORY_SEPARATOR.'partials'.DIRECTORY_SEPARATOR.'setup_wizard'.DIRECTORY_SEPARATOR.'handler'.DIRECTORY_SEPARATOR.'mo-oauth-wizard-ajax.php');
+require('admin'.DIRECTORY_SEPARATOR.'partials'.DIRECTORY_SEPARATOR.'setup_wizard'.DIRECTORY_SEPARATOR.'class-mo-oauth-client-setup-wizard.php');
 //require_once 'views/VisualTour/class-mocvisualtour.php';
 require('constants.php');
-
+define( 'MO_OAUTH_SETUP_WIZARD_VERSION', '1.0.0' );
 class mo_oauth {
 
 	function __construct() {
 
-		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ) );
+		add_action( 'admin_init',  array( $this, 'miniorange_oauth_save_settings' ),11 );
 		//add_action( 'plugins_loaded',  array( $this, 'mo_login_widget_text_domain' ) );
 		add_action('plugins_loaded',array($this,'mo_load_plugin_textdomain'));
 		register_deactivation_hook(__FILE__, array( $this, 'mo_oauth_deactivate'));
 		//add_action( 'admin_init', array( $this, 'tutorial' ) );
-		register_activation_hook(__FILE__, array($this,'mo_oauth_set_cron_job'));
+		register_activation_hook(__FILE__, array($this,'mo_oauth_set_cron_job'));		
+		register_activation_hook(__FILE__, array($this,'mo_oauth_activate'));
 		add_shortcode('mo_oauth_login', array( $this,'mo_oauth_shortcode_login'));
 		add_action( 'admin_footer', array( $this, 'mo_oauth_client_feedback_request' ) );
 		add_action( 'check_if_wp_rest_apis_are_open', array( $this, 'mo_oauth_scheduled_task' ) );
@@ -94,7 +97,9 @@ class mo_oauth {
 			//$custom_interval=apply_filters('cron_schedules',array('three_minutes'));//uncomment this for custom interval		
       		wp_schedule_event( time()+604800, 'weekly', 'check_if_wp_rest_apis_are_open' );// update timestamp and name according to interval
  		}
-
+ 	}
+ 	public function  mo_oauth_activate(){
+ 		add_option('mo_oauth_do_activation_redirect', true);
 	}
 	public function mo_oauth_deactivate() {
 		delete_option('host_name');
@@ -207,7 +212,18 @@ class mo_oauth {
 	}
 
 	function miniorange_oauth_save_settings(){
-
+		if(get_option('mo_oauth_do_activation_redirect')){
+			delete_option('mo_oauth_do_activation_redirect');
+			if(get_option('mo_oauth_apps_list') || get_option('mo_oauth_setup_wizard_app'))
+ 				wp_safe_redirect(admin_url( 'admin.php?page=mo_oauth_settings&tab=config' ));
+ 			else
+ 				wp_safe_redirect(admin_url( 'admin.php?option=mo_oauth_client_setup_wizard' ));
+		}
+		if(isset( $_GET['option'] ) and "mo_oauth_client_setup_wizard" == sanitize_text_field( wp_unslash( $_GET['option'] ) )){
+			$setup_wizard = new Mo_OAuth_Client_Setup_Wizard();
+			$setup_wizard->page();
+			return;
+		}
 		if ( isset( $_POST['option'] ) and sanitize_text_field( wp_unslash( $_POST['option'] ) ) == "mo_oauth_client_mo_server_message" && isset( $_REQUEST['mo_oauth_mo_server_message_form_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['mo_oauth_mo_server_message_form_field'] ) ), 'mo_oauth_mo_server_message_form' )) {
 			update_option( 'mo_oauth_client_show_mo_server_message', 1 );
 			return;
@@ -502,6 +518,7 @@ class mo_oauth {
 
                     if (isset($_POST['mo_oauth_discovery']) && $_POST['mo_oauth_discovery'] != "") {
                         add_option('mo_existing_app_flow', true);
+                        $newapp['existing_app_flow'] = true;
                         $discovery_endpoint = $_POST['mo_oauth_discovery'];
                         if(isset($_POST['mo_oauth_provider_domain'])) {
                             $domain = stripslashes(rtrim($_POST['mo_oauth_provider_domain'],"/"));
@@ -753,7 +770,7 @@ class mo_oauth {
 				if(empty($addons_selected) || is_null($addons_selected))
 					$addons_selected = 'No Add-ons selected';
 					if ( $demosite_status && "Not Sure" !==  $demo_plan ) {
-						$url = 'http://demo.miniorange.com/wordpress-oauth/';
+						$url = 'https://demo.miniorange.com/wordpress-oauth/';
 	
 						$headers = array( 'Content-Type' => 'application/x-www-form-urlencoded', 'charset' => 'UTF - 8');
 						$args = array(

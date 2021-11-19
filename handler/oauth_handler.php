@@ -21,29 +21,30 @@ class Mo_OAuth_Hanlder {
 		$content = curl_exec($ch);
 
 		if(curl_error($ch)){
-			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
-			MO_Oauth_Debug::mo_oauth_log(curl_error($ch));
+			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";		
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR :'.curl_error($ch));
 			exit( curl_error($ch) );
 		}
 
 		if(!is_array(json_decode($content, true))){
 			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
-			MO_Oauth_Debug::mo_oauth_log("Invalid response received.");
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received');
 			exit("Invalid response received.");
 		}
 
 		$content = json_decode($content,true);
 		if(isset($content["error_description"])){
-			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : '.$content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
-			MO_Oauth_Debug::mo_oauth_log($content["error"]);
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : '.$content["error"]);
 			exit($content["error"]);
 		} else if(isset($content["access_token"])) {
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => '.$content["access_token"]);
 			$access_token = $content["access_token"];
 		} else {
 			echo "<b>Response : </b><br>";print_r($content);echo "<br><br>";
-			MO_Oauth_Debug::mo_oauth_log('Invalid response received from OAuth Provider. Contact your administrator for more details.');
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OAuth Provider. Contact your administrator for more details');
 			exit('Invalid response received from OAuth Provider. Contact your administrator for more details.');
 		}
 
@@ -52,6 +53,7 @@ class Mo_OAuth_Hanlder {
 
 
 	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+
 		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
 		$content = json_decode($response,true);
 
@@ -59,8 +61,8 @@ class Mo_OAuth_Hanlder {
 			return $content["access_token"];
 			exit;
 		} else {
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OAuth Provider. Contact your administrator for more details. '.$response);
 			echo 'Invalid response received from OAuth Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
-			MO_Oauth_Debug::mo_oauth_log($response);
 			exit;
 		}
 	}
@@ -89,7 +91,7 @@ class Mo_OAuth_Hanlder {
 		}else if(!$send_headers && $send_body){
 				unset( $headers['Authorization'] );
 		}
-		MO_Oauth_Debug::mo_oauth_log('Token endpoint URL => '.$tokenendpoint);	
+		MO_Oauth_Debug::mo_oauth_log('Token Request Sent => '.$tokenendpoint);	
 		MO_Oauth_Debug::mo_oauth_log('body =>');
 		MO_Oauth_Debug::mo_oauth_log($body);	
 		MO_Oauth_Debug::mo_oauth_log('headers =>');
@@ -107,12 +109,13 @@ class Mo_OAuth_Hanlder {
 			'sslverify'   => false
 		) );
 		if ( is_wp_error( $response ) ) {
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response recieved while fetching token');
 			MO_Oauth_Debug::mo_oauth_log('Invalid response recieved while fetching token');
 			MO_Oauth_Debug::mo_oauth_log($response);
 			wp_die( $response );
 		}
 		$response =  $response['body'] ;
-		MO_Oauth_Debug::mo_oauth_log('Token Endpoint response => '.$response);
+		MO_Oauth_Debug::mo_oauth_log('Token Response Received => '.$response);
 		if(!is_array(json_decode($response, true))){
 			echo "<b>Response : </b><br>";print_r($response);echo "<br><br>";
 			MO_Oauth_Debug::mo_oauth_log('Invalid response received.');
@@ -123,10 +126,10 @@ class Mo_OAuth_Hanlder {
 		
 		$content = json_decode($response,true);
 		if(isset($content["error_description"])){
-			MO_Oauth_Debug::mo_oauth_log($content["error_description"]);
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : '.$content["error_description"]);
 			exit($content["error_description"]);
 		} else if(isset($content["error"])){
-			MO_Oauth_Debug::mo_oauth_log($content["error"]);
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : '.$content["error"]);
 			exit($content["error"]);
 		}
 		
@@ -134,13 +137,14 @@ class Mo_OAuth_Hanlder {
 	}
 	
 	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+		MO_Oauth_Debug::mo_oauth_log('Token Request Sent');
 		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
 		$content = json_decode($response,true);
 		if(isset($content["id_token"]) || isset($content["access_token"])) {
 			return $content;
 			exit;
 		} else {
-			MO_Oauth_Debug::mo_oauth_log('Invalid response received from OpenId Provider. Contact your administrator for more details.Response : '.$response);
+			MO_Oauth_Debug::mo_oauth_log('Token Response Received => ERROR : Invalid response received from OpenId Provider. Contact your administrator for more details. Response : '.$response);
 			echo 'Invalid response received from OpenId Provider. Contact your administrator for more details.<br><br><b>Response : </b><br>'.$response;
 			exit;
 		}

@@ -140,9 +140,9 @@ class Mo_OAuth_Client_Admin_Menu {
                 miniOrange OAuth Single Sign On
                 &nbsp
                 <a id="license_upgrade" class="add-new-h2 add-new-hover" style="background-color: orange !important; border-color: orange; font-size: 16px; color: #000;" href="<?php echo add_query_arg( array( 'tab' => 'licensing' ), htmlentities( $_SERVER['REQUEST_URI'] ) ); ?>"><?php esc_html_e('Premium plans','miniorange-login-with-eve-online-google-facebook')?></a>
-                <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank"><?php esc_html_e('Troubleshooting','miniorange-login-with-eve-online-google-facebook')?></a>
-                <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank"><?php esc_html_e('Ask questions on our forum','miniorange-login-with-eve-online-google-facebook')?></a>
-                <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank"><?php esc_html_e('Feature Details','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="faq_button_id" class="add-new-h2" href="https://faq.miniorange.com/kb/oauth-openid-connect/" target="_blank" rel="noopener"><?php esc_html_e('Troubleshooting','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="form_button_id" class="add-new-h2" href="https://forum.miniorange.com/" target="_blank" rel="noopener"><?php esc_html_e('Ask questions on our forum','miniorange-login-with-eve-online-google-facebook')?></a>
+                <a id="features_button_id" class="add-new-h2" href="https://developers.miniorange.com/docs/oauth/wordpress/client" target="_blank" rel="noopener"><?php esc_html_e('Feature Details','miniorange-login-with-eve-online-google-facebook')?></a>
 			</h1>
 			<?php } if ( 'licensing' === $currenttab ) { ?>
 				<div style="background-color:#f9f9f9;  display: flex;justify-content: center; padding-bottom:7px;padding-top:35px;" id="nav-container">
@@ -200,7 +200,7 @@ public static function show_rest_api_secure_message()
             	<?php wp_nonce_field('mo_oauth_client_rest_api_form','mo_oauth_client_rest_api_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_rest_api_message"/>
                 <div class="notice notice-info"style="padding-right: 38px;position: relative;border-left-color:red;"><h4><i class="fa fa-exclamation-triangle" style="font-size:20px;color:red;"></i>&nbsp;&nbsp;
-                   <b>Security Alert: </b> Looks like your WP REST APIs are not protected from public access. WP REST APIs should be protected and allowed only for authorized access. You can <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank">click here</a> to know how it can be handled.</h4>
+                   <b>Security Alert: </b> Looks like your WP REST APIs are not protected from public access. WP REST APIs should be protected and allowed only for authorized access. You can <a href="https://wordpress.org/plugins/wp-rest-api-authentication/" target="_blank" rel="noopener">click here</a> to know how it can be handled.</h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_rest_api_button"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>
@@ -254,7 +254,7 @@ public static function show_rest_api_secure_message()
             	<?php wp_nonce_field('mo_oauth_mo_server_message_form','mo_oauth_mo_server_message_form_field'); ?>
                 <input type="hidden" name="option" value="mo_oauth_client_mo_server_message"/>
                 <div class="notice notice-info" style="padding-right: 38px;position: relative;">
-                    <h4><?php _e('Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can','miniorange-login-with-eve-online-google-facebook');?> <a href="https://idp.miniorange.com/b2c-pricing" target="_blank"><?php _e('click here','miniorange-login-with-eve-online-google-facebook');?></a> <?php _e('to find more about it.','miniorange-login-with-eve-online-google-facebook');?></h4>
+                    <h4><?php _e('Looking for a User Storage/OAuth Server? We have a B2C Service(Cloud IDP) which can scale to hundreds of millions of consumer identities. You can','miniorange-login-with-eve-online-google-facebook');?> <a href="https://idp.miniorange.com/b2c-pricing" target="_blank" rel="noopener"><?php _e('click here','miniorange-login-with-eve-online-google-facebook');?></a> <?php _e('to find more about it.','miniorange-login-with-eve-online-google-facebook');?></h4>
                     <button type="button" class="notice-dismiss" id="mo_oauth_client_mo_server"><span class="screen-reader-text">Dismiss this notice.</span>
                     </button>
                 </div>

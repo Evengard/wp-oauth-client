@@ -166,7 +166,7 @@ function mo_oauth_client_attribite_role_mapping_ui(){
 
 		<div class="mo_table_layout" id="role-mapping">
 		<h3><?php _e('Role Mapping ','miniorange-login-with-eve-online-google-facebook')?><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer" style="font-size: x-small;">[PREMIUM]</a></small></h3>
-		<span style="font-size:small;">[ <a href="https://faq.miniorange.com/knowledgebase/map-roles-usergroup/" target="_blank"><?php _e('How to map Roles?','miniorange-login-with-eve-online-google-facebook')?></a> ]</span><br><br>
+		<span style="font-size:small;">[ <a href="https://faq.miniorange.com/knowledgebase/map-roles-usergroup/" target="_blank" rel="noopener"><?php _e('How to map Roles?','miniorange-login-with-eve-online-google-facebook')?></a> ]</span><br><br>
 		<b>NOTE: </b><?php _e('Role will be assigned only to non-admin users (user that do NOT have Administrator privileges). You will have to manually change the role of Administrator users.','miniorange-login-with-eve-online-google-facebook')?><br>
 		<form id="role_mapping_form" name="f" method="post" action="">
 		<input disabled class="mo_table_textbox" required="" type="hidden"  name="mo_oauth_app_name" value="<?php echo $currentappname;?>">
