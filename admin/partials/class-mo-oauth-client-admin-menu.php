@@ -224,12 +224,12 @@ public static function show_rest_api_secure_message()
                 <div class="notice notice-info"style="padding-right: 38px;position: relative;border-color:red; background-color: #0c082f;
 transform: scaleX(1);
 background-image: url('<?php echo esc_attr(dirname(plugin_dir_url( __FILE__ )));?>/images/3px-tile.png');"><h4><center><i class="fa fa-gift" style="font-size:50px;color:red;"></i>&nbsp;&nbsp;
-				<big><font style="color:white; font-size:30px;"><b>BLACK FRIDAY & CYBER MONDAY SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.</font></center></h4>
+				<big><font style="color:white; font-size:30px;"><b>BLACK FRIDAY & CYBER MONDAY SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.<br/><br/><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'>Click Here</a> to know the deals.</font></center></h4>
 				<p style="text-align: center; font-size: 60px; margin-top: 0px; color:white;" id="demo"></p>
 				</div>
 			</form>
 		<script>
-		var countDownDate = <?php echo esc_attr(strtotime('Nov 26, 2021 23:59:59')) ?> * 1000;
+		var countDownDate = <?php echo esc_attr(strtotime('Nov 30, 2021 23:59:59')) ?> * 1000;
 		var now = <?php echo esc_attr(time()) ?> * 1000;
 		var x = setInterval(function() {
 			now = now + 1000;
