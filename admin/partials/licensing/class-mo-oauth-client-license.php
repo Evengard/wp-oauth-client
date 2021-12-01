@@ -185,7 +185,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>STANDARD</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">Unlimited user creation<br>+<br>Advanced Attribute Mapping</div><div><br></div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectOptions('pricingStandard');
                                 </script>
@@ -223,7 +223,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>PREMIUM</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">Protect site with SSO login<br>+<br>Email Domains restriction</div><div><br></div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectOptions('pricingPremium');
                                 </script>
@@ -260,7 +260,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>ENTERPRISE</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">Multiple providers support<br>+<br>Dynamic Callback URL<br>+<br>Developer Hooks</div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectOptions('pricingEnterprise');
                                 </script>
@@ -298,7 +298,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                  <div class="moc-licensing-plan-price"><strong>ALL-INCLUSIVE</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">All Enterprise Features<br>+<br>Add-Ons*<br><a href="admin.php?page=mo_oauth_settings&tab=addons">(Check here)</a><br><br></div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectOptions('pricingAllinclusive');
                                 </script>
@@ -344,7 +344,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>PREMIUM</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">Protect site with SSO login<br>+<br>Email Domains restriction</div><div><br></div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectWithSubsitesOptions('mulPricingPremium');
                                 </script>
@@ -380,7 +380,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>ENTERPRISE</strong></div>
                                 <hr>
                                 <div class="moc-licensing-plan-name">Multiple providers support<br>+<br>Dynamic Callback URL<br>+<br>Developer Hooks</div>
-                                <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectWithSubsitesOptions('mulPricingEnterprise');
                                 </script>
@@ -416,7 +416,7 @@ class Mo_OAuth_Client_Admin_Licensing {
                                 <div class="moc-licensing-plan-price"><strong>ALL-INCLUSIVE</strong></div>
                                 <hr>
                                  <div class="moc-licensing-plan-name">All Enterprise Features<br>+<br>Add-Ons*<br><a href="admin.php?page=mo_oauth_settings&tab=addons">(Check here)</a><br><br></div>
-                                 <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p>
+                                 <!-- <p><font style="color:red; font-size:20px;"><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'><u>CLICK HERE</u> </a> to know the black friday deal</font></p> -->
                                 <script>
                                 createSelectWithSubsitesOptions('mulPricingAllinclusive');
                                 </script>

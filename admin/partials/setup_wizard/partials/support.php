@@ -50,13 +50,15 @@ function mo_oauth_client_setup_support(){
 			        "mo_oauth_email" 	: jQuery("#person_email").val(),
 			        "mo_oauth_query"  	: jQuery("#person_query").val(),
 			        "mo_oauth_nonce" 	: jQuery("#nonce").val()
-			    };
+			    };			    
+				jQuery("#mo-support-msg").empty();
+				jQuery("#mo-support-msg").append("We are processing your request. Please wait!!");
+				jQuery("#help-container").show();
+			      	jQuery(".support-form-container").hide();
 				jQuery.post(mo_oauth_ajax_object.ajax_url, data, function(response){
 					console.log(response);
 					jQuery("#mo-support-msg").empty();
 					jQuery("#mo-support-msg").append(response);
-					jQuery(".support-form-container").hide();
-					jQuery("#help-container").show();
 				});
 			});
 	</script>';
