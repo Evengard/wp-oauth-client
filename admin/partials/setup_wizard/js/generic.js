@@ -231,8 +231,10 @@ function mo_oauth_get_step(step){
     if("1" == step_num){
         jQuery(".mo-button__footer").hide();
         jQuery(".mo-multistepper-root").hide();
+        jQuery(".mo-skip__footer").show();
     }
-    if("1" != step_num){        
+    if("1" != step_num){     
+        jQuery(".mo-button__footer").show();       
         jQuery(".mo-multistepper-root").show();     
         jQuery(".mo-skip__footer").hide();
     } 

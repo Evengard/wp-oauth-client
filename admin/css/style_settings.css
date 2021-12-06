@@ -768,4 +768,6 @@ input:checked + .mo_oauth_slider:before {
 	margin-top: -2px;
 	margin-right: 2px;
 }
-
+.intl-tel-input{
+	display: block !important;
+}

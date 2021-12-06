@@ -17,7 +17,7 @@ function mo_oauth_client_plugin_settings_style($hook) {
 		return;
 	}
 	wp_enqueue_style( 'mo_oauth_admin_style', plugin_dir_url( dirname(__FILE__) ) . 'css/admin.css' );
-	wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' );
+	wp_enqueue_style( 'mo_oauth_admin_settings_style', plugin_dir_url( dirname(__FILE__) ) . 'css/style_settings.css' ,array(),MO_OAUTH_CSS_JS_VERSION);
 	wp_enqueue_style( 'mo_oauth_admin_settings_font_awesome', plugin_dir_url( dirname(__FILE__) ) . 'css/font-awesome.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_phone_style', plugin_dir_url( dirname(__FILE__) ) . 'css/phone.css' );
 	wp_enqueue_style( 'mo_oauth_admin_settings_datatable_style', plugin_dir_url( dirname(__FILE__) ) . 'css/jquery.dataTables.min.css' );
@@ -40,7 +40,6 @@ function mo_oauth_client_plugin_settings_script($hook) {
 
 function mo_oauth_client_main_menu() {
 	$today = date("Y-m-d H:i:s");
-	$date = "2021-11-26 23:59:59";
 	$currenttab = "";
 	if(isset($_GET['tab']))
 		$currenttab = sanitize_text_field($_GET['tab']);
@@ -51,7 +50,7 @@ function mo_oauth_client_main_menu() {
 		//Mo_OAuth_Client_Admin_Menu::show_idp_link($currenttab);
 		if(get_option('mo_oauth_client_show_rest_api_message'))
 			Mo_OAuth_Client_Admin_Menu::show_rest_api_secure_message();
-		if ( $today <= $date )
+		if ( $today <= MO_OAUTH_CLIENT_DEAL_DATE )
 			Mo_OAuth_Client_Admin_Menu::show_bfs_note();
 		echo '
 		<div class="miniorange_container">';
@@ -224,12 +223,12 @@ public static function show_rest_api_secure_message()
                 <div class="notice notice-info"style="padding-right: 38px;position: relative;border-color:red; background-color: #0c082f;
 transform: scaleX(1);
 background-image: url('<?php echo esc_attr(dirname(plugin_dir_url( __FILE__ )));?>/images/3px-tile.png');"><h4><center><i class="fa fa-gift" style="font-size:50px;color:red;"></i>&nbsp;&nbsp;
-				<big><font style="color:white; font-size:30px;"><b>BLACK FRIDAY & CYBER MONDAY SALE: </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.<br/><br/><a href='https://plugins.miniorange.com/wordpress-oauth-sso-black-friday-deals'>Click Here</a> to know the deals.</font></center></h4>
+				<big><font style="color:white; font-size:30px;"><b>END OF YEAR SALE : </b><b style="color:yellow;">UPTO 50% OFF!</b></font> <br><br></big><font style="color:white; font-size:20px;">Contact us @ oauthsupport@xecurify.com for more details.<br/><br/><a href='https://plugins.miniorange.com/wordpress-oauth-sso-end-of-the-year-deals' style="color:#2271b1; text-decoration: underline;" target="_blank">Click Here</a> to know the deals.</font></center></h4>
 				<p style="text-align: center; font-size: 60px; margin-top: 0px; color:white;" id="demo"></p>
 				</div>
 			</form>
 		<script>
-		var countDownDate = <?php echo esc_attr(strtotime('Nov 30, 2021 23:59:59')) ?> * 1000;
+		var countDownDate = <?php echo esc_attr(strtotime('Dec 31, 2021 23:59:59')) ?> * 1000;
 		var now = <?php echo esc_attr(time()) ?> * 1000;
 		var x = setInterval(function() {
 			now = now + 1000;

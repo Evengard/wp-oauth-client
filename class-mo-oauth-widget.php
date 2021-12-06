@@ -17,7 +17,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 	 function mo_oauth_wplogin_form_style(){
 
 		wp_enqueue_style( 'mo_oauth_fontawesome', plugins_url( 'css/font-awesome.css', __FILE__ ) );
-		wp_enqueue_style( 'mo_oauth_wploginform', plugins_url( 'css/login-page.css', __FILE__ ) );
+		wp_enqueue_style( 'mo_oauth_wploginform', plugins_url( 'css/login-page.css', __FILE__ ), array(),MO_OAUTH_CSS_JS_VERSION );
 	}
 
 	function mo_oauth_wplogin_form_button() {
@@ -36,7 +36,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					$logo_class = $this->mo_oauth_client_login_button_logo($app['appId']);
 					
-					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.esc_attr($key).'\');"><div class="mo_oauth_login_button"><i class="'.esc_attr($logo_class).' mo_oauth_login_button_icon"></i><h3 class="mo_oauth_login_button_text">Login with '.esc_attr(ucwords($key)).'</h3></div></a>';	
+					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.esc_attr($key).'\');"><div class="mo_oauth_login_button mo_oauth_login_button_text"><i class="'.esc_attr($logo_class).' mo_oauth_login_button_icon"></i>Login with '.esc_attr(ucwords($key)).'</div></a>';	
 					echo '</div><br><br>';
 				}
 			}
@@ -472,10 +472,6 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							$username_attr_mapping = false;
 						echo "</table>";
 						echo '<div style="padding: 10px;"></div><input style="padding:1%;width:100px;background: #0091CD none repeat scroll 0% 0%;cursor: pointer;font-size:15px;border-width: 1px;border-style: solid;border-radius: 3px;white-space: nowrap;box-sizing: border-box;border-color: #0073AA;box-shadow: 0px 1px 0px rgba(120, 200, 230, 0.6) inset;color: #FFF;"type="button" value="Done" onClick="self.close();">&emsp;';
-						if($username_attr_mapping)
-						echo '<b>'.$username_attr_mapping.'</b> has been mapped to username attribute.&emsp;<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> to change it';
-						else
-						echo '<a href="#" onclick="window.opener.proceedToAttributeMapping();self.close();">Click here</a> for attribute mapping';
 						echo '</div>';
 
 						exit();

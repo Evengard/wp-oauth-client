@@ -24,6 +24,7 @@
 .mo_oauth_login_button_text{
     color:white;
     display:inline-block;
+    font-weight: bold;
 }
 
 .mo_oauth_login_button_widget{

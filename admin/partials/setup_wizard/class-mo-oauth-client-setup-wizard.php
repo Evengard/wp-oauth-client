@@ -35,7 +35,7 @@ class Mo_OAuth_Client_Setup_Wizard{
 			<div class="moa">
 			    <h1>Setup Wizard</h1>
 			        <!--multistep -->
-				<div class="mo-multistepper-root">
+				<div class="mo-multistepper-root" style="display:none;">
 					<div class="mo-multistep-root">
 						<span class="mo-multilabel-root">
 							<span class="mo-multistep-icon-container">
@@ -134,7 +134,7 @@ class Mo_OAuth_Client_Setup_Wizard{
 							mo_oauth_setup_wizard_test();
 				echo	'</div>			
 					 	<!-- content footer -->
-				        <div class="mo-button__footer">
+				        <div class="mo-button__footer" style="display:none;">
 				            <div>
 				                <input type="submit" class="mo-button--secondary" id="mo-btn-back" name="back" value="Back">
 				            </div>
@@ -145,7 +145,7 @@ class Mo_OAuth_Client_Setup_Wizard{
 				                <input type="submit" class="mo-button mo-oauth-next-setup" value="Finish"  id="mo-btn-test-finish">
 				            </div>
 				        </div>
-				        <div class="mo-skip__footer">				                
+				        <div class="mo-skip__footer" style="display:none;">				                
 				                <input type="submit" class="mo-button mo-oauth-skip-setup" id="mo-btn-skip" value="Skip">
 				        </div>
 						<div class="mo-hidden">
