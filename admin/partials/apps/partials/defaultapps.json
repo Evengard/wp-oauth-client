@@ -172,6 +172,9 @@
 	"classlink": {
 		"label":"ClassLink", "type":"oauth", "image":"classlink.png", "scope": "profile email", "domain": "", "discovery":"", "authorize": "https://launchpad.classlink.com/oauth2/v2/auth", "token": "https://launchpad.classlink.com/oauth2/v2/token", "userinfo": "https://nodeapi.classlink.com/v2/my/info", "guide":"https://plugins.miniorange.com/classlink-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
 	},
+	"canvas": {
+		"label":"Canvas", "type":"oauth", "image":"canvas.png", "scope": "openid profile", "domain": "", "discovery":"", "authorize": "https://<your-site-url>/login/oauth2/auth", "token": "https://<your-site-url>/login/oauth2/token", "userinfo": "https://<your-site-url>/api/v1/users/self", "guide":"https://plugins.miniorange.com/canvas-single-sign-on-wordpress-sso-oauth-openid-connect", "logo_class":"fa fa-lock"
+	},
 	"twitch": {
 		"label":"Twitch", "type":"openidconnect", "image":"twitch.png", "scope": "user:read:email openid", "domain": "", "discovery":"", "authorize": "https://id.twitch.tv/oauth2/authorize?claims={\"id_token\":{\"email\":null,\"email_verified\":null,\"picture\":null, \"preferred_username\":null}}", "token": "https://id.twitch.tv/oauth2/token", "userinfo": "https://id.twitch.tv/oauth2/userinfo", "guide":"https://plugins.miniorange.com/guide-to-configure-twitch-as-an-oauth-server", "logo_class":"fa fa-lock"
 	, "video":"https://youtu.be/L4U-_9yWSGM" },
