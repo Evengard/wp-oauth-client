@@ -196,17 +196,19 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			}
 				
 			foreach($appslist as $key => $app){
+				if(session_id() == '' || !isset($_SESSION))
+						session_start();
 				$code_challenge = "";
 				$code_verifier = "";
-				if (isset($app['send_pkce']) && $app['send_pkce'] === true) {
-					$code_verifier = openssl_random_pseudo_bytes(32);
+				if (isset($app['send_pkce']) && $app['send_pkce'] == true) {
+					$code_verifier = uniqid(hash("sha256", openssl_random_pseudo_bytes(32), false), true);
 					$challenge_bytes = hash("sha256", $code_verifier, true);
 					$challenge = rtrim(strtr(base64_encode($challenge_bytes), "+/", "-_"), "=");
-					$code_challenge = "&code_challenge_method=S256&code_challenge=".challenge;
+					$code_challenge = "&code_challenge_method=S256&code_challenge=".$challenge;
 					$_SESSION['oauth2pkce'] = $code_verifier;
 				}
 
-				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'] | $app['appId'] == 'oauth1' || $app['appId'] == 'twitter')){
+				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'] || $app['appId'] == 'oauth1' || $app['appId'] == 'twitter')){
 					
 					if($app['appId']=="twitter" || $app['appId']=='oauth1')
 							{	
@@ -228,9 +230,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						$authorizationUrl = str_replace( "response_type=code", "response_type=code+id_token", $authorizationUrl );
 						$authorizationUrl = $authorizationUrl . "&response_mode=form_post";
 					}
-
-					if(session_id() == '' || !isset($_SESSION))
-						session_start();
+					
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
 
@@ -247,8 +247,6 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 				    else
 					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code".$code_challenge;
 
-					if(session_id() == '' || !isset($_SESSION))
-						session_start();
 					$_SESSION['oauth2state'] = $state;
 					$_SESSION['appname'] = $appname;
 
@@ -403,7 +401,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					MO_Oauth_Debug::mo_oauth_log('Authorization Response Received');
 					$code_verifier = '';
-					if ($currentapp['send_pkce'] === true && isset($_SESSION['oauth2pkce']) === true) {
+					if (isset($app['send_pkce']) && $currentapp['send_pkce'] == true) {
 						$code_verifier = $_SESSION['oauth2pkce'];
 					}
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
