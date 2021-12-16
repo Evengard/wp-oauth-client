@@ -196,6 +196,15 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 			}
 				
 			foreach($appslist as $key => $app){
+				$code_challenge = "";
+				$code_verifier = "";
+				if (isset($app['send_pkce']) && $app['send_pkce'] === true) {
+					$code_verifier = openssl_random_pseudo_bytes(32);
+					$challenge_bytes = hash("sha256", $code_verifier, true);
+					$challenge = rtrim(strtr(base64_encode($challenge_bytes), "+/", "-_"), "=");
+					$code_challenge = "&code_challenge_method=S256&code_challenge=".challenge;
+					$_SESSION['oauth2pkce'] = $code_verifier;
+				}
 
 				if($appname==$key && (isset($app['send_state'])!==true || $app['send_state'] | $app['appId'] == 'oauth1' || $app['appId'] == 'twitter')){
 					
@@ -211,9 +220,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$authorizationUrl = $app['authorizeurl'];
 				
 					if(strpos($authorizationUrl, '?' ) !== false)
-					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
+					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state.$code_challenge;
 				    else
-					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state;
+					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code&state=".$state.$code_challenge;
 
 					if ( strpos( $authorizationUrl, 'apple' ) !== false ) {
 						$authorizationUrl = str_replace( "response_type=code", "response_type=code+id_token", $authorizationUrl );
@@ -234,9 +243,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$authorizationUrl = $app['authorizeurl'];
 				
 					if(strpos($authorizationUrl, '?' ) !== false)
-					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code";
+					$authorizationUrl = $authorizationUrl."&client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code".$code_challenge;
 				    else
-					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code";
+					$authorizationUrl = $authorizationUrl."?client_id=".$app['clientid']."&scope=".$app['scope']."&redirect_uri=".$app['redirecturi']."&response_type=code".$code_challenge;
 
 					if(session_id() == '' || !isset($_SESSION))
 						session_start();
@@ -393,6 +402,10 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 					$resourceownerdetailsurl = $currentapp['resourceownerdetailsurl'];
 					$mo_oauth_handler = new Mo_OAuth_Hanlder();
 					MO_Oauth_Debug::mo_oauth_log('Authorization Response Received');
+					$code_verifier = '';
+					if ($currentapp['send_pkce'] === true && isset($_SESSION['oauth2pkce']) === true) {
+						$code_verifier = $_SESSION['oauth2pkce'];
+					}
 					if(isset($currentapp['apptype']) && $currentapp['apptype']=='openidconnect') {
 						// OpenId connect
 
@@ -406,7 +419,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 							if(!isset($currentapp['send_body']))
 								$currentapp['send_body'] = false;
 							$tokenResponse = $mo_oauth_handler->getIdToken($currentapp['accesstokenurl'], 'authorization_code',
-									$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+									$currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body'], $code_verifier);
 	
 							$idToken = isset($tokenResponse["id_token"]) ? $tokenResponse["id_token"] : $tokenResponse["access_token"];
 							// $userinfoToken = isset($tokenResponse["access_token"]) ? $tokenResponse["access_token"] : $tokenResponse["id_token"];
@@ -438,9 +451,9 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 
                         if(strpos($currentapp['authorizeurl'], 'clever.com/oauth') != false || 
                     		$currentapp['appId'] == 'bitrix24') {
-                            $accessToken = $mo_oauth_handler->getAccessTokenCurl($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+                            $accessToken = $mo_oauth_handler->getAccessTokenCurl($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body'], $code_verifier);
                         } else {
-                            $accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body']);
+                            $accessToken = $mo_oauth_handler->getAccessToken($accessTokenUrl, 'authorization_code', $currentapp['clientid'], $currentapp['clientsecret'], $_GET['code'], $currentapp['redirecturi'], $currentapp['send_headers'], $currentapp['send_body'], $code_verifier);
                         }
 						if(!$accessToken){
 							MO_Oauth_Debug::mo_oauth_log('Access Token Response => ERROR : Invalid token received.');

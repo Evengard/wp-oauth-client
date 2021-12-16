@@ -2,7 +2,7 @@
 
 class Mo_OAuth_Hanlder {
 
-	function getAccessTokenCurl($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+	function getAccessTokenCurl($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier){
 
 		$ch = curl_init($tokenendpoint);
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
@@ -16,8 +16,13 @@ class Mo_OAuth_Hanlder {
 			'Authorization: Basic '.base64_encode($clientid.":".$clientsecret),
 			'Accept: application/json'
 		));
+		
+		$code_verifier_param = "";
+		if (isset($code_verifier) === true && $code_verifier !== '') {
+			$code_verifier_param = "&code_verifier=".$code_verifier;
+		}
 
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, 'redirect_uri='.urlencode($redirect_url).'&grant_type='.$grant_type.'&client_id='.$clientid.'&client_secret='.$clientsecret.'&code='.$code);
+		curl_setopt( $ch, CURLOPT_POSTFIELDS, 'redirect_uri='.urlencode($redirect_url).'&grant_type='.$grant_type.'&client_id='.$clientid.'&client_secret='.$clientsecret.'&code='.$code.$code_verifier_param);
 		$content = curl_exec($ch);
 
 		if(curl_error($ch)){
@@ -52,9 +57,9 @@ class Mo_OAuth_Hanlder {
 	}
 
 
-	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+	function getAccessToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier){
 
-		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
+		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier);
 		$content = json_decode($response,true);
 
 		if(isset($content["access_token"])) {
@@ -67,7 +72,7 @@ class Mo_OAuth_Hanlder {
 		}
 	}
 
-	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+	function getToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier){
 
 		MO_Oauth_Debug::mo_oauth_log('Token request content => ');
 
@@ -79,6 +84,11 @@ class Mo_OAuth_Hanlder {
 				'client_secret' => $clientsecret,
 				'redirect_uri'  => $redirect_url,
 			);
+		
+		if (isset($code_verifier) === true && $code_verifier !== '') {
+			$body['code_verifier'] = $code_verifier;
+		}
+		
 		$headers = array(
 				'Accept'  => 'application/json',
 				'charset'       => 'UTF - 8',
@@ -136,9 +146,9 @@ class Mo_OAuth_Hanlder {
 		return $response;
 	}
 	
-	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body){
+	function getIdToken($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier){
 		MO_Oauth_Debug::mo_oauth_log('Token Request Sent');
-		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body);
+		$response = $this->getToken ($tokenendpoint, $grant_type, $clientid, $clientsecret, $code, $redirect_url, $send_headers, $send_body, $code_verifier);
 		$content = json_decode($response,true);
 		if(isset($content["id_token"]) || isset($content["access_token"])) {
 			return $content;

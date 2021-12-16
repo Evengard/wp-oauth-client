@@ -50,8 +50,8 @@ function mo_oauth_client_main_menu() {
 		//Mo_OAuth_Client_Admin_Menu::show_idp_link($currenttab);
 		if(get_option('mo_oauth_client_show_rest_api_message'))
 			Mo_OAuth_Client_Admin_Menu::show_rest_api_secure_message();
-		if ( $today <= MO_OAUTH_CLIENT_DEAL_DATE )
-			Mo_OAuth_Client_Admin_Menu::show_bfs_note();
+		/*if ( $today <= MO_OAUTH_CLIENT_DEAL_DATE )
+			Mo_OAuth_Client_Admin_Menu::show_bfs_note();*/
 		echo '
 		<div class="miniorange_container">';
 

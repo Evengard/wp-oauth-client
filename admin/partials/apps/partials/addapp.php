@@ -174,6 +174,12 @@
 						<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_state" value ="1" <?php if(isset($currentapp->send_state)) { if($currentapp->send_state === 1 ){ echo 'checked';}else{$currentapp->send_state=1;echo 'checked';} } ; ?> checked/><?php esc_html_e('Send state parameter','miniorange-login-with-eve-online-google-facebook')?></td>
 						<td><br></td>
 					</tr>
+					
+					<tr>
+						<td><strong><?php esc_html_e('PKCE Parameters :','miniorange-login-with-eve-online-google-facebook')?></strong></td>
+						<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_pkce" value ="1" <?php if(isset($currentapp->send_pkce)) { if($currentapp->send_pkce === 1 ){ echo 'checked';}else{$currentapp->send_pkce=1;echo 'checked';} } ; ?> checked/><?php esc_html_e('Send PKCE parameters','miniorange-login-with-eve-online-google-facebook')?></td>
+						<td><br></td>
+					</tr>
 					<?php } ?>
 					<tr>
 						<td><strong><?php esc_html_e('login button:','miniorange-login-with-eve-online-google-facebook')?></strong></td>

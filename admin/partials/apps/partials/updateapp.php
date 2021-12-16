@@ -157,6 +157,11 @@
 				<td><br></td>
 			</tr>
 			<tr>
+					<td><strong><?php esc_html_e('PKCE Parameters :','miniorange-login-with-eve-online-google-facebook'); ?></strong></td>
+					<td><div style="padding:5px;"></div><input type="checkbox" name="mo_oauth_pkce" value ="1" <?php if(isset($currentapp['send_pkce'])){if($currentapp['send_pkce'] == 1){ echo 'checked';}}else {echo 'unchecked';} ?>/><?php esc_html_e('Send PKCE parameters','miniorange-login-with-eve-online-google-facebook'); ?></td>
+					<td><br></td>
+				</tr>
+			<tr>
 				<td><strong><?php esc_html_e('Group User Info Endpoint:','miniorange-login-with-eve-online-google-facebook'); ?></strong><br>&emsp;<font color="#FF0000"><small><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[PREMIUM]</a></small></font></td>
 				<td><input class="mo_table_textbox" type="text" value="" disabled></td>
 			</tr>

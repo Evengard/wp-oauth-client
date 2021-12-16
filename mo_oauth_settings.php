@@ -462,6 +462,7 @@ class mo_oauth {
                     $send_headers = isset($_POST['mo_oauth_authorization_header']) ? sanitize_post($_POST['mo_oauth_authorization_header']) : "0";
                     $send_body = isset($_POST['mo_oauth_body']) ? sanitize_post($_POST['mo_oauth_body']) : "0";
                     $send_state=isset($_POST['mo_oauth_state']) ? (int)filter_var($_POST['mo_oauth_state'], FILTER_SANITIZE_NUMBER_INT) : 0;
+					$send_pkce=isset($_POST['mo_oauth_pkce']) ? (int)filter_var($_POST['mo_oauth_pkce'], FILTER_SANITIZE_NUMBER_INT) : 0;
                     $show_on_login_page = isset($_POST['mo_oauth_show_on_login_page']) ? (int)filter_var($_POST['mo_oauth_show_on_login_page'], FILTER_SANITIZE_NUMBER_INT) : 0;
 
                     if ($selectedapp == 'wso2') {
@@ -501,6 +502,7 @@ class mo_oauth {
                     $newapp['send_headers'] = $send_headers;
                     $newapp['send_body'] = $send_body;
                     $newapp['send_state']=$send_state;
+					$newapp['send_pkce']=$send_pkce;
                     $newapp['show_on_login_page'] = $show_on_login_page;
                    
                     if($appname == 'oauth1' || $appname == 'twitter'){
