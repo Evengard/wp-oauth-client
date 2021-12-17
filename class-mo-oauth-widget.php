@@ -36,7 +36,7 @@ class Mo_Oauth_Widget extends WP_Widget {
 
 					$logo_class = $this->mo_oauth_client_login_button_logo($app['appId']);
 					
-					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.esc_attr($key).'\');"><div class="mo_oauth_login_button mo_oauth_login_button_text"><i class="'.esc_attr($logo_class).' mo_oauth_login_button_icon"></i>Login with '.esc_attr(ucwords($key)).'</div></a>';	
+					echo '<a style="text-decoration:none" href="javascript:void(0)" onClick="moOAuthLoginNew(\''.esc_attr($key).'\');"><div class="mo_oauth_login_button mo_oauth_login_button_text"><i class="'.esc_attr($logo_class).' mo_oauth_login_button_icon"></i>'./*'Login with '.esc_attr(ucwords($key))*/'Войти с корпоративными учётными данными'.'</div></a>';	
 					echo '</div><br><br>';
 				}
 			}

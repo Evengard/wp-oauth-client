@@ -1,10 +1,10 @@
 <?php
-if (!defined('MO_OAUTH_PLUGIN_NAME')) define('MO_OAUTH_PLUGIN_NAME', 'OAuth Single Sign On');
-if (!defined('MO_OAUTH_README_PLUGIN_NAME')) define('MO_OAUTH_README_PLUGIN_NAME', 'OAuth Single Sign On - SSO (OAuth Client)');
-if (!defined('MO_OAUTH_README_PLUGIN_URI')) define('MO_OAUTH_README_PLUGIN_URI', 'miniorange-login-with-eve-online-google-facebook');
+if (!defined('MO_OAUTH_PLUGIN_NAME')) define('MO_OAUTH_PLUGIN_NAME', 'Energogroup OAuth Single Sign On');
+if (!defined('MO_OAUTH_README_PLUGIN_NAME')) define('MO_OAUTH_README_PLUGIN_NAME', 'Energogroup OAuth Single Sign On - SSO (OAuth Client)');
+if (!defined('MO_OAUTH_README_PLUGIN_URI')) define('MO_OAUTH_README_PLUGIN_URI', 'energogroup-wp-oauth-client');
 if (!defined('MO_OAUTH_AREA_OF_INTEREST')) define('MO_OAUTH_AREA_OF_INTEREST','WP OAuth Client');
 if (!defined('MO_OAUTH_ADMIN_MENU')) define('MO_OAUTH_ADMIN_MENU','miniOrange OAuth');
-if (!defined('MO_OAUTH_PLUGIN_SLUG')) define('MO_OAUTH_PLUGIN_SLUG', 'miniorange-login-with-eve-online-google-facebook');
+if (!defined('MO_OAUTH_PLUGIN_SLUG')) define('MO_OAUTH_PLUGIN_SLUG', 'energogroup-wp-oauth-client');
 if (!defined('MO_OAUTH_CLIENT_DEAL_DATE')) define('MO_OAUTH_CLIENT_DEAL_DATE', '2021-12-31 23:59:59');
 if (!defined('MO_OAUTH_CLIENT_DISCOUNT_URL') )
 	if(date("Y-m-d H:i:s") <= MO_OAUTH_CLIENT_DEAL_DATE) 

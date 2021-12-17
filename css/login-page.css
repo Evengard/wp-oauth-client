@@ -3,22 +3,23 @@
     border:1px solid #008ec2;
     border-radius:3px;
     width:100%;
-    height:28px;
+    height:42px;
     cursor:pointer;
     box-shadow: 2px 2px 5px #ccc;
     background-color:#008ec2;
 }
 
 .mo_oauth_login_button_icon{
-    display:inline-block;
+    /*display:inline-block;*/
     color:white;
     margin-left:15px;
     margin-right:15px;
     font-size:15px;
     border-right: 1px solid #3274ad;
-    height: 23px;
+    height: 29px;
     padding-right: 15px;
-    padding-top: 6px;
+    padding-top: 13px;
+	float: left;
 }
 
 .mo_oauth_login_button_text{
