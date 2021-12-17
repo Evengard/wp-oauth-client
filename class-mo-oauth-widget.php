@@ -516,6 +516,7 @@ function mo_oauth_update_email_to_username_attr($currentappname){
 						}
 					}
 					if($user){
+						wp_update_user( array( 'ID' => $user->ID, 'display_name' => mo_oauth_client_getnestedattribute($resourceOwner, 'name') ) );
 						wp_set_current_user($user->ID);
 						wp_set_auth_cookie($user->ID);
 						$user  = get_user_by( 'ID',$user->ID );
