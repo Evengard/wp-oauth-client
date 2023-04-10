@@ -67,8 +67,8 @@
 						<?php echo esc_attr($currentapp->label);?> &nbsp;&nbsp;&nbsp;&nbsp; <a style="text-decoration:none" href ="admin.php?page=mo_oauth_settings"><div style="display:inline;background-color:#0085ba;color:#fff;padding:4px 8px;border-radius:4px"><?php esc_html_e('Change Application','miniorange-login-with-eve-online-google-facebook');?></div></a><br><br>
 					</td>
 					</tr>
-					<tr><td><strong><?php esc_html_e('Redirect / Callback URL: ','miniorange-login-with-eve-online-google-facebook')?></strong><br>&emsp;<font><small><?php esc_html_e('Editable in ','miniorange-login-with-eve-online-google-facebook')?><a href="admin.php?page=mo_oauth_settings&tab=licensing" target="_blank" rel="noopener noreferrer">[STANDARD]</a></small></font></td>
-					<td><input class="mo_table_textbox" id="callbackurl"  type="text" readonly="true" name="mo_oauth_callback_url" value='<?php echo esc_attr( site_url() )."";?>'>
+					<tr><td></td>
+					<td><input class="mo_table_textbox" id="callbackurl"  type="text" name="mo_oauth_callback_url" value='<?php echo esc_attr( site_url() )."";?>'>
 					&nbsp;&nbsp;
 					<div class="tooltip" style="display: inline;"><span class="tooltiptext" id="moTooltip">Copy to clipboard</span><i class="fa fa-clipboard fa-border" style="font-size:20px; align-items: center;vertical-align: middle;" aria-hidden="true" onclick="copyUrl()" onmouseout="outFunc()"></i></div>
 					</td>

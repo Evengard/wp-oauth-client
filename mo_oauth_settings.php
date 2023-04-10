@@ -451,8 +451,8 @@ class mo_oauth {
 					$this->mo_oauth_show_error_message();
 					return;
 				} else {
-                    // $callback_url = stripslashes($_POST['mo_oauth_callback_url']);
-                    $callback_url=site_url();
+                    $callback_url = stripslashes($_POST['mo_oauth_callback_url']);
+                    // $callback_url=site_url();
                     $scope = isset($_POST['mo_oauth_scope']) ? stripslashes($_POST['mo_oauth_scope']) : "";
                     $clientid = stripslashes(trim($_POST['mo_oauth_client_id']));
                     $clientsecret = stripslashes(trim($_POST['mo_oauth_client_secret']));
